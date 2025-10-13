@@ -1,0 +1,458 @@
+{
+  "youthGroups": [
+    {
+      "id": "4",
+      "parish": "St. Leo the Great Parish",
+      "leader": "Buchheit, Grace",
+      "seminarianSgl": "John Mark",
+      "phone": "301 703-0497",
+      "maleTeens": 27,
+      "femaleTeens": 27,
+      "maleChaperones": 3,
+      "femaleChaperones": 3,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "5",
+      "parish": "St. John The Evangelist (OC)",
+      "leader": "Dumaliang, Sr. Leilani, MCS",
+      "seminarianSgl": "",
+      "phone": "Dumaliang, Sr. Leilani, MCS",
+      "maleTeens": 30,
+      "femaleTeens": 30,
+      "maleChaperones": 5,
+      "femaleChaperones": 5,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "6",
+      "parish": "St. Joseph's Old Cathedral",
+      "leader": "Joel De Loera",
+      "seminarianSgl": "Juan G",
+      "phone": "405 900-1278",
+      "maleTeens": 25,
+      "femaleTeens": 5,
+      "maleChaperones": 12,
+      "femaleChaperones": 3,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "7",
+      "parish": "Our Lady of Knotts",
+      "leader": "Sal Devito",
+      "seminarianSgl": "George Castiglia",
+      "phone": "1248923",
+      "maleTeens": 20,
+      "femaleTeens": 40,
+      "maleChaperones": 6,
+      "femaleChaperones": 12,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "8",
+      "parish": "St. Charles",
+      "leader": "William Sweeney",
+      "seminarianSgl": "Tim S",
+      "phone": "53892193",
+      "maleTeens": 4,
+      "femaleTeens": 2,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "specialAccommodations": ""
+    }
+  ],
+  "housingRooms": [
+    {
+      "building": "Off Campus",
+      "roomId": "Male",
+      "gender": "male",
+      "capacity": 400,
+      "accessibility": ""
+    },
+    {
+      "building": "Off Campus",
+      "roomId": "Female",
+      "gender": "female",
+      "capacity": 400,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "320",
+      "gender": "male",
+      "capacity": 32,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "311",
+      "gender": "male",
+      "capacity": 35,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "308",
+      "gender": "male",
+      "capacity": 38,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "310",
+      "gender": "male",
+      "capacity": 44,
+      "accessibility": ""
+    },
+    {
+      "building": "ARCC",
+      "roomId": "GYM FLOOR",
+      "gender": "female",
+      "capacity": 300,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "327",
+      "gender": "male",
+      "capacity": 32,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "227",
+      "gender": "male",
+      "capacity": 28,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "224",
+      "gender": "male",
+      "capacity": 24,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "222",
+      "gender": "male",
+      "capacity": 32,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "220",
+      "gender": "male",
+      "capacity": 32,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "107",
+      "gender": "male",
+      "capacity": 26,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "109",
+      "gender": "male",
+      "capacity": 26,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "111",
+      "gender": "male",
+      "capacity": 30,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "104",
+      "gender": "male",
+      "capacity": 26,
+      "accessibility": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "108",
+      "gender": "male",
+      "capacity": 28,
+      "accessibility": ""
+    }
+  ],
+  "smallGroupRooms": [
+    {
+      "building": "Knott Academic Center",
+      "roomId": "304",
+      "gender": "mixed",
+      "capacity": 26,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "300- Lobby",
+      "gender": "mixed",
+      "capacity": 18,
+      "features": "INSIDE WINDOWS- CHAIRS NEEDED"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "308",
+      "gender": "mixed",
+      "capacity": 33,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "310",
+      "gender": "mixed",
+      "capacity": 44,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "311",
+      "gender": "mixed",
+      "capacity": 44,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "320",
+      "gender": "mixed",
+      "capacity": 24,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "327",
+      "gender": "mixed",
+      "capacity": 33,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "323",
+      "gender": "mixed",
+      "capacity": 14,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "207",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "206",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "209",
+      "gender": "mixed",
+      "capacity": 20,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "211",
+      "gender": "mixed",
+      "capacity": 23,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "210",
+      "gender": "mixed",
+      "capacity": 36,
+      "features": "CHAIRS NEEDED"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "100- End Coridor",
+      "gender": "mixed",
+      "capacity": 10,
+      "features": "Chairs Needed"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "200- Lobby",
+      "gender": "mixed",
+      "capacity": 30,
+      "features": "Chairs needed"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "208",
+      "gender": "mixed",
+      "capacity": 26,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "200- End Corridor",
+      "gender": "mixed",
+      "capacity": 12,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "127",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": "EXIT DOOR"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "120",
+      "gender": "mixed",
+      "capacity": 30,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "100- Lounge",
+      "gender": "mixed",
+      "capacity": 15,
+      "features": "Chairs Needed"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "203",
+      "gender": "mixed",
+      "capacity": 26,
+      "features": ""
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "Gorund Floor Lobby",
+      "gender": "mixed",
+      "capacity": 40,
+      "features": "Need Chairs"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "3rd Floor Lobby",
+      "gender": "mixed",
+      "capacity": 50,
+      "features": "Need Chairs"
+    },
+    {
+      "building": "PAC",
+      "roomId": "Upper Level",
+      "gender": "mixed",
+      "capacity": 30,
+      "features": "Chairs Needed"
+    },
+    {
+      "building": "PAC",
+      "roomId": "Lower Level",
+      "gender": "mixed",
+      "capacity": 100,
+      "features": "Chairs Needed"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "300- End Coridor",
+      "gender": "mixed",
+      "capacity": 12,
+      "features": "CHAIRS NEEDED"
+    },
+    {
+      "building": "Knott Academic Center",
+      "roomId": "300- Lobby O/G",
+      "gender": "mixed",
+      "capacity": 35,
+      "features": "CHIARS NEEDED- OUTSIDE GLASS"
+    },
+    {
+      "building": "COAD Science Building",
+      "roomId": "158",
+      "gender": "mixed",
+      "capacity": 60,
+      "features": "Open Wall"
+    },
+    {
+      "building": "COAD Science Building",
+      "roomId": "107",
+      "gender": "mixed",
+      "capacity": 13,
+      "features": ""
+    },
+    {
+      "building": "COAD Science Building",
+      "roomId": "111",
+      "gender": "mixed",
+      "capacity": 12,
+      "features": ""
+    },
+    {
+      "building": "COAD Science Building",
+      "roomId": "117",
+      "gender": "mixed",
+      "capacity": 24,
+      "features": ""
+    },
+    {
+      "building": "COAD Science Building",
+      "roomId": "125",
+      "gender": "mixed",
+      "capacity": 20,
+      "features": ""
+    },
+    {
+      "building": "Knott Auditorium",
+      "roomId": "200 Lobby",
+      "gender": "mixed",
+      "capacity": 50,
+      "features": ""
+    },
+    {
+      "building": "Knott Auditorium",
+      "roomId": "100- West Lobby",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "Knott Auditorium",
+      "roomId": "100- East Lobby",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "McGowan",
+      "roomId": "Lobby",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "McGowan",
+      "roomId": "Stair Pavillion",
+      "gender": "mixed",
+      "capacity": 20,
+      "features": ""
+    }
+  ],
+  "housingAssignments": {
+    "male": {
+      "4": [
+        "Knott Academic Center-320"
+      ]
+    },
+    "female": {}
+  },
+  "smallGroupAssignments": {},
+  "mealColorAssignments": {},
+  "timestamp": "2025-10-13T20:16:14.024Z",
+  "version": "3.0"
+}
