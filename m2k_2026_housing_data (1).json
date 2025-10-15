@@ -26,9 +26,9 @@
     },
     {
       "id": "6",
-      "parish": "St. Joseph's Old Cathedral",
+      "parish": "St. Josephs old Cathedral",
       "leader": "Joel De Loera",
-      "seminarianSgl": "Juan G",
+      "seminarianSgl": "",
       "phone": "405 900-1278",
       "maleTeens": 25,
       "femaleTeens": 5,
@@ -447,12 +447,126 @@
     "male": {
       "4": [
         "Knott Academic Center-320"
+      ],
+      "5": [
+        "Knott Academic Center-220"
+      ],
+      "6": [
+        "Off Campus-Male"
+      ],
+      "7": [
+        "Knott Academic Center-108"
+      ],
+      "8": [
+        "Knott Academic Center-104"
       ]
     },
-    "female": {}
+    "female": {
+      "4": [
+        "ARCC-GYM FLOOR"
+      ],
+      "5": [
+        "ARCC-GYM FLOOR"
+      ],
+      "6": [
+        "Off Campus-Female"
+      ],
+      "7": [
+        "ARCC-GYM FLOOR"
+      ],
+      "8": [
+        "ARCC-GYM FLOOR"
+      ]
+    }
   },
-  "smallGroupAssignments": {},
-  "mealColorAssignments": {},
-  "timestamp": "2025-10-13T20:16:14.024Z",
+  "smallGroupAssignments": {
+    "4": [
+      "Knott Academic Center-327"
+    ],
+    "5": [
+      "Knott Academic Center-300- Lobby"
+    ],
+    "6": [
+      "Knott Academic Center-200- Lobby"
+    ],
+    "7": [
+      "Knott Academic Center-308"
+    ],
+    "8": [
+      "Knott Academic Center-3rd Floor Lobby"
+    ]
+  },
+  "mealColorAssignments": {
+    "4": "Green",
+    "5": "Yellow",
+    "6": "Green",
+    "7": "Purple",
+    "8": "Brown"
+  },
+  "mealTimes": {
+    "Blue": {
+      "friDinner": "5:30 PM",
+      "satBreakfast": "7:00 AM",
+      "satLunch": "12:00 PM",
+      "satDinner": "5:30 PM",
+      "sunBreakfast": "7:30 AM"
+    },
+    "Red": {
+      "friDinner": "6:00 PM",
+      "satBreakfast": "7:30 AM",
+      "satLunch": "12:30 PM",
+      "satDinner": "6:00 PM",
+      "sunBreakfast": "8:00 AM"
+    },
+    "Orange": {
+      "friDinner": "6:30 PM",
+      "satBreakfast": "8:00 AM",
+      "satLunch": "1:00 PM",
+      "satDinner": "6:30 PM",
+      "sunBreakfast": "8:30 AM"
+    },
+    "Yellow": {
+      "friDinner": "7:00 PM",
+      "satBreakfast": "8:30 AM",
+      "satLunch": "1:30 PM",
+      "satDinner": "7:00 PM",
+      "sunBreakfast": "9:00 AM"
+    },
+    "Green": {
+      "friDinner": "5:30 PM",
+      "satBreakfast": "7:00 AM",
+      "satLunch": "12:00 PM",
+      "satDinner": "5:30 PM",
+      "sunBreakfast": "7:30 AM"
+    },
+    "Purple": {
+      "friDinner": "6:00 PM",
+      "satBreakfast": "7:30 AM",
+      "satLunch": "12:30 PM",
+      "satDinner": "6:00 PM",
+      "sunBreakfast": "8:00 AM"
+    },
+    "Brown": {
+      "friDinner": "6:30 PM",
+      "satBreakfast": "8:00 AM",
+      "satLunch": "1:00 PM",
+      "satDinner": "6:30 PM",
+      "sunBreakfast": "8:30 AM"
+    },
+    "Grey": {
+      "friDinner": "7:00 PM",
+      "satBreakfast": "8:30 AM",
+      "satLunch": "1:30 PM",
+      "satDinner": "7:00 PM",
+      "sunBreakfast": "9:00 AM"
+    }
+  },
+  "defaultNotes": {
+    "housingNotes": "",
+    "teenShowerPlan": "",
+    "adultShowerPlan": ""
+  },
+  "groupNotes": {},
+  "timestamp": "2025-10-15T18:23:28.379Z",
   "version": "3.0"
 }
