@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -454,6 +455,10 @@
                     <h3 id="total-participants">0</h3>
                     <p>Total Participants</p>
                 </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e67e22, #d35400); border-color: #e67e22;">
+                    <h3 id="off-campus-groups">0</h3>
+                    <p>🏕️ Off-Campus Groups</p>
+                </div>
                 <div class="stat-card">
                     <h3 id="groups-needing-housing">0</h3>
                     <p>Groups Needing Housing</p>
@@ -550,6 +555,16 @@
         <div id="youth-groups" class="tab-content">
             <h2>Youth Group Management</h2>
             
+            <div class="notification" style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin-bottom: 20px; border-radius: 6px;">
+                <h4 style="margin: 0 0 8px 0; color: #1976d2;">💡 Quick Import from CSV</h4>
+                <p style="margin: 0; font-size: 14px; color: #1565c0;">
+                    <strong>Step 1:</strong> Click "Download CSV Template" to get the format<br>
+                    <strong>Step 2:</strong> Fill in your group data (only Group ID and Parish Name required)<br>
+                    <strong>Step 3:</strong> Click "Import from CSV" and select your filled CSV file<br>
+                    <strong>Note:</strong> Import adds to existing groups - duplicates are skipped
+                </p>
+            </div>
+            
             <div class="form-grid">
                 <div class="form-group">
                     <label>Group ID *</label>
@@ -587,6 +602,12 @@
                     <label>Female Chaperones</label>
                     <input type="number" id="female-chaperones" min="0" value="0">
                 </div>
+                <div class="form-group" style="display: flex; align-items: center; padding-top: 20px;">
+                    <label style="display: flex; align-items: center; cursor: pointer; margin: 0;">
+                        <input type="checkbox" id="staying-off-campus" style="width: 20px; height: 20px; margin-right: 10px; cursor: pointer;">
+                        <span style="font-weight: 600;">Staying Off-Campus</span>
+                    </label>
+                </div>
             </div>
             
             <div class="form-group">
@@ -599,6 +620,11 @@
                 <button class="btn btn-primary" onclick="updateYouthGroup()" id="update-group-btn" style="display:none;">Update Youth Group</button>
                 <button class="btn btn-danger" onclick="deleteYouthGroup()" id="delete-group-btn" style="display:none;">Delete Group</button>
                 <button class="btn btn-warning" onclick="cancelEdit()" id="cancel-edit-btn" style="display:none;">Cancel</button>
+                <button class="btn btn-primary" onclick="downloadCSVTemplate()" style="margin-left: 20px;">📥 Download CSV Template</button>
+                <label class="btn btn-success" style="margin-left: 10px; cursor: pointer;">
+                    📤 Import from CSV
+                    <input type="file" id="csv-import" accept=".csv" style="display: none;" onchange="handleCSVImport(event)">
+                </label>
             </div>
 
             <div class="table-controls">
@@ -965,12 +991,17 @@
             <h2>Printable Check-In Forms</h2>
             <p style="margin-bottom: 20px; color: #666;">Generate professional PDF check-in forms for each youth group with all housing and meal assignments.</p>
 
-            <!-- Generate PDF Button at Top -->
+            <!-- Generate PDF Buttons at Top -->
             <div style="text-align: center; margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #061d28, #0f3a4a); border-radius: 10px;">
-                <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
-                    📄 Generate PDF Forms (All Groups)
-                </button>
-                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Click to open print-ready view in new window, then use Ctrl+P (or Cmd+P) to save as PDF</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="generateSelectedPDFs()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
+                        📄 Generate Selected Forms
+                    </button>
+                    <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #27ae60; color: white; border: 2px solid #27ae60;">
+                        📄 Generate All Forms
+                    </button>
+                </div>
+                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Check boxes below to select specific forms, then use Ctrl+P (or Cmd+P) to save as PDF</p>
             </div>
 
             <!-- Default Notes Configuration -->
@@ -978,18 +1009,26 @@
                 <h3 style="margin-bottom: 15px;">📝 Default Information (Appears on ALL Forms)</h3>
                 
                 <div class="form-group" style="margin-bottom: 15px;">
+                    <label>General Information</label>
+                    <textarea id="default-general-info" rows="3" placeholder="Enter general information that will appear on ALL forms (both on-campus and off-campus)..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                </div>
+
+                <h3 style="margin: 20px 0 15px 0;">🏠 On-Campus Only Information</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">The following fields only appear on forms for groups staying on-campus:</p>
+
+                <div class="form-group" style="margin-bottom: 15px;">
                     <label>Housing Notes/Information</label>
-                    <textarea id="default-housing-notes" rows="3" placeholder="Enter general housing information that will appear on all forms..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                    <textarea id="default-housing-notes" rows="3" placeholder="Enter housing information for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label>Teen Shower Plan</label>
-                    <textarea id="default-teen-shower" rows="3" placeholder="Enter teen shower schedule/plan..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                    <textarea id="default-teen-shower" rows="3" placeholder="Enter teen shower schedule/plan for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label>Adult Chaperone Shower Plan</label>
-                    <textarea id="default-adult-shower" rows="3" placeholder="Enter adult chaperone shower schedule/plan..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                    <textarea id="default-adult-shower" rows="3" placeholder="Enter adult chaperone shower schedule/plan for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
                 </div>
 
                 <button class="btn btn-success" onclick="saveDefaultNotes()">💾 Save Default Notes</button>
@@ -1010,12 +1049,17 @@
             <!-- Individual Group Forms Preview & Notes -->
             <div id="forms-preview-section"></div>
 
-            <!-- Generate PDF Button at Bottom -->
+            <!-- Generate PDF Buttons at Bottom -->
             <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #061d28, #0f3a4a); border-radius: 10px;">
-                <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
-                    📄 Generate PDF Forms (All Groups)
-                </button>
-                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Click to open print-ready view in new window, then use Ctrl+P (or Cmd+P) to save as PDF</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="generateSelectedPDFs()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
+                        📄 Generate Selected Forms
+                    </button>
+                    <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #27ae60; color: white; border: 2px solid #27ae60;">
+                        📄 Generate All Forms
+                    </button>
+                </div>
+                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Check boxes above to select specific forms, then use Ctrl+P (or Cmd+P) to save as PDF</p>
             </div>
         </div>
     </div>
@@ -1043,6 +1087,7 @@
                 Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
             },
             defaultNotes: {
+                generalInfo: '',
                 housingNotes: '',
                 teenShowerPlan: '',
                 adultShowerPlan: ''
@@ -1055,6 +1100,7 @@
         let editingSmallGroupRoomIndex = -1;
         let selectedHousingAssignment = null;
         let selectedSmallGroupAssignment = null;
+        let selectedFormsForPDF = new Set(); // Track which forms are selected for PDF generation
 
         // Available meal colors
         const MEAL_COLORS = ['Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Purple', 'Brown', 'Grey'];
@@ -1533,6 +1579,7 @@
         }
 
         function saveDefaultNotes() {
+            appData.defaultNotes.generalInfo = document.getElementById('default-general-info').value;
             appData.defaultNotes.housingNotes = document.getElementById('default-housing-notes').value;
             appData.defaultNotes.teenShowerPlan = document.getElementById('default-teen-shower').value;
             appData.defaultNotes.adultShowerPlan = document.getElementById('default-adult-shower').value;
@@ -1541,6 +1588,7 @@
         }
 
         function loadDefaultNotes() {
+            document.getElementById('default-general-info').value = appData.defaultNotes.generalInfo || '';
             document.getElementById('default-housing-notes').value = appData.defaultNotes.housingNotes || '';
             document.getElementById('default-teen-shower').value = appData.defaultNotes.teenShowerPlan || '';
             document.getElementById('default-adult-shower').value = appData.defaultNotes.adultShowerPlan || '';
@@ -1589,13 +1637,25 @@
                 const smallGroupRoom = getSmallGroupForForm(group.id);
                 const mealColor = appData.mealColorAssignments[group.id] || 'Not Assigned';
                 const mealSchedule = getMealScheduleText(group.id);
+                const isOffCampus = group.stayingOffCampus || false;
+                const isSelected = selectedFormsForPDF.has(group.id);
 
                 html += `
                     <div class="individual-form-preview" style="background: white; border: 2px solid #061d28; border-radius: 10px; padding: 20px; margin-bottom: 20px; page-break-inside: avoid;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: #d4af37; padding: 10px 20px; border-radius: 6px; flex: 1; text-align: center;">
-                                <h3 style="margin: 0; font-size: 20px;">MOUNT 2000 YOUTH RETREAT 2026</h3>
-                                <p style="margin: 5px 0 0 0; font-size: 12px;">Housing & Information Check-In Form</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px;">
+                            <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input 
+                                        type="checkbox" 
+                                        ${isSelected ? 'checked' : ''}
+                                        onchange="toggleFormSelection('${group.id}')"
+                                        style="width: 24px; height: 24px; cursor: pointer; margin: 0;"
+                                    >
+                                </label>
+                                <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: #d4af37; padding: 10px 20px; border-radius: 6px; flex: 1; text-align: center;">
+                                    <h3 style="margin: 0; font-size: 20px;">MOUNT 2000 YOUTH RETREAT 2026</h3>
+                                    <p style="margin: 5px 0 0 0; font-size: 12px;">Housing & Information Check-In Form</p>
+                                </div>
                             </div>
                             <button 
                                 onclick="generateIndividualPDF('${group.id}')" 
@@ -1669,21 +1729,28 @@
                             <div style="background: ${getColorForMealAssignment(mealColor)}; color: white; padding: 10px; border-radius: 4px; margin-top: 4px; white-space: pre-line; font-size: 12px;">${mealSchedule}</div>
                         </div>
 
-                        ${appData.defaultNotes.housingNotes ? `
+                        ${appData.defaultNotes.generalInfo ? `
+                            <div style="margin-top: 15px;">
+                                <strong style="font-size: 13px;">ℹ️ General Information:</strong>
+                                <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; border-left: 4px solid #2196f3; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.generalInfo}</div>
+                            </div>
+                        ` : ''}
+
+                        ${!isOffCampus && appData.defaultNotes.housingNotes ? `
                             <div style="margin-top: 15px;">
                                 <strong style="font-size: 13px;">📝 Housing Notes/Information:</strong>
                                 <div style="background: #fffbea; padding: 8px; border-radius: 4px; border-left: 4px solid #f1c40f; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.housingNotes}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.teenShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.teenShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <strong style="font-size: 13px;">🚿 Teen Shower Plan:</strong>
                                 <div style="background: #e8f5e9; padding: 8px; border-radius: 4px; border-left: 4px solid #27ae60; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.teenShowerPlan}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.adultShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.adultShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <strong style="font-size: 13px;">🚿 Adult Chaperone Shower Plan:</strong>
                                 <div style="background: #f3e5f5; padding: 8px; border-radius: 4px; border-left: 4px solid #9b59b6; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.adultShowerPlan}</div>
@@ -1775,6 +1842,24 @@
             return schedule.length > 0 ? schedule.join('\n') : color;
         }
 
+        function toggleFormSelection(groupId) {
+            if (selectedFormsForPDF.has(groupId)) {
+                selectedFormsForPDF.delete(groupId);
+            } else {
+                selectedFormsForPDF.add(groupId);
+            }
+        }
+
+        function generateSelectedPDFs() {
+            if (selectedFormsForPDF.size === 0) {
+                alert('⚠️ Please select at least one form by checking the boxes next to the forms you want to generate.');
+                return;
+            }
+
+            const selectedGroups = appData.youthGroups.filter(g => selectedFormsForPDF.has(g.id));
+            generatePDFViewForGroups(selectedGroups);
+        }
+
         function generateIndividualPDF(groupId) {
             const group = appData.youthGroups.find(g => g.id === groupId);
             if (!group) {
@@ -1790,6 +1875,7 @@
             const mealColor = appData.mealColorAssignments[group.id] || 'Not Assigned';
             const mealSchedule = getMealScheduleText(group.id);
             const groupNote = appData.groupNotes[group.id] || '';
+            const isOffCampus = group.stayingOffCampus || false;
 
             let printHTML = `
                 <!DOCTYPE html>
@@ -1875,6 +1961,12 @@
                             background: #fff0f6;
                             border-left-color: #9b59b6;
                         }
+                        .off-campus-box {
+                            background: #fff3cd;
+                            border-left-color: #e67e22;
+                            text-align: center;
+                            padding: 15px;
+                        }
                         .small-group-box {
                             background: #f0f8ff;
                             border-left-color: #27ae60;
@@ -1884,6 +1976,14 @@
                             padding: 10px;
                             border-radius: 4px;
                             border-left: 4px solid #f1c40f;
+                            margin: 8px 0;
+                            white-space: pre-line;
+                        }
+                        .general-info-box {
+                            background: #e3f2fd;
+                            padding: 10px;
+                            border-radius: 4px;
+                            border-left: 4px solid #2196f3;
                             margin: 8px 0;
                             white-space: pre-line;
                         }
@@ -1962,14 +2062,21 @@
                         </div>
 
                         <div class="section-header">🏠 HOUSING ASSIGNMENTS</div>
-                        <div>
-                            <div class="field-label">Male Housing:</div>
-                            <div class="housing-box male-housing">${maleHousing}</div>
-                        </div>
-                        <div>
-                            <div class="field-label">Female Housing:</div>
-                            <div class="housing-box female-housing">${femaleHousing}</div>
-                        </div>
+                        ${isOffCampus ? `
+                            <div class="housing-box off-campus-box">
+                                <strong style="font-size: 16pt; color: #856404;">🏕️ OFF-CAMPUS HOUSING</strong>
+                                <p style="margin: 5px 0 0 0; color: #856404;">This group is staying off-campus</p>
+                            </div>
+                        ` : `
+                            <div>
+                                <div class="field-label">Male Housing:</div>
+                                <div class="housing-box male-housing">${maleHousing}</div>
+                            </div>
+                            <div>
+                                <div class="field-label">Female Housing:</div>
+                                <div class="housing-box female-housing">${femaleHousing}</div>
+                            </div>
+                        `}
 
                         <div style="margin-top: 15px;">
                             <div class="field-label">👥 Small Group Room Assignment:</div>
@@ -1981,21 +2088,28 @@
                             <div class="notes-box" style="background: ${getColorForMealAssignment(mealColor)}; color: white; border-left-color: ${getColorForMealAssignment(mealColor)};">${mealSchedule}</div>
                         </div>
 
-                        ${appData.defaultNotes.housingNotes ? `
+                        ${appData.defaultNotes.generalInfo ? `
+                            <div style="margin-top: 15px;">
+                                <div class="field-label">ℹ️ General Information:</div>
+                                <div class="general-info-box">${appData.defaultNotes.generalInfo}</div>
+                            </div>
+                        ` : ''}
+
+                        ${!isOffCampus && appData.defaultNotes.housingNotes ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">📝 Housing Notes/Information:</div>
                                 <div class="notes-box">${appData.defaultNotes.housingNotes}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.teenShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.teenShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">🚿 Teen Shower Plan:</div>
                                 <div class="notes-box" style="background: #e8f5e9; border-left-color: #27ae60;">${appData.defaultNotes.teenShowerPlan}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.adultShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.adultShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">🚿 Adult Chaperone Shower Plan:</div>
                                 <div class="notes-box" style="background: #f3e5f5; border-left-color: #9b59b6;">${appData.defaultNotes.adultShowerPlan}</div>
@@ -2012,7 +2126,7 @@
                         ${groupNote ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">💬 Additional Notes:</div>
-                                <div class="notes-box" style="background: #e3f2fd; border-left-color: #2196f3;">${groupNote}</div>
+                                <div class="general-info-box">${groupNote}</div>
                             </div>
                         ` : ''}
 
@@ -2029,6 +2143,19 @@
         }
 
         function generatePDFView() {
+            if (appData.youthGroups.length === 0) {
+                alert('No youth groups to generate forms for!');
+                return;
+            }
+
+            const sortedGroups = [...appData.youthGroups].sort((a, b) => 
+                a.parish.localeCompare(b.parish)
+            );
+            
+            generatePDFViewForGroups(sortedGroups);
+        }
+
+        function generatePDFViewForGroups(groupsToGenerate) {
             if (appData.youthGroups.length === 0) {
                 alert('No youth groups to generate forms for!');
                 return;
@@ -2341,7 +2468,7 @@
                     Brown: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
                     Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
                 };
-                appData.defaultNotes = data.defaultNotes || { housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
+                appData.defaultNotes = data.defaultNotes || { generalInfo: '', housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
                 appData.groupNotes = data.groupNotes || {};
                 
                 console.log('✅ Data loaded successfully from JSON file');
@@ -2369,7 +2496,7 @@
                     Brown: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
                     Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
                 };
-                appData.defaultNotes = { housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
+                appData.defaultNotes = { generalInfo: '', housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
                 appData.groupNotes = {};
             }
         }
@@ -2425,6 +2552,200 @@
                 loadDefaultNotes();
                 updateFormsPreview();
             }
+        }
+
+        // ===== CSV IMPORT/EXPORT FOR YOUTH GROUPS =====
+        function downloadCSVTemplate() {
+            const headers = [
+                'Group ID',
+                'Parish Name',
+                'Group Leader',
+                'Seminarian SGL',
+                'Phone Number',
+                'Male Teens',
+                'Female Teens',
+                'Male Chaperones',
+                'Female Chaperones',
+                'Off-Campus',
+                'Special Accommodations'
+            ];
+            
+            const sampleRow = [
+                '1',
+                'St. Example Parish',
+                'John Smith',
+                'Fr. Michael',
+                '123-456-7890',
+                '15',
+                '20',
+                '3',
+                '4',
+                'No',
+                'Wheelchair accessible room needed'
+            ];
+            
+            let csvContent = headers.join(',') + '\n';
+            csvContent += sampleRow.join(',') + '\n';
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'm2k_youth_groups_template.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✅ CSV Template downloaded!\n\nThe template includes:\n• All required and optional columns\n• One sample row showing the format\n• Instructions in the sample data\n\nFill it out and use "Import from CSV" to add your groups!');
+        }
+
+        function handleCSVImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    const lines = csvContent.split('\n');
+                    
+                    if (lines.length < 2) {
+                        alert('❌ CSV file is empty or invalid!');
+                        return;
+                    }
+                    
+                    // Parse header row
+                    const headers = lines[0].split(',').map(h => h.trim());
+                    
+                    // Validate required headers
+                    const groupIdIndex = headers.findIndex(h => h.toLowerCase().includes('group') && h.toLowerCase().includes('id'));
+                    const parishIndex = headers.findIndex(h => h.toLowerCase().includes('parish'));
+                    
+                    if (groupIdIndex === -1 || parishIndex === -1) {
+                        alert('❌ CSV must have "Group ID" and "Parish Name" columns!');
+                        return;
+                    }
+                    
+                    // Find optional column indices
+                    const leaderIndex = headers.findIndex(h => h.toLowerCase().includes('leader'));
+                    const seminarianIndex = headers.findIndex(h => h.toLowerCase().includes('seminarian') || h.toLowerCase().includes('sgl'));
+                    const phoneIndex = headers.findIndex(h => h.toLowerCase().includes('phone'));
+                    const maleTeensIndex = headers.findIndex(h => h.toLowerCase().includes('male') && h.toLowerCase().includes('teen'));
+                    const femaleTeensIndex = headers.findIndex(h => h.toLowerCase().includes('female') && h.toLowerCase().includes('teen'));
+                    const maleChaperoneIndex = headers.findIndex(h => h.toLowerCase().includes('male') && h.toLowerCase().includes('chap'));
+                    const femaleChaperoneIndex = headers.findIndex(h => h.toLowerCase().includes('female') && h.toLowerCase().includes('chap'));
+                    const offCampusIndex = headers.findIndex(h => h.toLowerCase().includes('off') && h.toLowerCase().includes('campus'));
+                    const accommodationsIndex = headers.findIndex(h => h.toLowerCase().includes('special') || h.toLowerCase().includes('accommod'));
+                    
+                    let importedCount = 0;
+                    let skippedCount = 0;
+                    const errors = [];
+                    
+                    // Process data rows
+                    for (let i = 1; i < lines.length; i++) {
+                        const line = lines[i].trim();
+                        if (!line) continue; // Skip empty lines
+                        
+                        const values = parseCSVLine(line);
+                        
+                        const groupId = values[groupIdIndex]?.trim();
+                        const parishName = values[parishIndex]?.trim();
+                        
+                        // Skip if missing required fields
+                        if (!groupId || !parishName) {
+                            skippedCount++;
+                            errors.push(`Row ${i + 1}: Missing Group ID or Parish Name`);
+                            continue;
+                        }
+                        
+                        // Check if group already exists
+                        const existingIndex = appData.youthGroups.findIndex(g => g.id === groupId);
+                        if (existingIndex !== -1) {
+                            skippedCount++;
+                            errors.push(`Row ${i + 1}: Group ID "${groupId}" already exists`);
+                            continue;
+                        }
+                        
+                        // Parse off-campus status
+                        let offCampus = false;
+                        if (offCampusIndex !== -1 && values[offCampusIndex]) {
+                            const offCampusValue = values[offCampusIndex].trim().toLowerCase();
+                            offCampus = offCampusValue === 'yes' || 
+                                       offCampusValue === 'true' || 
+                                       offCampusValue === 'x' || 
+                                       offCampusValue === '1' ||
+                                       offCampusValue === 'y';
+                        }
+                        
+                        // Create new group
+                        const newGroup = {
+                            id: groupId,
+                            parish: parishName,
+                            leader: leaderIndex !== -1 ? (values[leaderIndex]?.trim() || '') : '',
+                            seminarianSgl: seminarianIndex !== -1 ? (values[seminarianIndex]?.trim() || '') : '',
+                            phone: phoneIndex !== -1 ? (values[phoneIndex]?.trim() || '') : '',
+                            maleTeens: maleTeensIndex !== -1 ? (parseInt(values[maleTeensIndex]) || 0) : 0,
+                            femaleTeens: femaleTeensIndex !== -1 ? (parseInt(values[femaleTeensIndex]) || 0) : 0,
+                            maleChaperones: maleChaperoneIndex !== -1 ? (parseInt(values[maleChaperoneIndex]) || 0) : 0,
+                            femaleChaperones: femaleChaperoneIndex !== -1 ? (parseInt(values[femaleChaperoneIndex]) || 0) : 0,
+                            stayingOffCampus: offCampus,
+                            specialAccommodations: accommodationsIndex !== -1 ? (values[accommodationsIndex]?.trim() || '') : ''
+                        };
+                        
+                        appData.youthGroups.push(newGroup);
+                        importedCount++;
+                    }
+                    
+                    // Clear the file input
+                    event.target.value = '';
+                    
+                    // Update displays
+                    updateAllDisplays();
+                    autoSave();
+                    
+                    // Show results
+                    let message = `✅ Import Complete!\n\n`;
+                    message += `✓ Successfully imported: ${importedCount} groups\n`;
+                    if (skippedCount > 0) {
+                        message += `⚠ Skipped: ${skippedCount} rows\n\n`;
+                        if (errors.length > 0 && errors.length <= 10) {
+                            message += `Errors:\n${errors.join('\n')}`;
+                        } else if (errors.length > 10) {
+                            message += `Errors (first 10):\n${errors.slice(0, 10).join('\n')}\n... and ${errors.length - 10} more`;
+                        }
+                    }
+                    
+                    alert(message);
+                    
+                } catch (error) {
+                    alert('❌ Error reading CSV file: ' + error.message + '\n\nMake sure your file is a valid CSV format.');
+                    console.error('CSV Import Error:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            values.push(current);
+            
+            return values.map(v => v.trim().replace(/^"|"$/g, ''));
         }
 
         // ===== YOUTH GROUP MANAGEMENT =====
@@ -2497,6 +2818,7 @@
                 femaleTeens: parseInt(document.getElementById('female-teens').value) || 0,
                 maleChaperones: parseInt(document.getElementById('male-chaperones').value) || 0,
                 femaleChaperones: parseInt(document.getElementById('female-chaperones').value) || 0,
+                stayingOffCampus: document.getElementById('staying-off-campus').checked,
                 specialAccommodations: document.getElementById('special-accommodations').value.trim()
             };
         }
@@ -2526,6 +2848,7 @@
             document.getElementById('female-teens').value = group.femaleTeens;
             document.getElementById('male-chaperones').value = group.maleChaperones;
             document.getElementById('female-chaperones').value = group.femaleChaperones;
+            document.getElementById('staying-off-campus').checked = group.stayingOffCampus || false;
             document.getElementById('special-accommodations').value = group.specialAccommodations;
         }
 
@@ -2539,6 +2862,7 @@
             document.getElementById('female-teens').value = '0';
             document.getElementById('male-chaperones').value = '0';
             document.getElementById('female-chaperones').value = '0';
+            document.getElementById('staying-off-campus').checked = false;
             document.getElementById('special-accommodations').value = '';
         }
 
@@ -3418,6 +3742,10 @@
         }
 
         function isGroupHousingAssigned(groupId) {
+            const group = appData.youthGroups.find(g => g.id === groupId);
+            if (group && group.stayingOffCampus) {
+                return true; // Off-campus groups are considered "assigned"
+            }
             const maleAssignments = appData.housingAssignments.male[groupId];
             const femaleAssignments = appData.housingAssignments.female[groupId];
             return (Array.isArray(maleAssignments) && maleAssignments.length > 0) ||
@@ -3457,10 +3785,11 @@
                 const originalIndex = appData.youthGroups.indexOf(group);
                 const total = group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones;
                 const isAssigned = isGroupHousingAssigned(group.id);
+                const isOffCampus = group.stayingOffCampus || false;
                 
                 const row = tbody.insertRow();
                 row.innerHTML = `
-                    <td><span class="section-id">${group.id}</span></td>
+                    <td><span class="section-id">${group.id}</span>${isOffCampus ? ' <span style="background: #e67e22; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">🏕️ OFF</span>' : ''}</td>
                     <td>${group.parish}</td>
                     <td>${group.leader}</td>
                     <td>${group.seminarianSgl || 'Not Assigned'}</td>
@@ -3471,7 +3800,7 @@
                     <td>${group.femaleChaperones}</td>
                     <td><strong>${total}</strong></td>
                     <td style="font-size: 12px; max-width: 150px; word-wrap: break-word;">${group.specialAccommodations || 'None'}</td>
-                    <td><span class="assignment-status ${isAssigned ? 'status-assigned' : 'status-unassigned'}">${isAssigned ? '✅ Assigned' : '❌ Unassigned'}</span></td>
+                    <td><span class="assignment-status ${isAssigned || isOffCampus ? 'status-assigned' : 'status-unassigned'}">${isAssigned || isOffCampus ? '✅ Assigned' : '❌ Unassigned'}</span></td>
                     <td>
                         <button class="btn btn-warning" onclick="editYouthGroup(${originalIndex})" style="font-size: 12px; padding: 6px 12px;">Edit</button>
                     </td>
@@ -3551,8 +3880,11 @@
             const totalParticipants = appData.youthGroups.reduce((total, group) => 
                 total + group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones, 0);
             
-            // Housing analysis
-            const groupsNeedingHousing = appData.youthGroups.filter(g => !isGroupHousingAssigned(g.id)).length;
+            // Off-campus groups
+            const offCampusGroups = appData.youthGroups.filter(g => g.stayingOffCampus).length;
+            
+            // Housing analysis (only for on-campus groups)
+            const groupsNeedingHousing = appData.youthGroups.filter(g => !g.stayingOffCampus && !isGroupHousingAssigned(g.id)).length;
             const groupsNeedingSmallGroup = appData.youthGroups.filter(g => !isGroupSmallGroupAssigned(g.id)).length;
             const groupsNeedingMealColor = appData.youthGroups.filter(g => !appData.mealColorAssignments[g.id]).length;
             
@@ -3594,6 +3926,7 @@
             // Update the display
             document.getElementById('total-groups').textContent = totalGroups;
             document.getElementById('total-participants').textContent = totalParticipants;
+            document.getElementById('off-campus-groups').textContent = offCampusGroups;
             document.getElementById('groups-needing-housing').textContent = groupsNeedingHousing;
             document.getElementById('groups-needing-small-group').textContent = groupsNeedingSmallGroup;
             document.getElementById('groups-needing-meal-color').textContent = groupsNeedingMealColor;
@@ -3636,6 +3969,9 @@
                 const femaleTotal = group.femaleTeens + group.femaleChaperones;
                 const totalGroup = maleTotal + femaleTotal;
                 
+                // Check if off-campus
+                const isOffCampus = group.stayingOffCampus || false;
+                
                 // Get housing assignments
                 const maleHousingRooms = appData.housingAssignments.male[group.id] || [];
                 const femaleHousingRooms = appData.housingAssignments.female[group.id] || [];
@@ -3665,6 +4001,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                             <strong>${group.parish}</strong>
                             <div style="display: flex; gap: 5px; align-items: center;">
+                                ${isOffCampus ? '<span class="assignment-status" style="background: #e67e22; color: white; font-size: 10px;">🏕️ OFF-CAMPUS</span>' : ''}
                                 <span class="assignment-status ${isHousingAssigned ? 'status-assigned' : 'status-unassigned'}" style="font-size: 10px;">
                                     🏠 ${isHousingAssigned ? '✅' : '❌'}
                                 </span>
@@ -3678,24 +4015,31 @@
                         ${group.seminarianSgl ? `<p style="font-size: 12px; color: #2c3e50;"><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
                         
                         <!-- Housing Assignments -->
-                        <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
-                            <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
-                                ${maleTotal > 0 ? `
-                                    <div class="male-section" style="padding: 6px;">
-                                        <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
-                                        ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
-                                    </div>
-                                ` : '<div></div>'}
-                                
-                                ${femaleTotal > 0 ? `
-                                    <div class="female-section" style="padding: 6px;">
-                                        <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
-                                        ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
-                                    </div>
-                                ` : '<div></div>'}
+                        ${isOffCampus ? `
+                            <div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #e67e22;">
+                                <strong style="font-size: 14px;">🏕️ OFF-CAMPUS HOUSING</strong>
+                                <p style="font-size: 12px; margin-top: 4px;">This group is staying off-campus</p>
                             </div>
-                        </div>
+                        ` : `
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
+                                <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
+                                    ${maleTotal > 0 ? `
+                                        <div class="male-section" style="padding: 6px;">
+                                            <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
+                                            ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
+                                        </div>
+                                    ` : '<div></div>'}
+                                    
+                                    ${femaleTotal > 0 ? `
+                                        <div class="female-section" style="padding: 6px;">
+                                            <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
+                                            ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
+                                        </div>
+                                    ` : '<div></div>'}
+                                </div>
+                            </div>
+                        `}
                         
                         <!-- Small Group Assignments -->
                         <div style="background: #f0f8ff; padding: 8px; border-radius: 6px; margin: 8px 0;">
@@ -3750,6 +4094,9 @@
                 const femaleTotal = group.femaleTeens + group.femaleChaperones;
                 const totalGroup = maleTotal + femaleTotal;
                 
+                // Check if off-campus
+                const isOffCampus = group.stayingOffCampus || false;
+                
                 // Get housing assignments
                 const maleHousingRooms = appData.housingAssignments.male[group.id] || [];
                 const femaleHousingRooms = appData.housingAssignments.female[group.id] || [];
@@ -3779,6 +4126,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                             <strong>${group.parish}</strong>
                             <div style="display: flex; gap: 5px;">
+                                ${isOffCampus ? '<span class="assignment-status" style="background: #e67e22; color: white; font-size: 10px;">🏕️ OFF-CAMPUS</span>' : ''}
                                 <span class="assignment-status ${isHousingAssigned ? 'status-assigned' : 'status-unassigned'}" style="font-size: 10px;">
                                     🏠 ${isHousingAssigned ? '✅' : '❌'}
                                 </span>
@@ -3796,24 +4144,31 @@
                         ${mealColor ? `<div style="margin: 8px 0;"><strong>Meal Color:</strong> <span style="padding: 2px 6px; border-radius: 4px; background: ${getColorForMealAssignment(mealColor)}; color: white; font-size: 12px; font-weight: bold;">${mealColor}</span></div>` : '<div style="margin: 8px 0; color: #e67e22;"><strong>Meal Color:</strong> Not assigned</div>'}
                         
                         <!-- Housing Assignments -->
-                        <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
-                            <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
-                                ${maleTotal > 0 ? `
-                                    <div class="male-section" style="padding: 6px;">
-                                        <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
-                                        ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
-                                    </div>
-                                ` : '<div></div>'}
-                                
-                                ${femaleTotal > 0 ? `
-                                    <div class="female-section" style="padding: 6px;">
-                                        <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
-                                        ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
-                                    </div>
-                                ` : '<div></div>'}
+                        ${isOffCampus ? `
+                            <div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #e67e22;">
+                                <strong style="font-size: 14px;">🏕️ OFF-CAMPUS HOUSING</strong>
+                                <p style="font-size: 12px; margin-top: 4px;">This group is staying off-campus</p>
                             </div>
-                        </div>
+                        ` : `
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
+                                <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
+                                    ${maleTotal > 0 ? `
+                                        <div class="male-section" style="padding: 6px;">
+                                            <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
+                                            ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
+                                        </div>
+                                    ` : '<div></div>'}
+                                    
+                                    ${femaleTotal > 0 ? `
+                                        <div class="female-section" style="padding: 6px;">
+                                            <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
+                                            ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0;">Not assigned</p>'}
+                                        </div>
+                                    ` : '<div></div>'}
+                                </div>
+                            </div>
+                        `}
                         
                         <!-- Small Group Assignments -->
                         <div style="background: #f0f8ff; padding: 8px; border-radius: 6px; margin: 8px 0;">
