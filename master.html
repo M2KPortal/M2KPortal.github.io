@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -457,7 +456,7 @@
                 </div>
                 <div class="stat-card" style="background: linear-gradient(135deg, #e67e22, #d35400); border-color: #e67e22;">
                     <h3 id="off-campus-groups">0</h3>
-                    <p>🏕️ Off-Campus Groups</p>
+                    <p>🏕️ Off-Campus People</p>
                 </div>
                 <div class="stat-card">
                     <h3 id="groups-needing-housing">0</h3>
@@ -2695,6 +2694,11 @@
                         
                         appData.youthGroups.push(newGroup);
                         importedCount++;
+                        
+                        // Auto-assign off-campus housing if needed
+                        if (offCampus) {
+                            autoAssignOffCampusHousing(groupId);
+                        }
                     }
                     
                     // Clear the file input
@@ -2754,6 +2758,12 @@
             if (!validateYouthGroupData(groupData)) return;
 
             appData.youthGroups.push(groupData);
+            
+            // Auto-assign off-campus housing if needed
+            if (groupData.stayingOffCampus) {
+                autoAssignOffCampusHousing(groupData.id);
+            }
+            
             clearYouthGroupForm();
             updateAllDisplays();
             autoSave();
@@ -2766,15 +2776,83 @@
             if (!validateYouthGroupData(groupData)) return;
 
             const oldId = appData.youthGroups[editingGroupIndex].id;
+            const wasOffCampus = appData.youthGroups[editingGroupIndex].stayingOffCampus;
+            
             appData.youthGroups[editingGroupIndex] = groupData;
             
             if (oldId !== groupData.id) {
                 updateAssignmentIds(oldId, groupData.id);
             }
             
+            // Handle off-campus housing changes
+            if (groupData.stayingOffCampus && !wasOffCampus) {
+                // Just checked off-campus - auto-assign
+                autoAssignOffCampusHousing(groupData.id);
+            } else if (!groupData.stayingOffCampus && wasOffCampus) {
+                // Just unchecked off-campus - remove assignments
+                removeOffCampusHousing(groupData.id);
+            } else if (groupData.stayingOffCampus) {
+                // Still off-campus - update assignments in case numbers changed
+                autoAssignOffCampusHousing(groupData.id);
+            }
+            
             cancelEdit();
             updateAllDisplays();
             autoSave();
+        }
+
+        function autoAssignOffCampusHousing(groupId) {
+            const group = appData.youthGroups.find(g => g.id === groupId);
+            if (!group) return;
+            
+            const maleTotal = group.maleTeens + group.maleChaperones;
+            const femaleTotal = group.femaleTeens + group.femaleChaperones;
+            
+            // Assign to Off Campus-Male if they have males
+            if (maleTotal > 0) {
+                if (!appData.housingAssignments.male[groupId]) {
+                    appData.housingAssignments.male[groupId] = [];
+                }
+                // Check if already assigned to off-campus
+                const offCampusMaleRoom = 'Off Campus-Male';
+                if (!appData.housingAssignments.male[groupId].includes(offCampusMaleRoom)) {
+                    appData.housingAssignments.male[groupId] = [offCampusMaleRoom];
+                }
+            }
+            
+            // Assign to Off Campus-Female if they have females
+            if (femaleTotal > 0) {
+                if (!appData.housingAssignments.female[groupId]) {
+                    appData.housingAssignments.female[groupId] = [];
+                }
+                // Check if already assigned to off-campus
+                const offCampusFemaleRoom = 'Off Campus-Female';
+                if (!appData.housingAssignments.female[groupId].includes(offCampusFemaleRoom)) {
+                    appData.housingAssignments.female[groupId] = [offCampusFemaleRoom];
+                }
+            }
+        }
+
+        function removeOffCampusHousing(groupId) {
+            // Remove from off-campus male housing
+            if (appData.housingAssignments.male[groupId]) {
+                appData.housingAssignments.male[groupId] = appData.housingAssignments.male[groupId].filter(
+                    room => room !== 'Off Campus-Male'
+                );
+                if (appData.housingAssignments.male[groupId].length === 0) {
+                    delete appData.housingAssignments.male[groupId];
+                }
+            }
+            
+            // Remove from off-campus female housing
+            if (appData.housingAssignments.female[groupId]) {
+                appData.housingAssignments.female[groupId] = appData.housingAssignments.female[groupId].filter(
+                    room => room !== 'Off Campus-Female'
+                );
+                if (appData.housingAssignments.female[groupId].length === 0) {
+                    delete appData.housingAssignments.female[groupId];
+                }
+            }
         }
 
         function editYouthGroup(index) {
@@ -3144,18 +3222,19 @@
             appData.youthGroups.forEach(group => {
                 const maleTotal = group.maleTeens + group.maleChaperones;
                 const femaleTotal = group.femaleTeens + group.femaleChaperones;
+                const isOffCampus = group.stayingOffCampus || false;
                 
                 if (maleTotal > 0) {
                     const option = document.createElement('option');
                     option.value = `${group.id}-male`;
-                    option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)`;
+                    option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
                     select.appendChild(option);
                 }
                 
                 if (femaleTotal > 0) {
                     const option = document.createElement('option');
                     option.value = `${group.id}-female`;
-                    option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)`;
+                    option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
                     select.appendChild(option);
                 }
             });
@@ -3208,6 +3287,8 @@
                 return room ? `${room.building} - ${room.roomId}` : roomKey;
             });
             
+            const isOffCampus = groupData.stayingOffCampus || false;
+            
             infoDiv.innerHTML = `
                 <h4>${groupData.parish} (${groupId})</h4>
                 <p><strong>Leader:</strong> ${groupData.leader}</p>
@@ -3218,6 +3299,13 @@
                     `<p>(${groupData.femaleTeens} teens + ${groupData.femaleChaperones} chaperones)</p>`
                 }
                 ${groupData.specialAccommodations ? `<p><strong>Special Accommodations:</strong> ${groupData.specialAccommodations}</p>` : ''}
+                
+                ${isOffCampus ? `
+                    <div class="notification" style="background: #fff3cd; border-left: 4px solid #e67e22; padding: 12px; margin: 10px 0; border-radius: 6px;">
+                        <strong style="color: #856404;">🏕️ OFF-CAMPUS GROUP</strong>
+                        <p style="margin: 5px 0 0 0; font-size: 13px; color: #856404;">This group is staying off-campus and has been automatically assigned to off-campus housing.</p>
+                    </div>
+                ` : ''}
                 
                 ${assignedRooms.length > 0 ? `
                     <div class="${gender}-section">
@@ -3343,18 +3431,19 @@
                 if (matchesSearch) {
                     const maleTotal = group.maleTeens + group.maleChaperones;
                     const femaleTotal = group.femaleTeens + group.femaleChaperones;
+                    const isOffCampus = group.stayingOffCampus || false;
                     
                     if (maleTotal > 0) {
                         const option = document.createElement('option');
                         option.value = `${group.id}-male`;
-                        option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)`;
+                        option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
                         select.appendChild(option);
                     }
                     
                     if (femaleTotal > 0) {
                         const option = document.createElement('option');
                         option.value = `${group.id}-female`;
-                        option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)`;
+                        option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
                         select.appendChild(option);
                     }
                 }
@@ -3880,8 +3969,11 @@
             const totalParticipants = appData.youthGroups.reduce((total, group) => 
                 total + group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones, 0);
             
-            // Off-campus groups
-            const offCampusGroups = appData.youthGroups.filter(g => g.stayingOffCampus).length;
+            // Off-campus people count (total people in off-campus groups)
+            const offCampusPeople = appData.youthGroups
+                .filter(g => g.stayingOffCampus)
+                .reduce((total, group) => 
+                    total + group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones, 0);
             
             // Housing analysis (only for on-campus groups)
             const groupsNeedingHousing = appData.youthGroups.filter(g => !g.stayingOffCampus && !isGroupHousingAssigned(g.id)).length;
@@ -3926,7 +4018,7 @@
             // Update the display
             document.getElementById('total-groups').textContent = totalGroups;
             document.getElementById('total-participants').textContent = totalParticipants;
-            document.getElementById('off-campus-groups').textContent = offCampusGroups;
+            document.getElementById('off-campus-groups').textContent = offCampusPeople;
             document.getElementById('groups-needing-housing').textContent = groupsNeedingHousing;
             document.getElementById('groups-needing-small-group').textContent = groupsNeedingSmallGroup;
             document.getElementById('groups-needing-meal-color').textContent = groupsNeedingMealColor;
