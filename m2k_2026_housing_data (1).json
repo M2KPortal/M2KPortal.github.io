@@ -1,4 +1,3 @@
-
 {
   "youthGroups": [
     {
@@ -23,6 +22,7 @@
       "femaleTeens": 30,
       "maleChaperones": 5,
       "femaleChaperones": 5,
+      "stayingOffCampus": true,
       "specialAccommodations": ""
     },
     {
@@ -35,6 +35,7 @@
       "femaleTeens": 5,
       "maleChaperones": 12,
       "femaleChaperones": 3,
+      "stayingOffCampus": true,
       "specialAccommodations": ""
     },
     {
@@ -462,7 +463,7 @@
         "Knott Academic Center-320"
       ],
       "5": [
-        "Knott Academic Center-220"
+        "Off Campus-Male"
       ],
       "6": [
         "Off Campus-Male"
@@ -479,7 +480,7 @@
         "ARCC-GYM FLOOR"
       ],
       "5": [
-        "ARCC-GYM FLOOR"
+        "Off Campus-Female"
       ],
       "6": [
         "Off Campus-Female"
@@ -581,6 +582,6 @@
     "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
   },
   "groupNotes": {},
-  "timestamp": "2025-10-15T20:44:03.166Z",
+  "timestamp": "2025-10-17T20:22:28.825Z",
   "version": "3.0"
 }
