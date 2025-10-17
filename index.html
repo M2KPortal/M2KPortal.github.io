@@ -19,24 +19,6 @@
             position: relative;
         }
 
-        /* Watermark Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            background-image: url('');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.03;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -263,16 +245,18 @@
         .room-card:hover {
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transform: translateY(-2px);
+            border-left-color: #d4af37;
         }
 
         /* Status Indicators */
         .section-id {
             background: #061d28;
-            color: white;
+            color: #d4af37;
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 12px;
             font-weight: bold;
+            border: 1px solid #d4af37;
         }
 
         .assignment-status {
@@ -283,12 +267,19 @@
             font-weight: bold;
         }
 
-        .status-assigned { background: #27ae60; color: white; }
-        .status-unassigned { background: #e74c3c; color: white; }
+        .status-assigned { 
+            background: #2e7d32;
+            color: white; 
+        }
 
-        /* Gender Color Coding */
+        .status-unassigned { 
+            background: #8b4513;
+            color: white; 
+        }
+
+        /* Gender Color Coding - Updated colors */
         .male-section {
-            background: #e8f0f2;
+            background: #e6f3ff;
             border-left: 4px solid #061d28;
             padding: 10px;
             border-radius: 6px;
@@ -296,8 +287,8 @@
         }
 
         .female-section {
-            background: #fdf2f2;
-            border-left: 4px solid #e74c3c;
+            background: #fff8e6;
+            border-left: 4px solid #d4af37;
             padding: 10px;
             border-radius: 6px;
             margin: 5px 0;
@@ -348,33 +339,6 @@
 
         .table tr:hover {
             background: #f8f9fa;
-        }
-
-        /* Form Elements */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #061d28;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
         }
 
         /* Capacity Displays */
@@ -523,8 +487,8 @@
 
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Assignment Dashboard</button>
-            <button class="tab-button" onclick="switchTab('management')">Management Interface</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
+            <button class="tab-button" onclick="switchTab('management')">Management Interface</button>
         </div>
 
         <!-- Dashboard Tab -->
@@ -543,13 +507,53 @@
             </div>
 
             <h3 style="margin-bottom: 10px; color: #061d28;">🔍 Quick Parish Assignment Search</h3>
-            <input type="text" class="search-bar" id="parish-search" placeholder="🔍 Search by Parish, Group ID, Leader, or Small Group Leader..." oninput="performSearch()" autocomplete="off">
+            <input type="text" class="search-bar" id="parish-search" placeholder="🔍 Search by Parish, Group ID, Leader, Phone, or Small Group Leader..." oninput="performSearch()" autocomplete="off">
             
             <div id="search-results"></div>
 
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
                 <h3>Complete Assignment Overview</h3>
                 <div id="assignment-overview"></div>
+            </div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content">
+            <h2>Mount 2K Resources</h2>
+            <p style="color: #6c757d; margin-bottom: 20px;">Quick access to important resources and information for the retreat.</p>
+            
+            <div class="resource-grid">
+                <!-- Small Group Leader Resources -->
+                <div class="resource-card">
+                    <h3><span class="icon">📚</span> Small Group Leader Resources</h3>
+                    <div class="resource-link-box">
+                        <!-- Add your link here -->
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="resource-card">
+                    <h3><span class="icon">🗺️</span> Campus Map</h3>
+                    <div class="resource-link-box">
+                        <!-- Add your link here -->
+                    </div>
+                </div>
+
+                <!-- Meal Times -->
+                <div class="resource-card">
+                    <h3><span class="icon">🍽️</span> Meal Times</h3>
+                    <div class="resource-link-box">
+                        <!-- Add your link here -->
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="resource-card">
+                    <h3><span class="icon">📅</span> Event Schedule</h3>
+                    <div class="resource-link-box">
+                        <!-- Add your link here -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -568,6 +572,7 @@
                                 <th>Leader</th>
                                 <th>Phone</th>
                                 <th>Total</th>
+                                <th>Off-Campus</th>
                                 <th>SGL</th>
                                 <th>Meal Color</th>
                                 <th>Status</th>
@@ -635,46 +640,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Resources Tab -->
-        <div id="resources" class="tab-content">
-            <h2>Mount 2K Resources</h2>
-            <p style="color: #6c757d; margin-bottom: 20px;">Quick access to important resources and information for Mount 2000</p>
-            
-            <div class="resource-grid">
-                <!-- Small Group Leader Resources -->
-                <div class="resource-card">
-                    <h3><span class="icon">📚</span> Small Group Leader Resources</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-
-                <!-- Map -->
-                <div class="resource-card">
-                    <h3><span class="icon">🗺️</span> Campus Map</h3>
-                    <div class="resource-link-box">
-                        <a href="https://msmary.edu/about/our-campuses/files/mount-st-marys-university-emmitsburg-campus-map.pdf">To MSMS Campus Map</a>
-                    </div>
-                </div>
-
-                <!-- Meal Times -->
-                <div class="resource-card">
-                    <h3><span class="icon">🍽️</span> Meal Times</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-
-                <!-- Schedule -->
-                <div class="resource-card">
-                    <h3><span class="icon">📅</span> Event Schedule</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -696,24 +661,19 @@
         // ===== SYSTEM INITIALIZATION =====
         async function initializeSystem() {
             try {
-                // Find and load the most recent data file
                 await findAndLoadLatestData();
                 
-                // Hide loading overlay and show main content
                 document.getElementById('loading-overlay').style.display = 'none';
                 document.getElementById('main-container').style.display = 'block';
                 
-                // Update version badge
                 const versionBadge = document.getElementById('data-version-badge');
                 if (versionBadge && currentDataVersion > 0) {
                     versionBadge.textContent = `Data v${currentDataVersion}`;
                 }
                 
-                // Update all displays
                 updateAllDisplays();
                 setupKeyboardShortcuts();
                 
-                // Ensure search works immediately
                 setTimeout(() => {
                     const searchInput = document.getElementById('parish-search');
                     if (searchInput) {
@@ -722,7 +682,6 @@
                     }
                 }, 100);
             } catch (error) {
-                // Show error message
                 showErrorMessage();
             }
         }
@@ -731,7 +690,6 @@
             const loadingStatus = document.getElementById('loading-status');
             let foundVersion = 0;
             
-            // Count UP from 1 until we don't find a file
             for (let version = 1; version <= 100; version++) {
                 const filename = `m2k_2026_housing_data (${version}).json`;
                 
@@ -743,19 +701,15 @@
                     const response = await fetch(filename);
                     
                     if (response.ok) {
-                        // Found this version, remember it and keep looking
                         foundVersion = version;
                     } else {
-                        // This version doesn't exist, so the previous one was the latest
                         break;
                     }
                 } catch (error) {
-                    // File doesn't exist, previous version was the latest
                     break;
                 }
             }
             
-            // Now load the highest version we found
             if (foundVersion > 0) {
                 const filename = `m2k_2026_housing_data (${foundVersion}).json`;
                 
@@ -766,10 +720,8 @@
                 const response = await fetch(filename);
                 const data = await response.json();
                 
-                // Store the version number
                 currentDataVersion = foundVersion;
                 
-                // Load all data from JSON
                 appData.youthGroups = data.youthGroups || [];
                 appData.housingRooms = data.housingRooms || [];
                 appData.smallGroupRooms = data.smallGroupRooms || [];
@@ -781,7 +733,6 @@
                     loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
                 }
             } else {
-                // No files found at all
                 throw new Error('No data files found');
             }
         }
@@ -826,14 +777,15 @@
             if (!color) return { background: '#f8f9fa', color: '#6c757d', text: 'No Color' };
             
             const colorMap = {
-                'Red': { background: '#dc3545', color: 'white', text: 'Red' },
-                'Blue': { background: '#007bff', color: 'white', text: 'Blue' },
-                'Green': { background: '#28a745', color: 'white', text: 'Green' },
-                'Yellow': { background: '#ffc107', color: '#212529', text: 'Yellow' },
-                'Orange': { background: '#fd7e14', color: 'white', text: 'Orange' },
-                'Purple': { background: '#6f42c1', color: 'white', text: 'Purple' },
+                'Red': { background: '#e74c3c', color: 'white', text: 'Red' },
+                'Blue': { background: '#3498db', color: 'white', text: 'Blue' },
+                'Green': { background: '#27ae60', color: 'white', text: 'Green' },
+                'Yellow': { background: '#f1c40f', color: '#212529', text: 'Yellow' },
+                'Orange': { background: '#e67e22', color: 'white', text: 'Orange' },
+                'Purple': { background: '#9b59b6', color: 'white', text: 'Purple' },
                 'Pink': { background: '#e83e8c', color: 'white', text: 'Pink' },
-                'Grey': { background: '#6c757d', color: 'white', text: 'Grey' },
+                'Brown': { background: '#8b4513', color: 'white', text: 'Brown' },
+                'Grey': { background: '#95a5a6', color: 'white', text: 'Grey' },
                 'Black': { background: '#343a40', color: 'white', text: 'Black' },
                 'White': { background: '#f8f9fa', color: '#212529', text: 'White' }
             };
@@ -950,12 +902,16 @@
                 return room ? `${room.building}-${room.roomId}` : roomKey;
             });
             
-            // Get small group assignments
+            // Get small group assignments with features
             const groupSmallGroupRooms = appData.smallGroupAssignments[group.id] || [];
             
             const groupSmallGroupRoomNames = groupSmallGroupRooms.map(roomKey => {
                 const room = appData.smallGroupRooms.find(r => `${r.building}-${r.roomId}` === roomKey);
-                return room ? `${room.building}-${room.roomId}` : roomKey;
+                if (room) {
+                    const roomName = `${room.building}-${room.roomId}`;
+                    return room.features ? `${roomName} (${room.features})` : roomName;
+                }
+                return roomKey;
             });
             
             const overallAssigned = isHousingAssigned || isSmallGroupAssigned;
@@ -964,59 +920,83 @@
             const mealColor = appData.mealColorAssignments[group.id];
             const mealColorStyle = getMealColorStyle(mealColor);
             const seminarian = group.seminarianSgl || '';
+            const isOffCampus = group.stayingOffCampus || false;
             
             const backgroundStyle = isSearch ? (overallAssigned ? '#f0fff4' : '#fff5f5') : '';
+            const borderColor = overallAssigned ? '#27ae60' : '#e74c3c';
             
             return `
-                <div class="room-card" style="border-left-color: ${overallAssigned ? '#27ae60' : '#e74c3c'}; background: ${backgroundStyle}; position: relative;">
-                    <!-- Meal Color Tab -->
-                    ${mealColor ? `<div style="position: absolute; top: 8px; right: 8px; background: ${mealColorStyle.background}; color: ${mealColorStyle.color}; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; z-index: 2;">${mealColorStyle.text}</div>` : ''}
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-right: ${mealColor ? '60px' : '0'};">
+                <div class="room-card" style="border-left-color: ${borderColor}; background: ${backgroundStyle};">
+                    <!-- HEADER ROW -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <strong style="font-size: 16px;">${group.parish}</strong>
-                        <div style="display: flex; gap: 5px;">
+                        
+                        <!-- STATUS BADGES CONTAINER -->
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            ${isOffCampus ? '<span class="assignment-status" style="background: #e67e22; color: white; font-size: 10px;">🏕️ OFF-CAMPUS</span>' : ''}
+                            
                             <span class="assignment-status ${isHousingAssigned ? 'status-assigned' : 'status-unassigned'}" style="font-size: 10px;">
                                 🏠 ${isHousingAssigned ? '✅' : '❌'}
                             </span>
+                            
                             <span class="assignment-status ${isSmallGroupAssigned ? 'status-assigned' : 'status-unassigned'}" style="font-size: 10px;">
                                 👥 ${isSmallGroupAssigned ? '✅' : '❌'}
                             </span>
-                        </div>
-                    </div>
-                    <p><span class="section-id">${group.id}</span> | <strong>Leader:</strong> ${group.leader} | <strong>Phone:</strong> ${group.phone}</p>
-                    <p><strong>Total People:</strong> ${totalGroup} (${maleTotal} males, ${femaleTotal} females)</p>
-                    ${group.specialAccommodations ? `<p style="margin-top: 8px; font-size: 12px; background: #fff3cd; padding: 4px; border-radius: 4px;"><strong>⚠️ Special Accommodations:</strong> ${group.specialAccommodations}</p>` : ''}
-                    
-                    <!-- Small Group Leader -->
-                    ${seminarian ? `<p style="font-size: 11px; color: #6c757d; margin-top: 8px; font-style: italic;">👨‍🏫 <strong>Small Group Leader:</strong> ${seminarian}</p>` : ''}
-                    
-                    <!-- Housing Assignments -->
-                    <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
-                        <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
-                            ${maleTotal > 0 ? `
-                                <div class="male-section" style="padding: 6px;">
-                                    <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
-                                    ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #27ae60;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0; font-weight: bold;">❌ Not assigned</p>'}
-                                </div>
-                            ` : '<div></div>'}
                             
-                            ${femaleTotal > 0 ? `
-                                <div class="female-section" style="padding: 6px;">
-                                    <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
-                                    ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #27ae60;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0; font-weight: bold;">❌ Not assigned</p>'}
-                                </div>
-                            ` : '<div></div>'}
+                            ${mealColor ? `<span style="padding: 2px 6px; border-radius: 4px; background: ${mealColorStyle.background}; color: ${mealColorStyle.color}; font-size: 10px; font-weight: bold;">🍽️ ${mealColorStyle.text}</span>` : ''}
                         </div>
                     </div>
                     
-                    <!-- Small Group Assignments -->
+                    <!-- GROUP INFO ROW -->
+                    <p><span class="section-id">${group.id}</span> | ${totalGroup} people total</p>
+                    
+                    ${isSearch ? `
+                        <!-- DETAILED INFO FOR SEARCH RESULTS -->
+                        <p style="margin-top: 6px; font-size: 13px;"><strong>Leader:</strong> ${group.leader} | <strong>Phone:</strong> ${group.phone}</p>
+                        <p style="margin-top: 6px; font-size: 12px; color: #555;">
+                            <strong>Male:</strong> ${group.maleTeens} teens + ${group.maleChaperones} chaperones | 
+                            <strong>Female:</strong> ${group.femaleTeens} teens + ${group.femaleChaperones} chaperones
+                        </p>
+                        ${group.specialAccommodations ? `<p style="margin-top: 8px; font-size: 12px; background: #fff3cd; padding: 6px; border-radius: 4px;"><strong>⚠️ Special Accommodations:</strong> ${group.specialAccommodations}</p>` : ''}
+                    ` : ''}
+                    
+                    <!-- SEMINARIAN SGL -->
+                    ${seminarian ? `<p style="font-size: 12px; color: #2c3e50; margin-top: 8px;"><strong>Seminarian SGL:</strong> ${seminarian}</p>` : ''}
+                    
+                    <!-- HOUSING ASSIGNMENTS SECTION -->
+                    ${isOffCampus ? `
+                        <div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #e67e22;">
+                            <strong style="font-size: 14px;">🏕️ OFF-CAMPUS HOUSING</strong>
+                            <p style="font-size: 12px; margin-top: 4px;">This group is staying off-campus</p>
+                        </div>
+                    ` : `
+                        <div style="background: #f8f9fa; padding: 8px; border-radius: 6px; margin: 8px 0;">
+                            <strong style="font-size: 14px;">🏠 Housing Assignments</strong>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;">
+                                ${maleTotal > 0 ? `
+                                    <div class="male-section" style="padding: 6px;">
+                                        <strong style="font-size: 12px;">🔵 Males: ${maleTotal}</strong>
+                                        ${maleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #2e7d32;">${maleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0; font-weight: bold;">❌ Not assigned</p>'}
+                                    </div>
+                                ` : '<div></div>'}
+                                
+                                ${femaleTotal > 0 ? `
+                                    <div class="female-section" style="padding: 6px;">
+                                        <strong style="font-size: 12px;">🟣 Females: ${femaleTotal}</strong>
+                                        ${femaleHousingRoomNames.length > 0 ? `<p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #2e7d32;">${femaleHousingRoomNames.join(', ')}</p>` : '<p style="font-size: 10px; color: #e67e22; margin: 2px 0 0 0; font-weight: bold;">❌ Not assigned</p>'}
+                                    </div>
+                                ` : '<div></div>'}
+                            </div>
+                        </div>
+                    `}
+                    
+                    <!-- SMALL GROUP SECTION -->
                     <div style="background: #f0f8ff; padding: 8px; border-radius: 6px; margin: 8px 0;">
                         <strong style="font-size: 14px;">👥 Small Group Location</strong>
                         ${groupSmallGroupRoomNames.length > 0 ? `
                             <div style="background: linear-gradient(45deg, #e8f4f8, #fdf2f2); padding: 6px; border-radius: 4px; margin-top: 5px;">
                                 <strong style="font-size: 12px;">🟡 Group Location:</strong>
-                                <p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #27ae60;">${groupSmallGroupRoomNames.join(', ')}</p>
+                                <p style="font-size: 10px; margin: 2px 0 0 0; font-weight: bold; color: #2e7d32;">${groupSmallGroupRoomNames.join(', ')}</p>
                             </div>
                         ` : `<div style="background: #fff3cd; padding: 4px; border-radius: 4px; margin-top: 5px; text-align: center;">
                             <p style="font-size: 10px; color: #856404; margin: 0; font-weight: bold;">❌ No small group location assigned</p>
@@ -1076,6 +1056,7 @@
                 const mealColor = appData.mealColorAssignments[group.id];
                 const mealColorStyle = getMealColorStyle(mealColor);
                 const seminarian = group.seminarianSgl || '';
+                const isOffCampus = group.stayingOffCampus || false;
                 
                 const row = tbody.insertRow();
                 row.innerHTML = `
@@ -1084,6 +1065,7 @@
                     <td>${group.leader}</td>
                     <td>${group.phone}</td>
                     <td><strong>${total}</strong></td>
+                    <td>${isOffCampus ? '<span style="background: #e67e22; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold;">🏕️ YES</span>' : '<span style="color: #6c757d; font-size: 11px;">No</span>'}</td>
                     <td style="font-size: 11px; font-style: italic;">${seminarian || 'Not assigned'}</td>
                     <td>${mealColor ? `<span style="background: ${mealColorStyle.background}; color: ${mealColorStyle.color}; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;">${mealColorStyle.text}</span>` : '<span style="color: #6c757d;">No Color</span>'}</td>
                     <td><span class="assignment-status ${isAssigned ? 'status-assigned' : 'status-unassigned'}">${isAssigned ? '✅ Assigned' : '❌ Unassigned'}</span></td>
@@ -1184,6 +1166,7 @@
                 group.parish.toLowerCase().includes(searchTerm) ||
                 group.id.toLowerCase().includes(searchTerm) ||
                 group.leader.toLowerCase().includes(searchTerm) ||
+                group.phone.toLowerCase().includes(searchTerm) ||
                 (group.seminarianSgl && group.seminarianSgl.toLowerCase().includes(searchTerm))
             );
             
