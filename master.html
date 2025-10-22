@@ -2155,7 +2155,7 @@
         }
 
         function generatePDFViewForGroups(groupsToGenerate) {
-            if (appData.youthGroups.length === 0) {
+            if (!groupsToGenerate || groupsToGenerate.length === 0) {
                 alert('No youth groups to generate forms for!');
                 return;
             }
@@ -2163,8 +2163,8 @@
             // Create a new window with print-optimized content
             const printWindow = window.open('', '_blank');
             
-            // Sort groups alphabetically
-            const sortedGroups = [...appData.youthGroups].sort((a, b) => 
+            // Sort the provided groups alphabetically
+            const sortedGroups = [...groupsToGenerate].sort((a, b) => 
                 a.parish.localeCompare(b.parish)
             );
 
@@ -2256,6 +2256,12 @@
                             background: #fff0f6;
                             border-left-color: #9b59b6;
                         }
+                        .off-campus-box {
+                            background: #fff3cd;
+                            border-left-color: #e67e22;
+                            text-align: center;
+                            padding: 15px;
+                        }
                         .small-group-box {
                             background: #f0f8ff;
                             border-left-color: #27ae60;
@@ -2265,6 +2271,14 @@
                             padding: 10px;
                             border-radius: 4px;
                             border-left: 4px solid #f1c40f;
+                            margin: 8px 0;
+                            white-space: pre-line;
+                        }
+                        .general-info-box {
+                            background: #e3f2fd;
+                            padding: 10px;
+                            border-radius: 4px;
+                            border-left: 4px solid #2196f3;
                             margin: 8px 0;
                             white-space: pre-line;
                         }
@@ -2303,6 +2317,7 @@
                 const mealColor = appData.mealColorAssignments[group.id] || 'Not Assigned';
                 const mealSchedule = getMealScheduleText(group.id);
                 const groupNote = appData.groupNotes[group.id] || '';
+                const isOffCampus = group.stayingOffCampus || false;
 
                 printHTML += `
                     <div class="form-container ${index < sortedGroups.length - 1 ? 'page-break' : ''}">
@@ -2353,14 +2368,21 @@
                         </div>
 
                         <div class="section-header">🏠 HOUSING ASSIGNMENTS</div>
-                        <div>
-                            <div class="field-label">Male Housing:</div>
-                            <div class="housing-box male-housing">${maleHousing}</div>
-                        </div>
-                        <div>
-                            <div class="field-label">Female Housing:</div>
-                            <div class="housing-box female-housing">${femaleHousing}</div>
-                        </div>
+                        ${isOffCampus ? `
+                            <div class="housing-box off-campus-box">
+                                <strong style="font-size: 16pt; color: #856404;">🏕️ OFF-CAMPUS HOUSING</strong>
+                                <p style="margin: 5px 0 0 0; color: #856404;">This group is staying off-campus</p>
+                            </div>
+                        ` : `
+                            <div>
+                                <div class="field-label">Male Housing:</div>
+                                <div class="housing-box male-housing">${maleHousing}</div>
+                            </div>
+                            <div>
+                                <div class="field-label">Female Housing:</div>
+                                <div class="housing-box female-housing">${femaleHousing}</div>
+                            </div>
+                        `}
 
                         <div style="margin-top: 15px;">
                             <div class="field-label">👥 Small Group Room Assignment:</div>
