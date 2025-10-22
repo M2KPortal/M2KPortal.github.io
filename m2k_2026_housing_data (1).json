@@ -1,77 +1,627 @@
 {
   "youthGroups": [
     {
-      "id": "4",
-      "parish": "St. Leo the Great Parish",
-      "leader": "Buchheit, Grace",
-      "seminarianSgl": "John Mark",
-      "phone": "301 703-0497",
-      "maleTeens": 27,
-      "femaleTeens": 27,
-      "maleChaperones": 3,
-      "femaleChaperones": 3,
-      "specialAccommodations": ""
-    },
-    {
-      "id": "5",
-      "parish": "St. John The Evangelist (OC)",
-      "leader": "Dumaliang, Sr. Leilani, MCS",
-      "seminarianSgl": "Mark DeJesus",
-      "phone": "Dumaliang, Sr. Leilani, MCS",
-      "maleTeens": 30,
-      "femaleTeens": 30,
-      "maleChaperones": 5,
-      "femaleChaperones": 5,
+      "id": "10",
+      "parish": "St Timothy Youth Ministry",
+      "leader": "Marissa  Paoletti",
+      "seminarianSgl": "",
+      "phone": "240 344-3342",
+      "maleTeens": 55,
+      "femaleTeens": 55,
+      "maleChaperones": 15,
+      "femaleChaperones": 15,
       "stayingOffCampus": true,
       "specialAccommodations": ""
     },
     {
-      "id": "6",
-      "parish": "St. Joseph's old Cathedral (OC)",
-      "leader": "Joel De Loera",
-      "seminarianSgl": "Juan Galindo",
-      "phone": "405 900-1278",
-      "maleTeens": 25,
-      "femaleTeens": 5,
-      "maleChaperones": 12,
-      "femaleChaperones": 3,
-      "stayingOffCampus": true,
-      "specialAccommodations": ""
-    },
-    {
-      "id": "7",
-      "parish": "Our Lady of Knotts",
-      "leader": "Sal Devito",
-      "seminarianSgl": "George Castiglia",
-      "phone": "1248923",
+      "id": "11",
+      "parish": "St Ann Church- Hagerstown",
+      "leader": "Lisa  Noel",
+      "seminarianSgl": "",
+      "phone": "240 674-5325",
       "maleTeens": 20,
-      "femaleTeens": 40,
-      "maleChaperones": 6,
-      "femaleChaperones": 12,
-      "specialAccommodations": ""
-    },
-    {
-      "id": "8",
-      "parish": "St John Bosco – Woodstock",
-      "leader": "William Sweeney",
-      "seminarianSgl": "Tim S",
-      "phone": "53892193",
-      "maleTeens": 14,
-      "femaleTeens": 10,
-      "maleChaperones": 5,
-      "femaleChaperones": 3,
-      "specialAccommodations": ""
-    },
-    {
-      "id": "67",
-      "parish": "St John Carroll – Bel Air",
-      "leader": "Andrew Allen",
-      "seminarianSgl": "Austin Allanis",
-      "phone": "470583012",
-      "maleTeens": 5,
       "femaleTeens": 20,
       "maleChaperones": 3,
-      "femaleChaperones": 5,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "13",
+      "parish": "St. Francis de Sales Youth Ministry",
+      "leader": "Caitlin  Orender",
+      "seminarianSgl": "",
+      "phone": "540 338-6381 x103",
+      "maleTeens": 15,
+      "femaleTeens": 15,
+      "maleChaperones": 3,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "15",
+      "parish": "Little Flower",
+      "leader": "Linda  Kueter",
+      "seminarianSgl": "",
+      "phone": "301 366-8375",
+      "maleTeens": 12,
+      "femaleTeens": 12,
+      "maleChaperones": 3,
+      "femaleChaperones": 3,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "17",
+      "parish": "Aberdeen Proving Ground Youth Group",
+      "leader": "Bernadette  Kovalsick",
+      "seminarianSgl": "",
+      "phone": "410 322-5206",
+      "maleTeens": 4,
+      "femaleTeens": 4,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "20",
+      "parish": "Tracie Doty",
+      "leader": "Tracie  Doty",
+      "seminarianSgl": "",
+      "phone": "716 695-4515",
+      "maleTeens": 3,
+      "femaleTeens": 3,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "22",
+      "parish": "St. Francis of Assisi",
+      "leader": "Francesca  Santos",
+      "seminarianSgl": "",
+      "phone": "301 258-9193",
+      "maleTeens": 2,
+      "femaleTeens": 2,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "23",
+      "parish": "St. Mary’s Catholic Church",
+      "leader": "Stephanie  Lyons",
+      "seminarianSgl": "",
+      "phone": "941 726-2545",
+      "maleTeens": 10,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "25",
+      "parish": "Our Lady of Victory Catholic Military Community",
+      "leader": "Jane  Monaghan",
+      "seminarianSgl": "",
+      "phone": "717 798-5041",
+      "maleTeens": 3,
+      "femaleTeens": 3,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "26",
+      "parish": "St. Bartholomew",
+      "leader": "Jordan  Taylor",
+      "seminarianSgl": "",
+      "phone": "443 799-7372",
+      "maleTeens": 10,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "29",
+      "parish": "Our Lady of Lavang Church",
+      "leader": "Khanh  Le",
+      "seminarianSgl": "",
+      "phone": "443 254-2804",
+      "maleTeens": 14,
+      "femaleTeens": 14,
+      "maleChaperones": 3,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "34",
+      "parish": "St Peters",
+      "leader": "Angela  Busby",
+      "seminarianSgl": "",
+      "phone": "240 449-9330",
+      "maleTeens": 4,
+      "femaleTeens": 4,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "39",
+      "parish": "St. Mark, Fallston",
+      "leader": "Thomas  Mackin",
+      "seminarianSgl": "",
+      "phone": "443 981-3190",
+      "maleTeens": 13,
+      "femaleTeens": 13,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "41",
+      "parish": "St. Agnes Catholic Church",
+      "leader": "Phillip  Szabo",
+      "seminarianSgl": "",
+      "phone": "304 822-0352",
+      "maleTeens": 4,
+      "femaleTeens": 4,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "42",
+      "parish": "St John Neumann",
+      "leader": "Martin  Begley",
+      "seminarianSgl": "",
+      "phone": "301 461-8805",
+      "maleTeens": 30,
+      "femaleTeens": 30,
+      "maleChaperones": 4,
+      "femaleChaperones": 4,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "43",
+      "parish": "St. Aloysius Church",
+      "leader": "LEONARD  WATHEN",
+      "seminarianSgl": "",
+      "phone": "301 904-1423",
+      "maleTeens": 7,
+      "femaleTeens": 7,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "44",
+      "parish": "Archbishop Curley High School",
+      "leader": "Christopher  Dudek",
+      "seminarianSgl": "",
+      "phone": "413 265-9505",
+      "maleTeens": 4,
+      "femaleTeens": 4,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "45",
+      "parish": "Ignite Youth Ministry",
+      "leader": "Chris  Wood",
+      "seminarianSgl": "",
+      "phone": "717 378-9158",
+      "maleTeens": 10,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "48",
+      "parish": "St. John University Parish (JMJ Apostolate)",
+      "leader": "Blake  Peluchette",
+      "seminarianSgl": "",
+      "phone": "304 830-2897",
+      "maleTeens": 10,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 3,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "52",
+      "parish": "St Joseph Danville",
+      "leader": "TJ  Willoughby",
+      "seminarianSgl": "",
+      "phone": "570 764-0185",
+      "maleTeens": 5,
+      "femaleTeens": 5,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "54",
+      "parish": "St. John the Beloved",
+      "leader": "Michael  Jacobeen",
+      "seminarianSgl": "",
+      "phone": "703 356-5275",
+      "maleTeens": 4,
+      "femaleTeens": 4,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "55",
+      "parish": "St John Neumann",
+      "leader": "Martin  Begley",
+      "seminarianSgl": "",
+      "phone": "301 461-8805",
+      "maleTeens": 1,
+      "femaleTeens": 1,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "12",
+      "parish": "St Joseph Youth Ministry",
+      "leader": "Sherrie  Palmateer",
+      "seminarianSgl": "",
+      "phone": "410 256-1630",
+      "maleTeens": 7,
+      "femaleTeens": 7,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "14",
+      "parish": "Saint Andrew’s",
+      "leader": "Maria  Clement",
+      "seminarianSgl": "",
+      "phone": "717 658-7993",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "16",
+      "parish": "St Joseph Youth Ministry",
+      "leader": "Sherrie  Palmateer",
+      "seminarianSgl": "",
+      "phone": "410 256-1630",
+      "maleTeens": 3,
+      "femaleTeens": 3,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "18",
+      "parish": "St. John Bosco",
+      "leader": "Letty  Reinitz",
+      "seminarianSgl": "",
+      "phone": "540 325-7940",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "19",
+      "parish": "Pastorate of St. John and St. Joseph",
+      "leader": "Megan  McQuin",
+      "seminarianSgl": "",
+      "phone": "301 662-8288",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "21",
+      "parish": "St. Mary of the Mills Catholic Church",
+      "leader": "Ali  Poteet",
+      "seminarianSgl": "",
+      "phone": "817 681-5812",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "24",
+      "parish": "The John Carroll School",
+      "leader": "Katherine  Smith",
+      "seminarianSgl": "",
+      "phone": "443 442-4606",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "27",
+      "parish": "Holy Cross Parish",
+      "leader": "Linda  Darling",
+      "seminarianSgl": "",
+      "phone": "302 233-2246",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "28",
+      "parish": "St. Mary`s Ryken High School",
+      "leader": "Emma  Davis",
+      "seminarianSgl": "",
+      "phone": "240 682-9788",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "30",
+      "parish": "Mount de Sales Academy",
+      "leader": "Madison  Bolesta",
+      "seminarianSgl": "",
+      "phone": "443 974-3570",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "31",
+      "parish": "St. Joseph`s, St. Anthony Shrine, and Our Lady of Mt. Carmel",
+      "leader": "Trinity  Baugher",
+      "seminarianSgl": "",
+      "phone": "227 203-4715",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "32",
+      "parish": "Angels of God (AOG)",
+      "leader": "Lucia  Aguilar",
+      "seminarianSgl": "",
+      "phone": "240 726-3564",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "33",
+      "parish": "St Jane DeChantal High School Youth Group",
+      "leader": "Debbie  Okim",
+      "seminarianSgl": "",
+      "phone": "703 864-7788",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "35",
+      "parish": "St. John the Evangelist",
+      "leader": "Elsa  Gomez",
+      "seminarianSgl": "",
+      "phone": "202 294-0673",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "36",
+      "parish": "St. Dennis Galena",
+      "leader": "Jennifer  Hinton",
+      "seminarianSgl": "",
+      "phone": "410 739-5051",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "37",
+      "parish": "St. Raymond of Penafort",
+      "leader": "Jeanne  Sause",
+      "seminarianSgl": "",
+      "phone": "571 334-9890",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "38",
+      "parish": "St. John Westminster",
+      "leader": "Sarah  Burger",
+      "seminarianSgl": "",
+      "phone": "443 289-6311",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "40",
+      "parish": "St. Peter the Apostle Roman Catholic Church",
+      "leader": "Alec  Parker",
+      "seminarianSgl": "",
+      "phone": "240 397-3455",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "46",
+      "parish": "Saint Joseph - Eldersburg",
+      "leader": "Daniel  Rosa",
+      "seminarianSgl": "",
+      "phone": "210 417-7141",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "47",
+      "parish": "St. Patrick/St. Raphael",
+      "leader": "Mike  McHugh",
+      "seminarianSgl": "",
+      "phone": "215 870-2792",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "49",
+      "parish": "Sacred Heart Bowie",
+      "leader": "Danny  Baxter",
+      "seminarianSgl": "",
+      "phone": "207 415-5216",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "50",
+      "parish": "Sacred Heart Bowie",
+      "leader": "Danny  Baxter",
+      "seminarianSgl": "",
+      "phone": "207 415-5216",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "51",
+      "parish": "St. Vincent DePaul",
+      "leader": "Bryan  Tedeschi",
+      "seminarianSgl": "",
+      "phone": "240 520-6950",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "53",
+      "parish": "Mother of God Community",
+      "leader": "Darwin  Rigel",
+      "seminarianSgl": "",
+      "phone": "703 819-0438",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "56",
+      "parish": "St. Martin of Tours",
+      "leader": "David  Guillen",
+      "seminarianSgl": "",
+      "phone": "240 421-3627",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "3",
+      "parish": "Immaculate Conception MSMS",
+      "leader": "Issac Cross",
+      "seminarianSgl": "Anthony C.",
+      "phone": "123 123 1234",
+      "maleTeens": 10,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
       "specialAccommodations": ""
     }
   ],
@@ -459,58 +1009,155 @@
   ],
   "housingAssignments": {
     "male": {
-      "4": [
+      "3": [
         "Knott Academic Center-320"
       ],
-      "5": [
+      "10": [
         "Off Campus-Male"
       ],
-      "6": [
+      "11": [
         "Off Campus-Male"
       ],
-      "7": [
-        "Knott Academic Center-108"
+      "13": [
+        "Off Campus-Male"
       ],
-      "8": [
-        "Knott Academic Center-104"
+      "15": [
+        "Off Campus-Male"
+      ],
+      "17": [
+        "Off Campus-Male"
+      ],
+      "20": [
+        "Off Campus-Male"
+      ],
+      "22": [
+        "Off Campus-Male"
+      ],
+      "23": [
+        "Off Campus-Male"
+      ],
+      "25": [
+        "Off Campus-Male"
+      ],
+      "26": [
+        "Off Campus-Male"
+      ],
+      "29": [
+        "Off Campus-Male"
+      ],
+      "34": [
+        "Off Campus-Male"
+      ],
+      "39": [
+        "Off Campus-Male"
+      ],
+      "41": [
+        "Off Campus-Male"
+      ],
+      "42": [
+        "Off Campus-Male"
+      ],
+      "43": [
+        "Off Campus-Male"
+      ],
+      "44": [
+        "Off Campus-Male"
+      ],
+      "45": [
+        "Off Campus-Male"
+      ],
+      "48": [
+        "Off Campus-Male"
+      ],
+      "52": [
+        "Off Campus-Male"
+      ],
+      "54": [
+        "Off Campus-Male"
+      ],
+      "55": [
+        "Off Campus-Male"
       ]
     },
     "female": {
-      "4": [
+      "3": [
         "ARCC-GYM FLOOR"
       ],
-      "5": [
+      "10": [
         "Off Campus-Female"
       ],
-      "6": [
+      "11": [
         "Off Campus-Female"
       ],
-      "7": [
-        "ARCC-GYM FLOOR"
+      "13": [
+        "Off Campus-Female"
       ],
-      "8": [
-        "ARCC-GYM FLOOR"
+      "15": [
+        "Off Campus-Female"
+      ],
+      "17": [
+        "Off Campus-Female"
+      ],
+      "20": [
+        "Off Campus-Female"
+      ],
+      "22": [
+        "Off Campus-Female"
+      ],
+      "23": [
+        "Off Campus-Female"
+      ],
+      "25": [
+        "Off Campus-Female"
+      ],
+      "26": [
+        "Off Campus-Female"
+      ],
+      "29": [
+        "Off Campus-Female"
+      ],
+      "34": [
+        "Off Campus-Female"
+      ],
+      "39": [
+        "Off Campus-Female"
+      ],
+      "41": [
+        "Off Campus-Female"
+      ],
+      "42": [
+        "Off Campus-Female"
+      ],
+      "43": [
+        "Off Campus-Female"
+      ],
+      "44": [
+        "Off Campus-Female"
+      ],
+      "45": [
+        "Off Campus-Female"
+      ],
+      "48": [
+        "Off Campus-Female"
+      ],
+      "52": [
+        "Off Campus-Female"
+      ],
+      "54": [
+        "Off Campus-Female"
+      ],
+      "55": [
+        "Off Campus-Female"
       ]
     }
   },
   "smallGroupAssignments": {
-    "4": [
-      "Knott Academic Center-327"
-    ],
-    "5": [
-      "Knott Academic Center-300- Lobby"
-    ],
-    "6": [
-      "Knott Academic Center-200- Lobby"
-    ],
-    "7": [
-      "Knott Academic Center-308"
-    ],
-    "8": [
-      "Knott Academic Center-3rd Floor Lobby"
+    "3": [
+      "Knott Academic Center-320"
     ]
   },
   "mealColorAssignments": {
+    "3": "Blue",
     "4": "Green",
     "5": "Yellow",
     "6": "Green",
@@ -579,9 +1226,10 @@
   "defaultNotes": {
     "housingNotes": "Chaperone and Participant Sleeping Arrangements\nFor safety and supervision purposes, the following sleeping arrangements are mandatory:\nSeparation Requirements:\nChaperones and participants under 18 must maintain separate sleeping quarters at all times.\n\nKnott Academic Center Arrangements:\n   Chaperones assigned to participants housed in the Knott Academic Center shall sleep in designated areas outside the rooms occupied by their assigned participants.\n   This arrangement ensures proper supervision while maintaining appropriate boundaries.\n\nGender-Specific Accommodations:\n   Female chaperones will be provided with designated sleeping areas separate from participants.\n   Adult participants (18 and over) will be housed in separate designated areas from minor participants.\n\nSafety Protocol:\nThese arrangements are implemented to ensure a safe and appropriate environment for all participants and comply with youth protection guidelines.",
     "teenShowerPlan": "Female participants UNDER 18 may use the shower facilities in the lower concourse of the ARCC, including both the General Locker Rooms and Staff Locker Rooms.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants UNDER 18 may use the shower facilities in the Art Theater building.\nAvailable times: Saturday and Sunday mornings: 5:30 AM - 7:30 AM\nTransportation: ONLY ONE group will depart at 5:35 AM from the Knott Academic Center lobby",
-    "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
+    "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM",
+    "generalInfo": "This is something generic for everyone to have."
   },
   "groupNotes": {},
-  "timestamp": "2025-10-17T20:22:28.825Z",
+  "timestamp": "2025-10-22T16:46:04.622Z",
   "version": "3.0"
 }
