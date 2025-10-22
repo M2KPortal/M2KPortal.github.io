@@ -2087,13 +2087,6 @@
                             <div class="notes-box" style="background: ${getColorForMealAssignment(mealColor)}; color: white; border-left-color: ${getColorForMealAssignment(mealColor)};">${mealSchedule}</div>
                         </div>
 
-                        ${appData.defaultNotes.generalInfo ? `
-                            <div style="margin-top: 15px;">
-                                <div class="field-label">ℹ️ General Information:</div>
-                                <div class="general-info-box">${appData.defaultNotes.generalInfo}</div>
-                            </div>
-                        ` : ''}
-
                         ${!isOffCampus && appData.defaultNotes.housingNotes ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">📝 Housing Notes/Information:</div>
@@ -2112,6 +2105,13 @@
                             <div style="margin-top: 15px;">
                                 <div class="field-label">🚿 Adult Chaperone Shower Plan:</div>
                                 <div class="notes-box" style="background: #f3e5f5; border-left-color: #9b59b6;">${appData.defaultNotes.adultShowerPlan}</div>
+                            </div>
+                        ` : ''}
+
+                        ${appData.defaultNotes.generalInfo ? `
+                            <div style="margin-top: 15px;">
+                                <div class="field-label">ℹ️ General Information:</div>
+                                <div class="general-info-box">${appData.defaultNotes.generalInfo}</div>
                             </div>
                         ` : ''}
 
@@ -2372,24 +2372,31 @@
                             <div class="notes-box" style="background: ${getColorForMealAssignment(mealColor)}; color: white; border-left-color: ${getColorForMealAssignment(mealColor)};">${mealSchedule}</div>
                         </div>
 
-                        ${appData.defaultNotes.housingNotes ? `
+                        ${!isOffCampus && appData.defaultNotes.housingNotes ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">📝 Housing Notes/Information:</div>
                                 <div class="notes-box">${appData.defaultNotes.housingNotes}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.teenShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.teenShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">🚿 Teen Shower Plan:</div>
                                 <div class="notes-box" style="background: #e8f5e9; border-left-color: #27ae60;">${appData.defaultNotes.teenShowerPlan}</div>
                             </div>
                         ` : ''}
 
-                        ${appData.defaultNotes.adultShowerPlan ? `
+                        ${!isOffCampus && appData.defaultNotes.adultShowerPlan ? `
                             <div style="margin-top: 15px;">
                                 <div class="field-label">🚿 Adult Chaperone Shower Plan:</div>
                                 <div class="notes-box" style="background: #f3e5f5; border-left-color: #9b59b6;">${appData.defaultNotes.adultShowerPlan}</div>
+                            </div>
+                        ` : ''}
+
+                        ${appData.defaultNotes.generalInfo ? `
+                            <div style="margin-top: 15px;">
+                                <div class="field-label">ℹ️ General Information:</div>
+                                <div class="general-info-box">${appData.defaultNotes.generalInfo}</div>
                             </div>
                         ` : ''}
 
@@ -2467,7 +2474,15 @@
                     Brown: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
                     Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
                 };
-                appData.defaultNotes = data.defaultNotes || { generalInfo: '', housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
+                
+                // Ensure defaultNotes has all fields, including new generalInfo field
+                appData.defaultNotes = {
+                    generalInfo: data.defaultNotes?.generalInfo || '',
+                    housingNotes: data.defaultNotes?.housingNotes || '',
+                    teenShowerPlan: data.defaultNotes?.teenShowerPlan || '',
+                    adultShowerPlan: data.defaultNotes?.adultShowerPlan || ''
+                };
+                
                 appData.groupNotes = data.groupNotes || {};
                 
                 console.log('✅ Data loaded successfully from JSON file');
