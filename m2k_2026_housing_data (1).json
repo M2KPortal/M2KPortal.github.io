@@ -1163,6 +1163,9 @@
     "6": "Green",
     "7": "Purple",
     "8": "Red",
+    "10": "Blue",
+    "11": "Red",
+    "13": "Red",
     "67": "Red"
   },
   "mealTimes": {
@@ -1224,12 +1227,12 @@
     }
   },
   "defaultNotes": {
+    "generalInfo": "This is something generic for everyone to have.",
     "housingNotes": "Chaperone and Participant Sleeping Arrangements\nFor safety and supervision purposes, the following sleeping arrangements are mandatory:\nSeparation Requirements:\nChaperones and participants under 18 must maintain separate sleeping quarters at all times.\n\nKnott Academic Center Arrangements:\n   Chaperones assigned to participants housed in the Knott Academic Center shall sleep in designated areas outside the rooms occupied by their assigned participants.\n   This arrangement ensures proper supervision while maintaining appropriate boundaries.\n\nGender-Specific Accommodations:\n   Female chaperones will be provided with designated sleeping areas separate from participants.\n   Adult participants (18 and over) will be housed in separate designated areas from minor participants.\n\nSafety Protocol:\nThese arrangements are implemented to ensure a safe and appropriate environment for all participants and comply with youth protection guidelines.",
     "teenShowerPlan": "Female participants UNDER 18 may use the shower facilities in the lower concourse of the ARCC, including both the General Locker Rooms and Staff Locker Rooms.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants UNDER 18 may use the shower facilities in the Art Theater building.\nAvailable times: Saturday and Sunday mornings: 5:30 AM - 7:30 AM\nTransportation: ONLY ONE group will depart at 5:35 AM from the Knott Academic Center lobby",
-    "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM",
-    "generalInfo": "This is something generic for everyone to have."
+    "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
   },
   "groupNotes": {},
-  "timestamp": "2025-10-22T16:46:04.622Z",
+  "timestamp": "2025-10-24T17:26:36.636Z",
   "version": "3.0"
 }

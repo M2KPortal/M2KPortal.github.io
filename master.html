@@ -4484,14 +4484,14 @@
         function saveData() {
             const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
             const dataStr = JSON.stringify(data, null, 2);
-
+            
             // Download as JSON file
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
             link.download = 'm2k_2026_housing_data.json';
             link.click();
-
+            
             alert('✅ Data saved successfully as JSON file!');
         }
 
