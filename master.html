@@ -31,11 +31,32 @@
             border-radius: 10px;
             margin-bottom: 20px;
             text-align: center;
+            position: relative;
         }
 
         .header h1 {
             margin-bottom: 8px;
             font-size: 2.2em;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Tab System */
@@ -570,6 +591,7 @@
 
     <div id="main-content" class="container">
         <div class="header">
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
             <h1>Mount 2K Housing Management System</h1>
             <p>Mount St. Mary's University - Comprehensive Housing Solution</p>
         </div>
@@ -5003,6 +5025,17 @@
 
             // Set session authentication
             sessionStorage.setItem('authenticated', 'true');
+        }
+
+        function logout() {
+            // Clear session
+            sessionStorage.removeItem('authenticated');
+
+            // Show success message
+            alert('✅ Logout successful!\n\nRedirecting to dashboard...');
+
+            // Redirect to index.html
+            window.location.href = 'https://m2kportal.github.io/index.html';
         }
 
         async function initPasswordSystem() {

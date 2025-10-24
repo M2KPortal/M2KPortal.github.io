@@ -395,6 +395,32 @@
             margin-left: 10px;
         }
 
+        /* Login Button */
+        .header {
+            position: relative;
+        }
+
+        .login-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -481,6 +507,7 @@
 
     <div class="container" id="main-container" style="display: none;">
         <div class="header">
+            <a href="https://m2kportal.github.io/master.html" class="login-btn">🔐 Login to Edit</a>
             <h1>Mount 2000 Assignment Dashboard</h1>
             <h2>Housing and Small Group Room Assignments - 2026 <span id="data-version-badge" class="version-badge"></span></h2>
         </div>
@@ -657,6 +684,37 @@
         };
 
         let currentDataVersion = 0;
+        let dataTimestamp = null;
+
+        // ===== UTILITY FUNCTIONS =====
+        function formatRelativeTime(timestamp) {
+            if (!timestamp) return '';
+
+            const now = new Date();
+            const updateTime = new Date(timestamp);
+            const diffMs = now - updateTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            // Same day - show relative time
+            if (diffDays === 0) {
+                if (diffMins < 1) return 'just now';
+                if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+            }
+
+            // Different day - show full date
+            const options = {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            };
+            return updateTime.toLocaleDateString('en-US', options);
+        }
 
         // ===== SYSTEM INITIALIZATION =====
         async function initializeSystem() {
@@ -667,8 +725,9 @@
                 document.getElementById('main-container').style.display = 'block';
                 
                 const versionBadge = document.getElementById('data-version-badge');
-                if (versionBadge && currentDataVersion > 0) {
-                    versionBadge.textContent = `Data v${currentDataVersion}`;
+                if (versionBadge && dataTimestamp) {
+                    const timeText = formatRelativeTime(dataTimestamp);
+                    versionBadge.textContent = `Last Updated: ${timeText}`;
                 }
                 
                 updateAllDisplays();
@@ -719,9 +778,10 @@
                 
                 const response = await fetch(filename);
                 const data = await response.json();
-                
+
                 currentDataVersion = foundVersion;
-                
+                dataTimestamp = data.timestamp || new Date().toISOString();
+
                 appData.youthGroups = data.youthGroups || [];
                 appData.housingRooms = data.housingRooms || [];
                 appData.smallGroupRooms = data.smallGroupRooms || [];
