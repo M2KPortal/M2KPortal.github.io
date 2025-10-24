@@ -4928,6 +4928,23 @@
         }
 
         // ===== PASSWORD PROTECTION =====
+        let systemConfig = null;
+
+        async function loadSystemConfig() {
+            try {
+                const response = await fetch('m2k_config.json');
+                if (!response.ok) {
+                    throw new Error('Config file not found');
+                }
+                systemConfig = await response.json();
+                return systemConfig;
+            } catch (error) {
+                console.error('Error loading config:', error);
+                // Fallback to localStorage if config file not available
+                return null;
+            }
+        }
+
         async function hashPassword(password) {
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
@@ -4941,7 +4958,6 @@
             const input = document.getElementById('password-input');
             const errorDiv = document.getElementById('password-error');
             const setupMode = document.getElementById('password-setup-mode');
-            const btnText = document.getElementById('password-btn-text');
 
             const enteredPassword = input.value.trim();
 
@@ -4951,28 +4967,45 @@
                 return;
             }
 
-            const storedHash = localStorage.getItem('systemPasswordHash');
             const hashedInput = await hashPassword(enteredPassword);
 
-            // First time setup
-            if (!storedHash) {
-                localStorage.setItem('systemPasswordHash', hashedInput);
-                unlockSystem();
-                return;
-            }
+            // Check against centralized config from GitHub
+            if (systemConfig && systemConfig.passwordHash) {
+                if (hashedInput === systemConfig.passwordHash) {
+                    unlockSystem();
+                } else {
+                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                    errorDiv.style.display = 'block';
+                    input.value = '';
+                    input.focus();
 
-            // Check password
-            if (hashedInput === storedHash) {
-                unlockSystem();
+                    // Shake animation
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => input.style.animation = '', 500);
+                }
             } else {
-                errorDiv.textContent = '❌ Incorrect password. Please try again.';
-                errorDiv.style.display = 'block';
-                input.value = '';
-                input.focus();
+                // Fallback to localStorage if config not loaded
+                const storedHash = localStorage.getItem('systemPasswordHash');
 
-                // Shake animation
-                input.style.animation = 'shake 0.5s';
-                setTimeout(() => input.style.animation = '', 500);
+                if (!storedHash) {
+                    // First time setup
+                    localStorage.setItem('systemPasswordHash', hashedInput);
+                    unlockSystem();
+                    return;
+                }
+
+                if (hashedInput === storedHash) {
+                    unlockSystem();
+                } else {
+                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                    errorDiv.style.display = 'block';
+                    input.value = '';
+                    input.focus();
+
+                    // Shake animation
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => input.style.animation = '', 500);
+                }
             }
         }
 
@@ -4984,8 +5017,10 @@
             sessionStorage.setItem('authenticated', 'true');
         }
 
-        function initPasswordSystem() {
-            const storedHash = localStorage.getItem('systemPasswordHash');
+        async function initPasswordSystem() {
+            // Load config from GitHub
+            await loadSystemConfig();
+
             const setupMode = document.getElementById('password-setup-mode');
             const btnText = document.getElementById('password-btn-text');
             const input = document.getElementById('password-input');
@@ -4996,15 +5031,33 @@
                 return;
             }
 
-            if (!storedHash) {
-                // First time setup
-                setupMode.style.display = 'block';
-                btnText.textContent = '✅ Create Password';
-                input.placeholder = 'Create a strong password';
-            } else {
+            if (systemConfig && systemConfig.passwordHash) {
+                // Using centralized password from config
                 setupMode.style.display = 'none';
                 btnText.textContent = '🔓 Unlock';
                 input.placeholder = 'Enter password';
+
+                // Update security note to mention centralized password
+                const securityNote = document.querySelector('#password-overlay .password-container small');
+                if (securityNote) {
+                    securityNote.innerHTML = `
+                        <strong style="color: #1565c0;">🛡️ Security Note:</strong><br>
+                        This system uses a centralized password stored securely on GitHub.
+                        Contact your administrator if you need the password.
+                    `;
+                }
+            } else {
+                // Fallback to localStorage
+                const storedHash = localStorage.getItem('systemPasswordHash');
+                if (!storedHash) {
+                    setupMode.style.display = 'block';
+                    btnText.textContent = '✅ Create Password';
+                    input.placeholder = 'Create a strong password';
+                } else {
+                    setupMode.style.display = 'none';
+                    btnText.textContent = '🔓 Unlock';
+                    input.placeholder = 'Enter password';
+                }
             }
 
             input.focus();
