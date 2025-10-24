@@ -534,20 +534,8 @@
                 <button class="btn btn-warning" onclick="loadData()">📂 Load Data</button>
                 <button class="btn btn-primary" onclick="exportCompleteHTML()">🌐 Export Complete HTML Site</button>
                 <input type="file" id="load-file" accept=".json" style="display: none;" onchange="handleLoadFile(event)">
-            </div>
-
-            <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; border: 2px solid #4CAF50;">
-                <h3 style="margin-bottom: 10px; color: #2e7d32;">🔄 GitHub Auto-Save</h3>
-                <button id="save-github-btn" class="btn" onclick="saveToGitHub()"
-                        style="background: #2e7d32; color: white; font-size: 16px; padding: 12px 24px; margin-right: 10px;">
-                    🔄 Save to GitHub
-                </button>
-                <button class="btn" onclick="showGitHubSettings()"
-                        style="background: #666; color: white; padding: 12px 24px;">
-                    ⚙️ GitHub Settings
-                </button>
-                <p style="font-size: 12px; color: #2e7d32; margin-top: 10px;">
-                    💡 Configure GitHub settings once, then automatically save changes with one click!
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                    💡 Tip: Click "Save Data (JSON)" to download, then rename to "m2k_2026_housing_data (1).json" and upload to GitHub with the HTML file
                 </p>
             </div>
 
@@ -4339,192 +4327,15 @@
         function saveData() {
             const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
             const dataStr = JSON.stringify(data, null, 2);
-
+            
             // Download as JSON file
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
             link.download = 'm2k_2026_housing_data.json';
             link.click();
-
+            
             alert('✅ Data saved successfully as JSON file!');
-        }
-
-        // ===== GITHUB API INTEGRATION =====
-        function getGitHubSettings() {
-            const settings = localStorage.getItem('githubSettings');
-            return settings ? JSON.parse(settings) : {
-                token: '',
-                owner: '',
-                repo: '',
-                branch: 'main',
-                filePath: 'm2k_2026_housing_data (1).json'
-            };
-        }
-
-        function saveGitHubSettings(settings) {
-            localStorage.setItem('githubSettings', JSON.stringify(settings));
-        }
-
-        async function saveToGitHub() {
-            const settings = getGitHubSettings();
-
-            // Validate settings
-            if (!settings.token || !settings.owner || !settings.repo) {
-                alert('⚠️ Please configure GitHub settings first!\n\nGo to the Dashboard tab and fill in:\n• GitHub Token\n• Repository Owner\n• Repository Name');
-                return;
-            }
-
-            const saveBtn = document.getElementById('save-github-btn');
-            if (saveBtn) {
-                saveBtn.disabled = true;
-                saveBtn.textContent = '⏳ Saving to GitHub...';
-            }
-
-            try {
-                // Prepare data
-                const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
-                const dataStr = JSON.stringify(data, null, 2);
-                const content = btoa(unescape(encodeURIComponent(dataStr))); // Base64 encode
-
-                // Get current file SHA (required for updates)
-                const getUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/${settings.filePath}?ref=${settings.branch}`;
-                const getResponse = await fetch(getUrl, {
-                    headers: {
-                        'Authorization': `token ${settings.token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-
-                let sha = null;
-                if (getResponse.ok) {
-                    const fileData = await getResponse.json();
-                    sha = fileData.sha;
-                }
-
-                // Update or create file
-                const updateUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/${settings.filePath}`;
-                const updateResponse = await fetch(updateUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${settings.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: `Update housing data - ${new Date().toLocaleString()}`,
-                        content: content,
-                        branch: settings.branch,
-                        ...(sha && { sha: sha })
-                    })
-                });
-
-                if (updateResponse.ok) {
-                    const result = await updateResponse.json();
-                    alert('✅ Data saved to GitHub successfully!\n\nCommit: ' + result.commit.sha.substring(0, 7));
-                } else {
-                    const error = await updateResponse.json();
-                    throw new Error(error.message || 'Failed to save to GitHub');
-                }
-            } catch (error) {
-                console.error('GitHub save error:', error);
-                alert('❌ Failed to save to GitHub:\n\n' + error.message + '\n\nPlease check:\n• Your GitHub token is valid\n• Token has repo permissions\n• Repository details are correct');
-            } finally {
-                if (saveBtn) {
-                    saveBtn.disabled = false;
-                    saveBtn.textContent = '🔄 Save to GitHub';
-                }
-            }
-        }
-
-        function showGitHubSettings() {
-            const settings = getGitHubSettings();
-
-            const html = `
-                <div style="background: white; padding: 30px; border-radius: 10px; max-width: 600px; margin: 20px auto;">
-                    <h2 style="margin-bottom: 20px; color: #061d28;">⚙️ GitHub Auto-Save Settings</h2>
-
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">GitHub Personal Access Token:</label>
-                        <input type="password" id="github-token" value="${settings.token}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                        <small style="color: #666;">Create at: https://github.com/settings/tokens (needs 'repo' scope)</small>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Repository Owner:</label>
-                        <input type="text" id="github-owner" value="${settings.owner}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="username or organization">
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Repository Name:</label>
-                        <input type="text" id="github-repo" value="${settings.repo}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="repository-name">
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Branch:</label>
-                        <input type="text" id="github-branch" value="${settings.branch}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="main">
-                    </div>
-
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">JSON File Path:</label>
-                        <input type="text" id="github-filepath" value="${settings.filePath}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="m2k_2026_housing_data (1).json">
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="saveGitHubSettingsFromModal()" class="btn btn-success" style="flex: 1;">
-                            💾 Save Settings
-                        </button>
-                        <button onclick="closeGitHubSettings()" class="btn btn-secondary" style="flex: 1;">
-                            Cancel
-                        </button>
-                    </div>
-
-                    <div style="margin-top: 20px; padding: 15px; background: #e7f3ff; border-radius: 5px; border-left: 4px solid #2196F3;">
-                        <strong>📖 How to use:</strong>
-                        <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
-                            <li>Create a GitHub Personal Access Token at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a></li>
-                            <li>Select "repo" scope (full control of private repositories)</li>
-                            <li>Fill in your repository details above</li>
-                            <li>Click "Save to GitHub" button to automatically commit changes</li>
-                        </ol>
-                    </div>
-                </div>
-            `;
-
-            const modal = document.createElement('div');
-            modal.id = 'github-settings-modal';
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; overflow-y: auto; padding: 20px;';
-            modal.innerHTML = html;
-            document.body.appendChild(modal);
-        }
-
-        function saveGitHubSettingsFromModal() {
-            const settings = {
-                token: document.getElementById('github-token').value,
-                owner: document.getElementById('github-owner').value,
-                repo: document.getElementById('github-repo').value,
-                branch: document.getElementById('github-branch').value || 'main',
-                filePath: document.getElementById('github-filepath').value || 'm2k_2026_housing_data (1).json'
-            };
-
-            saveGitHubSettings(settings);
-            closeGitHubSettings();
-            alert('✅ GitHub settings saved!\n\nYou can now use "Save to GitHub" to automatically commit changes.');
-        }
-
-        function closeGitHubSettings() {
-            const modal = document.getElementById('github-settings-modal');
-            if (modal) modal.remove();
         }
 
         function loadData() {
