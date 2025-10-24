@@ -421,10 +421,154 @@
                 background: white;
             }
         }
+
+        /* Password Protection Styles */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #061d28, #0f3a4a);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .password-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-container h1 {
+            color: #061d28;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .password-container p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .password-input-group {
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #0f3a4a;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 15px;
+            background: #061d28;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .password-btn:hover {
+            background: #0f3a4a;
+        }
+
+        .password-error {
+            color: #d32f2f;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .password-setup {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .password-setup h3 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .password-setup p {
+            color: #856404;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        #main-content.unlocked {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+        <div class="password-container">
+            <h1>🔒 Secure Access</h1>
+            <p>Mount 2K Housing Management System</p>
+
+            <div id="password-setup-mode" class="password-setup" style="display: none;">
+                <h3>⚙️ First Time Setup</h3>
+                <p>Create a password to protect this system</p>
+            </div>
+
+            <div class="password-input-group">
+                <input type="password"
+                       id="password-input"
+                       class="password-input"
+                       placeholder="Enter password"
+                       onkeypress="if(event.key==='Enter') checkPassword()">
+            </div>
+
+            <button class="password-btn" onclick="checkPassword()">
+                <span id="password-btn-text">🔓 Unlock</span>
+            </button>
+
+            <div id="password-error" class="password-error">
+                ❌ Incorrect password. Please try again.
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
+                <small style="color: #1565c0;">
+                    <strong>🛡️ Security Note:</strong><br>
+                    This password is stored locally in your browser. First-time users will set a new password.
+                    To reset, clear your browser's localStorage for this site.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content" class="container">
         <div class="header">
             <h1>Mount 2K Housing Management System</h1>
             <p>Mount St. Mary's University - Comprehensive Housing Solution</p>
@@ -534,8 +678,20 @@
                 <button class="btn btn-warning" onclick="loadData()">📂 Load Data</button>
                 <button class="btn btn-primary" onclick="exportCompleteHTML()">🌐 Export Complete HTML Site</button>
                 <input type="file" id="load-file" accept=".json" style="display: none;" onchange="handleLoadFile(event)">
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">
-                    💡 Tip: Click "Save Data (JSON)" to download, then rename to "m2k_2026_housing_data (1).json" and upload to GitHub with the HTML file
+            </div>
+
+            <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; border: 2px solid #4CAF50;">
+                <h3 style="margin-bottom: 10px; color: #2e7d32;">🔄 GitHub Auto-Save</h3>
+                <button id="save-github-btn" class="btn" onclick="saveToGitHub()"
+                        style="background: #2e7d32; color: white; font-size: 16px; padding: 12px 24px; margin-right: 10px;">
+                    🔄 Save to GitHub
+                </button>
+                <button class="btn" onclick="manageGitHubToken()"
+                        style="background: #666; color: white; padding: 12px 24px;">
+                    🔑 Manage Token
+                </button>
+                <p style="font-size: 12px; color: #2e7d32; margin-top: 10px;">
+                    💡 Click "Save to GitHub" - you'll be asked for your token the first time!
                 </p>
             </div>
 
@@ -1062,6 +1218,7 @@
             </div>
         </div>
     </div>
+    </div> <!-- End of main-content -->
 
     <script>
         // ===== GLOBAL VARIABLES =====
@@ -4338,6 +4495,223 @@
             alert('✅ Data saved successfully as JSON file!');
         }
 
+        // ===== GITHUB API INTEGRATION =====
+        function getGitHubSettings() {
+            const settings = localStorage.getItem('githubSettings');
+            return settings ? JSON.parse(settings) : {
+                token: '',
+                owner: 'M2KPortal',
+                repo: 'M2KPortal.github.io',
+                branch: 'main',
+                filePath: 'm2k_2026_housing_data (1).json'
+            };
+        }
+
+        function saveGitHubSettings(settings) {
+            localStorage.setItem('githubSettings', JSON.stringify(settings));
+        }
+
+        async function saveToGitHub() {
+            const settings = getGitHubSettings();
+
+            // Check if token is set, if not prompt for it
+            if (!settings.token) {
+                const token = await promptForGitHubToken();
+                if (!token) {
+                    return; // User cancelled
+                }
+                settings.token = token;
+                saveGitHubSettings(settings);
+            }
+
+            const saveBtn = document.getElementById('save-github-btn');
+            if (saveBtn) {
+                saveBtn.disabled = true;
+                saveBtn.textContent = '⏳ Saving to GitHub...';
+            }
+
+            try {
+                // Prepare data
+                const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
+                const dataStr = JSON.stringify(data, null, 2);
+                const content = btoa(unescape(encodeURIComponent(dataStr))); // Base64 encode
+
+                // Get current file SHA (required for updates)
+                const getUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/${settings.filePath}?ref=${settings.branch}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: {
+                        'Authorization': `token ${settings.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                let sha = null;
+                if (getResponse.ok) {
+                    const fileData = await getResponse.json();
+                    sha = fileData.sha;
+                }
+
+                // Update or create file
+                const updateUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/${settings.filePath}`;
+                const updateResponse = await fetch(updateUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${settings.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Update housing data - ${new Date().toLocaleString()}`,
+                        content: content,
+                        branch: settings.branch,
+                        ...(sha && { sha: sha })
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    const result = await updateResponse.json();
+                    alert('✅ Data saved to GitHub successfully!\n\nCommit: ' + result.commit.sha.substring(0, 7));
+                } else {
+                    const error = await updateResponse.json();
+                    throw new Error(error.message || 'Failed to save to GitHub');
+                }
+            } catch (error) {
+                console.error('GitHub save error:', error);
+                alert('❌ Failed to save to GitHub:\n\n' + error.message + '\n\nPlease check:\n• Your GitHub token is valid\n• Token has repo permissions\n• Repository details are correct');
+            } finally {
+                if (saveBtn) {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = '🔄 Save to GitHub';
+                }
+            }
+        }
+
+        function promptForGitHubToken() {
+            return new Promise((resolve) => {
+                const settings = getGitHubSettings();
+
+                const html = `
+                    <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: 20px auto;">
+                        <h2 style="margin-bottom: 15px; color: #061d28;">🔑 GitHub Personal Access Token</h2>
+                        <p style="color: #666; margin-bottom: 20px;">Enter your GitHub token to save changes automatically.</p>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">GitHub Personal Access Token:</label>
+                            <input type="password" id="github-token-input"
+                                   style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; box-sizing: border-box;"
+                                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                                   onkeypress="if(event.key==='Enter') document.getElementById('save-token-btn').click()">
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding: 12px; background: #e3f2fd; border-radius: 8px; font-size: 13px;">
+                            <strong style="color: #1565c0;">📍 Saving to:</strong><br>
+                            <code style="color: #0d47a1; background: white; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-top: 5px;">
+                                ${settings.owner}/${settings.repo}/${settings.filePath}
+                            </code>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <button id="save-token-btn" onclick="submitGitHubToken()" class="btn btn-success" style="flex: 1; padding: 12px;">
+                                ✅ Save Token
+                            </button>
+                            <button onclick="cancelGitHubToken()" class="btn btn-secondary" style="flex: 1; padding: 12px;">
+                                Cancel
+                            </button>
+                        </div>
+
+                        <div style="padding: 15px; background: #ffebee; border-radius: 8px; border-left: 4px solid #f44336; margin-bottom: 15px;">
+                            <strong style="color: #c62828; font-size: 14px;">🔒 Security:</strong>
+                            <ul style="margin: 8px 0 0 20px; line-height: 1.6; color: #c62828; font-size: 13px;">
+                                <li>Token stored ONLY in your browser</li>
+                                <li>Never shared or visible to others</li>
+                                <li>Only you have access to it</li>
+                            </ul>
+                        </div>
+
+                        <div style="padding: 15px; background: #e7f3ff; border-radius: 8px; border-left: 4px solid #2196F3;">
+                            <strong style="font-size: 14px;">📖 How to get a token:</strong>
+                            <ol style="margin: 8px 0 0 20px; line-height: 1.6; font-size: 13px;">
+                                <li>Go to <a href="https://github.com/settings/tokens" target="_blank" style="color: #1565c0;">github.com/settings/tokens</a></li>
+                                <li>Click "Generate new token (classic)"</li>
+                                <li>Select <strong>"repo"</strong> scope</li>
+                                <li>Copy and paste the token above</li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
+
+                const modal = document.createElement('div');
+                modal.id = 'github-token-modal';
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; overflow-y: auto; padding: 20px; display: flex; align-items: center;';
+                modal.innerHTML = html;
+                document.body.appendChild(modal);
+
+                // Focus the input
+                setTimeout(() => {
+                    const input = document.getElementById('github-token-input');
+                    if (input) input.focus();
+                }, 100);
+
+                // Store resolve function for later use
+                window._tokenPromiseResolve = resolve;
+            });
+        }
+
+        function submitGitHubToken() {
+            const input = document.getElementById('github-token-input');
+            const token = input.value.trim();
+
+            if (!token) {
+                alert('⚠️ Please enter a GitHub token');
+                return;
+            }
+
+            const modal = document.getElementById('github-token-modal');
+            if (modal) modal.remove();
+
+            if (window._tokenPromiseResolve) {
+                window._tokenPromiseResolve(token);
+                delete window._tokenPromiseResolve;
+            }
+        }
+
+        function cancelGitHubToken() {
+            const modal = document.getElementById('github-token-modal');
+            if (modal) modal.remove();
+
+            if (window._tokenPromiseResolve) {
+                window._tokenPromiseResolve(null);
+                delete window._tokenPromiseResolve;
+            }
+        }
+
+        function manageGitHubToken() {
+            const settings = getGitHubSettings();
+            const hasToken = !!settings.token;
+
+            const action = hasToken
+                ? confirm('You have a GitHub token saved.\n\nWhat would you like to do?\n\nOK = Update token\nCancel = Remove token')
+                : true;
+
+            if (action === null) return; // User clicked Cancel on confirm
+
+            if (!hasToken || action) {
+                // Update token
+                promptForGitHubToken().then(token => {
+                    if (token) {
+                        settings.token = token;
+                        saveGitHubSettings(settings);
+                        alert('✅ GitHub token saved!\n\nYou can now use "Save to GitHub" to automatically save changes.');
+                    }
+                });
+            } else {
+                // Remove token
+                settings.token = '';
+                saveGitHubSettings(settings);
+                alert('🗑️ GitHub token removed.\n\nYou will be prompted for a token next time you save.');
+            }
+        }
+
         function loadData() {
             document.getElementById('load-file').click();
         }
@@ -4553,8 +4927,105 @@
             alert('Complete HTML site exported! 🌐\n\nYou can now upload this HTML file to any web host and it will load with all your current assignments. The file includes:\n• All youth groups\n• All room assignments\n• All small group assignments\n\nJust upload the HTML file to your hosting service!');
         }
 
+        // ===== PASSWORD PROTECTION =====
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        async function checkPassword() {
+            const input = document.getElementById('password-input');
+            const errorDiv = document.getElementById('password-error');
+            const setupMode = document.getElementById('password-setup-mode');
+            const btnText = document.getElementById('password-btn-text');
+
+            const enteredPassword = input.value.trim();
+
+            if (!enteredPassword) {
+                errorDiv.textContent = '⚠️ Please enter a password';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            const storedHash = localStorage.getItem('systemPasswordHash');
+            const hashedInput = await hashPassword(enteredPassword);
+
+            // First time setup
+            if (!storedHash) {
+                localStorage.setItem('systemPasswordHash', hashedInput);
+                unlockSystem();
+                return;
+            }
+
+            // Check password
+            if (hashedInput === storedHash) {
+                unlockSystem();
+            } else {
+                errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                errorDiv.style.display = 'block';
+                input.value = '';
+                input.focus();
+
+                // Shake animation
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => input.style.animation = '', 500);
+            }
+        }
+
+        function unlockSystem() {
+            document.getElementById('password-overlay').style.display = 'none';
+            document.getElementById('main-content').classList.add('unlocked');
+
+            // Set session authentication
+            sessionStorage.setItem('authenticated', 'true');
+        }
+
+        function initPasswordSystem() {
+            const storedHash = localStorage.getItem('systemPasswordHash');
+            const setupMode = document.getElementById('password-setup-mode');
+            const btnText = document.getElementById('password-btn-text');
+            const input = document.getElementById('password-input');
+
+            // Check if already authenticated in this session
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                unlockSystem();
+                return;
+            }
+
+            if (!storedHash) {
+                // First time setup
+                setupMode.style.display = 'block';
+                btnText.textContent = '✅ Create Password';
+                input.placeholder = 'Create a strong password';
+            } else {
+                setupMode.style.display = 'none';
+                btnText.textContent = '🔓 Unlock';
+                input.placeholder = 'Enter password';
+            }
+
+            input.focus();
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                20%, 40%, 60%, 80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
         // ===== SYSTEM INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', initializeSystem);
+        document.addEventListener('DOMContentLoaded', function() {
+            initPasswordSystem();
+            initializeSystem();
+        });
     </script>
 </body>
 </html>
