@@ -407,9 +407,9 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.85em;
+            font-size: 0.75em;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -426,19 +426,26 @@
             .container {
                 padding: 8px;
             }
-            
+
             .header {
                 padding: 12px;
                 margin-bottom: 12px;
             }
-            
+
             .header h1 {
                 font-size: 1.1em;
                 margin-bottom: 4px;
             }
-            
+
             .header h2 {
                 font-size: 0.75em;
+            }
+
+            .login-btn {
+                top: 10px;
+                right: 10px;
+                padding: 4px 8px;
+                font-size: 0.7em;
             }
             
             .dashboard-stats {
@@ -515,7 +522,6 @@
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Assignment Dashboard</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
-            <button class="tab-button" onclick="switchTab('management')">Management Interface</button>
         </div>
 
         <!-- Dashboard Tab -->
@@ -554,89 +560,6 @@
             </div>
         </div>
 
-        <!-- Management Interface Tab -->
-        <div id="management" class="tab-content">
-            <h2>System Management</h2>
-
-            <div class="management-section">
-                <h3>All Youth Groups</h3>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Group ID</th>
-                                <th>Parish</th>
-                                <th>Leader</th>
-                                <th>Phone</th>
-                                <th>Total</th>
-                                <th>Off-Campus</th>
-                                <th>SGL</th>
-                                <th>Meal Color</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="youth-groups-table"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="management-section">
-                <h3>Meal Color Assignment Dashboard</h3>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Group ID</th>
-                                <th>Parish</th>
-                                <th>Leader</th>
-                                <th>Total People</th>
-                                <th>Meal Color</th>
-                                <th>Small Group Leader</th>
-                            </tr>
-                        </thead>
-                        <tbody id="meal-color-table"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="management-section">
-                <h3>All Housing Rooms</h3>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Building</th>
-                                <th>Room/Section</th>
-                                <th>Gender</th>
-                                <th>Capacity</th>
-                                <th>Available</th>
-                                <th>Assigned Groups</th>
-                            </tr>
-                        </thead>
-                        <tbody id="housing-rooms-table"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="management-section">
-                <h3>All Small Group Rooms</h3>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Building</th>
-                                <th>Room/Location</th>
-                                <th>Gender</th>
-                                <th>Capacity</th>
-                                <th>Available</th>
-                                <th>Assigned Groups</th>
-                            </tr>
-                        </thead>
-                        <tbody id="small-group-rooms-table"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -1067,8 +990,8 @@
                 return;
             }
             
-            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 15px;">';
-            
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">';
+
             appData.youthGroups.forEach(group => {
                 html += createGroupCard(group, false);
             });
@@ -1208,8 +1131,8 @@
                 return;
             }
             
-            let html = `<h3 style="color: #061d28; margin-bottom: 15px;">🔍 Search Results (${matchingGroups.length} found)</h3><div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 15px;">`;
-            
+            let html = `<h3 style="color: #061d28; margin-bottom: 15px;">🔍 Search Results (${matchingGroups.length} found)</h3><div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">`;
+
             matchingGroups.forEach(group => {
                 html += createGroupCard(group, true);
             });

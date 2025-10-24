@@ -59,6 +59,28 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
+        /* Front View Button */
+        .front-view-btn {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .front-view-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         /* Tab System */
         .tabs {
             display: flex;
@@ -592,6 +614,7 @@
     <div id="main-content" class="container">
         <div class="header">
             <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+            <a href="https://m2kportal.github.io/index.html" class="front-view-btn">👁️ Front View</a>
             <h1>Mount 2K Housing Management System</h1>
             <p>Mount St. Mary's University - Comprehensive Housing Solution</p>
         </div>
