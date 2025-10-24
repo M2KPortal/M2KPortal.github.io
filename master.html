@@ -686,12 +686,12 @@
                         style="background: #2e7d32; color: white; font-size: 16px; padding: 12px 24px; margin-right: 10px;">
                     🔄 Save to GitHub
                 </button>
-                <button class="btn" onclick="showGitHubSettings()"
+                <button class="btn" onclick="manageGitHubToken()"
                         style="background: #666; color: white; padding: 12px 24px;">
-                    ⚙️ GitHub Settings
+                    🔑 Manage Token
                 </button>
                 <p style="font-size: 12px; color: #2e7d32; margin-top: 10px;">
-                    💡 Configure GitHub settings once, then automatically save changes with one click!
+                    💡 Click "Save to GitHub" - you'll be asked for your token the first time!
                 </p>
             </div>
 
@@ -4500,8 +4500,8 @@
             const settings = localStorage.getItem('githubSettings');
             return settings ? JSON.parse(settings) : {
                 token: '',
-                owner: '',
-                repo: '',
+                owner: 'M2KPortal',
+                repo: 'M2KPortal.github.io',
                 branch: 'main',
                 filePath: 'm2k_2026_housing_data (1).json'
             };
@@ -4514,10 +4514,14 @@
         async function saveToGitHub() {
             const settings = getGitHubSettings();
 
-            // Validate settings
-            if (!settings.token || !settings.owner || !settings.repo) {
-                alert('⚠️ Please configure GitHub settings first!\n\nGo to the Dashboard tab and fill in:\n• GitHub Token\n• Repository Owner\n• Repository Name');
-                return;
+            // Check if token is set, if not prompt for it
+            if (!settings.token) {
+                const token = await promptForGitHubToken();
+                if (!token) {
+                    return; // User cancelled
+                }
+                settings.token = token;
+                saveGitHubSettings(settings);
             }
 
             const saveBtn = document.getElementById('save-github-btn');
@@ -4582,122 +4586,130 @@
             }
         }
 
-        function showGitHubSettings() {
-            const settings = getGitHubSettings();
+        function promptForGitHubToken() {
+            return new Promise((resolve) => {
+                const settings = getGitHubSettings();
 
-            const html = `
-                <div style="background: white; padding: 30px; border-radius: 10px; max-width: 600px; margin: 20px auto;">
-                    <h2 style="margin-bottom: 20px; color: #061d28;">⚙️ GitHub Auto-Save Settings</h2>
+                const html = `
+                    <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: 20px auto;">
+                        <h2 style="margin-bottom: 15px; color: #061d28;">🔑 GitHub Personal Access Token</h2>
+                        <p style="color: #666; margin-bottom: 20px;">Enter your GitHub token to save changes automatically.</p>
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">GitHub Personal Access Token:</label>
-                        <input type="password" id="github-token" value="${settings.token}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                        <small style="color: #666;">Create at: https://github.com/settings/tokens (needs 'repo' scope)</small>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">GitHub Personal Access Token:</label>
+                            <input type="password" id="github-token-input"
+                                   style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; box-sizing: border-box;"
+                                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                                   onkeypress="if(event.key==='Enter') document.getElementById('save-token-btn').click()">
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding: 12px; background: #e3f2fd; border-radius: 8px; font-size: 13px;">
+                            <strong style="color: #1565c0;">📍 Saving to:</strong><br>
+                            <code style="color: #0d47a1; background: white; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-top: 5px;">
+                                ${settings.owner}/${settings.repo}/${settings.filePath}
+                            </code>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <button id="save-token-btn" onclick="submitGitHubToken()" class="btn btn-success" style="flex: 1; padding: 12px;">
+                                ✅ Save Token
+                            </button>
+                            <button onclick="cancelGitHubToken()" class="btn btn-secondary" style="flex: 1; padding: 12px;">
+                                Cancel
+                            </button>
+                        </div>
+
+                        <div style="padding: 15px; background: #ffebee; border-radius: 8px; border-left: 4px solid #f44336; margin-bottom: 15px;">
+                            <strong style="color: #c62828; font-size: 14px;">🔒 Security:</strong>
+                            <ul style="margin: 8px 0 0 20px; line-height: 1.6; color: #c62828; font-size: 13px;">
+                                <li>Token stored ONLY in your browser</li>
+                                <li>Never shared or visible to others</li>
+                                <li>Only you have access to it</li>
+                            </ul>
+                        </div>
+
+                        <div style="padding: 15px; background: #e7f3ff; border-radius: 8px; border-left: 4px solid #2196F3;">
+                            <strong style="font-size: 14px;">📖 How to get a token:</strong>
+                            <ol style="margin: 8px 0 0 20px; line-height: 1.6; font-size: 13px;">
+                                <li>Go to <a href="https://github.com/settings/tokens" target="_blank" style="color: #1565c0;">github.com/settings/tokens</a></li>
+                                <li>Click "Generate new token (classic)"</li>
+                                <li>Select <strong>"repo"</strong> scope</li>
+                                <li>Copy and paste the token above</li>
+                            </ol>
+                        </div>
                     </div>
+                `;
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Repository Owner:</label>
-                        <input type="text" id="github-owner" value="${settings.owner}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="username or organization">
-                    </div>
+                const modal = document.createElement('div');
+                modal.id = 'github-token-modal';
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; overflow-y: auto; padding: 20px; display: flex; align-items: center;';
+                modal.innerHTML = html;
+                document.body.appendChild(modal);
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Repository Name:</label>
-                        <input type="text" id="github-repo" value="${settings.repo}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="repository-name">
-                    </div>
+                // Focus the input
+                setTimeout(() => {
+                    const input = document.getElementById('github-token-input');
+                    if (input) input.focus();
+                }, 100);
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Branch:</label>
-                        <input type="text" id="github-branch" value="${settings.branch}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="main">
-                    </div>
-
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">JSON File Path:</label>
-                        <input type="text" id="github-filepath" value="${settings.filePath}"
-                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"
-                               placeholder="m2k_2026_housing_data (1).json">
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="saveGitHubSettingsFromModal()" class="btn btn-success" style="flex: 1;">
-                            💾 Save Settings
-                        </button>
-                        <button onclick="closeGitHubSettings()" class="btn btn-secondary" style="flex: 1;">
-                            Cancel
-                        </button>
-                    </div>
-
-                    <div style="margin-top: 20px; padding: 15px; background: #ffebee; border-radius: 5px; border-left: 4px solid #f44336;">
-                        <strong style="color: #c62828;">🔒 CRITICAL SECURITY WARNING</strong>
-                        <ul style="margin: 10px 0 0 20px; line-height: 1.8; color: #c62828;">
-                            <li><strong>NEVER share your GitHub token with anyone!</strong></li>
-                            <li><strong>Your token is stored ONLY in your browser's localStorage</strong></li>
-                            <li><strong>Tokens are NOT visible to others viewing this page</strong></li>
-                        </ul>
-                    </div>
-
-                    <div style="margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ff9800;">
-                        <strong style="color: #856404;">💡 RECOMMENDED: Use a Separate Private Repository</strong>
-                        <p style="margin: 10px 0 0 0; color: #856404; line-height: 1.6;">
-                            Since your JSON file contains personal information (names, phone numbers),
-                            we recommend storing it in a <strong>separate PRIVATE repository</strong>:
-                        </p>
-                        <ol style="margin: 10px 0 0 20px; line-height: 1.8; color: #856404;">
-                            <li>Create a new private GitHub repository (e.g., "m2k-data-private")</li>
-                            <li>Move your JSON file to that private repository</li>
-                            <li>Update the settings above to point to the private repo</li>
-                            <li>Keep this HTML file in your public repository</li>
-                        </ol>
-                        <p style="margin: 10px 0 0 0; color: #856404; font-size: 13px;">
-                            <strong>Why?</strong> This keeps sensitive data private while allowing you to share the HTML page publicly.
-                        </p>
-                    </div>
-
-                    <div style="margin-top: 15px; padding: 15px; background: #e7f3ff; border-radius: 5px; border-left: 4px solid #2196F3;">
-                        <strong>📖 Setup Instructions:</strong>
-                        <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
-                            <li>Create a GitHub Personal Access Token at <a href="https://github.com/settings/tokens" target="_blank" style="color: #1565c0;">github.com/settings/tokens</a></li>
-                            <li>Click "Generate new token (classic)"</li>
-                            <li>Select <strong>"repo"</strong> scope (full control of private repositories)</li>
-                            <li>Copy the token and paste it above</li>
-                            <li>Fill in your repository details</li>
-                            <li>Click "Save Settings" - your token is stored locally and securely</li>
-                        </ol>
-                    </div>
-                </div>
-            `;
-
-            const modal = document.createElement('div');
-            modal.id = 'github-settings-modal';
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; overflow-y: auto; padding: 20px;';
-            modal.innerHTML = html;
-            document.body.appendChild(modal);
+                // Store resolve function for later use
+                window._tokenPromiseResolve = resolve;
+            });
         }
 
-        function saveGitHubSettingsFromModal() {
-            const settings = {
-                token: document.getElementById('github-token').value,
-                owner: document.getElementById('github-owner').value,
-                repo: document.getElementById('github-repo').value,
-                branch: document.getElementById('github-branch').value || 'main',
-                filePath: document.getElementById('github-filepath').value || 'm2k_2026_housing_data (1).json'
-            };
+        function submitGitHubToken() {
+            const input = document.getElementById('github-token-input');
+            const token = input.value.trim();
 
-            saveGitHubSettings(settings);
-            closeGitHubSettings();
-            alert('✅ GitHub settings saved!\n\nYou can now use "Save to GitHub" to automatically commit changes.');
-        }
+            if (!token) {
+                alert('⚠️ Please enter a GitHub token');
+                return;
+            }
 
-        function closeGitHubSettings() {
-            const modal = document.getElementById('github-settings-modal');
+            const modal = document.getElementById('github-token-modal');
             if (modal) modal.remove();
+
+            if (window._tokenPromiseResolve) {
+                window._tokenPromiseResolve(token);
+                delete window._tokenPromiseResolve;
+            }
+        }
+
+        function cancelGitHubToken() {
+            const modal = document.getElementById('github-token-modal');
+            if (modal) modal.remove();
+
+            if (window._tokenPromiseResolve) {
+                window._tokenPromiseResolve(null);
+                delete window._tokenPromiseResolve;
+            }
+        }
+
+        function manageGitHubToken() {
+            const settings = getGitHubSettings();
+            const hasToken = !!settings.token;
+
+            const action = hasToken
+                ? confirm('You have a GitHub token saved.\n\nWhat would you like to do?\n\nOK = Update token\nCancel = Remove token')
+                : true;
+
+            if (action === null) return; // User clicked Cancel on confirm
+
+            if (!hasToken || action) {
+                // Update token
+                promptForGitHubToken().then(token => {
+                    if (token) {
+                        settings.token = token;
+                        saveGitHubSettings(settings);
+                        alert('✅ GitHub token saved!\n\nYou can now use "Save to GitHub" to automatically save changes.');
+                    }
+                });
+            } else {
+                // Remove token
+                settings.token = '';
+                saveGitHubSettings(settings);
+                alert('🗑️ GitHub token removed.\n\nYou will be prompted for a token next time you save.');
+            }
         }
 
         function loadData() {
