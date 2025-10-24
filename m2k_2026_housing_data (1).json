@@ -1163,6 +1163,9 @@
     "6": "Green",
     "7": "Purple",
     "8": "Red",
+    "10": "Blue",
+    "11": "Red",
+    "13": "Red",
     "67": "Red"
   },
   "mealTimes": {
@@ -1230,6 +1233,6 @@
     "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
   },
   "groupNotes": {},
-  "timestamp": "2025-10-24T17:24:26.259Z",
+  "timestamp": "2025-10-24T17:26:36.636Z",
   "version": "3.0"
 }
