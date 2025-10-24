@@ -1239,7 +1239,7 @@
     {
       "emoji": "🗺️",
       "name": "Campus Map",
-      "url": ""
+      "url": "https://msmary.edu/about/our-campuses/files/mount-st-marys-university-emmitsburg-campus-map.pdf"
     },
     {
       "emoji": "🍽️",
@@ -1252,6 +1252,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-24T19:33:56.161Z",
+  "timestamp": "2025-10-24T22:23:05.637Z",
   "version": "3.0"
 }
