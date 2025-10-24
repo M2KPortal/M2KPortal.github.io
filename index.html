@@ -507,7 +507,7 @@
 
     <div class="container" id="main-container" style="display: none;">
         <div class="header">
-            <a href="https://m2kportal.github.io/master.html" class="login-btn">🔐 Login to Edit</a>
+            <a href="https://m2kportal.github.io/master.html" class="login-btn">🔐</a>
             <h1>Mount 2000 Assignment Dashboard</h1>
             <h2>Housing and Small Group Room Assignments - 2026 <span id="data-version-badge" class="version-badge"></span></h2>
         </div>
@@ -549,38 +549,8 @@
             <h2>Mount 2K Resources</h2>
             <p style="color: #6c757d; margin-bottom: 20px;">Quick access to important resources and information for the retreat.</p>
             
-            <div class="resource-grid">
-                <!-- Small Group Leader Resources -->
-                <div class="resource-card">
-                    <h3><span class="icon">📚</span> Small Group Leader Resources</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-
-                <!-- Map -->
-                <div class="resource-card">
-                    <h3><span class="icon">🗺️</span> Campus Map</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-
-                <!-- Meal Times -->
-                <div class="resource-card">
-                    <h3><span class="icon">🍽️</span> Meal Times</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
-
-                <!-- Schedule -->
-                <div class="resource-card">
-                    <h3><span class="icon">📅</span> Event Schedule</h3>
-                    <div class="resource-link-box">
-                        <!-- Add your link here -->
-                    </div>
-                </div>
+            <div class="resource-grid" id="resource-grid">
+                <!-- Resources loaded dynamically from JSON -->
             </div>
         </div>
 
@@ -680,7 +650,8 @@
                 female: {}
             },
             smallGroupAssignments: {},
-            mealColorAssignments: {}
+            mealColorAssignments: {},
+            resources: []
         };
 
         let currentDataVersion = 0;
@@ -731,6 +702,7 @@
                 }
                 
                 updateAllDisplays();
+                displayResources();
                 setupKeyboardShortcuts();
                 
                 setTimeout(() => {
@@ -788,6 +760,7 @@
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
+                appData.resources = data.resources || [];
                 
                 if (loadingStatus) {
                     loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
@@ -1243,6 +1216,39 @@
             
             html += '</div>';
             resultsDiv.innerHTML = html;
+        }
+
+        // ===== RESOURCES DISPLAY =====
+        function displayResources() {
+            const container = document.getElementById('resource-grid');
+            if (!container) return;
+
+            let html = '';
+
+            if (!appData.resources || appData.resources.length === 0) {
+                html = '<p style="color: #666; text-align: center;">No resources available at this time.</p>';
+            } else {
+                appData.resources.forEach(resource => {
+                    const hasLink = resource.url && resource.url.trim() !== '';
+
+                    html += `
+                        <div class="resource-card">
+                            <h3><span class="icon">${resource.emoji}</span> ${resource.name || 'Resource'}</h3>
+                            <div class="resource-link-box">
+                                ${hasLink ?
+                                    `<a href="${resource.url}" target="_blank" style="color: #061d28; text-decoration: none; font-weight: 600;">
+                                        ${resource.name || 'Click here'} →
+                                    </a>`
+                                    :
+                                    '<p style="color: #999; font-style: italic;">Link coming soon</p>'
+                                }
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
         }
 
         // ===== SYSTEM INITIALIZATION =====

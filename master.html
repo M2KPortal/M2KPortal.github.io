@@ -604,6 +604,7 @@
             <button class="tab-button" onclick="switchTab('small-group-rooms')">Small Group Rooms</button>
             <button class="tab-button" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
+            <button class="tab-button" onclick="switchTab('resources')">Resources</button>
             <button class="tab-button" onclick="switchTab('printable-forms')">Printable Forms</button>
         </div>
 
@@ -1163,6 +1164,14 @@
             </div>
         </div>
 
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content">
+            <h2>Resource Links Management</h2>
+            <p style="margin-bottom: 20px; color: #666;">Manage the resource links that appear on the public dashboard. Edit the name and URL for each resource.</p>
+
+            <div id="resources-list"></div>
+        </div>
+
         <!-- Printable Forms Tab -->
         <div id="printable-forms" class="tab-content">
             <h2>Printable Check-In Forms</h2>
@@ -1270,7 +1279,8 @@
                 teenShowerPlan: '',
                 adultShowerPlan: ''
             },
-            groupNotes: {}
+            groupNotes: {},
+            resources: []
         };
 
         let editingGroupIndex = -1;
@@ -2685,7 +2695,8 @@
                 };
                 
                 appData.groupNotes = data.groupNotes || {};
-                
+                appData.resources = data.resources || [];
+
                 console.log('✅ Data loaded successfully from JSON file');
                 
             } catch (error) {
@@ -2713,6 +2724,7 @@
                 };
                 appData.defaultNotes = { generalInfo: '', housingNotes: '', teenShowerPlan: '', adultShowerPlan: '' };
                 appData.groupNotes = {};
+                appData.resources = [];
             }
         }
 
@@ -2763,6 +2775,8 @@
                 if (configDiv && configDiv.innerHTML && configDiv.style.display === 'none') {
                     // Keep it collapsed by default - user can expand if needed
                 }
+            } else if (tabName === 'resources') {
+                displayResources();
             } else if (tabName === 'printable-forms') {
                 loadDefaultNotes();
                 updateFormsPreview();
@@ -4496,6 +4510,63 @@
             
             html += '</div>';
             resultsDiv.innerHTML = html;
+        }
+
+        // ===== RESOURCES MANAGEMENT =====
+        function displayResources() {
+            const container = document.getElementById('resources-list');
+            if (!container) return;
+
+            let html = '';
+
+            if (!appData.resources || appData.resources.length === 0) {
+                html = '<p style="color: #666;">No resources configured yet.</p>';
+            } else {
+                appData.resources.forEach((resource, index) => {
+                    html += `
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 15px; border: 2px solid #dee2e6;">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                <span style="font-size: 2em;">${resource.emoji}</span>
+                                <h3 style="margin: 0; color: #061d28;">${resource.emoji} Resource</h3>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #495057;">Display Name:</label>
+                                <input type="text"
+                                       value="${resource.name || ''}"
+                                       onchange="updateResourceName(${index}, this.value)"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;"
+                                       placeholder="e.g., Click here for full schedule">
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #495057;">URL Link:</label>
+                                <input type="text"
+                                       value="${resource.url || ''}"
+                                       onchange="updateResourceUrl(${index}, this.value)"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;"
+                                       placeholder="https://example.com/schedule">
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+        }
+
+        function updateResourceName(index, name) {
+            if (appData.resources && appData.resources[index]) {
+                appData.resources[index].name = name;
+                autoSave();
+            }
+        }
+
+        function updateResourceUrl(index, url) {
+            if (appData.resources && appData.resources[index]) {
+                appData.resources[index].url = url;
+                autoSave();
+            }
         }
 
         // ===== DATA MANAGEMENT =====
