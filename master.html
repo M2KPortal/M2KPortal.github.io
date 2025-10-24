@@ -4929,18 +4929,22 @@
 
         // ===== PASSWORD PROTECTION =====
         let systemConfig = null;
+        const FALLBACK_PASSWORD_HASH = '11928902f4159816e88d463509a2d7c993060f78d664d96127626b9907ac8b18'; // Mount2K2026
 
         async function loadSystemConfig() {
             try {
                 const response = await fetch('m2k_config.json');
                 if (!response.ok) {
-                    throw new Error('Config file not found');
+                    console.warn('Config file not found, using fallback password');
+                    return null;
                 }
                 systemConfig = await response.json();
+                console.log('Config loaded successfully');
                 return systemConfig;
             } catch (error) {
                 console.error('Error loading config:', error);
-                // Fallback to localStorage if config file not available
+                console.warn('Using fallback password hash');
+                // Fallback to hardcoded hash
                 return null;
             }
         }
@@ -4957,7 +4961,6 @@
         async function checkPassword() {
             const input = document.getElementById('password-input');
             const errorDiv = document.getElementById('password-error');
-            const setupMode = document.getElementById('password-setup-mode');
 
             const enteredPassword = input.value.trim();
 
@@ -4969,43 +4972,28 @@
 
             const hashedInput = await hashPassword(enteredPassword);
 
-            // Check against centralized config from GitHub
+            // Priority 1: Check against centralized config from GitHub
+            let passwordHash = null;
             if (systemConfig && systemConfig.passwordHash) {
-                if (hashedInput === systemConfig.passwordHash) {
-                    unlockSystem();
-                } else {
-                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
-                    errorDiv.style.display = 'block';
-                    input.value = '';
-                    input.focus();
-
-                    // Shake animation
-                    input.style.animation = 'shake 0.5s';
-                    setTimeout(() => input.style.animation = '', 500);
-                }
+                passwordHash = systemConfig.passwordHash;
+                console.log('Using config password');
             } else {
-                // Fallback to localStorage if config not loaded
-                const storedHash = localStorage.getItem('systemPasswordHash');
+                // Priority 2: Use fallback password hash
+                passwordHash = FALLBACK_PASSWORD_HASH;
+                console.log('Using fallback password');
+            }
 
-                if (!storedHash) {
-                    // First time setup
-                    localStorage.setItem('systemPasswordHash', hashedInput);
-                    unlockSystem();
-                    return;
-                }
+            if (hashedInput === passwordHash) {
+                unlockSystem();
+            } else {
+                errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                errorDiv.style.display = 'block';
+                input.value = '';
+                input.focus();
 
-                if (hashedInput === storedHash) {
-                    unlockSystem();
-                } else {
-                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
-                    errorDiv.style.display = 'block';
-                    input.value = '';
-                    input.focus();
-
-                    // Shake animation
-                    input.style.animation = 'shake 0.5s';
-                    setTimeout(() => input.style.animation = '', 500);
-                }
+                // Shake animation
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => input.style.animation = '', 500);
             }
         }
 
@@ -5031,33 +5019,16 @@
                 return;
             }
 
-            if (systemConfig && systemConfig.passwordHash) {
-                // Using centralized password from config
-                setupMode.style.display = 'none';
-                btnText.textContent = '🔓 Unlock';
-                input.placeholder = 'Enter password';
+            // Always hide setup mode since we have a fallback password
+            setupMode.style.display = 'none';
+            btnText.textContent = '🔓 Unlock';
+            input.placeholder = 'Enter password';
 
-                // Update security note to mention centralized password
-                const securityNote = document.querySelector('#password-overlay .password-container small');
-                if (securityNote) {
-                    securityNote.innerHTML = `
-                        <strong style="color: #1565c0;">🛡️ Security Note:</strong><br>
-                        This system uses a centralized password stored securely on GitHub.
-                        Contact your administrator if you need the password.
-                    `;
-                }
+            // Show status message
+            if (systemConfig && systemConfig.passwordHash) {
+                console.log('✅ Config loaded - using GitHub password');
             } else {
-                // Fallback to localStorage
-                const storedHash = localStorage.getItem('systemPasswordHash');
-                if (!storedHash) {
-                    setupMode.style.display = 'block';
-                    btnText.textContent = '✅ Create Password';
-                    input.placeholder = 'Create a strong password';
-                } else {
-                    setupMode.style.display = 'none';
-                    btnText.textContent = '🔓 Unlock';
-                    input.placeholder = 'Enter password';
-                }
+                console.log('⚠️ Config not loaded - using fallback password: Mount2K2026');
             }
 
             input.focus();
