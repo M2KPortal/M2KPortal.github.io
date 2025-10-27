@@ -3655,7 +3655,13 @@
             });
 
             roomsWithFit.sort((a, b) => {
-                // First sort by whether it fits (positive available space after assignment)
+                // First, put assigned rooms at the top
+                const aAssigned = assignedRooms.includes(a.roomKey);
+                const bAssigned = assignedRooms.includes(b.roomKey);
+                if (aAssigned && !bAssigned) return -1;
+                if (!aAssigned && bAssigned) return 1;
+
+                // Then sort by whether it fits (positive available space after assignment)
                 const aFits = a.availableSpace >= groupSize;
                 const bFits = b.availableSpace >= groupSize;
                 if (aFits && !bFits) return -1;
@@ -3926,7 +3932,13 @@
             });
 
             roomsWithFit.sort((a, b) => {
-                // First sort by whether it fits
+                // First, put assigned rooms at the top
+                const aAssigned = assignedRooms.includes(a.roomKey);
+                const bAssigned = assignedRooms.includes(b.roomKey);
+                if (aAssigned && !bAssigned) return -1;
+                if (!aAssigned && bAssigned) return 1;
+
+                // Then sort by whether it fits
                 const aFits = a.availableSpace >= groupSize;
                 const bFits = b.availableSpace >= groupSize;
                 if (aFits && !bFits) return -1;
