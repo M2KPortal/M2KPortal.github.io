@@ -1124,12 +1124,20 @@
                 return;
             }
 
-            // Sort groups with favorites at the top
-            const sortedGroups = sortGroupsByFavorites([...appData.youthGroups]);
+            // Get favorites list
+            const favorites = getFavorites();
+
+            // Filter out favorited groups from the overview (they'll show in the favorites section instead)
+            const nonFavoritedGroups = appData.youthGroups.filter(group => !favorites.includes(group.id));
+
+            if (nonFavoritedGroups.length === 0) {
+                overviewDiv.innerHTML = '<p style="color: #666; font-style: italic;">All groups are in your favorites section above.</p>';
+                return;
+            }
 
             let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">';
 
-            sortedGroups.forEach(group => {
+            nonFavoritedGroups.forEach(group => {
                 html += createGroupCard(group, false);
             });
 
