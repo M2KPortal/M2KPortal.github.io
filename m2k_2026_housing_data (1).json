@@ -1005,12 +1005,89 @@
       "gender": "mixed",
       "capacity": 20,
       "features": ""
+    },
+    {
+      "building": "Patriot Hall",
+      "roomId": "Seminary Dinning Room",
+      "gender": "mixed",
+      "capacity": 150,
+      "features": "Tables need to be moved"
+    },
+    {
+      "building": "Seminary",
+      "roomId": "O'Donnell Lecture Hall",
+      "gender": "mixed",
+      "capacity": 140,
+      "features": "Only theater mode is available."
+    },
+    {
+      "building": "Seminary",
+      "roomId": "St. Michael's Room",
+      "gender": "mixed",
+      "capacity": 60,
+      "features": "Chairs need to be arranged."
+    },
+    {
+      "building": "St. Michael's",
+      "roomId": "Rectors Confrence Room",
+      "gender": "mixed",
+      "capacity": 10,
+      "features": "Conference room."
+    },
+    {
+      "building": "Seminary",
+      "roomId": "McSweeny- 135",
+      "gender": "mixed",
+      "capacity": 18,
+      "features": ""
+    },
+    {
+      "building": "Seminary",
+      "roomId": "McSweeny- 132",
+      "gender": "mixed",
+      "capacity": 15,
+      "features": ""
+    },
+    {
+      "building": "Seminary",
+      "roomId": "Recreation Room",
+      "gender": "mixed",
+      "capacity": 30,
+      "features": "The living room area portable door must be closed."
+    },
+    {
+      "building": "Seminary",
+      "roomId": "Keating Hall- 19",
+      "gender": "mixed",
+      "capacity": 25,
+      "features": ""
+    },
+    {
+      "building": "Seminary",
+      "roomId": "Keating Hall- 18",
+      "gender": "mixed",
+      "capacity": 40,
+      "features": ""
+    },
+    {
+      "building": "Seminary",
+      "roomId": "Keating- 14 Conference Room",
+      "gender": "mixed",
+      "capacity": 15,
+      "features": "Conference Room"
+    },
+    {
+      "building": "Seminary",
+      "roomId": "Keating- JPII Reading Room",
+      "gender": "mixed",
+      "capacity": 15,
+      "features": ""
     }
   ],
   "housingAssignments": {
     "male": {
       "3": [
-        "Knott Academic Center-320"
+        "Knott Academic Center-224"
       ],
       "10": [
         "Off Campus-Male"
@@ -1153,7 +1230,7 @@
   },
   "smallGroupAssignments": {
     "3": [
-      "Knott Academic Center-320"
+      "Knott Academic Center-300- Lobby O/G"
     ]
   },
   "mealColorAssignments": {
@@ -1252,6 +1329,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-25T08:43:09.486Z",
+  "timestamp": "2025-10-27T17:23:13.613Z",
   "version": "3.0"
 }
