@@ -1157,7 +1157,7 @@
     ]
   },
   "mealColorAssignments": {
-    "3": "Blue",
+    "3": "Brown",
     "4": "Green",
     "5": "Yellow",
     "6": "Green",
@@ -1239,7 +1239,7 @@
     {
       "emoji": "🗺️",
       "name": "Campus Map",
-      "url": ""
+      "url": "https://msmary.edu/about/our-campuses/files/mount-st-marys-university-emmitsburg-campus-map.pdf"
     },
     {
       "emoji": "🍽️",
@@ -1252,6 +1252,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-24T19:33:56.161Z",
+  "timestamp": "2025-10-25T08:43:09.486Z",
   "version": "3.0"
 }
