@@ -785,8 +785,9 @@
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
                 appData.mealTimes = data.mealTimes || {};
+                appData.activeColors = data.activeColors || Object.keys(data.mealTimes || {});
                 appData.resources = data.resources || [];
-                
+
                 if (loadingStatus) {
                     loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
                 }
@@ -1073,9 +1074,6 @@
                             <strong style="font-size: 14px;">🍽️ Meal Times - ${mealColorStyle.text} Group</strong>
                             ${appData.mealTimes[mealColor] ? `
                                 <div style="margin-top: 5px; font-size: 11px; line-height: 1.6;">
-                                    <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
-                                        <strong>Friday Dinner:</strong> ${appData.mealTimes[mealColor].friDinner || 'TBA'}
-                                    </div>
                                     <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
                                         <strong>Saturday Breakfast:</strong> ${appData.mealTimes[mealColor].satBreakfast || 'TBA'}
                                     </div>
