@@ -395,6 +395,26 @@
             margin-left: 10px;
         }
 
+        /* Favorite Star */
+        .favorite-star {
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .favorite-star:hover {
+            transform: scale(1.2);
+        }
+
+        .favorite-star.favorited {
+            color: #f1c40f;
+        }
+
         /* Login Button */
         .header {
             position: relative;
@@ -574,11 +594,57 @@
             },
             smallGroupAssignments: {},
             mealColorAssignments: {},
+            mealTimes: {},
             resources: []
         };
 
         let currentDataVersion = 0;
         let dataTimestamp = null;
+
+        // ===== FAVORITE FUNCTIONS =====
+        function getFavorites() {
+            const favorites = localStorage.getItem('m2k_favorites');
+            return favorites ? JSON.parse(favorites) : [];
+        }
+
+        function saveFavorites(favorites) {
+            localStorage.setItem('m2k_favorites', JSON.stringify(favorites));
+        }
+
+        function toggleFavorite(groupId) {
+            let favorites = getFavorites();
+            const index = favorites.indexOf(groupId);
+
+            if (index > -1) {
+                // Remove from favorites
+                favorites.splice(index, 1);
+            } else {
+                // Add to favorites
+                favorites.push(groupId);
+            }
+
+            saveFavorites(favorites);
+
+            // Refresh the display
+            updateAssignmentOverview();
+            performSearch();
+        }
+
+        function isFavorited(groupId) {
+            return getFavorites().includes(groupId);
+        }
+
+        function sortGroupsByFavorites(groups) {
+            const favorites = getFavorites();
+            return groups.sort((a, b) => {
+                const aFavorited = favorites.includes(a.id);
+                const bFavorited = favorites.includes(b.id);
+
+                if (aFavorited && !bFavorited) return -1;
+                if (!aFavorited && bFavorited) return 1;
+                return 0;
+            });
+        }
 
         // ===== UTILITY FUNCTIONS =====
         function formatRelativeTime(timestamp) {
@@ -683,6 +749,7 @@
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
+                appData.mealTimes = data.mealTimes || {};
                 appData.resources = data.resources || [];
                 
                 if (loadingStatus) {
@@ -880,9 +947,15 @@
             
             const backgroundStyle = isSearch ? (overallAssigned ? '#f0fff4' : '#fff5f5') : '';
             const borderColor = overallAssigned ? '#27ae60' : '#e74c3c';
-            
+            const favorited = isFavorited(group.id);
+
             return `
-                <div class="room-card" style="border-left-color: ${borderColor}; background: ${backgroundStyle};">
+                <div class="room-card" style="border-left-color: ${borderColor}; background: ${backgroundStyle}; position: relative; padding-left: 35px;">
+                    <!-- FAVORITE STAR -->
+                    <span class="favorite-star ${favorited ? 'favorited' : ''}" onclick="toggleFavorite('${group.id}')" title="${favorited ? 'Remove from favorites' : 'Add to favorites'}">
+                        ${favorited ? '⭐' : '☆'}
+                    </span>
+
                     <!-- HEADER ROW -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <strong style="font-size: 16px;">${group.parish}</strong>
@@ -958,6 +1031,32 @@
                             <p style="font-size: 10px; color: #856404; margin: 0; font-weight: bold;">❌ No small group location assigned</p>
                         </div>`}
                     </div>
+
+                    <!-- MEAL TIMES SECTION -->
+                    ${mealColor ? `
+                        <div style="background: ${mealColorStyle.background}15; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid ${mealColorStyle.background};">
+                            <strong style="font-size: 14px;">🍽️ Meal Times - ${mealColorStyle.text} Group</strong>
+                            ${appData.mealTimes[mealColor] ? `
+                                <div style="margin-top: 5px; font-size: 11px; line-height: 1.6;">
+                                    <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
+                                        <strong>Friday Dinner:</strong> ${appData.mealTimes[mealColor].friDinner || 'TBA'}
+                                    </div>
+                                    <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
+                                        <strong>Saturday Breakfast:</strong> ${appData.mealTimes[mealColor].satBreakfast || 'TBA'}
+                                    </div>
+                                    <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
+                                        <strong>Saturday Lunch:</strong> ${appData.mealTimes[mealColor].satLunch || 'TBA'}
+                                    </div>
+                                    <div style="background: white; padding: 5px; border-radius: 4px; margin-bottom: 3px;">
+                                        <strong>Saturday Dinner:</strong> ${appData.mealTimes[mealColor].satDinner || 'TBA'}
+                                    </div>
+                                    <div style="background: white; padding: 5px; border-radius: 4px;">
+                                        <strong>Sunday Breakfast:</strong> ${appData.mealTimes[mealColor].sunBreakfast || 'TBA'}
+                                    </div>
+                                </div>
+                            ` : `<p style="font-size: 10px; color: #856404; margin-top: 5px;">Meal times not yet available</p>`}
+                        </div>
+                    ` : ''}
                 </div>
             `;
         }
@@ -984,18 +1083,21 @@
         function updateAssignmentOverview() {
             const overviewDiv = document.getElementById('assignment-overview');
             if (!overviewDiv) return;
-            
+
             if (appData.youthGroups.length === 0) {
                 overviewDiv.innerHTML = '<p>No youth groups added yet.</p>';
                 return;
             }
-            
+
+            // Sort groups with favorites at the top
+            const sortedGroups = sortGroupsByFavorites([...appData.youthGroups]);
+
             let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">';
 
-            appData.youthGroups.forEach(group => {
+            sortedGroups.forEach(group => {
                 html += createGroupCard(group, false);
             });
-            
+
             html += '</div>';
             overviewDiv.innerHTML = html;
         }
@@ -1118,22 +1220,25 @@
                 return;
             }
             
-            const matchingGroups = appData.youthGroups.filter(group => 
+            const matchingGroups = appData.youthGroups.filter(group =>
                 group.parish.toLowerCase().includes(searchTerm) ||
                 group.id.toLowerCase().includes(searchTerm) ||
                 group.leader.toLowerCase().includes(searchTerm) ||
                 group.phone.toLowerCase().includes(searchTerm) ||
                 (group.seminarianSgl && group.seminarianSgl.toLowerCase().includes(searchTerm))
             );
-            
+
             if (matchingGroups.length === 0) {
                 resultsDiv.innerHTML = '<div class="notification warning">🔍 No groups found matching your search.</div>';
                 return;
             }
-            
-            let html = `<h3 style="color: #061d28; margin-bottom: 15px;">🔍 Search Results (${matchingGroups.length} found)</h3><div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">`;
 
-            matchingGroups.forEach(group => {
+            // Sort matching groups with favorites at the top
+            const sortedMatches = sortGroupsByFavorites(matchingGroups);
+
+            let html = `<h3 style="color: #061d28; margin-bottom: 15px;">🔍 Search Results (${sortedMatches.length} found)</h3><div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">`;
+
+            sortedMatches.forEach(group => {
                 html += createGroupCard(group, true);
             });
             
