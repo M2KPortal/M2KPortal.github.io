@@ -3702,7 +3702,8 @@
                 roomsHTML += `
                     <div class="room-card ${isAssigned ? 'selected' : ''}"
                          data-room-search="${room.building.toLowerCase()} ${room.roomId.toLowerCase()} ${room.accessibility ? room.accessibility.toLowerCase() : ''}"
-                         onclick="toggleHousingRoomSelection('${roomKey}')"
+                         data-room-key="${roomKey.replace(/"/g, '&quot;')}"
+                         onclick="toggleHousingRoomSelection(this.getAttribute('data-room-key'))"
                          style="cursor: pointer; background: ${backgroundColor}; border-left-color: ${borderColor};">
                         <strong>${room.building} - ${room.roomId}</strong> ${recommendation}
                         <p><strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace} | <strong>Currently Occupied:</strong> ${occupiedCount}</p>
@@ -3967,7 +3968,8 @@
                 roomsHTML += `
                     <div class="room-card ${isAssigned ? 'selected' : ''}"
                          data-room-search="${room.building.toLowerCase()} ${room.roomId.toLowerCase()} ${room.features ? room.features.toLowerCase() : ''} ${room.gender}"
-                         onclick="toggleSmallGroupRoomSelection('${roomKey}')"
+                         data-room-key="${roomKey.replace(/"/g, '&quot;')}"
+                         onclick="toggleSmallGroupRoomSelection(this.getAttribute('data-room-key'))"
                          style="cursor: pointer; background: ${backgroundColor}; border-left-color: ${borderColor};">
                         <strong>${room.building} - ${room.roomId}</strong> ${recommendation}
                         <p><strong>Type:</strong> ${room.gender === 'mixed' ? 'Co-ed/Mixed' : room.gender.charAt(0).toUpperCase() + room.gender.slice(1)} | <strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace} | <strong>Currently Occupied:</strong> ${occupiedCount}</p>
