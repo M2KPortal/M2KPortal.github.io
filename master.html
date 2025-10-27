@@ -973,6 +973,9 @@
 
                 <div class="available-rooms">
                     <h3>Available Housing Rooms</h3>
+                    <input type="text" id="housing-rooms-search" placeholder="🔍 Search housing rooms by building, room ID..."
+                           oninput="filterHousingRooms()"
+                           style="width: 100%; padding: 10px; border: 2px solid #061d28; border-radius: 6px; font-size: 14px; margin-bottom: 15px; display: none;">
                     <div id="housing-available-rooms-list">
                         <p>Select a group-gender assignment to see matching rooms.</p>
                     </div>
@@ -1089,6 +1092,9 @@
 
                 <div class="available-rooms">
                     <h3>Available Small Group Locations</h3>
+                    <input type="text" id="sg-rooms-search" placeholder="🔍 Search small group rooms by building, room ID, features..."
+                           oninput="filterSmallGroupRooms()"
+                           style="width: 100%; padding: 10px; border: 2px solid #061d28; border-radius: 6px; font-size: 14px; margin-bottom: 15px; display: none;">
                     <div id="sg-available-rooms-list">
                         <p>Select a group to see available small group locations.</p>
                     </div>
@@ -3616,33 +3622,90 @@
 
         function updateAvailableHousingRoomsList() {
             const roomsDiv = document.getElementById('housing-available-rooms-list');
-            
+            const searchBar = document.getElementById('housing-rooms-search');
+
             if (!selectedHousingAssignment) {
                 roomsDiv.innerHTML = '<p>Select a group-gender assignment to see matching rooms.</p>';
+                if (searchBar) searchBar.style.display = 'none';
                 return;
             }
-            
+
+            // Show search bar
+            if (searchBar) searchBar.style.display = 'block';
+
             const { gender, groupId } = selectedHousingAssignment;
+            const group = appData.youthGroups.find(g => g.id === groupId);
+            const groupSize = gender === 'male' ? (group.maleTeens + group.maleChaperones) : (group.femaleTeens + group.femaleChaperones);
+
             const matchingRooms = appData.housingRooms.filter(room => room.gender === gender);
             const assignedRooms = appData.housingAssignments[gender][groupId] || [];
-            
+
             if (matchingRooms.length === 0) {
                 roomsDiv.innerHTML = `<div class="notification error">⚠️ No ${gender} housing rooms available!</div>`;
                 return;
             }
-            
-            let roomsHTML = '';
-            matchingRooms.forEach(room => {
+
+            // Sort rooms by recommendation (closest fit first)
+            const roomsWithFit = matchingRooms.map(room => {
                 const roomKey = `${room.building}-${room.roomId}`;
                 const occupiedCount = getHousingRoomOccupancy(roomKey);
                 const availableSpace = room.capacity - occupiedCount;
+                const wastedSpace = availableSpace - groupSize;
+                return { room, roomKey, occupiedCount, availableSpace, wastedSpace };
+            });
+
+            roomsWithFit.sort((a, b) => {
+                // First sort by whether it fits (positive available space after assignment)
+                const aFits = a.availableSpace >= groupSize;
+                const bFits = b.availableSpace >= groupSize;
+                if (aFits && !bFits) return -1;
+                if (!aFits && bFits) return 1;
+
+                // Then sort by least wasted space (but only for rooms that fit)
+                if (aFits && bFits) {
+                    return Math.abs(a.wastedSpace) - Math.abs(b.wastedSpace);
+                }
+
+                // For rooms that don't fit, sort by most available space
+                return b.availableSpace - a.availableSpace;
+            });
+
+            let roomsHTML = '';
+            roomsWithFit.forEach(({ room, roomKey, occupiedCount, availableSpace, wastedSpace }, index) => {
                 const isAssigned = assignedRooms.includes(roomKey);
-                
+
+                // Determine color coding
+                let backgroundColor = 'white';
+                let borderColor = '#061d28';
+                if (occupiedCount > 0) {
+                    if (availableSpace === 0) {
+                        backgroundColor = '#ffe5cc'; // Orange - completely full
+                        borderColor = '#e67e22';
+                    } else {
+                        backgroundColor = '#fff9e6'; // Yellow - has people but still has space
+                        borderColor = '#f39c12';
+                    }
+                }
+
+                // Determine recommendation
+                let recommendation = '';
+                if (availableSpace >= groupSize) {
+                    if (wastedSpace >= 0 && wastedSpace <= 5) {
+                        recommendation = '<span style="background: #27ae60; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">✨ Perfect fit!</span>';
+                    } else if (wastedSpace > 5 && wastedSpace <= 10) {
+                        recommendation = '<span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">👍 Good match</span>';
+                    } else if (index === 0) {
+                        recommendation = '<span style="background: #9b59b6; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">⭐ Best available</span>';
+                    }
+                }
+
                 roomsHTML += `
-                    <div class="room-card ${isAssigned ? 'selected' : ''}" 
-                         onclick="toggleHousingRoomSelection('${roomKey}')" style="cursor: pointer;">
-                        <strong>${room.building} - ${room.roomId}</strong>
-                        <p><strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace}</p>
+                    <div class="room-card ${isAssigned ? 'selected' : ''}"
+                         data-room-search="${room.building.toLowerCase()} ${room.roomId.toLowerCase()} ${room.accessibility ? room.accessibility.toLowerCase() : ''}"
+                         onclick="toggleHousingRoomSelection('${roomKey}')"
+                         style="cursor: pointer; background: ${backgroundColor}; border-left-color: ${borderColor};">
+                        <strong>${room.building} - ${room.roomId}</strong> ${recommendation}
+                        <p><strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace} | <strong>Currently Occupied:</strong> ${occupiedCount}</p>
                         ${room.accessibility ? `<p>♿ ${room.accessibility}</p>` : ''}
                         ${getHousingRoomAssignedGroupsDisplay(roomKey)}
                     </div>
@@ -3830,38 +3893,90 @@
 
         function updateAvailableSmallGroupRoomsList() {
             const roomsDiv = document.getElementById('sg-available-rooms-list');
-            
+            const searchBar = document.getElementById('sg-rooms-search');
+
             if (!selectedSmallGroupAssignment) {
                 roomsDiv.innerHTML = '<p>Select a group to see available small group locations.</p>';
+                if (searchBar) searchBar.style.display = 'none';
                 return;
             }
-            
+
+            // Show search bar
+            if (searchBar) searchBar.style.display = 'block';
+
             const { groupId } = selectedSmallGroupAssignment;
+            const group = appData.youthGroups.find(g => g.id === groupId);
+            const groupSize = group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones;
+
             const assignedRooms = appData.smallGroupAssignments[groupId] || [];
-            
+
             if (appData.smallGroupRooms.length === 0) {
                 roomsDiv.innerHTML = `<div class="notification error">⚠️ No small group rooms available!</div>`;
                 return;
             }
-            
-            let roomsHTML = '';
-            appData.smallGroupRooms.forEach(room => {
+
+            // Sort rooms by recommendation (closest fit first)
+            const roomsWithFit = appData.smallGroupRooms.map(room => {
                 const roomKey = `${room.building}-${room.roomId}`;
                 const occupiedCount = getSmallGroupRoomOccupancy(roomKey);
                 const availableSpace = room.capacity - occupiedCount;
+                const wastedSpace = availableSpace - groupSize;
+                return { room, roomKey, occupiedCount, availableSpace, wastedSpace };
+            });
+
+            roomsWithFit.sort((a, b) => {
+                // First sort by whether it fits
+                const aFits = a.availableSpace >= groupSize;
+                const bFits = b.availableSpace >= groupSize;
+                if (aFits && !bFits) return -1;
+                if (!aFits && bFits) return 1;
+
+                // Then sort by least wasted space
+                if (aFits && bFits) {
+                    return Math.abs(a.wastedSpace) - Math.abs(b.wastedSpace);
+                }
+
+                // For rooms that don't fit, sort by most available space
+                return b.availableSpace - a.availableSpace;
+            });
+
+            let roomsHTML = '';
+            roomsWithFit.forEach(({ room, roomKey, occupiedCount, availableSpace, wastedSpace }, index) => {
                 const isAssigned = assignedRooms.includes(roomKey);
-                
+
+                // Determine color coding - Light blue if has people
+                let backgroundColor = 'white';
+                let borderColor = '#061d28';
+                if (occupiedCount > 0) {
+                    backgroundColor = '#e8f4f8'; // Light blue - has people assigned
+                    borderColor = '#3498db';
+                }
+
+                // Determine recommendation
+                let recommendation = '';
+                if (availableSpace >= groupSize) {
+                    if (wastedSpace >= 0 && wastedSpace <= 5) {
+                        recommendation = '<span style="background: #27ae60; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">✨ Perfect fit!</span>';
+                    } else if (wastedSpace > 5 && wastedSpace <= 10) {
+                        recommendation = '<span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">👍 Good match</span>';
+                    } else if (index === 0) {
+                        recommendation = '<span style="background: #9b59b6; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px;">⭐ Best available</span>';
+                    }
+                }
+
                 roomsHTML += `
-                    <div class="room-card ${isAssigned ? 'selected' : ''}" 
-                         onclick="toggleSmallGroupRoomSelection('${roomKey}')" style="cursor: pointer;">
-                        <strong>${room.building} - ${room.roomId}</strong>
-                        <p><strong>Type:</strong> ${room.gender === 'mixed' ? 'Co-ed/Mixed' : room.gender.charAt(0).toUpperCase() + room.gender.slice(1)} | <strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace}</p>
+                    <div class="room-card ${isAssigned ? 'selected' : ''}"
+                         data-room-search="${room.building.toLowerCase()} ${room.roomId.toLowerCase()} ${room.features ? room.features.toLowerCase() : ''} ${room.gender}"
+                         onclick="toggleSmallGroupRoomSelection('${roomKey}')"
+                         style="cursor: pointer; background: ${backgroundColor}; border-left-color: ${borderColor};">
+                        <strong>${room.building} - ${room.roomId}</strong> ${recommendation}
+                        <p><strong>Type:</strong> ${room.gender === 'mixed' ? 'Co-ed/Mixed' : room.gender.charAt(0).toUpperCase() + room.gender.slice(1)} | <strong>Capacity:</strong> ${room.capacity} | <strong>Available:</strong> ${availableSpace} | <strong>Currently Occupied:</strong> ${occupiedCount}</p>
                         ${room.features ? `<p>🏗️ ${room.features}</p>` : ''}
                         ${getSmallGroupRoomAssignedGroupsDisplay(roomKey)}
                     </div>
                 `;
             });
-            
+
             roomsDiv.innerHTML = roomsHTML;
         }
 
@@ -5723,6 +5838,35 @@
             }
         `;
         document.head.appendChild(style);
+
+        // ===== SEARCH/FILTER FUNCTIONS =====
+        function filterHousingRooms() {
+            const searchTerm = document.getElementById('housing-rooms-search').value.toLowerCase();
+            const roomCards = document.querySelectorAll('#housing-available-rooms-list .room-card');
+
+            roomCards.forEach(card => {
+                const searchText = card.getAttribute('data-room-search') || '';
+                if (searchText.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterSmallGroupRooms() {
+            const searchTerm = document.getElementById('sg-rooms-search').value.toLowerCase();
+            const roomCards = document.querySelectorAll('#sg-available-rooms-list .room-card');
+
+            roomCards.forEach(card => {
+                const searchText = card.getAttribute('data-room-search') || '';
+                if (searchText.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
         // ===== SYSTEM INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
