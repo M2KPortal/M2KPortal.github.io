@@ -493,58 +493,51 @@
   "mealColorAssignments": {
     "3": "Brown"
   },
+  "activeColors": ["Blue", "Red", "Orange", "Yellow", "Green", "Purple"],
   "mealTimes": {
     "Blue": {
-      "friDinner": "5:30 PM",
       "satBreakfast": "7:00 AM",
       "satLunch": "12:00 PM",
       "satDinner": "5:30 PM",
       "sunBreakfast": "7:30 AM"
     },
     "Red": {
-      "friDinner": "6:00 PM",
       "satBreakfast": "7:30 AM",
       "satLunch": "12:30 PM",
       "satDinner": "6:00 PM",
       "sunBreakfast": "8:00 AM"
     },
     "Orange": {
-      "friDinner": "6:30 PM",
       "satBreakfast": "8:00 AM",
       "satLunch": "1:00 PM",
       "satDinner": "6:30 PM",
       "sunBreakfast": "8:30 AM"
     },
     "Yellow": {
-      "friDinner": "7:00 PM",
       "satBreakfast": "8:30 AM",
       "satLunch": "1:30 PM",
       "satDinner": "7:00 PM",
       "sunBreakfast": "9:00 AM"
     },
     "Green": {
-      "friDinner": "5:30 PM",
       "satBreakfast": "7:00 AM",
       "satLunch": "12:00 PM",
       "satDinner": "5:30 PM",
       "sunBreakfast": "7:30 AM"
     },
     "Purple": {
-      "friDinner": "6:00 PM",
       "satBreakfast": "7:30 AM",
       "satLunch": "12:30 PM",
       "satDinner": "6:00 PM",
       "sunBreakfast": "8:00 AM"
     },
     "Brown": {
-      "friDinner": "6:30 PM",
       "satBreakfast": "8:00 AM",
       "satLunch": "1:00 PM",
       "satDinner": "6:30 PM",
       "sunBreakfast": "8:30 AM"
     },
     "Grey": {
-      "friDinner": "7:00 PM",
       "satBreakfast": "8:30 AM",
       "satLunch": "1:30 PM",
       "satDinner": "7:00 PM",

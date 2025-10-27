@@ -1148,14 +1148,55 @@
                 </div>
             </div>
 
+            <!-- Active Colors Configuration -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin: 0 0 10px 0;">🎨 Active Meal Colors</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Select which meal colors you want to use. Only active colors will appear in dropdowns and on schedules.</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Blue" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #3498db; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🔵 Blue</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Red" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #e74c3c; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🔴 Red</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Orange" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #e67e22; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🟠 Orange</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Yellow" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #f1c40f; color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🟡 Yellow</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Green" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #27ae60; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🟢 Green</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Purple" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #9b59b6; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🟣 Purple</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Brown" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #8b4513; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">🤎 Brown</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" value="Grey" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
+                        <span style="background: #95a5a6; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">⚪ Grey</span>
+                    </label>
+                </div>
+            </div>
+
             <!-- Meal Times Configuration -->
             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMealTimesConfig()">
                     <h3 style="margin: 0;">⏰ Meal Time Schedule Configuration</h3>
                     <span id="meal-times-toggle" style="font-size: 24px;">▼</span>
                 </div>
-                <p style="font-size: 14px; color: #666; margin: 10px 0;">Set the meal times for each color group. These will appear on the printable check-in forms.</p>
-                
+                <p style="font-size: 14px; color: #666; margin: 10px 0;">Set the meal times for each color group. These will appear on the printable check-in forms and the public schedule.</p>
+
                 <div id="meal-times-config" style="display: none; margin-top: 15px;"></div>
             </div>
 
@@ -1334,15 +1375,16 @@
             },
             smallGroupAssignments: {},
             mealColorAssignments: {},
+            activeColors: ['Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Purple'],
             mealTimes: {
-                Blue: { friDinner: '5:30 PM', satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
-                Red: { friDinner: '6:00 PM', satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
-                Orange: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
-                Yellow: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' },
-                Green: { friDinner: '5:30 PM', satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
-                Purple: { friDinner: '6:00 PM', satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
-                Brown: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
-                Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
+                Blue: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
+                Red: { satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
+                Orange: { satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
+                Yellow: { satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' },
+                Green: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
+                Purple: { satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
+                Brown: { satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
+                Grey: { satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
             },
             defaultNotes: {
                 generalInfo: '',
@@ -1765,13 +1807,35 @@
         }
 
         // ===== PRINTABLE FORMS MANAGEMENT =====
+        function toggleColorActive(checkbox) {
+            const color = checkbox.value;
+            if (checkbox.checked) {
+                if (!appData.activeColors.includes(color)) {
+                    appData.activeColors.push(color);
+                }
+            } else {
+                appData.activeColors = appData.activeColors.filter(c => c !== color);
+            }
+            updateMealColorsTable();
+            autoSave();
+        }
+
+        function updateActiveColorsDisplay() {
+            // Check the checkboxes for active colors
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][onchange*="toggleColorActive"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = appData.activeColors.includes(checkbox.value);
+            });
+        }
+
         function toggleMealTimesConfig() {
             const configDiv = document.getElementById('meal-times-config');
             const toggleIcon = document.getElementById('meal-times-toggle');
-            
+
             if (configDiv.style.display === 'none') {
                 configDiv.style.display = 'block';
                 toggleIcon.textContent = '▲';
+                renderMealTimesConfig();
             } else {
                 configDiv.style.display = 'none';
                 toggleIcon.textContent = '▼';
@@ -2748,17 +2812,18 @@
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
+                appData.activeColors = data.activeColors || ['Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Purple'];
                 appData.mealTimes = data.mealTimes || {
-                    Blue: { friDinner: '5:30 PM', satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
-                    Red: { friDinner: '6:00 PM', satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
-                    Orange: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
-                    Yellow: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' },
-                    Green: { friDinner: '5:30 PM', satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
-                    Purple: { friDinner: '6:00 PM', satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
-                    Brown: { friDinner: '6:30 PM', satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
-                    Grey: { friDinner: '7:00 PM', satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
+                    Blue: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
+                    Red: { satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
+                    Orange: { satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
+                    Yellow: { satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' },
+                    Green: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
+                    Purple: { satBreakfast: '7:30 AM', satLunch: '12:30 PM', satDinner: '6:00 PM', sunBreakfast: '8:00 AM' },
+                    Brown: { satBreakfast: '8:00 AM', satLunch: '1:00 PM', satDinner: '6:30 PM', sunBreakfast: '8:30 AM' },
+                    Grey: { satBreakfast: '8:30 AM', satLunch: '1:30 PM', satDinner: '7:00 PM', sunBreakfast: '9:00 AM' }
                 };
-                
+
                 // Ensure defaultNotes has all fields, including new generalInfo field
                 appData.defaultNotes = {
                     generalInfo: data.defaultNotes?.generalInfo || '',
@@ -2766,11 +2831,14 @@
                     teenShowerPlan: data.defaultNotes?.teenShowerPlan || '',
                     adultShowerPlan: data.defaultNotes?.adultShowerPlan || ''
                 };
-                
+
                 appData.groupNotes = data.groupNotes || {};
                 appData.resources = data.resources || [];
 
                 console.log('✅ Data loaded successfully from JSON file');
+
+                // Update active colors checkboxes
+                updateActiveColorsDisplay();
                 
             } catch (error) {
                 console.warn('⚠️ Could not load data file:', error);
@@ -4114,7 +4182,7 @@
                     <td>
                         <select onchange="updateMealColorAssignment('${group.id}', this.value)" style="padding: 5px; border-radius: 4px; border: 1px solid #bdc3c7;">
                             <option value="">Select Color</option>
-                            ${MEAL_COLORS.map(color => 
+                            ${appData.activeColors.map(color =>
                                 `<option value="${color}" ${assignedColor === color ? 'selected' : ''}>${color}</option>`
                             ).join('')}
                         </select>
