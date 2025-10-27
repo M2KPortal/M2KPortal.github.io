@@ -1229,8 +1229,74 @@
     }
   },
   "smallGroupAssignments": {
-    "3": [
-      "Knott Academic Center-300- Lobby O/G"
+    "10": [
+      "Seminary-O'Donnell Lecture Hall"
+    ],
+    "11": [
+      "Knott Academic Center-3rd Floor Lobby"
+    ],
+    "12": [
+      "Seminary-Keating- JPII Reading Room"
+    ],
+    "13": [
+      "Knott Academic Center-210"
+    ],
+    "15": [
+      "Knott Academic Center-200- Lobby"
+    ],
+    "16": [
+      "Seminary-McSweeny- 135"
+    ],
+    "17": [
+      "Knott Academic Center-100- End Coridor"
+    ],
+    "20": [
+      "St. Michael's-Rectors Confrence Room"
+    ],
+    "22": [
+      "Knott Academic Center-200- End Corridor"
+    ],
+    "23": [
+      "Knott Academic Center-320"
+    ],
+    "25": [
+      "Knott Academic Center-300- End Coridor"
+    ],
+    "26": [
+      "Knott Academic Center-207"
+    ],
+    "29": [
+      "Knott Academic Center-308"
+    ],
+    "34": [
+      "Knott Academic Center-100- Lounge"
+    ],
+    "39": [
+      "Knott Academic Center-120"
+    ],
+    "41": [
+      "COAD Science Building-111"
+    ],
+    "42": [
+      "PAC-Lower Level"
+    ],
+    "43": [
+      "Knott Academic Center-300- Lobby"
+    ],
+    "44": [
+      "Seminary-McSweeny- 132"
+    ],
+    "45": [
+      "Knott Academic Center-206"
+    ],
+    "48": [
+      "Knott Academic Center-127"
+    ],
+    "52": [
+      "Knott Academic Center-323"
+    ],
+    "54": [
+      "Seminary-Keating- 14 Conference Room"
     ]
   },
   "mealColorAssignments": {
@@ -1329,6 +1395,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-27T17:23:13.613Z",
+  "timestamp": "2025-10-27T17:52:29.870Z",
   "version": "3.0"
 }
