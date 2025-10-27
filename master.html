@@ -955,7 +955,29 @@
                 <label>Search Groups</label>
                 <input type="text" class="search-bar" id="housing-assignment-search" placeholder="Search by Parish name, Group ID, or Leader name..." oninput="filterHousingAssignmentDropdown()">
             </div>
-            
+
+            <div class="form-group" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <label style="font-weight: bold; margin-bottom: 10px; display: block;">Filter Groups:</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="housing-hide-assigned" onchange="filterHousingAssignmentDropdown()" style="width: 18px; height: 18px;">
+                        <span>Hide already assigned groups</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="housing-hide-offcampus" onchange="filterHousingAssignmentDropdown()" style="width: 18px; height: 18px;">
+                        <span>Hide off-campus groups</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="housing-show-male-only" onchange="filterHousingAssignmentDropdown()" style="width: 18px; height: 18px;">
+                        <span>Show only male groups</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="housing-show-female-only" onchange="filterHousingAssignmentDropdown()" style="width: 18px; height: 18px;">
+                        <span>Show only female groups</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>Select Group Gender Assignment</label>
                 <select id="housing-assignment-group-select" onchange="selectGroupForHousingAssignment()">
@@ -1074,7 +1096,17 @@
                 <label>Search Groups</label>
                 <input type="text" class="search-bar" id="sg-assignment-search" placeholder="Search by Parish name, Group ID, or Leader name..." oninput="filterSmallGroupAssignmentDropdown()">
             </div>
-            
+
+            <div class="form-group" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <label style="font-weight: bold; margin-bottom: 10px; display: block;">Filter Groups:</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="sg-hide-assigned" onchange="filterSmallGroupAssignmentDropdown()" style="width: 18px; height: 18px;">
+                        <span>Hide already assigned groups</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>Select Group for Small Group Assignment</label>
                 <select id="sg-assignment-group-select" onchange="selectGroupForSmallGroupAssignment()">
@@ -3854,35 +3886,56 @@
 
         function filterHousingAssignmentDropdown() {
             const searchTerm = document.getElementById('housing-assignment-search').value.toLowerCase();
+            const hideAssigned = document.getElementById('housing-hide-assigned')?.checked || false;
+            const hideOffCampus = document.getElementById('housing-hide-offcampus')?.checked || false;
+            const showMaleOnly = document.getElementById('housing-show-male-only')?.checked || false;
+            const showFemaleOnly = document.getElementById('housing-show-female-only')?.checked || false;
             const select = document.getElementById('housing-assignment-group-select');
-            
+
             while (select.children.length > 1) {
                 select.removeChild(select.lastChild);
             }
-            
+
             appData.youthGroups.forEach(group => {
-                const matchesSearch = !searchTerm || 
+                const matchesSearch = !searchTerm ||
                     group.parish.toLowerCase().includes(searchTerm) ||
                     group.id.toLowerCase().includes(searchTerm) ||
                     group.leader.toLowerCase().includes(searchTerm);
-                
+
                 if (matchesSearch) {
                     const maleTotal = group.maleTeens + group.maleChaperones;
                     const femaleTotal = group.femaleTeens + group.femaleChaperones;
                     const isOffCampus = group.stayingOffCampus || false;
-                    
-                    if (maleTotal > 0) {
-                        const option = document.createElement('option');
-                        option.value = `${group.id}-male`;
-                        option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
-                        select.appendChild(option);
+
+                    // Check if group is assigned
+                    const maleAssigned = appData.housingAssignments.male[group.id] && appData.housingAssignments.male[group.id].length > 0;
+                    const femaleAssigned = appData.housingAssignments.female[group.id] && appData.housingAssignments.female[group.id].length > 0;
+
+                    // Apply filters for males
+                    if (maleTotal > 0 && !showFemaleOnly) {
+                        const shouldShow =
+                            (!hideAssigned || !maleAssigned) &&
+                            (!hideOffCampus || !isOffCampus);
+
+                        if (shouldShow) {
+                            const option = document.createElement('option');
+                            option.value = `${group.id}-male`;
+                            option.textContent = `${group.id} - ${group.parish} - Males (${maleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
+                            select.appendChild(option);
+                        }
                     }
-                    
-                    if (femaleTotal > 0) {
-                        const option = document.createElement('option');
-                        option.value = `${group.id}-female`;
-                        option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
-                        select.appendChild(option);
+
+                    // Apply filters for females
+                    if (femaleTotal > 0 && !showMaleOnly) {
+                        const shouldShow =
+                            (!hideAssigned || !femaleAssigned) &&
+                            (!hideOffCampus || !isOffCampus);
+
+                        if (shouldShow) {
+                            const option = document.createElement('option');
+                            option.value = `${group.id}-female`;
+                            option.textContent = `${group.id} - ${group.parish} - Females (${femaleTotal} people)${isOffCampus ? ' 🏕️ OFF-CAMPUS' : ''}`;
+                            select.appendChild(option);
                     }
                 }
             });
@@ -4126,22 +4179,28 @@
 
         function filterSmallGroupAssignmentDropdown() {
             const searchTerm = document.getElementById('sg-assignment-search').value.toLowerCase();
+            const hideAssigned = document.getElementById('sg-hide-assigned')?.checked || false;
             const select = document.getElementById('sg-assignment-group-select');
-            
+
             while (select.children.length > 1) {
                 select.removeChild(select.lastChild);
             }
-            
+
             appData.youthGroups.forEach(group => {
-                const matchesSearch = !searchTerm || 
+                const matchesSearch = !searchTerm ||
                     group.parish.toLowerCase().includes(searchTerm) ||
                     group.id.toLowerCase().includes(searchTerm) ||
                     group.leader.toLowerCase().includes(searchTerm);
-                
+
                 if (matchesSearch) {
                     const totalGroup = group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones;
-                    
-                    if (totalGroup > 0) {
+
+                    // Check if group is assigned
+                    const isAssigned = appData.smallGroupAssignments[group.id] && appData.smallGroupAssignments[group.id].length > 0;
+
+                    const shouldShow = (!hideAssigned || !isAssigned);
+
+                    if (totalGroup > 0 && shouldShow) {
                         const option = document.createElement('option');
                         option.value = group.id;
                         option.textContent = `${group.id} - ${group.parish} (${totalGroup} people total)`;
