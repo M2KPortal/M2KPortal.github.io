@@ -1296,10 +1296,45 @@
 
             let html = '';
 
+            // Add Meal Times selector first
+            const activeColors = appData.activeColors || Object.keys(appData.mealTimes || {});
+            html += `
+                <div class="resource-card" style="grid-column: 1 / -1;">
+                    <h3><span class="icon">🍽️</span> Meal Times</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Select your meal color to view your schedule:</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                        ${activeColors.map(color => {
+                            const colorStyles = {
+                                'Blue': 'background: #3498db; color: white;',
+                                'Red': 'background: #e74c3c; color: white;',
+                                'Orange': 'background: #e67e22; color: white;',
+                                'Yellow': 'background: #f1c40f; color: #333;',
+                                'Green': 'background: #27ae60; color: white;',
+                                'Purple': 'background: #9b59b6; color: white;',
+                                'Brown': 'background: #8B4513; color: white;',
+                                'Grey': 'background: #95a5a6; color: white;'
+                            };
+                            return `
+                                <button onclick="showMealTimes('${color}')"
+                                        style="${colorStyles[color]} border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: transform 0.2s;">
+                                    ${color}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div id="meal-schedule-display" style="background: #f8f9fa; border-radius: 8px; padding: 15px; display: none;">
+                        <!-- Meal schedule appears here -->
+                    </div>
+                </div>
+            `;
+
             if (!appData.resources || appData.resources.length === 0) {
-                html = '<p style="color: #666; text-align: center;">No resources available at this time.</p>';
+                html += '<p style="color: #666; text-align: center;">No additional resources available at this time.</p>';
             } else {
                 appData.resources.forEach(resource => {
+                    // Skip the Meal Times resource since we handle it above
+                    if (resource.name === 'Meal Times') return;
+
                     const hasLink = resource.url && resource.url.trim() !== '';
 
                     html += `
@@ -1320,6 +1355,38 @@
             }
 
             container.innerHTML = html;
+        }
+
+        function showMealTimes(color) {
+            const display = document.getElementById('meal-schedule-display');
+            const times = appData.mealTimes[color];
+
+            if (!times) {
+                display.innerHTML = '<p style="color: #999;">Meal times not available for this color.</p>';
+                display.style.display = 'block';
+                return;
+            }
+
+            let html = `
+                <h4 style="color: #061d28; margin: 0 0 15px 0; font-size: 1.3em;">${color} Team Schedule</h4>
+                <div style="display: grid; gap: 10px;">
+                    <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #27ae60;">
+                        <strong style="color: #061d28;">Saturday Breakfast:</strong> ${times.satBreakfast}
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #3498db;">
+                        <strong style="color: #061d28;">Saturday Lunch:</strong> ${times.satLunch}
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #e67e22;">
+                        <strong style="color: #061d28;">Saturday Dinner:</strong> ${times.satDinner}
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #f39c12;">
+                        <strong style="color: #061d28;">Sunday Breakfast:</strong> ${times.sunBreakfast}
+                    </div>
+                </div>
+            `;
+
+            display.innerHTML = html;
+            display.style.display = 'block';
         }
 
         // ===== SYSTEM INITIALIZATION =====
