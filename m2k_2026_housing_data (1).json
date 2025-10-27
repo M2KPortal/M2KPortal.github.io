@@ -491,57 +491,63 @@
     ]
   },
   "mealColorAssignments": {
-    "3": "Brown"
+    "3": "Blue"
   },
-  "activeColors": ["Blue", "Red", "Orange", "Yellow", "Green", "Purple"],
+  "activeColors": [
+    "Blue",
+    "Red",
+    "Orange",
+    "Yellow",
+    "Green"
+  ],
   "mealTimes": {
     "Blue": {
-      "satBreakfast": "7:00 AM",
-      "satLunch": "12:00 PM",
-      "satDinner": "5:30 PM",
-      "sunBreakfast": "7:30 AM"
+      "satBreakfast": "7:40- 8:00am",
+      "satLunch": "1:15 pm",
+      "satDinner": "4:20- 4:40pm",
+      "sunBreakfast": "7:40- 8:00am"
     },
     "Red": {
-      "satBreakfast": "7:30 AM",
-      "satLunch": "12:30 PM",
-      "satDinner": "6:00 PM",
-      "sunBreakfast": "8:00 AM"
+      "satBreakfast": "8:00- 8:20am",
+      "satLunch": "1:15 pm",
+      "satDinner": "4:40- 5:00pm",
+      "sunBreakfast": "8:00- 8:20am"
     },
     "Orange": {
-      "satBreakfast": "8:00 AM",
-      "satLunch": "1:00 PM",
-      "satDinner": "6:30 PM",
-      "sunBreakfast": "8:30 AM"
+      "satBreakfast": "8:20- 8:40am",
+      "satLunch": "1:15 pm",
+      "satDinner": "5:00- 5:20pm",
+      "sunBreakfast": " 8:20- 8:40am"
     },
     "Yellow": {
-      "satBreakfast": "8:30 AM",
-      "satLunch": "1:30 PM",
-      "satDinner": "7:00 PM",
-      "sunBreakfast": "9:00 AM"
+      "satBreakfast": "Off Campus",
+      "satLunch": "1:15 pm",
+      "satDinner": "5:20- 5:40pm",
+      "sunBreakfast": "Off Campus"
     },
     "Green": {
-      "satBreakfast": "7:00 AM",
-      "satLunch": "12:00 PM",
-      "satDinner": "5:30 PM",
-      "sunBreakfast": "7:30 AM"
+      "satBreakfast": "Off Campus",
+      "satLunch": "1:15 pm",
+      "satDinner": "5:40- 6:00pm",
+      "sunBreakfast": "Off Campus"
     },
     "Purple": {
-      "satBreakfast": "7:30 AM",
-      "satLunch": "12:30 PM",
-      "satDinner": "6:00 PM",
-      "sunBreakfast": "8:00 AM"
+      "satBreakfast": "",
+      "satLunch": "",
+      "satDinner": "",
+      "sunBreakfast": ""
     },
     "Brown": {
-      "satBreakfast": "8:00 AM",
-      "satLunch": "1:00 PM",
-      "satDinner": "6:30 PM",
-      "sunBreakfast": "8:30 AM"
+      "satBreakfast": "",
+      "satLunch": "",
+      "satDinner": "",
+      "sunBreakfast": ""
     },
     "Grey": {
-      "satBreakfast": "8:30 AM",
-      "satLunch": "1:30 PM",
-      "satDinner": "7:00 PM",
-      "sunBreakfast": "9:00 AM"
+      "satBreakfast": "",
+      "satLunch": "",
+      "satDinner": "",
+      "sunBreakfast": ""
     }
   },
   "defaultNotes": {
@@ -573,6 +579,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-27T19:18:43.893Z",
+  "timestamp": "2025-10-27T19:56:10.362Z",
   "version": "3.0"
 }
