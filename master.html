@@ -4925,93 +4925,112 @@
                     <title>Mount 2000 Room Posters - ${new Date().toLocaleDateString()}</title>
                     <style>
                         @page {
-                            size: letter;
+                            size: letter landscape;
                             margin: 0.5in;
                         }
                         @media print {
                             .page-break {
                                 page-break-after: always;
                             }
+                            * {
+                                -webkit-print-color-adjust: exact !important;
+                                print-color-adjust: exact !important;
+                                color-adjust: exact !important;
+                            }
                         }
                         body {
                             font-family: Arial, sans-serif;
-                            font-size: 12pt;
-                            line-height: 1.4;
+                            font-size: 14pt;
+                            line-height: 1.5;
                             color: #000;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .room-poster-page {
                             background: white;
-                            padding: 30px;
-                            min-height: 10in;
+                            padding: 40px;
+                            min-height: 7.5in;
                         }
                         .header {
                             text-align: center;
-                            margin-bottom: 30px;
-                            border-bottom: 4px solid #d4af37;
-                            padding-bottom: 20px;
+                            margin-bottom: 35px;
+                            border-bottom: 5px solid #d4af37;
+                            padding-bottom: 25px;
                         }
                         .header h1 {
                             color: #061d28;
-                            margin: 0 0 10px 0;
-                            font-size: 32pt;
+                            margin: 0 0 15px 0;
+                            font-size: 42pt;
+                            font-weight: bold;
                         }
                         .header h2 {
                             color: #d4af37;
                             margin: 0;
-                            font-size: 24pt;
+                            font-size: 32pt;
+                            font-weight: bold;
                         }
                         .room-info-box {
-                            background: #061d28;
+                            background: linear-gradient(135deg, #061d28, #0f3a4a);
                             color: white;
-                            padding: 25px;
-                            border-radius: 8px;
-                            margin-bottom: 25px;
+                            padding: 35px;
+                            border-radius: 10px;
+                            margin-bottom: 30px;
                             text-align: center;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .room-info-box h2 {
-                            margin: 0 0 10px 0;
-                            font-size: 28pt;
+                            margin: 0 0 15px 0;
+                            font-size: 36pt;
+                            font-weight: bold;
                         }
                         .room-info-box h3 {
                             margin: 0;
-                            font-size: 20pt;
+                            font-size: 28pt;
                             color: #d4af37;
+                            font-weight: bold;
                         }
                         .room-info-box p {
-                            margin: 15px 0 0 0;
-                            font-size: 14pt;
+                            margin: 20px 0 0 0;
+                            font-size: 18pt;
+                            font-weight: bold;
                         }
                         .section-title {
                             color: #061d28;
-                            border-bottom: 2px solid #d4af37;
-                            padding-bottom: 10px;
-                            margin: 25px 0 15px 0;
-                            font-size: 16pt;
+                            border-bottom: 3px solid #d4af37;
+                            padding-bottom: 12px;
+                            margin: 30px 0 20px 0;
+                            font-size: 22pt;
                             font-weight: bold;
                         }
                         .group-box {
                             background: #f8f9fa;
-                            padding: 15px;
-                            border-left: 5px solid #d4af37;
-                            margin-bottom: 12px;
-                            border-radius: 5px;
+                            padding: 20px;
+                            border-left: 6px solid #d4af37;
+                            margin-bottom: 15px;
+                            border-radius: 6px;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .group-box .group-name {
-                            margin: 0 0 5px 0;
-                            font-size: 16pt;
+                            margin: 0 0 8px 0;
+                            font-size: 20pt;
                             font-weight: bold;
                             color: #061d28;
                         }
                         .group-box .group-info {
                             margin: 0;
-                            color: #555;
-                            font-size: 12pt;
+                            color: #333;
+                            font-size: 16pt;
+                            font-weight: 600;
                         }
                         .info-box {
-                            padding: 15px;
-                            border-radius: 8px;
-                            border-left: 5px solid;
-                            margin: 15px 0;
+                            padding: 20px;
+                            border-radius: 10px;
+                            border-left: 6px solid;
+                            margin: 20px 0;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .warning-box {
                             background: #fff3cd;
@@ -5022,17 +5041,19 @@
                             border-left-color: #3498db;
                         }
                         .info-box h4 {
-                            margin: 0 0 10px 0;
-                            font-size: 13pt;
+                            margin: 0 0 12px 0;
+                            font-size: 18pt;
+                            font-weight: bold;
                         }
                         .info-box p {
-                            margin: 5px 0;
-                            font-size: 11pt;
+                            margin: 8px 0;
+                            font-size: 16pt;
+                            font-weight: 600;
                         }
                         .no-groups {
                             color: #999;
                             font-style: italic;
-                            font-size: 11pt;
+                            font-size: 14pt;
                         }
                     </style>
                 </head>
