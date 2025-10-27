@@ -628,7 +628,7 @@
             <button class="tab-button" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
-            <button class="tab-button" onclick="switchTab('printable-forms')">Print Small Group Information</button>
+            <button class="tab-button" onclick="switchTab('printable-forms')">Print Group Housing Information</button>
             <button class="tab-button" onclick="switchTab('room-posters')">Print Room Information</button>
         </div>
 
@@ -1196,9 +1196,9 @@
             <div id="resources-list"></div>
         </div>
 
-        <!-- Print Small Group Information Tab -->
+        <!-- Print Group Housing Information Tab -->
         <div id="printable-forms" class="tab-content">
-            <h2>Print Small Group Information</h2>
+            <h2>Print Group Housing Information</h2>
             <p style="margin-bottom: 20px; color: #666;">Generate professional PDF check-in forms for each youth group with all housing and meal assignments.</p>
 
             <!-- Generate PDF Buttons at Top -->
@@ -4691,124 +4691,81 @@
             if (!container) return;
 
             let html = '';
+            let roomCards = [];
 
-            // Generate Housing Room Posters
+            // Collect Housing Room Data
             if (currentRoomFilter === 'all' || currentRoomFilter === 'housing') {
                 appData.housingRooms.forEach(room => {
                     const roomKey = `${room.building}-${room.roomId}`;
                     const assignedGroups = getHousingRoomAssignments(roomKey);
                     const note = getRoomNote(roomKey);
-
                     const searchText = `${room.building} ${room.roomId} ${assignedGroups.map(g => g.parish + ' ' + g.id).join(' ')}`.toLowerCase();
 
-                    html += `
-                        <div class="room-poster" data-search-text="${searchText}" style="background: white; border: 3px solid #061d28; border-radius: 10px; padding: 30px; page-break-after: always; position: relative;">
-                            <!-- Select Checkbox -->
-                            <input type="checkbox" class="room-poster-checkbox" data-room-key="${roomKey}" style="position: absolute; top: 15px; right: 15px; width: 25px; height: 25px; cursor: pointer;">
-
-                            <!-- Header -->
-                            <div style="text-align: center; margin-bottom: 25px; border-bottom: 4px solid #d4af37; padding-bottom: 20px;">
-                                <h1 style="color: #061d28; margin: 0 0 10px 0; font-size: 2.5em;">Mount 2000 Youth Retreat</h1>
-                                <h2 style="color: #d4af37; margin: 0; font-size: 1.8em;">HOUSING</h2>
-                            </div>
-
-                            <!-- Room Info -->
-                            <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                                <h2 style="margin: 0 0 10px 0; font-size: 2em;">${room.building}</h2>
-                                <h3 style="margin: 0; font-size: 1.5em; color: #d4af37;">Room ${room.roomId}</h3>
-                                <p style="margin: 10px 0 0 0; font-size: 1.2em;">Capacity: ${room.capacity} | Gender: ${room.gender.toUpperCase()}</p>
-                            </div>
-
-                            <!-- Assigned Groups -->
-                            <div style="margin-bottom: 20px;">
-                                <h3 style="color: #061d28; border-bottom: 2px solid #d4af37; padding-bottom: 10px; margin-bottom: 15px;">Assigned Groups:</h3>
-                                ${assignedGroups.length > 0 ? assignedGroups.map(group => `
-                                    <div style="background: #f8f9fa; padding: 15px; border-left: 5px solid #d4af37; margin-bottom: 10px; border-radius: 5px;">
-                                        <p style="margin: 0 0 5px 0; font-size: 1.3em; font-weight: bold; color: #061d28;">Group ${group.id}: ${group.parish}</p>
-                                        <p style="margin: 0; color: #555;">Leader: ${group.leader} | ${group.count} people</p>
-                                    </div>
-                                `).join('') : '<p style="color: #999; font-style: italic;">No groups assigned to this room yet</p>'}
-                            </div>
-
-                            <!-- Accessibility & Notes -->
-                            ${room.accessibility || note ? `
-                                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 5px solid #f39c12; margin-bottom: 20px;">
-                                    <h4 style="margin: 0 0 10px 0; color: #856404;">Important Information:</h4>
-                                    ${room.accessibility ? `<p style="margin: 5px 0; font-weight: bold;">♿ Accessibility: ${room.accessibility}</p>` : ''}
-                                    ${note ? `<p style="margin: 5px 0;"><strong>Notes:</strong> ${note}</p>` : ''}
-                                </div>
-                            ` : ''}
-
-                            <!-- Custom Notes Section -->
-                            <div style="margin-top: 20px; padding-top: 15px; border-top: 2px dashed #ccc;">
-                                <label style="display: block; font-weight: bold; margin-bottom: 10px; color: #061d28;">Add Custom Notes:</label>
-                                <textarea onchange="updateRoomNote('${roomKey}', this.value)"
-                                          style="width: 100%; min-height: 80px; padding: 10px; border: 2px solid #ced4da; border-radius: 5px; font-size: 14px; font-family: inherit;"
-                                          placeholder="Add any special instructions or notes for this room...">${note}</textarea>
-                            </div>
-                        </div>
-                    `;
+                    roomCards.push({
+                        type: 'housing',
+                        roomKey,
+                        searchText,
+                        room,
+                        assignedGroups,
+                        note
+                    });
                 });
             }
 
-            // Generate Small Group Room Posters
+            // Collect Small Group Room Data
             if (currentRoomFilter === 'all' || currentRoomFilter === 'smallgroup') {
                 appData.smallGroupRooms.forEach(room => {
                     const roomKey = `${room.building}-${room.roomId}`;
                     const assignedGroups = getSmallGroupRoomAssignments(roomKey);
                     const note = getRoomNote(roomKey);
-
                     const searchText = `${room.building} ${room.roomId} ${assignedGroups.map(g => g.parish + ' ' + g.id).join(' ')}`.toLowerCase();
 
-                    html += `
-                        <div class="room-poster" data-search-text="${searchText}" style="background: white; border: 3px solid #061d28; border-radius: 10px; padding: 30px; page-break-after: always; position: relative;">
-                            <!-- Select Checkbox -->
-                            <input type="checkbox" class="room-poster-checkbox" data-room-key="${roomKey}" style="position: absolute; top: 15px; right: 15px; width: 25px; height: 25px; cursor: pointer;">
-
-                            <!-- Header -->
-                            <div style="text-align: center; margin-bottom: 25px; border-bottom: 4px solid #d4af37; padding-bottom: 20px;">
-                                <h1 style="color: #061d28; margin: 0 0 10px 0; font-size: 2.5em;">Mount 2000 Youth Retreat</h1>
-                                <h2 style="color: #d4af37; margin: 0; font-size: 1.8em;">SMALL GROUP ROOM</h2>
-                            </div>
-
-                            <!-- Room Info -->
-                            <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                                <h2 style="margin: 0 0 10px 0; font-size: 2em;">${room.building}</h2>
-                                <h3 style="margin: 0; font-size: 1.5em; color: #d4af37;">Room ${room.roomId}</h3>
-                                <p style="margin: 10px 0 0 0; font-size: 1.2em;">Capacity: ${room.capacity}</p>
-                            </div>
-
-                            <!-- Assigned Groups -->
-                            <div style="margin-bottom: 20px;">
-                                <h3 style="color: #061d28; border-bottom: 2px solid #d4af37; padding-bottom: 10px; margin-bottom: 15px;">Assigned Groups:</h3>
-                                ${assignedGroups.length > 0 ? assignedGroups.map(group => `
-                                    <div style="background: #f8f9fa; padding: 15px; border-left: 5px solid #d4af37; margin-bottom: 10px; border-radius: 5px;">
-                                        <p style="margin: 0 0 5px 0; font-size: 1.3em; font-weight: bold; color: #061d28;">Group ${group.id}: ${group.parish}</p>
-                                        <p style="margin: 0; color: #555;">Leader: ${group.leader} | ${group.count} people</p>
-                                    </div>
-                                `).join('') : '<p style="color: #999; font-style: italic;">No groups assigned to this room yet</p>'}
-                            </div>
-
-                            <!-- Room Features & Setup -->
-                            ${room.features || note ? `
-                                <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; border-left: 5px solid #3498db; margin-bottom: 20px;">
-                                    <h4 style="margin: 0 0 10px 0; color: #2c3e50;">Setup Requirements:</h4>
-                                    ${room.features ? `<p style="margin: 5px 0; font-weight: bold;">🪑 ${room.features}</p>` : ''}
-                                    ${note ? `<p style="margin: 5px 0;"><strong>Notes:</strong> ${note}</p>` : ''}
-                                </div>
-                            ` : ''}
-
-                            <!-- Custom Notes Section -->
-                            <div style="margin-top: 20px; padding-top: 15px; border-top: 2px dashed #ccc;">
-                                <label style="display: block; font-weight: bold; margin-bottom: 10px; color: #061d28;">Add Custom Notes:</label>
-                                <textarea onchange="updateRoomNote('${roomKey}', this.value)"
-                                          style="width: 100%; min-height: 80px; padding: 10px; border: 2px solid #ced4da; border-radius: 5px; font-size: 14px; font-family: inherit;"
-                                          placeholder="Add any special instructions or notes for this room...">${note}</textarea>
-                            </div>
-                        </div>
-                    `;
+                    roomCards.push({
+                        type: 'smallgroup',
+                        roomKey,
+                        searchText,
+                        room,
+                        assignedGroups,
+                        note
+                    });
                 });
             }
+
+            // Generate preview cards
+            roomCards.forEach(card => {
+                html += `
+                    <div class="room-poster" data-search-text="${card.searchText}" data-room-key="${card.roomKey}" style="background: white; border: 2px solid #061d28; border-radius: 10px; padding: 20px; position: relative; cursor: pointer;">
+                        <!-- Select Checkbox -->
+                        <input type="checkbox" class="room-poster-checkbox" onclick="event.stopPropagation()" style="position: absolute; top: 15px; right: 15px; width: 20px; height: 20px; cursor: pointer;">
+
+                        <!-- Preview Content -->
+                        <div style="text-align: center; border-bottom: 3px solid #d4af37; padding-bottom: 15px; margin-bottom: 15px;">
+                            <h2 style="color: #d4af37; margin: 0; font-size: 1.2em;">${card.type === 'housing' ? 'HOUSING' : 'SMALL GROUP ROOM'}</h2>
+                        </div>
+
+                        <div style="background: #061d28; color: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; text-align: center;">
+                            <h3 style="margin: 0 0 5px 0; font-size: 1.5em;">${card.room.building}</h3>
+                            <p style="margin: 0; color: #d4af37; font-size: 1.2em;">Room ${card.room.roomId}</p>
+                        </div>
+
+                        ${card.assignedGroups.length > 0 ? `
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #061d28;">Assigned Groups:</strong>
+                                ${card.assignedGroups.map(g => `<div style="color: #555; font-size: 0.9em; margin: 5px 0;">• Group ${g.id}: ${g.parish}</div>`).join('')}
+                            </div>
+                        ` : '<p style="color: #999; font-style: italic; font-size: 0.9em;">No groups assigned</p>'}
+
+                        <!-- Custom Notes Section -->
+                        <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.9em; color: #061d28;">Notes:</label>
+                            <textarea onchange="updateRoomNote('${card.roomKey}', this.value); event.stopPropagation();"
+                                      onclick="event.stopPropagation()"
+                                      style="width: 100%; min-height: 60px; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 0.85em; font-family: inherit;"
+                                      placeholder="Add notes...">${card.note}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
 
             container.innerHTML = html;
         }
@@ -4881,18 +4838,9 @@
                 return;
             }
 
-            // Hide checkboxes and textareas for printing
-            document.querySelectorAll('.room-poster-checkbox, .room-poster textarea').forEach(el => {
-                el.style.display = 'none';
-            });
-
-            setTimeout(() => {
-                window.print();
-                // Restore after print
-                document.querySelectorAll('.room-poster-checkbox, .room-poster textarea').forEach(el => {
-                    el.style.display = '';
-                });
-            }, 100);
+            // Collect room keys from visible posters
+            const roomKeys = Array.from(visiblePosters).map(p => p.getAttribute('data-room-key'));
+            generateRoomPostersPDF(roomKeys);
         }
 
         function printSelectedRoomPosters() {
@@ -4903,31 +4851,233 @@
                 return;
             }
 
-            // Hide unchecked posters
-            document.querySelectorAll('.room-poster').forEach(poster => {
-                const checkbox = poster.querySelector('.room-poster-checkbox');
-                if (!checkbox.checked) {
-                    poster.setAttribute('data-temp-hidden', 'true');
-                    poster.style.display = 'none';
+            // Collect room keys from checked posters
+            const roomKeys = Array.from(checkboxes).map(cb => cb.closest('.room-poster').getAttribute('data-room-key'));
+            generateRoomPostersPDF(roomKeys);
+        }
+
+        function generateRoomPostersPDF(roomKeys) {
+            if (!roomKeys || roomKeys.length === 0) return;
+
+            const printWindow = window.open('', '_blank');
+
+            let postersHTML = '';
+
+            roomKeys.forEach(roomKey => {
+                // Check if housing or small group
+                const housingRoom = appData.housingRooms.find(r => `${r.building}-${r.roomId}` === roomKey);
+                const smallGroupRoom = appData.smallGroupRooms.find(r => `${r.building}-${r.roomId}` === roomKey);
+
+                if (housingRoom) {
+                    postersHTML += generateHousingRoomPosterHTML(housingRoom, roomKey);
+                } else if (smallGroupRoom) {
+                    postersHTML += generateSmallGroupRoomPosterHTML(smallGroupRoom, roomKey);
                 }
             });
 
-            // Hide checkboxes and textareas for printing
-            document.querySelectorAll('.room-poster-checkbox, .room-poster textarea').forEach(el => {
-                el.style.display = 'none';
-            });
+            const printHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Mount 2000 Room Posters - ${new Date().toLocaleDateString()}</title>
+                    <style>
+                        @page {
+                            size: letter;
+                            margin: 0.5in;
+                        }
+                        @media print {
+                            .page-break {
+                                page-break-after: always;
+                            }
+                        }
+                        body {
+                            font-family: Arial, sans-serif;
+                            font-size: 12pt;
+                            line-height: 1.4;
+                            color: #000;
+                        }
+                        .room-poster-page {
+                            background: white;
+                            padding: 30px;
+                            min-height: 10in;
+                        }
+                        .header {
+                            text-align: center;
+                            margin-bottom: 30px;
+                            border-bottom: 4px solid #d4af37;
+                            padding-bottom: 20px;
+                        }
+                        .header h1 {
+                            color: #061d28;
+                            margin: 0 0 10px 0;
+                            font-size: 32pt;
+                        }
+                        .header h2 {
+                            color: #d4af37;
+                            margin: 0;
+                            font-size: 24pt;
+                        }
+                        .room-info-box {
+                            background: #061d28;
+                            color: white;
+                            padding: 25px;
+                            border-radius: 8px;
+                            margin-bottom: 25px;
+                            text-align: center;
+                        }
+                        .room-info-box h2 {
+                            margin: 0 0 10px 0;
+                            font-size: 28pt;
+                        }
+                        .room-info-box h3 {
+                            margin: 0;
+                            font-size: 20pt;
+                            color: #d4af37;
+                        }
+                        .room-info-box p {
+                            margin: 15px 0 0 0;
+                            font-size: 14pt;
+                        }
+                        .section-title {
+                            color: #061d28;
+                            border-bottom: 2px solid #d4af37;
+                            padding-bottom: 10px;
+                            margin: 25px 0 15px 0;
+                            font-size: 16pt;
+                            font-weight: bold;
+                        }
+                        .group-box {
+                            background: #f8f9fa;
+                            padding: 15px;
+                            border-left: 5px solid #d4af37;
+                            margin-bottom: 12px;
+                            border-radius: 5px;
+                        }
+                        .group-box .group-name {
+                            margin: 0 0 5px 0;
+                            font-size: 16pt;
+                            font-weight: bold;
+                            color: #061d28;
+                        }
+                        .group-box .group-info {
+                            margin: 0;
+                            color: #555;
+                            font-size: 12pt;
+                        }
+                        .info-box {
+                            padding: 15px;
+                            border-radius: 8px;
+                            border-left: 5px solid;
+                            margin: 15px 0;
+                        }
+                        .warning-box {
+                            background: #fff3cd;
+                            border-left-color: #f39c12;
+                        }
+                        .info-box-blue {
+                            background: #e8f4f8;
+                            border-left-color: #3498db;
+                        }
+                        .info-box h4 {
+                            margin: 0 0 10px 0;
+                            font-size: 13pt;
+                        }
+                        .info-box p {
+                            margin: 5px 0;
+                            font-size: 11pt;
+                        }
+                        .no-groups {
+                            color: #999;
+                            font-style: italic;
+                            font-size: 11pt;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${postersHTML}
+                </body>
+                </html>
+            `;
+
+            printWindow.document.write(printHTML);
+            printWindow.document.close();
 
             setTimeout(() => {
-                window.print();
-                // Restore after print
-                document.querySelectorAll('.room-poster[data-temp-hidden="true"]').forEach(poster => {
-                    poster.removeAttribute('data-temp-hidden');
-                    poster.style.display = '';
-                });
-                document.querySelectorAll('.room-poster-checkbox, .room-poster textarea').forEach(el => {
-                    el.style.display = '';
-                });
-            }, 100);
+                printWindow.focus();
+                printWindow.print();
+            }, 250);
+        }
+
+        function generateHousingRoomPosterHTML(room, roomKey) {
+            const assignedGroups = getHousingRoomAssignments(roomKey);
+            const note = getRoomNote(roomKey);
+
+            return `
+                <div class="room-poster-page page-break">
+                    <div class="header">
+                        <h1>Mount 2000 Youth Retreat</h1>
+                        <h2>HOUSING</h2>
+                    </div>
+
+                    <div class="room-info-box">
+                        <h2>${room.building}</h2>
+                        <h3>Room ${room.roomId}</h3>
+                        <p>Capacity: ${room.capacity} | Gender: ${room.gender.toUpperCase()}</p>
+                    </div>
+
+                    <h3 class="section-title">Assigned Groups:</h3>
+                    ${assignedGroups.length > 0 ? assignedGroups.map(group => `
+                        <div class="group-box">
+                            <p class="group-name">Group ${group.id}: ${group.parish}</p>
+                            <p class="group-info">Leader: ${group.leader} | ${group.count} people (${group.gender})</p>
+                        </div>
+                    `).join('') : '<p class="no-groups">No groups assigned to this room yet</p>'}
+
+                    ${room.accessibility || note ? `
+                        <div class="info-box warning-box">
+                            <h4>⚠️ Important Information:</h4>
+                            ${room.accessibility ? `<p><strong>Accessibility:</strong> ${room.accessibility}</p>` : ''}
+                            ${note ? `<p><strong>Notes:</strong> ${note}</p>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function generateSmallGroupRoomPosterHTML(room, roomKey) {
+            const assignedGroups = getSmallGroupRoomAssignments(roomKey);
+            const note = getRoomNote(roomKey);
+
+            return `
+                <div class="room-poster-page page-break">
+                    <div class="header">
+                        <h1>Mount 2000 Youth Retreat</h1>
+                        <h2>SMALL GROUP ROOM</h2>
+                    </div>
+
+                    <div class="room-info-box">
+                        <h2>${room.building}</h2>
+                        <h3>Room ${room.roomId}</h3>
+                        <p>Capacity: ${room.capacity}</p>
+                    </div>
+
+                    <h3 class="section-title">Assigned Groups:</h3>
+                    ${assignedGroups.length > 0 ? assignedGroups.map(group => `
+                        <div class="group-box">
+                            <p class="group-name">Group ${group.id}: ${group.parish}</p>
+                            <p class="group-info">Leader: ${group.leader} | ${group.count} people</p>
+                        </div>
+                    `).join('') : '<p class="no-groups">No groups assigned to this room yet</p>'}
+
+                    ${room.features || note ? `
+                        <div class="info-box info-box-blue">
+                            <h4>🪑 Setup Requirements:</h4>
+                            ${room.features ? `<p><strong>${room.features}</strong></p>` : ''}
+                            ${note ? `<p><strong>Notes:</strong> ${note}</p>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
         }
 
         // ===== DATA MANAGEMENT =====

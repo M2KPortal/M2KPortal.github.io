@@ -561,8 +561,14 @@
 
             <h3 style="margin-bottom: 10px; color: #061d28;">🔍 Quick Parish Assignment Search</h3>
             <input type="text" class="search-bar" id="parish-search" placeholder="🔍 Search by Parish, Group ID, Leader, Phone, or Small Group Leader..." oninput="performSearch()" autocomplete="off">
-            
+
             <div id="search-results"></div>
+
+            <!-- Favorites Section -->
+            <div id="favorites-section" style="background: #fffef0; padding: 15px; border-radius: 8px; margin-top: 20px; border: 2px solid #f1c40f; display: none;">
+                <h3 style="color: #061d28; margin-bottom: 15px;">⭐ Your Favorited Groups</h3>
+                <div id="favorites-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;"></div>
+            </div>
 
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
                 <h3>Complete Assignment Overview</h3>
@@ -626,8 +632,36 @@
             saveFavorites(favorites);
 
             // Refresh the display
+            displayFavoritesSection();
             updateAssignmentOverview();
             performSearch();
+        }
+
+        function displayFavoritesSection() {
+            const favorites = getFavorites();
+            const favoritesSection = document.getElementById('favorites-section');
+            const favoritesList = document.getElementById('favorites-list');
+
+            if (!favoritesSection || !favoritesList) return;
+
+            if (favorites.length === 0) {
+                favoritesSection.style.display = 'none';
+                return;
+            }
+
+            // Show the section
+            favoritesSection.style.display = 'block';
+
+            // Get favorited groups
+            const favoritedGroups = appData.youthGroups.filter(g => favorites.includes(g.id));
+
+            // Generate cards
+            let html = '';
+            favoritedGroups.forEach(group => {
+                html += createGroupCard(group, false);
+            });
+
+            favoritesList.innerHTML = html;
         }
 
         function isFavorited(groupId) {
@@ -691,6 +725,7 @@
                 }
                 
                 updateAllDisplays();
+                displayFavoritesSection();
                 displayResources();
                 setupKeyboardShortcuts();
                 
