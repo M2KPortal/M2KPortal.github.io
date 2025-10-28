@@ -744,8 +744,72 @@
 
             <h3>Quick Parish Assignment Search</h3>
             <input type="text" class="search-bar" id="parish-search" placeholder="Search by Parish, Group ID, Leader, Seminarian SGL, Religious, or Phone..." oninput="performSearch()">
-            
+
             <div id="search-results"></div>
+
+            <!-- Dashboard Filters -->
+            <div style="background: #e8f4f9; padding: 15px; border-radius: 8px; margin-top: 20px; border: 2px solid #061d28;">
+                <h3 style="margin-bottom: 12px; color: #061d28; font-size: 1.1em;">📊 Filter Dashboard View</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-hide-male-housing-assigned" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Hide Male Housing Assigned</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-hide-female-housing-assigned" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Hide Female Housing Assigned</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-show-male-housing-missing" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Show Only Male Housing Missing</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-show-female-housing-missing" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Show Only Female Housing Missing</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-hide-off-campus" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Hide Off-Campus Groups</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-show-off-campus-only" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Show Only Off-Campus Groups</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-hide-small-group-assigned" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Hide Small Group Assigned</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-show-small-group-missing" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Show Only Small Group Missing</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-hide-meal-color-assigned" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Hide Meal Color Assigned</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                        <input type="checkbox" id="filter-show-meal-color-missing" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
+                        <span>Show Only Meal Color Missing</span>
+                    </label>
+                </div>
+                <div style="margin-top: 12px;">
+                    <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #061d28; font-size: 13px;">Filter by Meal Color:</label>
+                    <select id="filter-meal-color" onchange="applyDashboardFilters()" style="padding: 8px; border: 2px solid #061d28; border-radius: 6px; font-size: 13px; width: 100%; max-width: 300px;">
+                        <option value="">All Colors</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Red">Red</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Green">Green</option>
+                        <option value="Purple">Purple</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Grey">Grey</option>
+                    </select>
+                </div>
+                <div style="margin-top: 10px;">
+                    <button onclick="clearDashboardFilters()" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold;">Clear All Filters</button>
+                </div>
+            </div>
 
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
                 <h3>Assignment Overview</h3>
@@ -4621,8 +4685,15 @@
             }
             
             let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 15px;">';
-            
+
+            let visibleCount = 0;
             appData.youthGroups.forEach(group => {
+                // Apply dashboard filters
+                if (!shouldShowGroupInDashboard(group)) {
+                    return; // Skip this group
+                }
+                visibleCount++;
+
                 const isHousingAssigned = isGroupHousingAssigned(group.id);
                 const isSmallGroupAssigned = isGroupSmallGroupAssigned(group.id);
                 const mealColor = appData.mealColorAssignments[group.id] || '';
@@ -4718,9 +4789,14 @@
                     </div>
                 `;
             });
-            
+
             html += '</div>';
-            overviewDiv.innerHTML = html;
+
+            if (visibleCount === 0) {
+                overviewDiv.innerHTML = '<div style="background: #fff3cd; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #f39c12;"><p style="font-size: 16px; color: #856404; margin: 0;"><strong>📊 No groups match the current filters</strong></p><p style="color: #666; margin-top: 10px;">Try adjusting or clearing the filters above.</p></div>';
+            } else {
+                overviewDiv.innerHTML = html;
+            }
         }
 
         // ===== SEARCH FUNCTIONALITY =====
@@ -5099,6 +5175,8 @@
                             id: group.id,
                             parish: group.parish,
                             leader: group.leader,
+                            seminarianSgl: group.seminarianSgl || '',
+                            religious: group.religious || '',
                             count: group.maleTeens + group.maleChaperones,
                             gender: 'Male'
                         });
@@ -5115,6 +5193,8 @@
                             id: group.id,
                             parish: group.parish,
                             leader: group.leader,
+                            seminarianSgl: group.seminarianSgl || '',
+                            religious: group.religious || '',
                             count: group.femaleTeens + group.femaleChaperones,
                             gender: 'Female'
                         });
@@ -5137,6 +5217,8 @@
                             id: group.id,
                             parish: group.parish,
                             leader: group.leader,
+                            seminarianSgl: group.seminarianSgl || '',
+                            religious: group.religious || '',
                             count: group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones
                         });
                     }
@@ -5365,9 +5447,19 @@
 
                     <h3 class="section-title">Assigned Groups:</h3>
                     ${assignedGroups.length > 0 ? assignedGroups.map(group => `
-                        <div class="group-box">
-                            <p class="group-name">Group ${group.id}: ${group.parish}</p>
-                            <p class="group-info">Leader: ${group.leader} | ${group.count} people (${group.gender})</p>
+                        <div class="group-box" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-left: 5px solid ${group.gender === 'Male' ? '#061d28' : '#d4af37'};">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div>
+                                    <p class="group-name" style="font-size: 1.3em; margin-bottom: 8px;"><strong>Group ${group.id}:</strong> ${group.parish}</p>
+                                    <p class="group-info"><strong>Leader:</strong> ${group.leader}</p>
+                                    ${group.seminarianSgl ? `<p class="group-info" style="font-size: 0.95em;"><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
+                                    ${group.religious ? `<p class="group-info" style="font-size: 0.95em;"><strong>Religious:</strong> ${group.religious}</p>` : ''}
+                                </div>
+                                <div style="text-align: right;">
+                                    <p class="group-info" style="font-size: 1.2em; color: ${group.gender === 'Male' ? '#061d28' : '#d4af37'}; font-weight: bold;">${group.count} people</p>
+                                    <p class="group-info" style="font-size: 1.1em;">(${group.gender})</p>
+                                </div>
+                            </div>
                         </div>
                     `).join('') : '<p class="no-groups">No groups assigned to this room yet</p>'}
 
@@ -5401,9 +5493,18 @@
 
                     <h3 class="section-title">Assigned Groups:</h3>
                     ${assignedGroups.length > 0 ? assignedGroups.map(group => `
-                        <div class="group-box">
-                            <p class="group-name">Group ${group.id}: ${group.parish}</p>
-                            <p class="group-info">Leader: ${group.leader} | ${group.count} people</p>
+                        <div class="group-box" style="background: linear-gradient(135deg, #f0f8ff, #e8f4f8); border-left: 5px solid #3498db;">
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                                <div>
+                                    <p class="group-name" style="font-size: 1.3em; margin-bottom: 8px;"><strong>Group ${group.id}:</strong> ${group.parish}</p>
+                                    <p class="group-info"><strong>Leader:</strong> ${group.leader}</p>
+                                    ${group.seminarianSgl ? `<p class="group-info" style="font-size: 0.95em;"><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
+                                    ${group.religious ? `<p class="group-info" style="font-size: 0.95em;"><strong>Religious:</strong> ${group.religious}</p>` : ''}
+                                </div>
+                                <div style="text-align: right;">
+                                    <p class="group-info" style="font-size: 1.2em; color: #3498db; font-weight: bold;">${group.count} people</p>
+                                </div>
+                            </div>
                         </div>
                     `).join('') : '<p class="no-groups">No groups assigned to this room yet</p>'}
 
@@ -6045,6 +6146,74 @@
                     card.style.display = 'none';
                 }
             });
+        }
+
+        // ===== DASHBOARD FILTER FUNCTIONS =====
+        function applyDashboardFilters() {
+            updateAssignmentOverview();
+        }
+
+        function clearDashboardFilters() {
+            document.getElementById('filter-hide-male-housing-assigned').checked = false;
+            document.getElementById('filter-hide-female-housing-assigned').checked = false;
+            document.getElementById('filter-show-male-housing-missing').checked = false;
+            document.getElementById('filter-show-female-housing-missing').checked = false;
+            document.getElementById('filter-hide-off-campus').checked = false;
+            document.getElementById('filter-show-off-campus-only').checked = false;
+            document.getElementById('filter-hide-small-group-assigned').checked = false;
+            document.getElementById('filter-show-small-group-missing').checked = false;
+            document.getElementById('filter-hide-meal-color-assigned').checked = false;
+            document.getElementById('filter-show-meal-color-missing').checked = false;
+            document.getElementById('filter-meal-color').value = '';
+            applyDashboardFilters();
+        }
+
+        function shouldShowGroupInDashboard(group) {
+            // Get filter states
+            const hideMaleHousingAssigned = document.getElementById('filter-hide-male-housing-assigned')?.checked || false;
+            const hideFemaleHousingAssigned = document.getElementById('filter-hide-female-housing-assigned')?.checked || false;
+            const showMaleHousingMissing = document.getElementById('filter-show-male-housing-missing')?.checked || false;
+            const showFemaleHousingMissing = document.getElementById('filter-show-female-housing-missing')?.checked || false;
+            const hideOffCampus = document.getElementById('filter-hide-off-campus')?.checked || false;
+            const showOffCampusOnly = document.getElementById('filter-show-off-campus-only')?.checked || false;
+            const hideSmallGroupAssigned = document.getElementById('filter-hide-small-group-assigned')?.checked || false;
+            const showSmallGroupMissing = document.getElementById('filter-show-small-group-missing')?.checked || false;
+            const hideMealColorAssigned = document.getElementById('filter-hide-meal-color-assigned')?.checked || false;
+            const showMealColorMissing = document.getElementById('filter-show-meal-color-missing')?.checked || false;
+            const filterMealColor = document.getElementById('filter-meal-color')?.value || '';
+
+            // Get group states
+            const isOffCampus = group.stayingOffCampus || false;
+            const maleHousingAssigned = appData.housingAssignments.male[group.id] && appData.housingAssignments.male[group.id].length > 0;
+            const femaleHousingAssigned = appData.housingAssignments.female[group.id] && appData.housingAssignments.female[group.id].length > 0;
+            const smallGroupAssigned = appData.smallGroupAssignments[group.id] && appData.smallGroupAssignments[group.id].length > 0;
+            const mealColorAssigned = appData.mealColorAssignments[group.id] ? true : false;
+            const groupMealColor = appData.mealColorAssignments[group.id] || '';
+            const maleTotal = group.maleTeens + group.maleChaperones;
+            const femaleTotal = group.femaleTeens + group.femaleChaperones;
+
+            // Apply Off-Campus filters
+            if (hideOffCampus && isOffCampus) return false;
+            if (showOffCampusOnly && !isOffCampus) return false;
+
+            // Apply Male Housing filters
+            if (hideMaleHousingAssigned && maleHousingAssigned && maleTotal > 0) return false;
+            if (showMaleHousingMissing && (maleHousingAssigned || maleTotal === 0)) return false;
+
+            // Apply Female Housing filters
+            if (hideFemaleHousingAssigned && femaleHousingAssigned && femaleTotal > 0) return false;
+            if (showFemaleHousingMissing && (femaleHousingAssigned || femaleTotal === 0)) return false;
+
+            // Apply Small Group filters
+            if (hideSmallGroupAssigned && smallGroupAssigned) return false;
+            if (showSmallGroupMissing && smallGroupAssigned) return false;
+
+            // Apply Meal Color filters
+            if (hideMealColorAssigned && mealColorAssigned) return false;
+            if (showMealColorMissing && mealColorAssigned) return false;
+            if (filterMealColor && groupMealColor !== filterMealColor) return false;
+
+            return true;
         }
 
         // ===== SYSTEM INITIALIZATION =====
