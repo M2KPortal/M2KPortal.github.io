@@ -743,7 +743,7 @@
             </div>
 
             <h3>Quick Parish Assignment Search</h3>
-            <input type="text" class="search-bar" id="parish-search" placeholder="Search by Parish name, Group ID, Leader name, Seminarian SGL, or Phone..." oninput="performSearch()">
+            <input type="text" class="search-bar" id="parish-search" placeholder="Search by Parish, Group ID, Leader, Seminarian SGL, Religious, or Phone..." oninput="performSearch()">
             
             <div id="search-results"></div>
 
@@ -783,6 +783,10 @@
                 <div class="form-group">
                     <label>Seminarian SGL</label>
                     <input type="text" id="seminarian-sgl" placeholder="Enter Seminarian Small Group Leader">
+                </div>
+                <div class="form-group">
+                    <label>Religious</label>
+                    <input type="text" id="religious" placeholder="Enter Religious (Priest, Brother, Sister, etc.)">
                 </div>
                 <div class="form-group">
                     <label>Phone Number</label>
@@ -830,7 +834,7 @@
             </div>
 
             <div class="table-controls">
-                <input type="text" class="filter-input" id="youth-groups-filter" placeholder="Filter by Parish, Group ID, Leader, Seminarian SGL, or Phone..." oninput="filterYouthGroupsTable()">
+                <input type="text" class="filter-input" id="youth-groups-filter" placeholder="Filter by Parish, Group ID, Leader, Seminarian SGL, Religious, or Phone..." oninput="filterYouthGroupsTable()">
                 <div class="sort-controls">
                     <label>Sort by:</label>
                     <select class="sort-select" id="youth-groups-sort" onchange="sortYouthGroupsTable()">
@@ -855,6 +859,7 @@
                             <th class="sortable" onclick="sortYouthGroupsBy('parish')">Parish</th>
                             <th class="sortable" onclick="sortYouthGroupsBy('leader')">Leader</th>
                             <th class="sortable" onclick="sortYouthGroupsBy('seminarianSgl')">Seminarian SGL</th>
+                            <th class="sortable" onclick="sortYouthGroupsBy('religious')">Religious</th>
                             <th class="sortable" onclick="sortYouthGroupsBy('phone')">Phone</th>
                             <th class="sortable" onclick="sortYouthGroupsBy('maleTeens')">M Teens</th>
                             <th class="sortable" onclick="sortYouthGroupsBy('femaleTeens')">F Teens</th>
@@ -1459,8 +1464,8 @@
                 const cells = row.getElementsByTagName('td');
                 let showRow = false;
                 
-                // Check Group ID, Parish, Leader, Seminarian SGL, Phone
-                for (let j = 0; j < 5; j++) {
+                // Check Group ID, Parish, Leader, Seminarian SGL, Religious, Phone
+                for (let j = 0; j < 6; j++) {
                     if (cells[j] && cells[j].textContent.toLowerCase().includes(filterValue)) {
                         showRow = true;
                         break;
@@ -2966,6 +2971,7 @@
                 'Parish Name',
                 'Group Leader',
                 'Seminarian SGL',
+                'Religious',
                 'Phone Number',
                 'Male Teens',
                 'Female Teens',
@@ -2974,12 +2980,13 @@
                 'Off-Campus',
                 'Special Accommodations'
             ];
-            
+
             const sampleRow = [
                 '1',
                 'St. Example Parish',
                 'John Smith',
                 'Fr. Michael',
+                'Sr. Mary',
                 '123-456-7890',
                 '15',
                 '20',
@@ -3035,6 +3042,7 @@
                     // Find optional column indices
                     const leaderIndex = headers.findIndex(h => h.toLowerCase().includes('leader'));
                     const seminarianIndex = headers.findIndex(h => h.toLowerCase().includes('seminarian') || h.toLowerCase().includes('sgl'));
+                    const religiousIndex = headers.findIndex(h => h.toLowerCase().includes('religious'));
                     const phoneIndex = headers.findIndex(h => h.toLowerCase().includes('phone'));
                     const maleTeensIndex = headers.findIndex(h => h.toLowerCase().includes('male') && h.toLowerCase().includes('teen'));
                     const femaleTeensIndex = headers.findIndex(h => h.toLowerCase().includes('female') && h.toLowerCase().includes('teen'));
@@ -3089,6 +3097,7 @@
                             parish: parishName,
                             leader: leaderIndex !== -1 ? (values[leaderIndex]?.trim() || '') : '',
                             seminarianSgl: seminarianIndex !== -1 ? (values[seminarianIndex]?.trim() || '') : '',
+                            religious: religiousIndex !== -1 ? (values[religiousIndex]?.trim() || '') : '',
                             phone: phoneIndex !== -1 ? (values[phoneIndex]?.trim() || '') : '',
                             maleTeens: maleTeensIndex !== -1 ? (parseInt(values[maleTeensIndex]) || 0) : 0,
                             femaleTeens: femaleTeensIndex !== -1 ? (parseInt(values[femaleTeensIndex]) || 0) : 0,
@@ -3297,6 +3306,7 @@
                 parish: document.getElementById('parish-name').value.trim(),
                 leader: document.getElementById('group-leader').value.trim(),
                 seminarianSgl: document.getElementById('seminarian-sgl').value.trim(),
+                religious: document.getElementById('religious').value.trim(),
                 phone: document.getElementById('phone-number').value.trim(),
                 maleTeens: parseInt(document.getElementById('male-teens').value) || 0,
                 femaleTeens: parseInt(document.getElementById('female-teens').value) || 0,
@@ -3327,6 +3337,7 @@
             document.getElementById('parish-name').value = group.parish;
             document.getElementById('group-leader').value = group.leader;
             document.getElementById('seminarian-sgl').value = group.seminarianSgl || '';
+            document.getElementById('religious').value = group.religious || '';
             document.getElementById('phone-number').value = group.phone;
             document.getElementById('male-teens').value = group.maleTeens;
             document.getElementById('female-teens').value = group.femaleTeens;
@@ -4439,6 +4450,7 @@
                     <td>${group.parish}</td>
                     <td>${group.leader}</td>
                     <td>${group.seminarianSgl || 'Not Assigned'}</td>
+                    <td>${group.religious || 'Not Assigned'}</td>
                     <td>${group.phone}</td>
                     <td>${group.maleTeens}</td>
                     <td>${group.femaleTeens}</td>
@@ -4662,7 +4674,8 @@
                         </div>
                         <p><span class="section-id">${group.id}</span> | ${totalGroup} people total</p>
                         ${group.seminarianSgl ? `<p style="font-size: 12px; color: #2c3e50;"><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
-                        
+                        ${group.religious ? `<p style="font-size: 12px; color: #2c3e50;"><strong>Religious:</strong> ${group.religious}</p>` : ''}
+
                         <!-- Housing Assignments -->
                         ${isOffCampus ? `
                             <div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #e67e22;">
@@ -4720,11 +4733,12 @@
                 return;
             }
             
-            const matchingGroups = appData.youthGroups.filter(group => 
+            const matchingGroups = appData.youthGroups.filter(group =>
                 group.parish.toLowerCase().includes(searchTerm) ||
                 group.id.toLowerCase().includes(searchTerm) ||
                 group.leader.toLowerCase().includes(searchTerm) ||
                 (group.seminarianSgl && group.seminarianSgl.toLowerCase().includes(searchTerm)) ||
+                (group.religious && group.religious.toLowerCase().includes(searchTerm)) ||
                 group.phone.toLowerCase().includes(searchTerm)
             );
             
@@ -4785,7 +4799,8 @@
                             </div>
                         </div>
                         <p><span class="section-id">${group.id}</span> | <strong>Leader:</strong> ${group.leader} | <strong>Phone:</strong> ${group.phone}</p>
-                        ${group.seminarianSgl ? `<p><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
+                        ${group.seminarianSgl ? `<p style="font-size: 12px;"><strong>Seminarian SGL:</strong> ${group.seminarianSgl}</p>` : ''}
+                        ${group.religious ? `<p style="font-size: 12px;"><strong>Religious:</strong> ${group.religious}</p>` : ''}
                         <p><strong>Total People:</strong> ${totalGroup} (${maleTotal} males, ${femaleTotal} females)</p>
                         ${group.specialAccommodations ? `<p style="margin-top: 8px; font-size: 12px;"><strong>Special Accommodations:</strong> ${group.specialAccommodations}</p>` : ''}
                         
@@ -5694,7 +5709,7 @@
 
         function exportToCSV() {
             const headers = [
-                'Group ID', 'Parish Name', 'Group Leader', 'Seminarian SGL', 'Phone Number',
+                'Group ID', 'Parish Name', 'Group Leader', 'Seminarian SGL', 'Religious', 'Phone Number',
                 'Male Teens', 'Female Teens', 'Male Chaperones', 'Female Chaperones', 'Total People',
                 'Special Accommodations', 'Meal Color', 'Male Housing Assignments', 'Female Housing Assignments', 
                 'Small Group Assignments', 'Housing Assignment Status', 'Small Group Assignment Status'
@@ -5736,6 +5751,7 @@
                     `"${group.parish}"`,
                     `"${group.leader}"`,
                     `"${group.seminarianSgl || ''}"`,
+                    `"${group.religious || ''}"`,
                     group.phone,
                     group.maleTeens,
                     group.femaleTeens,

@@ -560,7 +560,7 @@
             </div>
 
             <h3 style="margin-bottom: 10px; color: #061d28;">🔍 Quick Parish Assignment Search</h3>
-            <input type="text" class="search-bar" id="parish-search" placeholder="🔍 Search by Parish, Group ID, Leader, Phone, or Small Group Leader..." oninput="performSearch()" autocomplete="off">
+            <input type="text" class="search-bar" id="parish-search" placeholder="🔍 Search by Parish, Group ID, Leader, Phone, Seminarian SGL, or Religious..." oninput="performSearch()" autocomplete="off">
 
             <div id="search-results"></div>
 
@@ -975,10 +975,11 @@
             
             const overallAssigned = isHousingAssigned || isSmallGroupAssigned;
             
-            // Get meal color and seminarian info
+            // Get meal color, seminarian, and religious info
             const mealColor = appData.mealColorAssignments[group.id];
             const mealColorStyle = getMealColorStyle(mealColor);
             const seminarian = group.seminarianSgl || '';
+            const religious = group.religious || '';
             const isOffCampus = group.stayingOffCampus || false;
             
             const backgroundStyle = isSearch ? (overallAssigned ? '#f0fff4' : '#fff5f5') : '';
@@ -1027,7 +1028,10 @@
                     
                     <!-- SEMINARIAN SGL -->
                     ${seminarian ? `<p style="font-size: 12px; color: #2c3e50; margin-top: 8px;"><strong>Seminarian SGL:</strong> ${seminarian}</p>` : ''}
-                    
+
+                    <!-- RELIGIOUS -->
+                    ${religious ? `<p style="font-size: 12px; color: #2c3e50; margin-top: 6px;"><strong>Religious:</strong> ${religious}</p>` : ''}
+
                     <!-- HOUSING ASSIGNMENTS SECTION -->
                     ${isOffCampus ? `
                         <div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #e67e22;">
@@ -1266,7 +1270,8 @@
                 group.id.toLowerCase().includes(searchTerm) ||
                 group.leader.toLowerCase().includes(searchTerm) ||
                 group.phone.toLowerCase().includes(searchTerm) ||
-                (group.seminarianSgl && group.seminarianSgl.toLowerCase().includes(searchTerm))
+                (group.seminarianSgl && group.seminarianSgl.toLowerCase().includes(searchTerm)) ||
+                (group.religious && group.religious.toLowerCase().includes(searchTerm))
             );
 
             if (matchingGroups.length === 0) {
