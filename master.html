@@ -628,8 +628,8 @@
             <button class="tab-button" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
-            <button class="tab-button" onclick="switchTab('printable-forms')">Print Group Housing Information</button>
-            <button class="tab-button" onclick="switchTab('room-posters')">Print Youth Group Information</button>
+            <button class="tab-button" onclick="switchTab('printable-forms')">Print Youth Group Information</button>
+            <button class="tab-button" onclick="switchTab('room-posters')">Print Room Information</button>
         </div>
 
         <!-- Dashboard Tab -->
@@ -1344,9 +1344,9 @@
             <div id="resources-list"></div>
         </div>
 
-        <!-- Print Group Housing Information Tab -->
+        <!-- Print Youth Group Information Tab -->
         <div id="printable-forms" class="tab-content">
-            <h2>Print Group Housing Information</h2>
+            <h2>Print Youth Group Information</h2>
             <p style="margin-bottom: 20px; color: #666;">Generate professional PDF check-in forms for each youth group with all housing and meal assignments.</p>
 
             <!-- Generate PDF Buttons at Top -->
@@ -1421,9 +1421,9 @@
             </div>
         </div>
 
-        <!-- Print Youth Group Information Tab -->
+        <!-- Print Room Information Tab -->
         <div id="room-posters" class="tab-content">
-            <h2>Print Youth Group Information</h2>
+            <h2>Print Room Information</h2>
             <p style="margin-bottom: 20px; color: #666;">Generate professional room posters for housing and small group rooms with all assignment details.</p>
 
             <!-- Search and Filter Controls -->
@@ -2066,11 +2066,18 @@
 
                 html += `
                     <div class="individual-form-preview" style="background: white; border: 2px solid #061d28; border-radius: 10px; padding: 20px; margin-bottom: 20px; page-break-inside: avoid;">
+                        <!-- Group ID Badge -->
+                        <div style="position: relative; margin-bottom: 10px;">
+                            <div style="display: inline-block; background: linear-gradient(135deg, #d4af37, #f4d03f); color: #061d28; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                                Group ID: ${group.id}
+                            </div>
+                        </div>
+
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px;">
                             <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
                                 <label style="display: flex; align-items: center; cursor: pointer;">
-                                    <input 
-                                        type="checkbox" 
+                                    <input
+                                        type="checkbox"
                                         ${isSelected ? 'checked' : ''}
                                         onchange="toggleFormSelection('${group.id}')"
                                         style="width: 24px; height: 24px; cursor: pointer; margin: 0;"
@@ -2081,9 +2088,9 @@
                                     <p style="margin: 5px 0 0 0; font-size: 12px;">Housing & Information Check-In Form</p>
                                 </div>
                             </div>
-                            <button 
-                                onclick="generateIndividualPDF('${group.id}')" 
-                                class="btn btn-primary" 
+                            <button
+                                onclick="generateIndividualPDF('${group.id}')"
+                                class="btn btn-primary"
                                 style="margin-left: 15px; padding: 10px 20px; font-size: 14px; white-space: nowrap;"
                             >
                                 🖨️ Print This Form
@@ -2112,6 +2119,16 @@
                             </div>
                         </div>
 
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <strong style="font-size: 12px; color: #666;">Religious:</strong>
+                                <div style="font-size: 16px; border-bottom: 2px solid #d4af37; padding: 5px 0;">${group.religious || 'N/A'}</div>
+                            </div>
+                            <div>
+                                <!-- Empty space for layout balance -->
+                            </div>
+                        </div>
+
                         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
                             <div>
                                 <strong style="font-size: 11px; color: #666;">Male Teens:</strong>
@@ -2132,20 +2149,21 @@
                         </div>
 
                         <div style="border-top: 2px solid #061d28; padding-top: 15px; margin-top: 15px;">
-                            <h4 style="margin: 0 0 10px 0; font-size: 16px;">🏠 HOUSING ASSIGNMENTS</h4>
-                            <div style="margin-bottom: 10px;">
-                                <strong style="font-size: 13px;">Male Housing:</strong>
-                                <div style="background: #e6f3ff; padding: 8px; border-radius: 4px; border-left: 4px solid #3498db; margin-top: 4px;">${maleHousing}</div>
+                            <h4 style="margin: 0 0 10px 0; font-size: 16px;">🏠 HOUSING ASSIGNMENTS & SMALL GROUP ROOM</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                                <div>
+                                    <strong style="font-size: 13px; display: block; margin-bottom: 4px;">Male Housing:</strong>
+                                    <div style="background: linear-gradient(135deg, #e6f3ff, #cce7ff); padding: 8px; border-radius: 4px; border-left: 4px solid #3498db; font-size: 12px; font-weight: 600;">${maleHousing}</div>
+                                </div>
+                                <div>
+                                    <strong style="font-size: 13px; display: block; margin-bottom: 4px;">Female Housing:</strong>
+                                    <div style="background: linear-gradient(135deg, #fff0f6, #ffe0f0); padding: 8px; border-radius: 4px; border-left: 4px solid #9b59b6; font-size: 12px; font-weight: 600;">${femaleHousing}</div>
+                                </div>
+                                <div>
+                                    <strong style="font-size: 13px; display: block; margin-bottom: 4px;">👥 Small Group Room:</strong>
+                                    <div style="background: linear-gradient(135deg, #f0f8ff, #d4ebf7); padding: 8px; border-radius: 4px; border-left: 4px solid #27ae60; font-size: 12px; font-weight: 600;">${smallGroupRoom}</div>
+                                </div>
                             </div>
-                            <div>
-                                <strong style="font-size: 13px;">Female Housing:</strong>
-                                <div style="background: #fff0f6; padding: 8px; border-radius: 4px; border-left: 4px solid #9b59b6; margin-top: 4px;">${femaleHousing}</div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 15px;">
-                            <strong style="font-size: 13px;">👥 Small Group Room Assignment:</strong>
-                            <div style="background: #f0f8ff; padding: 8px; border-radius: 4px; border-left: 4px solid #27ae60; margin-top: 4px;">${smallGroupRoom}</div>
                         </div>
 
                         <div style="margin-top: 15px;">
@@ -2167,17 +2185,23 @@
                             </div>
                         ` : ''}
 
-                        ${!isOffCampus && appData.defaultNotes.teenShowerPlan ? `
+                        ${!isOffCampus && (appData.defaultNotes.teenShowerPlan || appData.defaultNotes.adultShowerPlan) ? `
                             <div style="margin-top: 15px;">
-                                <strong style="font-size: 13px;">🚿 Teen Shower Plan:</strong>
-                                <div style="background: #e8f5e9; padding: 8px; border-radius: 4px; border-left: 4px solid #27ae60; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.teenShowerPlan}</div>
-                            </div>
-                        ` : ''}
-
-                        ${!isOffCampus && appData.defaultNotes.adultShowerPlan ? `
-                            <div style="margin-top: 15px;">
-                                <strong style="font-size: 13px;">🚿 Adult Chaperone Shower Plan:</strong>
-                                <div style="background: #f3e5f5; padding: 8px; border-radius: 4px; border-left: 4px solid #9b59b6; margin-top: 4px; white-space: pre-line; font-size: 12px;">${appData.defaultNotes.adultShowerPlan}</div>
+                                <h4 style="margin: 0 0 8px 0; font-size: 14px;">🚿 SHOWER PLANS</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    ${appData.defaultNotes.teenShowerPlan ? `
+                                        <div>
+                                            <strong style="font-size: 12px; display: block; margin-bottom: 4px; color: #27ae60;">Teen Shower Plan:</strong>
+                                            <div style="background: linear-gradient(135deg, #e8f5e9, #d0ead4); padding: 6px 8px; border-radius: 4px; border-left: 3px solid #27ae60; white-space: pre-line; font-size: 10px; line-height: 1.4;">${appData.defaultNotes.teenShowerPlan}</div>
+                                        </div>
+                                    ` : ''}
+                                    ${appData.defaultNotes.adultShowerPlan ? `
+                                        <div>
+                                            <strong style="font-size: 12px; display: block; margin-bottom: 4px; color: #9b59b6;">Adult Chaperone Plan:</strong>
+                                            <div style="background: linear-gradient(135deg, #f3e5f5, #e8d4ed); padding: 6px 8px; border-radius: 4px; border-left: 3px solid #9b59b6; white-space: pre-line; font-size: 10px; line-height: 1.4;">${appData.defaultNotes.adultShowerPlan}</div>
+                                        </div>
+                                    ` : ''}
+                                </div>
                             </div>
                         ` : ''}
 
