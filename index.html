@@ -1068,8 +1068,8 @@
                         </div>`}
                     </div>
 
-                    <!-- MEAL TIMES SECTION -->
-                    ${mealColor ? `
+                    <!-- MEAL TIMES SECTION - Only show in search results -->
+                    ${isSearch && mealColor ? `
                         <div style="background: ${mealColorStyle.background}15; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid ${mealColorStyle.background};">
                             <strong style="font-size: 14px;">🍽️ Meal Times - ${mealColorStyle.text} Group</strong>
                             ${appData.mealTimes[mealColor] ? `
