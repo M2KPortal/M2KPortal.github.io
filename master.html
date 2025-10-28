@@ -2078,7 +2078,7 @@
                                 </label>
                                 <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: #d4af37; padding: 10px 20px; border-radius: 6px; flex: 1; text-align: center;">
                                     <h3 style="margin: 0; font-size: 20px;">MOUNT 2000 YOUTH RETREAT 2026</h3>
-                                    <p style="margin: 5px 0 0 0; font-size: 12px;">Housing & Information Check-In Form</p>
+                                    <p style="margin: 5px 0 0 0; font-size: 12px;">Group Leader Information Sheet - 2026</p>
                                 </div>
                             </div>
                             <button
@@ -2094,7 +2094,7 @@
                         <div style="margin-bottom: 15px;">
                             <strong style="font-size: 12px; color: #666;">Group ID & Parish:</strong>
                             <div style="font-size: 18px; font-weight: bold; border-bottom: 2px solid #d4af37; padding: 5px 0;">
-                                <span style="background: linear-gradient(135deg, #d4af37, #f4d03f); color: #061d28; padding: 4px 12px; border-radius: 4px; margin-right: 12px;">ID: ${group.id}</span>
+                                <span style="background: #fff9c4; color: #333; padding: 4px 12px; border-radius: 4px; margin-right: 12px; border: 2px solid #f9d71c;">ID: ${group.id}</span>
                                 ${group.parish}
                             </div>
                         </div>
@@ -2149,26 +2149,26 @@
                                     <h4 style="margin: 0 0 10px 0; font-size: 16px;">🏠 HOUSING & SMALL GROUP</h4>
                                     <div style="margin-bottom: 10px;">
                                         <strong style="font-size: 13px; display: block; margin-bottom: 4px;">Male Housing:</strong>
-                                        <div style="background: ${isOffCampus ? 'linear-gradient(135deg, #ff9800, #ffa726)' : 'linear-gradient(135deg, #2196f3, #42a5f5)'}; color: white; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">${maleHousing}</div>
+                                        <div style="background: ${isOffCampus ? '#ffe0b2' : '#b3e5fc'}; color: #333; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid ${isOffCampus ? '#ff9800' : '#2196f3'};">${maleHousing}</div>
                                     </div>
                                     <div style="margin-bottom: 10px;">
                                         <strong style="font-size: 13px; display: block; margin-bottom: 4px;">Female Housing:</strong>
-                                        <div style="background: ${isOffCampus ? 'linear-gradient(135deg, #ff9800, #ffa726)' : 'linear-gradient(135deg, #e91e63, #f06292)'}; color: white; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">${femaleHousing}</div>
+                                        <div style="background: ${isOffCampus ? '#ffe0b2' : '#f8bbd0'}; color: #333; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid ${isOffCampus ? '#ff9800' : '#e91e63'};">${femaleHousing}</div>
                                     </div>
                                     <div>
                                         <strong style="font-size: 13px; display: block; margin-bottom: 4px;">👥 Small Group Room:</strong>
-                                        <div style="background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">${smallGroupRoom}</div>
+                                        <div style="background: #c8e6c9; color: #333; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #4caf50;">${smallGroupRoom}</div>
                                     </div>
                                 </div>
 
                                 <!-- Right Column: Meal Schedule -->
                                 <div>
                                     <h4 style="margin: 0 0 10px 0; font-size: 16px;">🍽️ MEAL SCHEDULE</h4>
-                                    <div style="background: ${getColorForMealAssignment(mealColor)}; color: white; padding: 15px; border-radius: 6px; height: calc(100% - 34px); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
-                                        <div style="font-weight: bold; font-size: 14px; margin-bottom: 8px; text-align: center; padding-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3);">
+                                    <div style="border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                        <div style="background: ${getColorForMealAssignment(mealColor)}; color: white; font-weight: bold; font-size: 14px; padding: 12px; text-align: center;">
                                             Color: ${mealColor}
                                         </div>
-                                        <div style="white-space: pre-line; font-size: 12px; line-height: 1.6;">${mealSchedule}</div>
+                                        <div style="background: ${mealColor === 'Blue' ? '#e3f2fd' : mealColor === 'Red' ? '#ffebee' : mealColor === 'Orange' ? '#fff3e0' : mealColor === 'Yellow' ? '#fffde7' : mealColor === 'Green' ? '#e8f5e9' : mealColor === 'Purple' ? '#f3e5f5' : mealColor === 'Brown' ? '#efebe9' : '#f5f5f5'}; color: #333; padding: 12px; white-space: pre-line; font-size: 12px; line-height: 1.6; min-height: 150px;">${mealSchedule}</div>
                                     </div>
                                 </div>
                             </div>
@@ -2342,16 +2342,26 @@
                             .no-print {
                                 display: none !important;
                             }
+                            * {
+                                -webkit-print-color-adjust: exact !important;
+                                print-color-adjust: exact !important;
+                                color-adjust: exact !important;
+                            }
                         }
                         body {
                             font-family: Arial, sans-serif;
                             font-size: 12pt;
                             line-height: 1.4;
                             color: #000;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
+                            color-adjust: exact;
                         }
                         .form-container {
                             background: white;
                             padding: 20px;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .header {
                             background: #061d28;
@@ -2402,20 +2412,27 @@
                             padding: 12px;
                             border-radius: 6px;
                             margin: 8px 0;
-                            color: white;
+                            color: #333;
                             font-weight: 600;
+                            border-left: 4px solid;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .male-housing-oncampus {
-                            background: linear-gradient(135deg, #2196f3, #42a5f5);
+                            background: #b3e5fc;
+                            border-left-color: #2196f3;
                         }
                         .female-housing-oncampus {
-                            background: linear-gradient(135deg, #e91e63, #f06292);
+                            background: #f8bbd0;
+                            border-left-color: #e91e63;
                         }
                         .male-housing-offcampus {
-                            background: linear-gradient(135deg, #ff9800, #ffa726);
+                            background: #ffe0b2;
+                            border-left-color: #ff9800;
                         }
                         .female-housing-offcampus {
-                            background: linear-gradient(135deg, #ff9800, #ffa726);
+                            background: #ffe0b2;
+                            border-left-color: #ff9800;
                         }
                         .off-campus-box {
                             background: #fff3cd;
@@ -2423,9 +2440,12 @@
                             color: #856404;
                             text-align: center;
                             padding: 15px;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .small-group-box {
-                            background: linear-gradient(135deg, #4caf50, #66bb6a);
+                            background: #c8e6c9;
+                            border-left-color: #4caf50;
                         }
                         .two-column-grid {
                             display: grid;
@@ -2433,11 +2453,22 @@
                             gap: 20px;
                             margin-top: 15px;
                         }
-                        .meal-box {
-                            padding: 15px;
-                            border-radius: 6px;
+                        .meal-box-header {
+                            padding: 12px;
                             color: white;
-                            min-height: 200px;
+                            font-weight: bold;
+                            text-align: center;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
+                        }
+                        .meal-box-content {
+                            padding: 12px;
+                            color: #333;
+                            min-height: 150px;
+                            white-space: pre-line;
+                            line-height: 1.6;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .notes-box {
                             background: #fffbea;
@@ -2485,13 +2516,13 @@
                     <div class="form-container">
                         <div class="header">
                             <h1>MOUNT 2000 YOUTH RETREAT 2026</h1>
-                            <p>Housing & Information Check-In Form</p>
+                            <p>Group Leader Information Sheet - 2026</p>
                         </div>
 
                         <div style="margin-bottom: 15px;">
                             <div class="field-label">Group ID & Parish:</div>
                             <div class="field-value" style="font-size: 16pt;">
-                                <span style="background: linear-gradient(135deg, #d4af37, #f4d03f); color: #061d28; padding: 4px 12px; border-radius: 4px; margin-right: 12px; font-weight: bold;">ID: ${group.id}</span>
+                                <span style="background: #fff9c4; color: #333; padding: 4px 12px; border-radius: 4px; margin-right: 12px; font-weight: bold; border: 2px solid #f9d71c; -webkit-print-color-adjust: exact; print-color-adjust: exact;">ID: ${group.id}</span>
                                 <strong>${group.parish}</strong>
                             </div>
                         </div>
@@ -2563,11 +2594,11 @@
 
                             <div>
                                 <div class="section-header" style="margin-top: 0;">🍽️ MEAL SCHEDULE</div>
-                                <div class="meal-box" style="background: ${getColorForMealAssignment(mealColor)};">
-                                    <div style="font-weight: bold; font-size: 14pt; margin-bottom: 10px; text-align: center; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.3);">
+                                <div style="border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    <div class="meal-box-header" style="background: ${getColorForMealAssignment(mealColor)};">
                                         Color: ${mealColor}
                                     </div>
-                                    <div style="white-space: pre-line; line-height: 1.6;">${mealSchedule}</div>
+                                    <div class="meal-box-content" style="background: ${mealColor === 'Blue' ? '#e3f2fd' : mealColor === 'Red' ? '#ffebee' : mealColor === 'Orange' ? '#fff3e0' : mealColor === 'Yellow' ? '#fffde7' : mealColor === 'Green' ? '#e8f5e9' : mealColor === 'Purple' ? '#f3e5f5' : mealColor === 'Brown' ? '#efebe9' : '#f5f5f5'};">${mealSchedule}</div>
                                 </div>
                             </div>
                         </div>
@@ -2586,13 +2617,13 @@
                                     ${appData.defaultNotes.teenShowerPlan ? `
                                         <div>
                                             <div class="field-label" style="color: #27ae60; font-weight: bold;">Teen Shower Plan:</div>
-                                            <div style="background: linear-gradient(135deg, #e8f5e9, #d0ead4); padding: 10px; border-radius: 6px; border-left: 3px solid #27ae60; white-space: pre-line; font-size: 10pt; line-height: 1.5;">${appData.defaultNotes.teenShowerPlan}</div>
+                                            <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; border-left: 3px solid #27ae60; white-space: pre-line; font-size: 10pt; line-height: 1.5; color: #333; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${appData.defaultNotes.teenShowerPlan}</div>
                                         </div>
                                     ` : ''}
                                     ${appData.defaultNotes.adultShowerPlan ? `
                                         <div>
                                             <div class="field-label" style="color: #9b59b6; font-weight: bold;">Adult Chaperone Plan:</div>
-                                            <div style="background: linear-gradient(135deg, #f3e5f5, #e8d4ed); padding: 10px; border-radius: 6px; border-left: 3px solid #9b59b6; white-space: pre-line; font-size: 10pt; line-height: 1.5;">${appData.defaultNotes.adultShowerPlan}</div>
+                                            <div style="background: #f3e5f5; padding: 10px; border-radius: 6px; border-left: 3px solid #9b59b6; white-space: pre-line; font-size: 10pt; line-height: 1.5; color: #333; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${appData.defaultNotes.adultShowerPlan}</div>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -2737,20 +2768,27 @@
                             padding: 12px;
                             border-radius: 6px;
                             margin: 8px 0;
-                            color: white;
+                            color: #333;
                             font-weight: 600;
+                            border-left: 4px solid;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .male-housing-oncampus {
-                            background: linear-gradient(135deg, #2196f3, #42a5f5);
+                            background: #b3e5fc;
+                            border-left-color: #2196f3;
                         }
                         .female-housing-oncampus {
-                            background: linear-gradient(135deg, #e91e63, #f06292);
+                            background: #f8bbd0;
+                            border-left-color: #e91e63;
                         }
                         .male-housing-offcampus {
-                            background: linear-gradient(135deg, #ff9800, #ffa726);
+                            background: #ffe0b2;
+                            border-left-color: #ff9800;
                         }
                         .female-housing-offcampus {
-                            background: linear-gradient(135deg, #ff9800, #ffa726);
+                            background: #ffe0b2;
+                            border-left-color: #ff9800;
                         }
                         .off-campus-box {
                             background: #fff3cd;
@@ -2758,9 +2796,12 @@
                             color: #856404;
                             text-align: center;
                             padding: 15px;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .small-group-box {
-                            background: linear-gradient(135deg, #4caf50, #66bb6a);
+                            background: #c8e6c9;
+                            border-left-color: #4caf50;
                         }
                         .two-column-grid {
                             display: grid;
@@ -2768,11 +2809,22 @@
                             gap: 20px;
                             margin-top: 15px;
                         }
-                        .meal-box {
-                            padding: 15px;
-                            border-radius: 6px;
+                        .meal-box-header {
+                            padding: 12px;
                             color: white;
-                            min-height: 200px;
+                            font-weight: bold;
+                            text-align: center;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
+                        }
+                        .meal-box-content {
+                            padding: 12px;
+                            color: #333;
+                            min-height: 150px;
+                            white-space: pre-line;
+                            line-height: 1.6;
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
                         }
                         .notes-box {
                             background: #fffbea;
@@ -2831,13 +2883,13 @@
                     <div class="form-container ${index < sortedGroups.length - 1 ? 'page-break' : ''}">
                         <div class="header">
                             <h1>MOUNT 2000 YOUTH RETREAT 2026</h1>
-                            <p>Housing & Information Check-In Form</p>
+                            <p>Group Leader Information Sheet - 2026</p>
                         </div>
 
                         <div style="margin-bottom: 15px;">
                             <div class="field-label">Group ID & Parish:</div>
                             <div class="field-value" style="font-size: 16pt;">
-                                <span style="background: linear-gradient(135deg, #d4af37, #f4d03f); color: #061d28; padding: 4px 12px; border-radius: 4px; margin-right: 12px; font-weight: bold;">ID: ${group.id}</span>
+                                <span style="background: #fff9c4; color: #333; padding: 4px 12px; border-radius: 4px; margin-right: 12px; font-weight: bold; border: 2px solid #f9d71c; -webkit-print-color-adjust: exact; print-color-adjust: exact;">ID: ${group.id}</span>
                                 <strong>${group.parish}</strong>
                             </div>
                         </div>
@@ -2909,11 +2961,11 @@
 
                             <div>
                                 <div class="section-header" style="margin-top: 0;">🍽️ MEAL SCHEDULE</div>
-                                <div class="meal-box" style="background: ${getColorForMealAssignment(mealColor)};">
-                                    <div style="font-weight: bold; font-size: 14pt; margin-bottom: 10px; text-align: center; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.3);">
+                                <div style="border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    <div class="meal-box-header" style="background: ${getColorForMealAssignment(mealColor)};">
                                         Color: ${mealColor}
                                     </div>
-                                    <div style="white-space: pre-line; line-height: 1.6;">${mealSchedule}</div>
+                                    <div class="meal-box-content" style="background: ${mealColor === 'Blue' ? '#e3f2fd' : mealColor === 'Red' ? '#ffebee' : mealColor === 'Orange' ? '#fff3e0' : mealColor === 'Yellow' ? '#fffde7' : mealColor === 'Green' ? '#e8f5e9' : mealColor === 'Purple' ? '#f3e5f5' : mealColor === 'Brown' ? '#efebe9' : '#f5f5f5'};">${mealSchedule}</div>
                                 </div>
                             </div>
                         </div>
@@ -2932,13 +2984,13 @@
                                     ${appData.defaultNotes.teenShowerPlan ? `
                                         <div>
                                             <div class="field-label" style="color: #27ae60; font-weight: bold;">Teen Shower Plan:</div>
-                                            <div style="background: linear-gradient(135deg, #e8f5e9, #d0ead4); padding: 10px; border-radius: 6px; border-left: 3px solid #27ae60; white-space: pre-line; font-size: 10pt; line-height: 1.5;">${appData.defaultNotes.teenShowerPlan}</div>
+                                            <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; border-left: 3px solid #27ae60; white-space: pre-line; font-size: 10pt; line-height: 1.5; color: #333; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${appData.defaultNotes.teenShowerPlan}</div>
                                         </div>
                                     ` : ''}
                                     ${appData.defaultNotes.adultShowerPlan ? `
                                         <div>
                                             <div class="field-label" style="color: #9b59b6; font-weight: bold;">Adult Chaperone Plan:</div>
-                                            <div style="background: linear-gradient(135deg, #f3e5f5, #e8d4ed); padding: 10px; border-radius: 6px; border-left: 3px solid #9b59b6; white-space: pre-line; font-size: 10pt; line-height: 1.5;">${appData.defaultNotes.adultShowerPlan}</div>
+                                            <div style="background: #f3e5f5; padding: 10px; border-radius: 6px; border-left: 3px solid #9b59b6; white-space: pre-line; font-size: 10pt; line-height: 1.5; color: #333; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${appData.defaultNotes.adultShowerPlan}</div>
                                         </div>
                                     ` : ''}
                                 </div>
