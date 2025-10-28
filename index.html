@@ -658,7 +658,7 @@
             // Generate cards
             let html = '';
             favoritedGroups.forEach(group => {
-                html += createGroupCard(group, false);
+                html += createGroupCard(group, true);
             });
 
             favoritesList.innerHTML = html;
