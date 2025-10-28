@@ -590,10 +590,10 @@
                        id="password-input"
                        class="password-input"
                        placeholder="Enter password"
-                       onkeypress="if(event.key==='Enter') checkPassword()">
+                       onkeypress="if(event.key==='Enter') { event.preventDefault(); checkPassword(); }">
             </div>
 
-            <button class="password-btn" onclick="checkPassword()">
+            <button type="button" class="password-btn" onclick="event.preventDefault(); checkPassword();">
                 <span id="password-btn-text">🔓 Unlock</span>
             </button>
 
@@ -5885,41 +5885,60 @@
         }
 
         async function checkPassword() {
-            const input = document.getElementById('password-input');
-            const errorDiv = document.getElementById('password-error');
+            try {
+                console.log('checkPassword function called');
+                const input = document.getElementById('password-input');
+                const errorDiv = document.getElementById('password-error');
 
-            const enteredPassword = input.value.trim();
+                if (!input || !errorDiv) {
+                    console.error('Password input or error div not found');
+                    return;
+                }
 
-            if (!enteredPassword) {
-                errorDiv.textContent = '⚠️ Please enter a password';
-                errorDiv.style.display = 'block';
-                return;
-            }
+                const enteredPassword = input.value.trim();
+                console.log('Password entered, length:', enteredPassword.length);
 
-            const hashedInput = await hashPassword(enteredPassword);
+                if (!enteredPassword) {
+                    errorDiv.textContent = '⚠️ Please enter a password';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
 
-            // Priority 1: Check against centralized config from GitHub
-            let passwordHash = null;
-            if (systemConfig && systemConfig.passwordHash) {
-                passwordHash = systemConfig.passwordHash;
-                console.log('Using config password');
-            } else {
-                // Priority 2: Use fallback password hash
-                passwordHash = FALLBACK_PASSWORD_HASH;
-                console.log('Using fallback password');
-            }
+                const hashedInput = await hashPassword(enteredPassword);
+                console.log('Password hashed successfully');
 
-            if (hashedInput === passwordHash) {
-                unlockSystem();
-            } else {
-                errorDiv.textContent = '❌ Incorrect password. Please try again.';
-                errorDiv.style.display = 'block';
-                input.value = '';
-                input.focus();
+                // Priority 1: Check against centralized config from GitHub
+                let passwordHash = null;
+                if (systemConfig && systemConfig.passwordHash) {
+                    passwordHash = systemConfig.passwordHash;
+                    console.log('Using config password');
+                } else {
+                    // Priority 2: Use fallback password hash
+                    passwordHash = FALLBACK_PASSWORD_HASH;
+                    console.log('Using fallback password');
+                }
 
-                // Shake animation
-                input.style.animation = 'shake 0.5s';
-                setTimeout(() => input.style.animation = '', 500);
+                if (hashedInput === passwordHash) {
+                    console.log('Password correct, unlocking system');
+                    unlockSystem();
+                } else {
+                    console.log('Password incorrect');
+                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                    errorDiv.style.display = 'block';
+                    input.value = '';
+                    input.focus();
+
+                    // Shake animation
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => input.style.animation = '', 500);
+                }
+            } catch (error) {
+                console.error('Error in checkPassword:', error);
+                const errorDiv = document.getElementById('password-error');
+                if (errorDiv) {
+                    errorDiv.textContent = '❌ Error checking password. Please refresh and try again.';
+                    errorDiv.style.display = 'block';
+                }
             }
         }
 
