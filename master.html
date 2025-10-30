@@ -627,6 +627,7 @@
             <button class="tab-button" onclick="switchTab('small-group-rooms')">Small Group Rooms</button>
             <button class="tab-button" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
+            <button class="tab-button" onclick="switchTab('ada-individuals')">ADA Individuals</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
             <button class="tab-button" onclick="switchTab('printable-forms')">Print Youth Group Information</button>
             <button class="tab-button" onclick="switchTab('room-posters')">Print Room Information</button>
@@ -1336,6 +1337,121 @@
             </div>
         </div>
 
+        <!-- ADA Individuals Tab -->
+        <div id="ada-individuals" class="tab-content">
+            <h2>♿ ADA Accommodation Management</h2>
+            <p style="margin-bottom: 20px; color: #666;">Manage individuals requiring ADA accommodations. These individuals are already counted in their group's totals but need special room assignments.</p>
+
+            <!-- ADA Statistics -->
+            <div class="dashboard-stats" style="margin-bottom: 20px;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); border-color: #9b59b6;">
+                    <h3 id="total-ada-individuals">0</h3>
+                    <p>♿ Total ADA Individuals</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2980b9); border-color: #3498db;">
+                    <h3 id="male-ada-count">0</h3>
+                    <p>🔵 Male</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e91e63, #c2185b); border-color: #e91e63;">
+                    <h3 id="female-ada-count">0</h3>
+                    <p>🟣 Female</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954); border-color: #27ae60;">
+                    <h3 id="ada-assigned-count">0</h3>
+                    <p>✅ Assigned</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e67e22, #d35400); border-color: #e67e22;">
+                    <h3 id="ada-unassigned-count">0</h3>
+                    <p>❌ Unassigned</p>
+                </div>
+            </div>
+
+            <!-- Add New ADA Individual Form -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin: 0 0 15px 0;">➕ Add New ADA Individual</h3>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name <span style="color: red;">*</span></label>
+                        <input type="text" id="ada-name" placeholder="Individual's name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender <span style="color: red;">*</span></label>
+                        <select id="ada-gender" onchange="updateADARoomDropdown()" required>
+                            <option value="">-- Select Gender --</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Youth Group <span style="color: red;">*</span></label>
+                        <select id="ada-group" required>
+                            <option value="">-- Select Group --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Accessibility Need <span style="color: red;">*</span></label>
+                        <input type="text" id="ada-accessibility" placeholder="e.g., Wheelchair, Mobility aid, etc." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Room Assignment</label>
+                        <select id="ada-room">
+                            <option value="">-- Select Room --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <button class="btn btn-success" onclick="addADAIndividual()">
+                        ➕ Add ADA Individual
+                    </button>
+                    <button class="btn btn-warning" onclick="clearADAForm()">
+                        🔄 Clear Form
+                    </button>
+                </div>
+            </div>
+
+            <!-- ADA Individuals Table -->
+            <div class="table-controls">
+                <input type="text" class="filter-input" id="ada-filter" placeholder="Filter by Name, Group, or Accessibility..." oninput="filterADATable()">
+                <div class="sort-controls">
+                    <label>Sort by:</label>
+                    <select class="sort-select" id="ada-sort" onchange="sortADATable()">
+                        <option value="name">Name</option>
+                        <option value="group">Group</option>
+                        <option value="gender">Gender</option>
+                        <option value="room">Room</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortADATableBy('name')">Name</th>
+                            <th class="sortable" onclick="sortADATableBy('gender')">Gender</th>
+                            <th class="sortable" onclick="sortADATableBy('group')">Youth Group</th>
+                            <th class="sortable" onclick="sortADATableBy('accessibility')">Accessibility Need</th>
+                            <th class="sortable" onclick="sortADATableBy('room')">Room Assignment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ada-table-body"></tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn btn-success" onclick="saveADAData()" style="font-size: 16px; padding: 12px 24px;">
+                    💾 Save ADA Data
+                </button>
+            </div>
+        </div>
+
         <!-- Resources Tab -->
         <div id="resources" class="tab-content">
             <h2>Resource Links Management</h2>
@@ -1476,6 +1592,7 @@
             },
             smallGroupAssignments: {},
             mealColorAssignments: {},
+            adaIndividuals: [],
             activeColors: ['Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Purple'],
             mealTimes: {
                 Blue: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
@@ -2586,6 +2703,17 @@
                                         <div class="housing-box female-housing-oncampus">${femaleHousing}</div>
                                     </div>
                                 `}
+                                ${getADAIndividualsForGroup(group.id).length > 0 ? `
+                                    <div style="margin-top: 12px;">
+                                        <div class="field-label">♿ ADA Accommodations:</div>
+                                        ${getADAIndividualsForGroup(group.id).map(ada => `
+                                            <div class="housing-box" style="background: #e1bee7; border-left-color: #9c27b0;">
+                                                <strong>${ada.name}</strong> (${ada.gender === 'male' ? 'Male' : 'Female'}) - ${ada.accessibility}
+                                                ${ada.roomAssignment ? `<br>Room: ${ada.roomAssignment}` : '<br><span style="color: #d32f2f;">Room not assigned</span>'}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
                                 <div style="margin-top: 12px;">
                                     <div class="field-label">👥 Small Group Room:</div>
                                     <div class="housing-box small-group-box">${smallGroupRoom}</div>
@@ -2953,6 +3081,17 @@
                                         <div class="housing-box female-housing-oncampus">${femaleHousing}</div>
                                     </div>
                                 `}
+                                ${getADAIndividualsForGroup(group.id).length > 0 ? `
+                                    <div style="margin-top: 12px;">
+                                        <div class="field-label">♿ ADA Accommodations:</div>
+                                        ${getADAIndividualsForGroup(group.id).map(ada => `
+                                            <div class="housing-box" style="background: #e1bee7; border-left-color: #9c27b0;">
+                                                <strong>${ada.name}</strong> (${ada.gender === 'male' ? 'Male' : 'Female'}) - ${ada.accessibility}
+                                                ${ada.roomAssignment ? `<br>Room: ${ada.roomAssignment}` : '<br><span style="color: #d32f2f;">Room not assigned</span>'}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
                                 <div style="margin-top: 12px;">
                                     <div class="field-label">👥 Small Group Room:</div>
                                     <div class="housing-box small-group-box">${smallGroupRoom}</div>
@@ -3070,6 +3209,7 @@
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
+                appData.adaIndividuals = data.adaIndividuals || [];
                 appData.activeColors = data.activeColors || ['Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Purple'];
                 appData.mealTimes = data.mealTimes || {
                     Blue: { satBreakfast: '7:00 AM', satLunch: '12:00 PM', satDinner: '5:30 PM', sunBreakfast: '7:30 AM' },
@@ -4542,9 +4682,230 @@
             updateAllDisplays();
             autoSave();
         }
+
+        // ===== ADA INDIVIDUALS MANAGEMENT =====
+
+        function populateADAFormDropdowns() {
+            // Populate group dropdown
+            const groupSelect = document.getElementById('ada-group');
+            if (groupSelect) {
+                groupSelect.innerHTML = '<option value="">-- Select Group --</option>';
+                appData.youthGroups.forEach(group => {
+                    const option = document.createElement('option');
+                    option.value = group.id;
+                    option.textContent = `${group.id} - ${group.parish}`;
+                    groupSelect.appendChild(option);
+                });
+            }
+
+            // Update room dropdown based on gender selection
+            updateADARoomDropdown();
+        }
+
+        function updateADARoomDropdown() {
+            const genderSelect = document.getElementById('ada-gender');
+            const roomSelect = document.getElementById('ada-room');
+
+            if (!genderSelect || !roomSelect) return;
+
+            const selectedGender = genderSelect.value;
+            roomSelect.innerHTML = '<option value="">-- Select Room --</option>';
+
+            if (!selectedGender) return;
+
+            // Filter rooms by gender
+            const filteredRooms = appData.housingRooms.filter(room => room.gender === selectedGender);
+
+            filteredRooms.forEach(room => {
+                const roomKey = `${room.building}-${room.roomId}`;
+                const occupancy = getHousingRoomOccupancy(roomKey);
+                const available = room.capacity - occupancy;
+                const accessibilityInfo = room.accessibility ? ` ♿ ${room.accessibility}` : '';
+
+                const option = document.createElement('option');
+                option.value = roomKey;
+                option.textContent = `${room.building} - ${room.roomId} (${available} available)${accessibilityInfo}`;
+                roomSelect.appendChild(option);
+            });
+        }
+
+        function addADAIndividual() {
+            const name = document.getElementById('ada-name').value.trim();
+            const gender = document.getElementById('ada-gender').value;
+            const groupId = document.getElementById('ada-group').value;
+            const accessibility = document.getElementById('ada-accessibility').value.trim();
+            const roomAssignment = document.getElementById('ada-room').value;
+
+            if (!name) {
+                alert('Please enter the individual\\'s name.');
+                return;
+            }
+
+            if (!gender) {
+                alert('Please select a gender.');
+                return;
+            }
+
+            if (!groupId) {
+                alert('Please select a youth group.');
+                return;
+            }
+
+            if (!accessibility) {
+                alert('Please enter the accessibility need.');
+                return;
+            }
+
+            // Create ADA individual object
+            const adaIndividual = {
+                id: Date.now().toString(),
+                name: name,
+                gender: gender,
+                groupId: groupId,
+                accessibility: accessibility,
+                roomAssignment: roomAssignment || ''
+            };
+
+            appData.adaIndividuals.push(adaIndividual);
+
+            updateADATable();
+            updateADAStats();
+            clearADAForm();
+
+            alert(`ADA individual "${name}" added successfully!`);
+        }
+
+        function clearADAForm() {
+            document.getElementById('ada-name').value = '';
+            document.getElementById('ada-gender').value = '';
+            document.getElementById('ada-group').value = '';
+            document.getElementById('ada-accessibility').value = '';
+            document.getElementById('ada-room').value = '';
+            updateADARoomDropdown();
+        }
+
+        function updateADATable() {
+            const tbody = document.getElementById('ada-table-body');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            if (appData.adaIndividuals.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #666;">No ADA individuals added yet.</td></tr>';
+                return;
+            }
+
+            appData.adaIndividuals.forEach((ada, index) => {
+                const group = appData.youthGroups.find(g => g.id === ada.groupId);
+                const groupName = group ? `${group.id} - ${group.parish}` : 'Unknown Group';
+                const roomDisplay = ada.roomAssignment || '<span style="color: #e67e22;">Not assigned</span>';
+
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${ada.name}</td>
+                    <td>${ada.gender === 'male' ? '🔵 Male' : '🟣 Female'}</td>
+                    <td>${groupName}</td>
+                    <td>♿ ${ada.accessibility}</td>
+                    <td>${roomDisplay}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editADAIndividual(${index})" style="font-size: 12px; padding: 6px 12px;">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteADAIndividual(${index})" style="font-size: 12px; padding: 6px 12px;">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        function editADAIndividual(index) {
+            const ada = appData.adaIndividuals[index];
+            if (!ada) return;
+
+            document.getElementById('ada-name').value = ada.name;
+            document.getElementById('ada-gender').value = ada.gender;
+            document.getElementById('ada-group').value = ada.groupId;
+            document.getElementById('ada-accessibility').value = ada.accessibility;
+
+            // Update room dropdown based on gender
+            updateADARoomDropdown();
+            document.getElementById('ada-room').value = ada.roomAssignment;
+
+            // Remove the individual from the array (will be re-added when saving)
+            appData.adaIndividuals.splice(index, 1);
+            updateADATable();
+            updateADAStats();
+        }
+
+        function deleteADAIndividual(index) {
+            const ada = appData.adaIndividuals[index];
+            if (!ada) return;
+
+            if (confirm(`Are you sure you want to remove "${ada.name}" from ADA individuals?`)) {
+                appData.adaIndividuals.splice(index, 1);
+                updateADATable();
+                updateADAStats();
+                alert('ADA individual removed successfully.');
+            }
+        }
+
+        function updateADAStats() {
+            const total = appData.adaIndividuals.length;
+            const maleCount = appData.adaIndividuals.filter(ada => ada.gender === 'male').length;
+            const femaleCount = appData.adaIndividuals.filter(ada => ada.gender === 'female').length;
+            const assignedCount = appData.adaIndividuals.filter(ada => ada.roomAssignment && ada.roomAssignment !== '').length;
+            const unassignedCount = total - assignedCount;
+
+            document.getElementById('total-ada-individuals').textContent = total;
+            document.getElementById('male-ada-count').textContent = maleCount;
+            document.getElementById('female-ada-count').textContent = femaleCount;
+            document.getElementById('ada-assigned-count').textContent = assignedCount;
+            document.getElementById('ada-unassigned-count').textContent = unassignedCount;
+        }
+
+        function filterADATable() {
+            const filterValue = document.getElementById('ada-filter').value.toLowerCase();
+            const tbody = document.getElementById('ada-table-body');
+            const rows = tbody.getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filterValue) ? '' : 'none';
+            }
+        }
+
+        function sortADATable() {
+            const sortBy = document.getElementById('ada-sort').value;
+
+            appData.adaIndividuals.sort((a, b) => {
+                if (sortBy === 'name') {
+                    return a.name.localeCompare(b.name);
+                } else if (sortBy === 'group') {
+                    return a.groupId.localeCompare(b.groupId);
+                } else if (sortBy === 'gender') {
+                    return a.gender.localeCompare(b.gender);
+                } else if (sortBy === 'room') {
+                    return (a.roomAssignment || '').localeCompare(b.roomAssignment || '');
+                }
+                return 0;
+            });
+
+            updateADATable();
+        }
+
+        function saveADAData() {
+            autoSave();
+            alert('ADA data saved successfully!');
+        }
+
+        function getADAIndividualsForGroup(groupId) {
+            return appData.adaIndividuals.filter(ada => ada.groupId === groupId);
+        }
+
+        function getADAIndividualsForRoom(roomKey) {
+            return appData.adaIndividuals.filter(ada => ada.roomAssignment === roomKey);
+        }
+
         function getHousingRoomOccupancy(roomKey) {
             let total = 0;
-            
+
             Object.keys(appData.housingAssignments.male).forEach(groupId => {
                 const assignments = appData.housingAssignments.male[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
@@ -4554,7 +4915,7 @@
                     }
                 }
             });
-            
+
             Object.keys(appData.housingAssignments.female).forEach(groupId => {
                 const assignments = appData.housingAssignments.female[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
@@ -4564,7 +4925,11 @@
                     }
                 }
             });
-            
+
+            // Add ADA individuals assigned to this room
+            const adaCount = appData.adaIndividuals.filter(ada => ada.roomAssignment === roomKey).length;
+            total += adaCount;
+
             return total;
         }
 
@@ -4586,22 +4951,30 @@
 
         function getHousingRoomAssignedGroupsDisplay(roomKey) {
             const assignedGroups = [];
-            
+
             Object.keys(appData.housingAssignments.male).forEach(groupId => {
                 const assignments = appData.housingAssignments.male[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
                     assignedGroups.push(`${groupId}(M)`);
                 }
             });
-            
+
             Object.keys(appData.housingAssignments.female).forEach(groupId => {
                 const assignments = appData.housingAssignments.female[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
                     assignedGroups.push(`${groupId}(F)`);
                 }
             });
-            
-            return assignedGroups.length > 0 ? 
+
+            // Add ADA individuals
+            const adaIndividuals = getADAIndividualsForRoom(roomKey);
+            if (adaIndividuals.length > 0) {
+                adaIndividuals.forEach(ada => {
+                    assignedGroups.push(`♿ ${ada.name} (${ada.groupId})`);
+                });
+            }
+
+            return assignedGroups.length > 0 ?
                 `<p><strong>Assigned:</strong> ${assignedGroups.join(', ')}</p>` : '';
         }
 
@@ -4643,9 +5016,12 @@
             updateMealColorsTable();
             updateMealColorSummary();
             updateMealTimesConfig();
+            updateADATable();
+            updateADAStats();
+            populateADAFormDropdowns();
             updateDashboard();
             updateAssignmentOverview();
-            
+
             // Update forms preview if we're on that tab
             const formsTab = document.getElementById('printable-forms');
             if (formsTab && formsTab.classList.contains('active')) {

@@ -601,6 +601,7 @@
             smallGroupAssignments: {},
             mealColorAssignments: {},
             mealTimes: {},
+            adaIndividuals: [],
             resources: []
         };
 
@@ -785,6 +786,7 @@
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
                 appData.mealTimes = data.mealTimes || {};
+                appData.adaIndividuals = data.adaIndividuals || [];
                 appData.activeColors = data.activeColors || Object.keys(data.mealTimes || {});
                 appData.resources = data.resources || [];
 
@@ -908,21 +910,27 @@
 
         function getHousingRoomAssignedGroupsDisplay(roomKey) {
             const assignedGroups = [];
-            
+
             Object.keys(appData.housingAssignments.male).forEach(groupId => {
                 const assignments = appData.housingAssignments.male[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
                     assignedGroups.push(`${groupId}(M)`);
                 }
             });
-            
+
             Object.keys(appData.housingAssignments.female).forEach(groupId => {
                 const assignments = appData.housingAssignments.female[groupId];
                 if (Array.isArray(assignments) && assignments.includes(roomKey)) {
                     assignedGroups.push(`${groupId}(F)`);
                 }
             });
-            
+
+            // Check if room has ADA assignments (show icon only, no personal info)
+            const hasADA = appData.adaIndividuals && appData.adaIndividuals.some(ada => ada.roomAssignment === roomKey);
+            if (hasADA) {
+                assignedGroups.push('♿ ADA');
+            }
+
             return assignedGroups.join(', ') || 'None';
         }
 
