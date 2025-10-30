@@ -5306,7 +5306,23 @@
                                 </div>
                             </div>
                         `}
-                        
+
+                        <!-- ADA Accommodations -->
+                        ${getADAIndividualsForGroup(group.id).length > 0 ? `
+                            <div style="background: #f3e5f5; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #9c27b0;">
+                                <strong style="font-size: 14px;">♿ ADA Accommodations</strong>
+                                <div style="margin-top: 5px;">
+                                    ${getADAIndividualsForGroup(group.id).map(ada => `
+                                        <div style="background: white; padding: 6px; border-radius: 4px; margin: 4px 0; border-left: 3px solid #9c27b0;">
+                                            <strong style="font-size: 11px;">${ada.name}</strong> (${ada.gender === 'male' ? '🔵 Male' : '🟣 Female'})
+                                            <br><span style="font-size: 10px;">Need: ${ada.accessibility}</span>
+                                            ${ada.roomAssignment ? `<br><span style="font-size: 10px; color: #2e7d32;">Room: ${ada.roomAssignment}</span>` : '<br><span style="font-size: 10px; color: #d32f2f;">Room: Not assigned</span>'}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
                         <!-- Small Group Assignments -->
                         <div style="background: #f0f8ff; padding: 8px; border-radius: 6px; margin: 8px 0;">
                             <strong style="font-size: 14px;">👥 Small Group Location</strong>
@@ -5442,7 +5458,23 @@
                                 </div>
                             </div>
                         `}
-                        
+
+                        <!-- ADA Accommodations -->
+                        ${getADAIndividualsForGroup(group.id).length > 0 ? `
+                            <div style="background: #f3e5f5; padding: 8px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #9c27b0;">
+                                <strong style="font-size: 14px;">♿ ADA Accommodations</strong>
+                                <div style="margin-top: 5px;">
+                                    ${getADAIndividualsForGroup(group.id).map(ada => `
+                                        <div style="background: white; padding: 6px; border-radius: 4px; margin: 4px 0; border-left: 3px solid #9c27b0;">
+                                            <strong style="font-size: 11px;">${ada.name}</strong> (${ada.gender === 'male' ? '🔵 Male' : '🟣 Female'})
+                                            <br><span style="font-size: 10px;">Need: ${ada.accessibility}</span>
+                                            ${ada.roomAssignment ? `<br><span style="font-size: 10px; color: #2e7d32;">Room: ${ada.roomAssignment}</span>` : '<br><span style="font-size: 10px; color: #d32f2f;">Room: Not assigned</span>'}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
                         <!-- Small Group Assignments -->
                         <div style="background: #f0f8ff; padding: 8px; border-radius: 6px; margin: 8px 0;">
                             <strong style="font-size: 14px;">👥 Small Group Location</strong>
