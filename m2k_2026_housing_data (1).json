@@ -728,7 +728,7 @@
       "roomId": "220",
       "gender": "male",
       "capacity": 32,
-      "accessibility": ""
+      "accessibility": "Sleep help"
     },
     {
       "building": "Knott Academic Center",
@@ -1530,6 +1530,16 @@
   "mealColorAssignments": {
     "3": "Blue"
   },
+  "adaIndividuals": [
+    {
+      "id": "1761836880480",
+      "name": "Kaz B.",
+      "gender": "male",
+      "groupId": "3",
+      "accessibility": "Sleep help",
+      "roomAssignment": "Knott Academic Center-220"
+    }
+  ],
   "activeColors": [
     "Blue",
     "Red",
@@ -1594,7 +1604,6 @@
     "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
   },
   "groupNotes": {},
-  "adaIndividuals": [],
   "resources": [
     {
       "emoji": "📚",
@@ -1617,6 +1626,6 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-10-28T13:13:49.805Z",
+  "timestamp": "2025-10-30T15:09:59.941Z",
   "version": "3.0"
 }
