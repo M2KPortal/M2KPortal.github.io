@@ -645,10 +645,11 @@
       "specialAccommodations": ""
     }
   ],
-  "housingRooms": [
+  "rooms": [
     {
       "building": "Off Campus",
       "roomId": "Male",
+      "type": "housing",
       "gender": "male",
       "capacity": 400,
       "accessibility": ""
@@ -656,6 +657,7 @@
     {
       "building": "Off Campus",
       "roomId": "Female",
+      "type": "housing",
       "gender": "female",
       "capacity": 400,
       "accessibility": ""
@@ -663,6 +665,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "320",
+      "type": "housing",
       "gender": "male",
       "capacity": 32,
       "accessibility": ""
@@ -670,6 +673,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "311",
+      "type": "housing",
       "gender": "male",
       "capacity": 35,
       "accessibility": ""
@@ -677,6 +681,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "308",
+      "type": "housing",
       "gender": "male",
       "capacity": 38,
       "accessibility": ""
@@ -684,6 +689,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "310",
+      "type": "housing",
       "gender": "male",
       "capacity": 44,
       "accessibility": ""
@@ -691,6 +697,7 @@
     {
       "building": "ARCC",
       "roomId": "GYM FLOOR",
+      "type": "housing",
       "gender": "female",
       "capacity": 400,
       "accessibility": ""
@@ -698,6 +705,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "327",
+      "type": "housing",
       "gender": "male",
       "capacity": 32,
       "accessibility": ""
@@ -705,6 +713,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "227",
+      "type": "housing",
       "gender": "male",
       "capacity": 28,
       "accessibility": ""
@@ -712,6 +721,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "224",
+      "type": "housing",
       "gender": "male",
       "capacity": 24,
       "accessibility": ""
@@ -719,6 +729,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "222",
+      "type": "housing",
       "gender": "male",
       "capacity": 32,
       "accessibility": ""
@@ -726,6 +737,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "220",
+      "type": "housing",
       "gender": "male",
       "capacity": 32,
       "accessibility": "Sleep help"
@@ -733,6 +745,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "107",
+      "type": "housing",
       "gender": "male",
       "capacity": 26,
       "accessibility": ""
@@ -740,6 +753,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "109",
+      "type": "housing",
       "gender": "male",
       "capacity": 26,
       "accessibility": ""
@@ -747,6 +761,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "111",
+      "type": "housing",
       "gender": "male",
       "capacity": 30,
       "accessibility": ""
@@ -754,6 +769,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "104",
+      "type": "housing",
       "gender": "male",
       "capacity": 26,
       "accessibility": ""
@@ -761,6 +777,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "108",
+      "type": "housing",
       "gender": "male",
       "capacity": 28,
       "accessibility": ""
@@ -768,6 +785,7 @@
     {
       "building": "TEST (M)",
       "roomId": "123",
+      "type": "housing",
       "gender": "male",
       "capacity": 12,
       "accessibility": ""
@@ -775,15 +793,15 @@
     {
       "building": "TEST (F)",
       "roomId": "123",
+      "type": "housing",
       "gender": "female",
       "capacity": 12,
       "accessibility": ""
-    }
-  ],
-  "smallGroupRooms": [
+    },
     {
       "building": "Knott Academic Center",
       "roomId": "304",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 26,
       "features": ""
@@ -791,6 +809,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "300- Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 18,
       "features": "INSIDE WINDOWS- CHAIRS NEEDED"
@@ -798,6 +817,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "308",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 33,
       "features": ""
@@ -805,6 +825,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "310",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 44,
       "features": ""
@@ -812,6 +833,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "311",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 44,
       "features": ""
@@ -819,6 +841,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "320",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 24,
       "features": ""
@@ -826,6 +849,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "327",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 33,
       "features": ""
@@ -833,6 +857,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "323",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 14,
       "features": ""
@@ -840,6 +865,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "207",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -847,6 +873,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "206",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -854,6 +881,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "209",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 20,
       "features": ""
@@ -861,6 +889,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "211",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 23,
       "features": ""
@@ -868,6 +897,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "210",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 36,
       "features": "CHAIRS NEEDED"
@@ -875,6 +905,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "100- End Coridor",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 10,
       "features": "Chairs Needed"
@@ -882,6 +913,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "200- Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 30,
       "features": "Chairs needed"
@@ -889,6 +921,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "208",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 26,
       "features": ""
@@ -896,6 +929,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "200- End Corridor",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 12,
       "features": ""
@@ -903,6 +937,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "127",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": "EXIT DOOR"
@@ -910,6 +945,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "120",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 30,
       "features": ""
@@ -917,6 +953,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "100- Lounge",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 15,
       "features": "Chairs Needed"
@@ -924,6 +961,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "203",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 26,
       "features": ""
@@ -931,6 +969,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "Gorund Floor Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 40,
       "features": "Need Chairs"
@@ -938,6 +977,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "3rd Floor Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 50,
       "features": "Need Chairs"
@@ -945,6 +985,7 @@
     {
       "building": "PAC",
       "roomId": "Upper Level",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 30,
       "features": "Chairs Needed"
@@ -952,6 +993,7 @@
     {
       "building": "PAC",
       "roomId": "Lower Level",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 100,
       "features": "Chairs Needed"
@@ -959,6 +1001,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "300- End Coridor",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 12,
       "features": "CHAIRS NEEDED"
@@ -966,6 +1009,7 @@
     {
       "building": "Knott Academic Center",
       "roomId": "300- Lobby O/G",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 35,
       "features": "CHIARS NEEDED- OUTSIDE GLASS"
@@ -973,6 +1017,7 @@
     {
       "building": "COAD Science Building",
       "roomId": "158",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 60,
       "features": "Open Wall"
@@ -980,6 +1025,7 @@
     {
       "building": "COAD Science Building",
       "roomId": "107",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 13,
       "features": ""
@@ -987,6 +1033,7 @@
     {
       "building": "COAD Science Building",
       "roomId": "111",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 12,
       "features": ""
@@ -994,6 +1041,7 @@
     {
       "building": "COAD Science Building",
       "roomId": "117",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 24,
       "features": ""
@@ -1001,6 +1049,7 @@
     {
       "building": "COAD Science Building",
       "roomId": "125",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 20,
       "features": ""
@@ -1008,6 +1057,7 @@
     {
       "building": "Knott Auditorium",
       "roomId": "200 Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 50,
       "features": ""
@@ -1015,6 +1065,7 @@
     {
       "building": "Knott Auditorium",
       "roomId": "100- West Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -1022,6 +1073,7 @@
     {
       "building": "Knott Auditorium",
       "roomId": "100- East Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -1029,6 +1081,7 @@
     {
       "building": "McGowan",
       "roomId": "Lobby",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -1036,6 +1089,7 @@
     {
       "building": "McGowan",
       "roomId": "Stair Pavillion",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 20,
       "features": ""
@@ -1043,6 +1097,7 @@
     {
       "building": "Patriot Hall",
       "roomId": "Seminary Dinning Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 150,
       "features": "Tables need to be moved"
@@ -1050,6 +1105,7 @@
     {
       "building": "Seminary",
       "roomId": "O'Donnell Lecture Hall",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 140,
       "features": "Only theater mode is available."
@@ -1057,6 +1113,7 @@
     {
       "building": "Seminary",
       "roomId": "St. Michael's Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 60,
       "features": "Chairs need to be arranged."
@@ -1064,6 +1121,7 @@
     {
       "building": "St. Michael's",
       "roomId": "Rectors Confrence Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 10,
       "features": "Conference room."
@@ -1071,6 +1129,7 @@
     {
       "building": "Seminary",
       "roomId": "McSweeny- 135",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 18,
       "features": ""
@@ -1078,6 +1137,7 @@
     {
       "building": "Seminary",
       "roomId": "McSweeny- 132",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 15,
       "features": ""
@@ -1085,6 +1145,7 @@
     {
       "building": "Seminary",
       "roomId": "Recreation Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 30,
       "features": "The living room area portable door must be closed."
@@ -1092,6 +1153,7 @@
     {
       "building": "Seminary",
       "roomId": "Keating Hall- 19",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 25,
       "features": ""
@@ -1099,6 +1161,7 @@
     {
       "building": "Seminary",
       "roomId": "Keating Hall- 18",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 40,
       "features": ""
@@ -1106,6 +1169,7 @@
     {
       "building": "Seminary",
       "roomId": "Keating- 14 Conference Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 15,
       "features": "Conference Room"
@@ -1113,6 +1177,7 @@
     {
       "building": "Seminary",
       "roomId": "Keating- JPII Reading Room",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 15,
       "features": ""
@@ -1120,6 +1185,7 @@
     {
       "building": "CHAPEL TEST",
       "roomId": "123",
+      "type": "smallGroup",
       "gender": "mixed",
       "capacity": 24,
       "features": ""

@@ -622,9 +622,8 @@
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Dashboard</button>
             <button class="tab-button" onclick="switchTab('youth-groups')">Youth Groups</button>
-            <button class="tab-button" onclick="switchTab('housing-rooms')">Housing Rooms</button>
+            <button class="tab-button" onclick="switchTab('room-management')">Room Management</button>
             <button class="tab-button" onclick="switchTab('housing-assignments')">Housing Assignments</button>
-            <button class="tab-button" onclick="switchTab('small-group-rooms')">Small Group Rooms</button>
             <button class="tab-button" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
             <button class="tab-button" onclick="switchTab('ada-individuals')">ADA Individuals</button>
@@ -941,20 +940,35 @@
             </div>
         </div>
 
-        <!-- Housing Rooms Tab -->
-        <div id="housing-rooms" class="tab-content">
-            <h2>Housing Room Management</h2>
-            
+        <!-- Room Management Tab (Unified Housing & Small Group Rooms) -->
+        <div id="room-management" class="tab-content">
+            <h2>Room Management</h2>
+
+            <!-- Room Type Selection -->
+            <div class="form-group" style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 2px solid #061d28;">
+                <label style="font-weight: bold; margin-bottom: 10px; display: block;">Room Type *</label>
+                <div style="display: flex; gap: 20px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="room-type" value="housing" id="room-type-housing" onchange="handleRoomTypeChange()" style="width: 18px; height: 18px;">
+                        <span style="font-weight: 600;">Housing (Overnight Sleeping)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="room-type" value="smallGroup" id="room-type-smallgroup" onchange="handleRoomTypeChange()" style="width: 18px; height: 18px;">
+                        <span style="font-weight: 600;">Small Group (Meeting/Discussion)</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-grid">
                 <div class="form-group">
                     <label>Building Name *</label>
-                    <input type="text" id="building-name" placeholder="e.g., Gymnasium, Auditorium">
+                    <input type="text" id="building-name" placeholder="e.g., Gymnasium, Student Center">
                 </div>
                 <div class="form-group">
                     <label>Room/Section ID *</label>
-                    <input type="text" id="room-id" placeholder="e.g., East Section, Orchestra Level">
+                    <input type="text" id="room-id" placeholder="e.g., Room 123, East Section">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="gender-field-container" style="display:none;">
                     <label>Gender Designation *</label>
                     <select id="gender-designation">
                         <option value="">Select Gender</option>
@@ -963,28 +977,35 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Total Capacity *</label>
+                    <label>Room Capacity *</label>
                     <input type="number" id="room-capacity" min="1" placeholder="Number of people">
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label>Accessibility Features</label>
-                <textarea id="accessibility-features" placeholder="Wheelchair accessible, ground floor, etc."></textarea>
+
+            <!-- Conditional Fields -->
+            <div class="form-group" id="accessibility-field-container" style="display:none;">
+                <label>Accessibility Features (ADA)</label>
+                <textarea id="accessibility-features" placeholder="Wheelchair accessible, ground floor, Sleep help, etc."></textarea>
+            </div>
+
+            <div class="form-group" id="features-field-container" style="display:none;">
+                <label>Room Features</label>
+                <textarea id="room-features" placeholder="Projector, whiteboard, tables/chairs setup, etc."></textarea>
             </div>
 
             <div>
-                <button class="btn btn-success" onclick="addHousingRoom()">Add Housing Room</button>
-                <button class="btn btn-primary" onclick="updateHousingRoom()" id="update-room-btn" style="display:none;">Update Room</button>
-                <button class="btn btn-danger" onclick="deleteHousingRoom()" id="delete-room-btn" style="display:none;">Delete Room</button>
+                <button class="btn btn-success" onclick="addRoom()" id="add-room-btn">Add Room</button>
+                <button class="btn btn-primary" onclick="updateRoom()" id="update-room-btn" style="display:none;">Update Room</button>
+                <button class="btn btn-danger" onclick="deleteRoom()" id="delete-room-btn" style="display:none;">Delete Room</button>
                 <button class="btn btn-warning" onclick="cancelRoomEdit()" id="cancel-room-edit-btn" style="display:none;">Cancel</button>
             </div>
 
             <div class="table-controls">
-                <input type="text" class="filter-input" id="housing-rooms-filter" placeholder="Filter by Building, Room, or Features..." oninput="filterHousingRoomsTable()">
+                <input type="text" class="filter-input" id="rooms-filter" placeholder="Filter by Building, Room, Type, or Features..." oninput="filterRoomsTable()">
                 <div class="sort-controls">
                     <label>Sort by:</label>
-                    <select class="sort-select" id="housing-rooms-sort" onchange="sortHousingRoomsTable()">
+                    <select class="sort-select" id="rooms-sort" onchange="sortRoomsTable()">
+                        <option value="type">Room Type</option>
                         <option value="building">Building</option>
                         <option value="roomId">Room/Section</option>
                         <option value="gender">Gender</option>
@@ -992,7 +1013,7 @@
                         <option value="occupied">Occupied</option>
                         <option value="available">Available Space</option>
                     </select>
-                    <button class="btn btn-warning" onclick="toggleHousingRoomsSortOrder()" id="housing-rooms-sort-order">A→Z</button>
+                    <button class="btn btn-warning" onclick="toggleRoomsSortOrder()" id="rooms-sort-order">A→Z</button>
                 </div>
             </div>
 
@@ -1000,19 +1021,19 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="sortable" onclick="sortHousingRoomsBy('sectionId')">Section ID</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('building')">Building</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('roomId')">Room/Section</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('gender')">Gender</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('capacity')">Capacity</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('occupied')">Occupied</th>
-                            <th class="sortable" onclick="sortHousingRoomsBy('available')">Available</th>
-                            <th>Accessibility</th>
+                            <th class="sortable" onclick="sortRoomsBy('type')">Type</th>
+                            <th class="sortable" onclick="sortRoomsBy('building')">Building</th>
+                            <th class="sortable" onclick="sortRoomsBy('roomId')">Room/Section</th>
+                            <th class="sortable" onclick="sortRoomsBy('gender')">Gender</th>
+                            <th class="sortable" onclick="sortRoomsBy('capacity')">Capacity</th>
+                            <th class="sortable" onclick="sortRoomsBy('occupied')">Occupied</th>
+                            <th class="sortable" onclick="sortRoomsBy('available')">Available</th>
+                            <th>Notes</th>
                             <th>Assigned Groups</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="housing-rooms-table"></tbody>
+                    <tbody id="rooms-table"></tbody>
                 </table>
             </div>
         </div>
@@ -1078,83 +1099,6 @@
                 <button class="btn btn-success" onclick="confirmHousingAssignment()">Save Housing Assignment</button>
                 <button class="btn btn-danger" onclick="clearHousingAssignment()">Clear Assignment</button>
                 <button class="btn btn-warning" onclick="cancelHousingSelection()">Cancel</button>
-            </div>
-        </div>
-
-        <!-- Small Group Rooms Tab -->
-        <div id="small-group-rooms" class="tab-content">
-            <h2>Small Group Meeting Room Management</h2>
-            
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Building Name *</label>
-                    <input type="text" id="sg-building-name" placeholder="e.g., Student Center, Library">
-                </div>
-                <div class="form-group">
-                    <label>Room/Location ID *</label>
-                    <input type="text" id="sg-room-id" placeholder="e.g., Conference Room A, Study Hall">
-                </div>
-                <div class="form-group">
-                    <label>Gender Designation *</label>
-                    <select id="sg-gender-designation">
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="mixed">Mixed/Co-ed</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Room Capacity *</label>
-                    <input type="number" id="sg-room-capacity" min="1" placeholder="Number of people">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Room Features</label>
-                <textarea id="sg-room-features" placeholder="Projector, whiteboard, tables/chairs setup, etc."></textarea>
-            </div>
-
-            <div>
-                <button class="btn btn-success" onclick="addSmallGroupRoom()">Add Small Group Room</button>
-                <button class="btn btn-primary" onclick="updateSmallGroupRoom()" id="update-sg-room-btn" style="display:none;">Update Room</button>
-                <button class="btn btn-danger" onclick="deleteSmallGroupRoom()" id="delete-sg-room-btn" style="display:none;">Delete Room</button>
-                <button class="btn btn-warning" onclick="cancelSmallGroupRoomEdit()" id="cancel-sg-room-edit-btn" style="display:none;">Cancel</button>
-            </div>
-
-            <div class="table-controls">
-                <input type="text" class="filter-input" id="small-group-rooms-filter" placeholder="Filter by Building, Room, or Features..." oninput="filterSmallGroupRoomsTable()">
-                <div class="sort-controls">
-                    <label>Sort by:</label>
-                    <select class="sort-select" id="small-group-rooms-sort" onchange="sortSmallGroupRoomsTable()">
-                        <option value="building">Building</option>
-                        <option value="roomId">Room/Location</option>
-                        <option value="gender">Gender</option>
-                        <option value="capacity">Capacity</option>
-                        <option value="occupied">Occupied</option>
-                        <option value="available">Available Space</option>
-                    </select>
-                    <button class="btn btn-warning" onclick="toggleSmallGroupRoomsSortOrder()" id="small-group-rooms-sort-order">A→Z</button>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('locationId')">Location ID</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('building')">Building</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('roomId')">Room/Location</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('gender')">Gender</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('capacity')">Capacity</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('occupied')">Occupied</th>
-                            <th class="sortable" onclick="sortSmallGroupRoomsBy('available')">Available</th>
-                            <th>Features</th>
-                            <th>Assigned Groups</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="small-group-rooms-table"></tbody>
-                </table>
             </div>
         </div>
 
@@ -3201,11 +3145,29 @@
                 }
 
                 const data = await response.json();
-                
+
                 // Load all data from JSON
                 appData.youthGroups = data.youthGroups || [];
-                appData.housingRooms = data.housingRooms || [];
-                appData.smallGroupRooms = data.smallGroupRooms || [];
+
+                // Load rooms - support both old and new formats
+                if (data.rooms) {
+                    // New unified format
+                    appData.rooms = data.rooms;
+                } else {
+                    // Old format - migrate to new format
+                    appData.rooms = [];
+                    if (data.housingRooms) {
+                        appData.rooms.push(...data.housingRooms.map(r => ({ ...r, type: 'housing' })));
+                    }
+                    if (data.smallGroupRooms) {
+                        appData.rooms.push(...data.smallGroupRooms.map(r => ({ ...r, type: 'smallGroup' })));
+                    }
+                }
+
+                // Create filtered views for backward compatibility
+                appData.housingRooms = appData.rooms.filter(r => r.type === 'housing');
+                appData.smallGroupRooms = appData.rooms.filter(r => r.type === 'smallGroup');
+
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
@@ -3246,6 +3208,7 @@
                 
                 // Initialize with empty data structure
                 appData.youthGroups = [];
+                appData.rooms = [];
                 appData.housingRooms = [];
                 appData.smallGroupRooms = [];
                 appData.housingAssignments = { male: {}, female: {} };
@@ -3749,7 +3712,412 @@
             }
         }
 
-        // ===== HOUSING ROOM MANAGEMENT =====
+        // ===== UNIFIED ROOM MANAGEMENT =====
+        let editingRoomIndex = -1;
+
+        function handleRoomTypeChange() {
+            const roomType = document.querySelector('input[name="room-type"]:checked')?.value;
+
+            const genderField = document.getElementById('gender-field-container');
+            const accessibilityField = document.getElementById('accessibility-field-container');
+            const featuresField = document.getElementById('features-field-container');
+            const genderSelect = document.getElementById('gender-designation');
+
+            if (roomType === 'housing') {
+                // Show housing-specific fields
+                genderField.style.display = 'block';
+                accessibilityField.style.display = 'block';
+                featuresField.style.display = 'none';
+
+                // Reset gender to exclude "mixed" option
+                genderSelect.innerHTML = `
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                `;
+            } else if (roomType === 'smallGroup') {
+                // Show small group-specific fields
+                genderField.style.display = 'none';
+                accessibilityField.style.display = 'none';
+                featuresField.style.display = 'block';
+
+                // Set gender to mixed automatically for small groups
+                genderSelect.value = 'mixed';
+            } else {
+                // Hide all conditional fields
+                genderField.style.display = 'none';
+                accessibilityField.style.display = 'none';
+                featuresField.style.display = 'none';
+            }
+        }
+
+        function addRoom() {
+            const roomData = getRoomFormData();
+            if (!validateRoomData(roomData)) return;
+
+            appData.rooms.push(roomData);
+            clearRoomForm();
+            updateRoomFilteredViews();
+            updateAllDisplays();
+            autoSave();
+        }
+
+        function updateRoom() {
+            if (editingRoomIndex < 0) return;
+
+            const oldRoom = appData.rooms[editingRoomIndex];
+            const newRoomData = getRoomFormData();
+
+            if (!validateRoomData(newRoomData)) return;
+
+            // Check if room type is changing
+            if (oldRoom.type !== newRoomData.type) {
+                const roomKey = `${oldRoom.building}-${oldRoom.roomId}`;
+                const affectedGroups = getRoomAssignedGroups(roomKey, oldRoom.type);
+
+                if (affectedGroups.length > 0) {
+                    const groupList = affectedGroups.map(g => `Group ${g.id}: ${g.name}`).join('\n');
+                    const confirmMsg = `⚠️ WARNING: Changing room type will remove all current assignments!\n\nThis room is currently assigned to:\n${groupList}\n\nDo you want to continue?`;
+
+                    if (!confirm(confirmMsg)) {
+                        return;
+                    }
+
+                    // Remove assignments based on old type
+                    if (oldRoom.type === 'housing') {
+                        removeRoomFromHousingAssignments(roomKey);
+                    } else if (oldRoom.type === 'smallGroup') {
+                        removeRoomFromSmallGroupAssignments(roomKey);
+                    }
+                }
+            }
+
+            appData.rooms[editingRoomIndex] = newRoomData;
+            cancelRoomEdit();
+            updateRoomFilteredViews();
+            updateAllDisplays();
+            autoSave();
+        }
+
+        function editRoom(index) {
+            const room = appData.rooms[index];
+            populateRoomForm(room);
+            editingRoomIndex = index;
+            showRoomEditButtons();
+        }
+
+        function deleteRoom() {
+            if (editingRoomIndex < 0) return;
+
+            const room = appData.rooms[editingRoomIndex];
+            const roomKey = `${room.building}-${room.roomId}`;
+            const affectedGroups = getRoomAssignedGroups(roomKey, room.type);
+
+            let confirmMsg = `Are you sure you want to delete this room?`;
+
+            if (affectedGroups.length > 0) {
+                const groupList = affectedGroups.map(g => `Group ${g.id}: ${g.name}`).join('\n');
+                confirmMsg = `⚠️ WARNING: This room is currently assigned to groups!\n\nAssigned groups:\n${groupList}\n\nDeleting this room will remove all these assignments. Continue?`;
+            }
+
+            if (confirm(confirmMsg)) {
+                // Remove all assignments
+                if (room.type === 'housing') {
+                    removeRoomFromHousingAssignments(roomKey);
+                } else if (room.type === 'smallGroup') {
+                    removeRoomFromSmallGroupAssignments(roomKey);
+                }
+
+                appData.rooms.splice(editingRoomIndex, 1);
+                cancelRoomEdit();
+                updateRoomFilteredViews();
+                updateAllDisplays();
+                autoSave();
+            }
+        }
+
+        function cancelRoomEdit() {
+            editingRoomIndex = -1;
+            clearRoomForm();
+            hideRoomEditButtons();
+        }
+
+        function getRoomFormData() {
+            const roomType = document.querySelector('input[name="room-type"]:checked')?.value;
+
+            const baseData = {
+                building: document.getElementById('building-name').value.trim(),
+                roomId: document.getElementById('room-id').value.trim(),
+                capacity: parseInt(document.getElementById('room-capacity').value) || 0,
+                type: roomType
+            };
+
+            if (roomType === 'housing') {
+                return {
+                    ...baseData,
+                    gender: document.getElementById('gender-designation').value,
+                    accessibility: document.getElementById('accessibility-features').value.trim()
+                };
+            } else if (roomType === 'smallGroup') {
+                return {
+                    ...baseData,
+                    gender: 'mixed',
+                    features: document.getElementById('room-features').value.trim()
+                };
+            }
+
+            return baseData;
+        }
+
+        function validateRoomData(data) {
+            if (!data.type) {
+                alert('Please select a room type (Housing or Small Group)');
+                return false;
+            }
+
+            if (!data.building || !data.roomId || data.capacity < 1) {
+                alert('Please fill in all required fields');
+                return false;
+            }
+
+            if (data.type === 'housing' && !data.gender) {
+                alert('Please select a gender designation for housing rooms');
+                return false;
+            }
+
+            const roomKey = `${data.building}-${data.roomId}`;
+            const existingIndex = appData.rooms.findIndex(r => `${r.building}-${r.roomId}` === roomKey);
+            if (existingIndex !== -1 && existingIndex !== editingRoomIndex) {
+                alert('A room with this building and room ID already exists');
+                return false;
+            }
+
+            return true;
+        }
+
+        function populateRoomForm(room) {
+            document.getElementById('building-name').value = room.building;
+            document.getElementById('room-id').value = room.roomId;
+            document.getElementById('room-capacity').value = room.capacity;
+
+            // Set room type
+            if (room.type === 'housing') {
+                document.getElementById('room-type-housing').checked = true;
+            } else if (room.type === 'smallGroup') {
+                document.getElementById('room-type-smallgroup').checked = true;
+            }
+
+            handleRoomTypeChange();
+
+            // Populate type-specific fields
+            if (room.type === 'housing') {
+                document.getElementById('gender-designation').value = room.gender;
+                document.getElementById('accessibility-features').value = room.accessibility || '';
+            } else if (room.type === 'smallGroup') {
+                document.getElementById('room-features').value = room.features || '';
+            }
+        }
+
+        function clearRoomForm() {
+            document.getElementById('building-name').value = '';
+            document.getElementById('room-id').value = '';
+            document.getElementById('room-capacity').value = '';
+            document.getElementById('gender-designation').value = '';
+            document.getElementById('accessibility-features').value = '';
+            document.getElementById('room-features').value = '';
+
+            // Uncheck room type radios
+            document.querySelectorAll('input[name="room-type"]').forEach(radio => radio.checked = false);
+
+            // Hide all conditional fields
+            document.getElementById('gender-field-container').style.display = 'none';
+            document.getElementById('accessibility-field-container').style.display = 'none';
+            document.getElementById('features-field-container').style.display = 'none';
+        }
+
+        function showRoomEditButtons() {
+            document.getElementById('add-room-btn').style.display = 'none';
+            document.getElementById('update-room-btn').style.display = 'inline-block';
+            document.getElementById('delete-room-btn').style.display = 'inline-block';
+            document.getElementById('cancel-room-edit-btn').style.display = 'inline-block';
+        }
+
+        function hideRoomEditButtons() {
+            document.getElementById('add-room-btn').style.display = 'inline-block';
+            document.getElementById('update-room-btn').style.display = 'none';
+            document.getElementById('delete-room-btn').style.display = 'none';
+            document.getElementById('cancel-room-edit-btn').style.display = 'none';
+        }
+
+        function getRoomAssignedGroups(roomKey, roomType) {
+            const groups = [];
+
+            if (roomType === 'housing') {
+                // Check male assignments
+                Object.entries(appData.housingAssignments.male || {}).forEach(([groupId, rooms]) => {
+                    if (rooms.includes(roomKey)) {
+                        const group = appData.youthGroups.find(g => g.id === groupId);
+                        if (group) {
+                            groups.push({ id: groupId, name: `${group.parish} (Male)` });
+                        }
+                    }
+                });
+
+                // Check female assignments
+                Object.entries(appData.housingAssignments.female || {}).forEach(([groupId, rooms]) => {
+                    if (rooms.includes(roomKey)) {
+                        const group = appData.youthGroups.find(g => g.id === groupId);
+                        if (group) {
+                            groups.push({ id: groupId, name: `${group.parish} (Female)` });
+                        }
+                    }
+                });
+            } else if (roomType === 'smallGroup') {
+                Object.entries(appData.smallGroupAssignments || {}).forEach(([groupId, rooms]) => {
+                    if (rooms.includes(roomKey)) {
+                        const group = appData.youthGroups.find(g => g.id === groupId);
+                        if (group) {
+                            groups.push({ id: groupId, name: group.parish });
+                        }
+                    }
+                });
+            }
+
+            return groups;
+        }
+
+        function displayRoomsTable() {
+            const tbody = document.getElementById('rooms-table');
+            if (!tbody) return;
+
+            if (!appData.rooms || appData.rooms.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 20px; color: #666;">No rooms available. Add a room using the form above.</td></tr>';
+                return;
+            }
+
+            const sortedRooms = getSortedRooms();
+
+            tbody.innerHTML = sortedRooms.map((room, sortedIndex) => {
+                const originalIndex = appData.rooms.indexOf(room);
+                const roomKey = `${room.building}-${room.roomId}`;
+                const occupiedCount = room.type === 'housing' ?
+                    getHousingRoomOccupancy(roomKey) :
+                    getSmallGroupRoomOccupancy(roomKey);
+                const availableSpace = room.capacity - occupiedCount;
+
+                const availableClass =
+                    availableSpace < 0 ? 'negative' :
+                    availableSpace === 0 ? 'zero' : 'positive';
+
+                const typeLabel = room.type === 'housing' ? '🏠 Housing' : '👥 Small Group';
+                const genderLabel =
+                    room.gender === 'male' ? 'Male ♂' :
+                    room.gender === 'female' ? 'Female ♀' :
+                    'Mixed/Co-ed';
+
+                const notes = room.type === 'housing' ?
+                    (room.accessibility || '-') :
+                    (room.features || '-');
+
+                const assignedGroupsDisplay = room.type === 'housing' ?
+                    getHousingRoomAssignedGroupsDisplay(roomKey) :
+                    getSmallGroupRoomAssignedGroupsDisplay(roomKey);
+
+                return `
+                    <tr>
+                        <td>${typeLabel}</td>
+                        <td>${room.building}</td>
+                        <td>${room.roomId}</td>
+                        <td>${genderLabel}</td>
+                        <td>${room.capacity}</td>
+                        <td>${occupiedCount}</td>
+                        <td class="${availableClass}">${availableSpace}</td>
+                        <td>${notes}</td>
+                        <td>${assignedGroupsDisplay}</td>
+                        <td><button class="btn btn-primary" onclick="editRoom(${originalIndex})">Edit</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getSortedRooms() {
+            let sorted = [...appData.rooms];
+            const sortField = document.getElementById('rooms-sort')?.value || 'type';
+            const isAscending = document.getElementById('rooms-sort-order')?.textContent === 'A→Z';
+
+            sorted.sort((a, b) => {
+                let aVal, bVal;
+
+                switch (sortField) {
+                    case 'type':
+                        aVal = a.type;
+                        bVal = b.type;
+                        break;
+                    case 'building':
+                        aVal = a.building;
+                        bVal = b.building;
+                        break;
+                    case 'roomId':
+                        aVal = a.roomId;
+                        bVal = b.roomId;
+                        break;
+                    case 'gender':
+                        aVal = a.gender;
+                        bVal = b.gender;
+                        break;
+                    case 'capacity':
+                        aVal = a.capacity;
+                        bVal = b.capacity;
+                        break;
+                    case 'occupied':
+                        const aKey = `${a.building}-${a.roomId}`;
+                        const bKey = `${b.building}-${b.roomId}`;
+                        aVal = a.type === 'housing' ? getHousingRoomOccupancy(aKey) : getSmallGroupRoomOccupancy(aKey);
+                        bVal = b.type === 'housing' ? getHousingRoomOccupancy(bKey) : getSmallGroupRoomOccupancy(bKey);
+                        break;
+                    case 'available':
+                        const aKey2 = `${a.building}-${a.roomId}`;
+                        const bKey2 = `${b.building}-${b.roomId}`;
+                        const aOcc = a.type === 'housing' ? getHousingRoomOccupancy(aKey2) : getSmallGroupRoomOccupancy(aKey2);
+                        const bOcc = b.type === 'housing' ? getHousingRoomOccupancy(bKey2) : getSmallGroupRoomOccupancy(bKey2);
+                        aVal = a.capacity - aOcc;
+                        bVal = b.capacity - bOcc;
+                        break;
+                    default:
+                        return 0;
+                }
+
+                if (typeof aVal === 'string') {
+                    return isAscending ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                } else {
+                    return isAscending ? aVal - bVal : bVal - aVal;
+                }
+            });
+
+            return sorted;
+        }
+
+        function filterRoomsTable() {
+            const filterValue = document.getElementById('rooms-filter')?.value.toLowerCase() || '';
+
+            const rows = document.querySelectorAll('#rooms-table tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filterValue) ? '' : 'none';
+            });
+        }
+
+        function sortRoomsTable() {
+            displayRoomsTable();
+        }
+
+        function toggleRoomsSortOrder() {
+            const btn = document.getElementById('rooms-sort-order');
+            btn.textContent = btn.textContent === 'A→Z' ? 'Z→A' : 'A→Z';
+            displayRoomsTable();
+        }
+
+        // ===== HOUSING ROOM MANAGEMENT (Legacy - for backward compatibility) =====
         function addHousingRoom() {
             const roomData = getHousingRoomFormData();
             if (!validateHousingRoomData(roomData)) return;
@@ -5011,8 +5379,9 @@
         // ===== DISPLAY UPDATE FUNCTIONS =====
         function updateAllDisplays() {
             updateYouthGroupsTable();
-            updateHousingRoomsTable();
-            updateSmallGroupRoomsTable();
+            displayRoomsTable();  // New unified rooms table
+            updateHousingRoomsTable();  // Keep for backward compatibility
+            updateSmallGroupRoomsTable();  // Keep for backward compatibility
             updateMealColorsTable();
             updateMealColorSummary();
             updateMealTimesConfig();
@@ -6086,21 +6455,42 @@
 
         // ===== DATA MANAGEMENT =====
         function autoSave() {
-            window.housingData = { ...appData, timestamp: new Date().toISOString() };
+            // Update filtered views before saving
+            updateRoomFilteredViews();
+
+            // Create a copy without the derived arrays
+            const dataToSave = { ...appData, timestamp: new Date().toISOString() };
+            delete dataToSave.housingRooms;  // Remove derived array
+            delete dataToSave.smallGroupRooms;  // Remove derived array
+
+            window.housingData = dataToSave;
         }
 
         function saveData() {
+            // Update filtered views before saving
+            updateRoomFilteredViews();
+
+            // Create a copy without the derived arrays
             const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
+            delete data.housingRooms;  // Remove derived array
+            delete data.smallGroupRooms;  // Remove derived array
+
             const dataStr = JSON.stringify(data, null, 2);
-            
+
             // Download as JSON file
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
             link.download = 'm2k_2026_housing_data.json';
             link.click();
-            
+
             alert('✅ Data saved successfully as JSON file!');
+        }
+
+        // Helper function to update filtered views after room modifications
+        function updateRoomFilteredViews() {
+            appData.housingRooms = appData.rooms.filter(r => r.type === 'housing');
+            appData.smallGroupRooms = appData.rooms.filter(r => r.type === 'smallGroup');
         }
 
         // ===== GITHUB API INTEGRATION =====
