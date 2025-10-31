@@ -780,8 +780,26 @@
                 dataTimestamp = data.timestamp || new Date().toISOString();
 
                 appData.youthGroups = data.youthGroups || [];
-                appData.housingRooms = data.housingRooms || [];
-                appData.smallGroupRooms = data.smallGroupRooms || [];
+
+                // Load rooms - support both old and new formats
+                if (data.rooms) {
+                    // New unified format
+                    appData.rooms = data.rooms;
+                } else {
+                    // Old format - migrate to new format
+                    appData.rooms = [];
+                    if (data.housingRooms) {
+                        appData.rooms.push(...data.housingRooms.map(r => ({ ...r, type: 'housing' })));
+                    }
+                    if (data.smallGroupRooms) {
+                        appData.rooms.push(...data.smallGroupRooms.map(r => ({ ...r, type: 'smallGroup' })));
+                    }
+                }
+
+                // Create filtered views for backward compatibility
+                appData.housingRooms = appData.rooms ? appData.rooms.filter(r => r.type === 'housing') : [];
+                appData.smallGroupRooms = appData.rooms ? appData.rooms.filter(r => r.type === 'smallGroup') : [];
+
                 appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
                 appData.smallGroupAssignments = data.smallGroupAssignments || {};
                 appData.mealColorAssignments = data.mealColorAssignments || {};
