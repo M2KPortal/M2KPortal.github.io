@@ -5463,6 +5463,8 @@
 
         function updateHousingRoomsTable() {
             const tbody = document.getElementById('housing-rooms-table');
+            if (!tbody) return; // Tab no longer exists, skip update
+
             tbody.innerHTML = '';
 
             const sortedRooms = getSortedHousingRooms();
@@ -5496,6 +5498,8 @@
 
         function updateSmallGroupRoomsTable() {
             const tbody = document.getElementById('small-group-rooms-table');
+            if (!tbody) return; // Tab no longer exists, skip update
+
             tbody.innerHTML = '';
 
             const sortedRooms = getSortedSmallGroupRooms();
