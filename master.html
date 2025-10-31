@@ -6029,6 +6029,27 @@
                                 `).join('') : '<p style="color: #999; font-style: italic;">No groups assigned to this room yet</p>'}
                             </div>
 
+                            <!-- ADA Individuals -->
+                            ${(() => {
+                                const adaIndividuals = (appData.adaIndividuals || []).filter(ada => ada.roomAssignment === roomKey);
+                                if (adaIndividuals.length === 0) return '';
+                                return `
+                                    <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 15px; border-radius: 8px; border-left: 5px solid #2196f3; margin-bottom: 20px;">
+                                        <h4 style="margin: 0 0 10px 0; color: #1565c0;">♿ ADA Individuals:</h4>
+                                        ${adaIndividuals.map(ada => {
+                                            const group = appData.youthGroups.find(g => g.id === ada.groupId);
+                                            return `
+                                                <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 8px; border-left: 3px solid #2196f3;">
+                                                    <p style="margin: 0 0 5px 0; font-size: 1.1em; font-weight: bold;">${ada.name} (${ada.gender})</p>
+                                                    <p style="margin: 0 0 5px 0; color: #555;"><strong>Group ${ada.groupId}:</strong> ${group ? group.parish : 'Unknown'}</p>
+                                                    <p style="margin: 0; color: #d32f2f; font-weight: bold;"><strong>Accessibility:</strong> ${ada.accessibility}</p>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                `;
+                            })()}
+
                             <!-- Accessibility & Notes -->
                             ${room.accessibility || note ? `
                                 <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 5px solid #f39c12; margin-bottom: 20px;">
