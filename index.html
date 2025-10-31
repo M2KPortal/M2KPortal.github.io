@@ -592,8 +592,9 @@
         // ===== GLOBAL VARIABLES =====
         let appData = {
             youthGroups: [],
-            housingRooms: [],
-            smallGroupRooms: [],
+            rooms: [],  // Unified rooms array
+            housingRooms: [],  // Filtered view for backward compatibility
+            smallGroupRooms: [],  // Filtered view for backward compatibility
             housingAssignments: {
                 male: {},
                 female: {}
