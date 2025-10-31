@@ -2277,6 +2277,34 @@
                             </div>
                         ` : ''}
 
+                        ${(() => {
+                            const groupAdaIndividuals = (appData.adaIndividuals || []).filter(ada => ada.groupId === group.id);
+                            if (groupAdaIndividuals.length === 0) return '';
+                            return `
+                                <div style="margin-top: 15px; background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 12px; border-radius: 6px; border-left: 5px solid #2196f3;">
+                                    <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #1565c0;">♿ ADA Individuals:</h4>
+                                    ${groupAdaIndividuals.map(ada => `
+                                        <div style="background: white; padding: 10px; border-radius: 4px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px;">
+                                                <div>
+                                                    <strong style="font-size: 13px;">${ada.name}</strong>
+                                                    <div style="font-size: 11px; color: #666;">${ada.gender === 'male' ? 'Male ♂' : 'Female ♀'}</div>
+                                                </div>
+                                                <div style="text-align: right;">
+                                                    <strong style="font-size: 11px; color: #666;">Room Assignment:</strong>
+                                                    <div style="font-size: 12px; font-weight: 600; color: #1976d2;">${ada.roomAssignment || 'Not Assigned'}</div>
+                                                </div>
+                                            </div>
+                                            <div style="background: #fff3cd; padding: 6px 8px; border-radius: 3px; border-left: 3px solid #ff9800;">
+                                                <strong style="font-size: 11px; color: #e65100;">Accessibility Needs:</strong>
+                                                <div style="font-size: 12px; margin-top: 2px; color: #333;">${ada.accessibility}</div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+                        })()}
+
                         <div style="margin-top: 15px;">
                             <strong style="font-size: 13px;">💬 Additional Notes for ${group.parish}:</strong>
                             <textarea 
@@ -6367,6 +6395,11 @@
             const assignedGroups = getHousingRoomAssignments(roomKey);
             const note = getRoomNote(roomKey);
 
+            // Find ADA individuals assigned to this room
+            const adaIndividuals = (appData.adaIndividuals || []).filter(ada =>
+                ada.roomAssignment === roomKey
+            );
+
             return `
                 <div class="room-poster-page page-break">
                     <div class="header">
@@ -6397,6 +6430,22 @@
                             </div>
                         </div>
                     `).join('') : '<p class="no-groups">No groups assigned to this room yet</p>'}
+
+                    ${adaIndividuals.length > 0 ? `
+                        <div class="info-box info-box-blue" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-left: 5px solid #2196f3;">
+                            <h4>♿ ADA Individuals:</h4>
+                            ${adaIndividuals.map(ada => {
+                                const group = appData.youthGroups.find(g => g.id === ada.groupId);
+                                return `
+                                    <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 5px;">
+                                        <p style="margin: 5px 0; font-size: 1.1em;"><strong>${ada.name}</strong> (${ada.gender})</p>
+                                        <p style="margin: 5px 0;"><strong>Group ${ada.groupId}:</strong> ${group ? group.parish : 'Unknown'}</p>
+                                        <p style="margin: 5px 0; color: #d32f2f;"><strong>Accessibility:</strong> ${ada.accessibility}</p>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    ` : ''}
 
                     ${room.accessibility || note ? `
                         <div class="info-box warning-box">
