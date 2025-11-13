@@ -6987,11 +6987,46 @@
         // ===== SCHEDULE MANAGEMENT =====
         function initializeScheduleData() {
             if (!appData.schedule) {
+                // Pre-populate with existing schedule data
                 appData.schedule = {
-                    friday: [],
-                    saturday: [],
-                    sunday: []
+                    friday: [
+                        { startTime: "5:00 PM", endTime: "6:30 PM", event: "Arrival / Registration", location: "Various" },
+                        { startTime: "6:30 PM", endTime: "", event: "ARCC Arena Opens", location: "ARCC" },
+                        { startTime: "7:00 PM", endTime: "7:35 PM", event: "Start of Program - Introductions", location: "ARCC Arena" },
+                        { startTime: "7:40 PM", endTime: "8:20 PM", event: "Keynote 1: Dr. John-Mark Miravalle", location: "ARCC Arena" },
+                        { startTime: "8:35 PM", endTime: "9:50 PM", event: "Holy Mass", location: "ARCC Arena" },
+                        { startTime: "10:00 PM", endTime: "", event: "Dismissal", location: "" }
+                    ],
+                    saturday: [
+                        { startTime: "7:40 AM", endTime: "8:40 AM", event: "On-Campus Breakfast", location: "Patriot Hall" },
+                        { startTime: "8:30 AM", endTime: "", event: "ARCC Arena Opens", location: "ARCC" },
+                        { startTime: "9:00 AM", endTime: "9:30 AM", event: "Start of Program", location: "ARCC Arena" },
+                        { startTime: "9:40 AM", endTime: "10:10 AM", event: "Keynote 2: Patricia Sandoval", location: "ARCC Arena" },
+                        { startTime: "10:10 AM", endTime: "10:25 AM", event: "Dismissal and Prep for Holy Mass", location: "ARCC Arena" },
+                        { startTime: "10:25 AM", endTime: "11:45 AM", event: "Holy Mass", location: "ARCC Arena" },
+                        { startTime: "10:25 AM", endTime: "11:45 AM", event: "(Confirmation ONLY) Holy Mass", location: "JC Chapel" },
+                        { startTime: "12:15 PM", endTime: "1:15 PM", event: "Lunch", location: "Patriot Hall" },
+                        { startTime: "1:30 PM", endTime: "2:30 PM", event: "Breakout Sessions", location: "Various" },
+                        { startTime: "2:30 PM", endTime: "4:20 PM", event: "Group Time/Recreation", location: "Various" },
+                        { startTime: "4:20 PM", endTime: "6:40 PM", event: "Dinner", location: "Patriot Hall" },
+                        { startTime: "6:15 PM", endTime: "", event: "ARCC Arena Opens", location: "ARCC" },
+                        { startTime: "6:50 PM", endTime: "7:40 PM", event: "Start of Program", location: "ARCC Arena" },
+                        { startTime: "7:40 PM", endTime: "8:00 PM", event: "Break", location: "ARCC Arena" },
+                        { startTime: "8:00 PM", endTime: "8:40 PM", event: "Keynote 3: Archbishop Sample", location: "ARCC Arena" },
+                        { startTime: "8:50 PM", endTime: "9:50 PM", event: "Eucharistic Adoration", location: "ARCC Arena" },
+                        { startTime: "10:00 PM", endTime: "", event: "Dismissal", location: "" }
+                    ],
+                    sunday: [
+                        { startTime: "7:40 AM", endTime: "8:40 AM", event: "On-Campus Breakfast", location: "Patriot Hall" },
+                        { startTime: "8:30 AM", endTime: "", event: "ARCC Arena Opens", location: "ARCC" },
+                        { startTime: "8:50 AM", endTime: "9:20 AM", event: "Start of Program", location: "ARCC Arena" },
+                        { startTime: "9:25 AM", endTime: "10:05 AM", event: "Keynote 4: Sr. Catherine Holum", location: "ARCC Arena" },
+                        { startTime: "10:40 AM", endTime: "12:10 PM", event: "Holy Mass", location: "ARCC Arena" },
+                        { startTime: "12:20 PM", endTime: "", event: "Departure", location: "All Exits" }
+                    ]
                 };
+                // Auto-save the pre-populated schedule
+                autoSave();
             }
         }
 
