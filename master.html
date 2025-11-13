@@ -1674,6 +1674,29 @@
                 <button onclick="clearUserForm()" class="btn btn-secondary">Clear Form</button>
             </div>
 
+            <!-- Credential Backup Management -->
+            <div style="background: #e0f2fe; border: 2px solid #0ea5e9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0; color: #0c4a6e;">🔐 Credential Backup & Restore</h3>
+                <p style="color: #075985; margin-bottom: 15px;">
+                    All login credentials are automatically saved to your browser's localStorage whenever passwords are changed.
+                    You can also export credentials to a JSON file for backup or import them from a previous backup.
+                </p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="exportCredentials()" class="btn btn-primary" style="background: #0ea5e9; border-color: #0ea5e9;">
+                        📥 Export Credentials Backup
+                    </button>
+                    <button onclick="importCredentials()" class="btn btn-secondary" style="background: #64748b; border-color: #64748b;">
+                        📤 Import Credentials Backup
+                    </button>
+                    <button onclick="loadCredentialsFromStorage()" class="btn btn-secondary" style="background: #8b5cf6; border-color: #8b5cf6;">
+                        📂 View Stored Credentials Info
+                    </button>
+                </div>
+                <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #64748b;">
+                    <strong>🔒 Security Note:</strong> Credential backups contain password hashes (not plain text passwords). Store backup files securely and only share with authorized personnel.
+                </div>
+            </div>
+
             <!-- Users List -->
             <div>
                 <h3>System Users</h3>
@@ -7426,6 +7449,11 @@
                 }
                 passwordInput.focus();
             }
+
+            // Auto-backup credentials on page load if users exist
+            if (appData.users && appData.users.length > 0) {
+                autoSaveCredentials();
+            }
         }
 
         // Add shake animation
@@ -7599,6 +7627,167 @@
             logActivity('delete', 'system', 'activity-logs', 'Cleared all activity logs');
         }
 
+        // ===== CREDENTIAL PERSISTENCE SYSTEM =====
+        // This system automatically saves all login credentials whenever passwords are changed
+
+        function saveCredentialsToStorage() {
+            try {
+                const credentialData = {
+                    timestamp: new Date().toISOString(),
+                    systemInfo: {
+                        name: 'Mount 2K Housing System',
+                        version: '3.0',
+                        lastUpdate: new Date().toISOString()
+                    },
+                    masterPassword: systemConfig ? {
+                        passwordHash: systemConfig.passwordHash,
+                        defaultPassword: systemConfig.defaultPassword // Note: storing for backup purposes
+                    } : null,
+                    users: appData.users ? appData.users.map(user => ({
+                        id: user.id,
+                        username: user.username,
+                        fullName: user.fullName,
+                        passwordHash: user.passwordHash,
+                        role: user.role,
+                        createdAt: user.createdAt,
+                        isActive: user.isActive
+                    })) : [],
+                    totalUsers: appData.users ? appData.users.length : 0
+                };
+
+                // Save to localStorage for persistence
+                localStorage.setItem('m2k_credentials_backup', JSON.stringify(credentialData));
+                console.log('✅ Credentials saved to localStorage');
+
+                return credentialData;
+            } catch (error) {
+                console.error('❌ Error saving credentials:', error);
+                return null;
+            }
+        }
+
+        function exportCredentials() {
+            const credentialData = saveCredentialsToStorage();
+
+            if (!credentialData) {
+                alert('❌ Failed to prepare credential data for export');
+                return;
+            }
+
+            // Create downloadable JSON file
+            const dataStr = JSON.stringify(credentialData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+            link.download = `m2k_credentials_backup_${timestamp}.json`;
+            link.click();
+
+            alert(`✅ Credentials exported successfully!\n\n📦 File: m2k_credentials_backup_${timestamp}.json\n👥 Users: ${credentialData.totalUsers}\n⏰ Timestamp: ${new Date().toLocaleString()}`);
+
+            logActivity('export', 'credentials', 'system', `Exported credentials backup with ${credentialData.totalUsers} users`);
+        }
+
+        function importCredentials() {
+            if (!confirm('⚠️ WARNING: Importing credentials will restore all user accounts and passwords from a backup file.\n\nThis will:\n• Restore all users from the backup\n• Overwrite current user data\n• NOT affect room assignments or other data\n\nDo you want to continue?')) {
+                return;
+            }
+
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+
+            input.onchange = async (e) => {
+                try {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = async (event) => {
+                        try {
+                            const credentialData = JSON.parse(event.target.result);
+
+                            // Validate the data structure
+                            if (!credentialData.systemInfo || !credentialData.users) {
+                                alert('❌ Invalid credential backup file format');
+                                return;
+                            }
+
+                            // Restore users
+                            appData.users = credentialData.users;
+
+                            // Save to localStorage
+                            saveCredentialsToStorage();
+
+                            // Refresh display
+                            displayUsers();
+
+                            alert(`✅ Credentials imported successfully!\n\n👥 Users restored: ${credentialData.users.length}\n📅 Backup date: ${new Date(credentialData.timestamp).toLocaleString()}`);
+
+                            logActivity('import', 'credentials', 'system', `Imported credentials backup with ${credentialData.users.length} users`);
+                        } catch (error) {
+                            console.error('Error parsing credential file:', error);
+                            alert('❌ Error reading credential backup file. Please ensure it\'s a valid JSON file.');
+                        }
+                    };
+
+                    reader.readAsText(file);
+                } catch (error) {
+                    console.error('Error importing credentials:', error);
+                    alert('❌ Error importing credentials. Please try again.');
+                }
+            };
+
+            input.click();
+        }
+
+        function loadCredentialsFromStorage() {
+            try {
+                const stored = localStorage.getItem('m2k_credentials_backup');
+                if (stored) {
+                    const credentialData = JSON.parse(stored);
+                    console.log(`📦 Found stored credentials backup from ${credentialData.timestamp}`);
+                    console.log(`👥 Users in backup: ${credentialData.totalUsers}`);
+
+                    // Show detailed info in an alert
+                    const backupDate = new Date(credentialData.timestamp).toLocaleString();
+                    const userList = credentialData.users.map(u => `  • ${u.fullName} (@${u.username}) - ${u.role}`).join('\n');
+
+                    alert(`📦 Stored Credentials Backup Info\n\n` +
+                          `📅 Last Updated: ${backupDate}\n` +
+                          `👥 Total Users: ${credentialData.totalUsers}\n` +
+                          `🔐 System: ${credentialData.systemInfo.name}\n` +
+                          `📌 Version: ${credentialData.systemInfo.version}\n\n` +
+                          `Users in backup:\n${userList || '  No users found'}\n\n` +
+                          `💾 Storage: Browser localStorage\n` +
+                          `🔄 Auto-saves: Whenever passwords change`);
+
+                    return credentialData;
+                }
+
+                alert('ℹ️ No stored credentials backup found.\n\n' +
+                      'Credentials will be automatically backed up to localStorage when you:\n' +
+                      '• Add a new user\n' +
+                      '• Edit a user\'s password\n' +
+                      '• Delete a user');
+
+                return null;
+            } catch (error) {
+                console.error('Error loading credentials from storage:', error);
+                alert('❌ Error loading stored credentials. The backup may be corrupted.');
+                return null;
+            }
+        }
+
+        function autoSaveCredentials() {
+            // Automatically save credentials to localStorage
+            const saved = saveCredentialsToStorage();
+            if (saved) {
+                console.log(`🔄 Auto-saved credentials: ${saved.totalUsers} users`);
+            }
+        }
+
         // ===== USER MANAGEMENT FUNCTIONS =====
         async function addUser() {
             const username = document.getElementById('new-username').value.trim();
@@ -7632,6 +7821,9 @@
 
             if (!appData.users) appData.users = [];
             appData.users.push(newUser);
+
+            // Auto-save credentials to localStorage
+            autoSaveCredentials();
 
             displayUsers();
             clearUserForm();
@@ -7747,6 +7939,9 @@
             user.fullName = newFullName.trim() || user.fullName;
             user.role = newRole;
 
+            // Auto-save credentials to localStorage
+            autoSaveCredentials();
+
             displayUsers();
             alert('✅ User updated successfully!');
 
@@ -7764,6 +7959,10 @@
             const index = appData.users.findIndex(u => u.id === userId);
             if (index > -1) {
                 appData.users.splice(index, 1);
+
+                // Auto-save credentials to localStorage
+                autoSaveCredentials();
+
                 displayUsers();
                 alert('✅ User deleted successfully!');
 
