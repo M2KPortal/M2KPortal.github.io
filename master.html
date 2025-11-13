@@ -8619,7 +8619,7 @@
 
                 if (getResponse.ok) {
                     const fileData = await getResponse.json();
-                    const content = atob(fileData.content);
+                    const content = atob(fileData.content.replace(/\n/g, ''));
                     const credentialData = JSON.parse(content);
 
                     // Load users into appData
