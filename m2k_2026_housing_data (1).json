@@ -2240,6 +2240,50 @@
       "url": ""
     }
   ],
-  "timestamp": "2025-11-02T18:08:06.372Z",
+  "users": [
+    {
+      "id": "1763071520317_juang",
+      "username": "juang",
+      "fullName": "Juan G",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "admin",
+      "isAdmin": true,
+      "createdAt": "2025-11-13T22:05:20.317Z",
+      "isActive": true
+    },
+    {
+      "id": "1763071520317_isaac",
+      "username": "isaac",
+      "fullName": "Isaac Cross",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-13T22:05:20.317Z",
+      "isActive": true
+    },
+    {
+      "id": "1763071520317_martin",
+      "username": "martin",
+      "fullName": "Martin",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-13T22:05:20.318Z",
+      "isActive": true
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "1763071534575_xdy7c7o0e",
+      "timestamp": "2025-11-13T22:05:34.575Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Juan G (@juang)"
+    }
+  ],
+  "timestamp": "2025-11-13T22:07:45.862Z",
   "version": "3.0"
 }
