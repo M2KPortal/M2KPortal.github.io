@@ -171,6 +171,108 @@
             color: #3b82f6;
         }
 
+        /* Dropdown Tabs */
+        .tab-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tab-dropdown-button {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: #6b7280;
+            white-space: nowrap;
+            flex-shrink: 0;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-dropdown-button:hover {
+            background: #f9fafb;
+            color: #1e40af;
+        }
+
+        .tab-dropdown-button.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .tab-dropdown-button svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .tab-dropdown-button.open svg {
+            transform: rotate(180deg);
+        }
+
+        .tab-dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            z-index: 1000;
+            animation: dropdown-slide-down 0.2s ease;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+        }
+
+        @keyframes dropdown-slide-down {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-dropdown-content.show {
+            display: block;
+        }
+
+        .tab-dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .tab-dropdown-item:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+            padding-left: 24px;
+        }
+
+        .tab-dropdown-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
         /* Content Area */
         .content-wrapper {
             max-width: 1400px;
@@ -995,20 +1097,57 @@
             </div>
         </div>
 
-        <!-- Modern Horizontal Tabs -->
+        <!-- Modern Horizontal Tabs with Dropdowns -->
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab-button" onclick="switchTab('youth-groups')">👥 Youth Groups</button>
-            <button class="tab-button" onclick="switchTab('room-management')">🏠 Room Management</button>
-            <button class="tab-button" onclick="switchTab('housing-assignments')">🛏️ Housing Assignments</button>
-            <button class="tab-button" onclick="switchTab('small-group-assignments')">👫 Small Groups</button>
-            <button class="tab-button" onclick="switchTab('meal-colors')">🍽️ Meal Colors</button>
-            <button class="tab-button" onclick="switchTab('ada-individuals')">♿ ADA</button>
-            <button class="tab-button" onclick="switchTab('resources')">📚 Resources</button>
-            <button class="tab-button" onclick="switchTab('settings')">⚙️ Settings</button>
-            <button class="tab-button" onclick="switchTab('activity-reports')">📋 Activity</button>
-            <button class="tab-button" onclick="switchTab('printable-forms')">🖨️ Print Forms</button>
-            <button class="tab-button" onclick="switchTab('room-posters')">📄 Room Posters</button>
+            <button class="tab-button active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="tab-button" onclick="switchTab('youth-groups')">Youth Groups</button>
+            <button class="tab-button" onclick="switchTab('room-management')">Room Management</button>
+
+            <!-- Assignments Dropdown -->
+            <div class="tab-dropdown">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('assignments-dropdown')">
+                    Assignments
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="assignments-dropdown" class="tab-dropdown-content">
+                    <button class="tab-dropdown-item" onclick="switchTab('housing-assignments')">Housing Assignments</button>
+                    <button class="tab-dropdown-item" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
+                    <button class="tab-dropdown-item" onclick="switchTab('ada-individuals')">ADA</button>
+                </div>
+            </div>
+
+            <!-- Resources Dropdown -->
+            <div class="tab-dropdown">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('resources-dropdown')">
+                    Resources
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="resources-dropdown" class="tab-dropdown-content">
+                    <button class="tab-dropdown-item" onclick="switchTab('resources')">Setup Resources</button>
+                    <button class="tab-dropdown-item" onclick="switchTab('meal-colors')">Meal Colors</button>
+                </div>
+            </div>
+
+            <!-- Printables Dropdown -->
+            <div class="tab-dropdown">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('printables-dropdown')">
+                    Printables
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="printables-dropdown" class="tab-dropdown-content">
+                    <button class="tab-dropdown-item" id="activity-reports-menu" onclick="switchTab('activity-reports')">Activity Reports</button>
+                    <button class="tab-dropdown-item" onclick="switchTab('room-posters')">Room Posters</button>
+                    <button class="tab-dropdown-item" onclick="switchTab('printable-forms')">Printable Forms</button>
+                </div>
+            </div>
+
+            <button class="tab-button" onclick="switchTab('settings')">Settings</button>
         </div>
 
         <!-- Content Wrapper -->
@@ -1957,11 +2096,11 @@
                 </div>
             </div>
 
-            <!-- User Management Section -->
-            <div style="background: #f8f9fa; border: 2px solid #6c757d; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3 style="margin-top: 0;">👥 User Management</h3>
+            <!-- User Management Section (Admin-Only) -->
+            <div id="user-management-section" style="background: #f8f9fa; border: 2px solid #6c757d; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+                <h3 style="margin-top: 0;">👥 User Management (Admin-Only)</h3>
                 <p style="color: #666; margin-bottom: 15px;">
-                    Manage system users and their access credentials. Changes are automatically saved to GitHub.
+                    <strong>⚠️ Admin Access Required:</strong> Manage system users and their access credentials. Changes are automatically saved to GitHub.
                 </p>
 
                 <!-- Add User Form -->
@@ -3832,6 +3971,48 @@
         }
 
         // ===== TAB MANAGEMENT =====
+        function toggleDropdown(dropdownId) {
+            // Close all other dropdowns
+            document.querySelectorAll('.tab-dropdown-content').forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Close all dropdown buttons' open state
+            document.querySelectorAll('.tab-dropdown-button').forEach(btn => {
+                if (btn.nextElementSibling?.id !== dropdownId) {
+                    btn.classList.remove('open');
+                }
+            });
+
+            // Toggle the clicked dropdown
+            const dropdown = document.getElementById(dropdownId);
+            const button = event.target.closest('.tab-dropdown-button');
+
+            if (dropdown) {
+                dropdown.classList.toggle('show');
+                if (button) {
+                    button.classList.toggle('open');
+                }
+            }
+
+            // Prevent event from bubbling
+            event.stopPropagation();
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.tab-dropdown')) {
+                document.querySelectorAll('.tab-dropdown-content').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+                document.querySelectorAll('.tab-dropdown-button').forEach(btn => {
+                    btn.classList.remove('open');
+                });
+            }
+        });
+
         function switchTab(tabName) {
             // Check if user is trying to access admin-only tabs
             if (tabName === 'activity-reports') {
@@ -3841,15 +4022,45 @@
                 }
             }
 
+            // Close all dropdowns
+            document.querySelectorAll('.tab-dropdown-content').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            document.querySelectorAll('.tab-dropdown-button').forEach(btn => {
+                btn.classList.remove('open');
+            });
+
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
+            document.querySelectorAll('.tab-dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-dropdown-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
 
             document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+
+            // Highlight active tab button or dropdown item
+            if (event && event.target) {
+                if (event.target.classList.contains('tab-button')) {
+                    event.target.classList.add('active');
+                } else if (event.target.classList.contains('tab-dropdown-item')) {
+                    event.target.classList.add('active');
+                    // Also highlight the parent dropdown button
+                    const parentDropdown = event.target.closest('.tab-dropdown');
+                    if (parentDropdown) {
+                        const dropdownButton = parentDropdown.querySelector('.tab-dropdown-button');
+                        if (dropdownButton) {
+                            dropdownButton.classList.add('active');
+                        }
+                    }
+                }
+            }
 
             if (tabName === 'housing-assignments') {
                 updateHousingAssignmentDropdown();
@@ -3868,10 +4079,16 @@
                 displayResources();
             } else if (tabName === 'settings') {
                 displayUsers();
-                // Show/hide admin section based on user role
+                // Show/hide admin sections based on user role
                 const adminSection = document.getElementById('admin-clear-section');
+                const userManagementSection = document.getElementById('user-management-section');
+
                 if (adminSection && currentUser) {
                     adminSection.style.display = currentUser.isAdmin ? 'block' : 'none';
+                }
+
+                if (userManagementSection && currentUser) {
+                    userManagementSection.style.display = currentUser.isAdmin ? 'block' : 'none';
                 }
             } else if (tabName === 'activity-reports') {
                 displayActivityReports();
@@ -7707,13 +7924,13 @@
         }
 
         function updateTabsBasedOnRole() {
-            // Hide activity reports tab for non-admin users
-            const activityTabBtn = document.querySelector('button[onclick="switchTab(\'activity-reports\')"]');
-            if (activityTabBtn && currentUser) {
+            // Hide activity reports menu item for non-admin users
+            const activityReportsMenu = document.getElementById('activity-reports-menu');
+            if (activityReportsMenu && currentUser) {
                 if (currentUser.role === 'admin' || currentUser.isAdmin) {
-                    activityTabBtn.style.display = 'inline-block';
+                    activityReportsMenu.style.display = 'block';
                 } else {
-                    activityTabBtn.style.display = 'none';
+                    activityReportsMenu.style.display = 'none';
                 }
             }
         }
@@ -8472,6 +8689,12 @@
 
         // ===== USER MANAGEMENT FUNCTIONS =====
         async function addUser() {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can add users.');
+                return;
+            }
+
             const username = document.getElementById('new-username').value.trim();
             const fullName = document.getElementById('new-user-fullname').value.trim();
             const password = document.getElementById('new-user-password').value;
@@ -8600,6 +8823,12 @@
         }
 
         async function editUser(userId) {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can edit users.');
+                return;
+            }
+
             const user = appData.users.find(u => u.id === userId);
             if (!user) return;
 
@@ -8640,6 +8869,12 @@
         }
 
         function deleteUser(userId) {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can delete users.');
+                return;
+            }
+
             const user = appData.users.find(u => u.id === userId);
             if (!user) return;
 
