@@ -312,15 +312,15 @@
         /* Dashboard Statistics */
         .dashboard-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .stat-card {
             background: white;
-            padding: 24px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 8px;
             border: 1px solid #e5e7eb;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
@@ -334,7 +334,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
         }
 
@@ -345,18 +345,18 @@
         }
 
         .stat-card h3 {
-            font-size: 2.5em;
-            margin-bottom: 8px;
+            font-size: 1.8em;
+            margin-bottom: 6px;
             color: #1f2937;
             font-weight: 700;
         }
 
         .stat-card p {
             color: #6b7280;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
         /* Forms */
@@ -530,9 +530,24 @@
 
         .room-card.selected {
             background: #dbeafe;
-            border-left-color: #3b82f6;
-            border: 2px solid #3b82f6;
-            border-left: 4px solid #3b82f6;
+            border: 4px solid #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+            position: relative;
+        }
+
+        .room-card.selected::before {
+            content: '✓ SELECTED';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #3b82f6;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         /* Status Indicators */
@@ -970,12 +985,12 @@
         <!-- Modern Top Navigation -->
         <div class="top-nav">
             <div class="top-nav-left">
-                <div class="top-nav-title">🏔️ Mount 2K Housing System</div>
+                <div class="top-nav-title">Mount 2K Housing System</div>
                 <div class="top-nav-welcome" id="welcome-user" style="display: none;"></div>
             </div>
             <div class="top-nav-right">
-                <button class="top-nav-btn save" onclick="saveToGitHub()">💾 Save to GitHub</button>
-                <a href="https://m2kportal.github.io/index.html" class="top-nav-btn">👁️ Front View</a>
+                <button class="top-nav-btn save" onclick="saveToGitHub()">Master Save</button>
+                <a href="https://m2kportal.github.io/index.html" class="top-nav-btn">Front View</a>
                 <button class="top-nav-btn logout" onclick="logout()">🚪 Logout</button>
             </div>
         </div>
@@ -1012,9 +1027,9 @@
                     <h3 id="total-participants">0</h3>
                     <p>Total Participants</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #e67e22, #d35400); border-color: #e67e22;">
+                <div class="stat-card">
                     <h3 id="off-campus-groups">0</h3>
-                    <p>🏕️ Off-Campus People</p>
+                    <p>Off-Campus People</p>
                 </div>
                 <div class="stat-card">
                     <h3 id="groups-needing-housing">0</h3>
@@ -1030,45 +1045,45 @@
                 </div>
             </div>
 
-            <h3 style="margin: 20px 0 10px 0;">Housing Capacity Details</h3>
+            <h3 style="margin: 16px 0 8px 0; font-size: 1.2em;">Housing Capacity Details</h3>
             <div class="dashboard-stats">
-                <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2980b9); border-color: #3498db;">
+                <div class="stat-card">
                     <h3 id="male-housing-capacity">0</h3>
-                    <p>🔵 Male Housing Capacity</p>
+                    <p>Male Housing Capacity</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2980b9); border-color: #3498db;">
+                <div class="stat-card">
                     <h3 id="male-housing-used">0</h3>
-                    <p>🔵 Male Housing Used</p>
+                    <p>Male Housing Used</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2980b9); border-color: #3498db;">
+                <div class="stat-card">
                     <h3 id="male-housing-utilization">0%</h3>
-                    <p>🔵 Male Housing Used %</p>
+                    <p>Male Housing Used %</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); border-color: #9b59b6;">
+                <div class="stat-card">
                     <h3 id="female-housing-capacity">0</h3>
-                    <p>🟣 Female Housing Capacity</p>
+                    <p>Female Housing Capacity</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); border-color: #9b59b6;">
+                <div class="stat-card">
                     <h3 id="female-housing-used">0</h3>
-                    <p>🟣 Female Housing Used</p>
+                    <p>Female Housing Used</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); border-color: #9b59b6;">
+                <div class="stat-card">
                     <h3 id="female-housing-utilization">0%</h3>
-                    <p>🟣 Female Housing Used %</p>
+                    <p>Female Housing Used %</p>
                 </div>
             </div>
 
-            <h3 style="margin: 20px 0 10px 0;">Small Group Room Capacity</h3>
+            <h3 style="margin: 16px 0 8px 0; font-size: 1.2em;">Small Group Room Capacity</h3>
             <div class="dashboard-stats">
-                <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954); border-color: #27ae60;">
+                <div class="stat-card">
                     <h3 id="mixed-sg-capacity">0</h3>
                     <p>Mixed/Co-ed Room Capacity</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954); border-color: #27ae60;">
+                <div class="stat-card">
                     <h3 id="mixed-sg-used">0</h3>
                     <p>Mixed/Co-ed Rooms Used</p>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954); border-color: #27ae60;">
+                <div class="stat-card">
                     <h3 id="mixed-sg-utilization">0%</h3>
                     <p>Mixed/Co-ed Rooms Used %</p>
                 </div>
@@ -1911,10 +1926,34 @@
                 <p style="color: #c62828; margin-bottom: 15px;">
                     <strong>Warning:</strong> These actions are permanent and cannot be undone. Admin access required.
                 </p>
+                <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <p style="font-weight: 600; margin-bottom: 12px; color: #1f2937;">Select items to delete:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                            <input type="checkbox" id="clear-housing-info" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span style="font-weight: 500;">Clear Housing Assignments</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                            <input type="checkbox" id="clear-small-group-info" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span style="font-weight: 500;">Clear Small Group Assignments</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                            <input type="checkbox" id="clear-youth-groups" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span style="font-weight: 500;">Clear Youth Group Information</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                            <input type="checkbox" id="clear-rooms" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span style="font-weight: 500;">Clear Housing Rooms</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                            <input type="checkbox" id="clear-small-group-rooms" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span style="font-weight: 500;">Clear Small Group Rooms</span>
+                        </label>
+                    </div>
+                </div>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn btn-danger" onclick="clearHousingData()">🗑️ Clear Housing Information</button>
-                    <button class="btn btn-danger" onclick="clearSmallGroupData()">🗑️ Clear Small Group Locations</button>
-                    <button class="btn btn-danger" onclick="clearAllData()">⚠️ Clear Form Completely</button>
+                    <button class="btn btn-danger" onclick="clearSelectedData()" style="font-size: 16px; padding: 12px 24px;">🗑️ Delete Selected Items</button>
+                    <button class="btn btn-secondary" onclick="clearDataCheckboxes()" style="font-size: 16px; padding: 12px 24px;">Clear Selection</button>
                 </div>
             </div>
 
@@ -3794,6 +3833,14 @@
 
         // ===== TAB MANAGEMENT =====
         function switchTab(tabName) {
+            // Check if user is trying to access admin-only tabs
+            if (tabName === 'activity-reports') {
+                if (!currentUser || (currentUser.role !== 'admin' && !currentUser.isAdmin)) {
+                    alert('❌ Access Denied\n\nActivity Reports are only accessible to administrators.');
+                    return;
+                }
+            }
+
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -7650,10 +7697,25 @@
             // Update header with welcome message
             updateWelcomeHeader();
 
+            // Hide admin-only tabs for non-admin users
+            updateTabsBasedOnRole();
+
             // Log the login activity
             logActivity('login', 'system', null, `User logged in: ${user.fullName} (@${user.username})`);
 
             console.log('System unlocked for user:', user.username);
+        }
+
+        function updateTabsBasedOnRole() {
+            // Hide activity reports tab for non-admin users
+            const activityTabBtn = document.querySelector('button[onclick="switchTab(\'activity-reports\')"]');
+            if (activityTabBtn && currentUser) {
+                if (currentUser.role === 'admin' || currentUser.isAdmin) {
+                    activityTabBtn.style.display = 'inline-block';
+                } else {
+                    activityTabBtn.style.display = 'none';
+                }
+            }
         }
 
         function updateWelcomeHeader() {
@@ -7697,6 +7759,8 @@
                     console.log('Restored user session:', currentUser.username);
                     // Show welcome message in header
                     updateWelcomeHeader();
+                    // Update tabs based on role
+                    updateTabsBasedOnRole();
                 } else {
                     currentUser = { username: 'admin', fullName: 'Administrator', role: 'admin', isAdmin: true };
                 }
@@ -8302,6 +8366,108 @@
                     alert('❌ Incorrect password. Action cancelled.');
                 }
             });
+        }
+
+        // ===== CHECKBOX-BASED DATA DELETION =====
+        function clearDataCheckboxes() {
+            document.getElementById('clear-housing-info').checked = false;
+            document.getElementById('clear-small-group-info').checked = false;
+            document.getElementById('clear-youth-groups').checked = false;
+            document.getElementById('clear-rooms').checked = false;
+            document.getElementById('clear-small-group-rooms').checked = false;
+        }
+
+        async function clearSelectedData() {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can delete data.');
+                return;
+            }
+
+            // Get selected checkboxes
+            const clearHousing = document.getElementById('clear-housing-info').checked;
+            const clearSmallGroup = document.getElementById('clear-small-group-info').checked;
+            const clearYouthGroups = document.getElementById('clear-youth-groups').checked;
+            const clearRooms = document.getElementById('clear-rooms').checked;
+            const clearSmallGroupRooms = document.getElementById('clear-small-group-rooms').checked;
+
+            // Check if at least one is selected
+            if (!clearHousing && !clearSmallGroup && !clearYouthGroups && !clearRooms && !clearSmallGroupRooms) {
+                alert('⚠️ Please select at least one item to delete.');
+                return;
+            }
+
+            // Build confirmation message
+            let itemsList = [];
+            if (clearHousing) itemsList.push('• Housing Assignments');
+            if (clearSmallGroup) itemsList.push('• Small Group Assignments');
+            if (clearYouthGroups) itemsList.push('• Youth Group Information');
+            if (clearRooms) itemsList.push('• Housing Rooms');
+            if (clearSmallGroupRooms) itemsList.push('• Small Group Rooms');
+
+            const password = prompt('⚠️ WARNING: This will permanently delete the following:\n\n' +
+                itemsList.join('\n') + '\n\n' +
+                'Enter your password to confirm:');
+            if (!password) return;
+
+            // Verify password
+            const hash = await hashPassword(password);
+            if (hash !== currentUser.passwordHash) {
+                alert('❌ Incorrect password. Action cancelled.');
+                return;
+            }
+
+            if (!confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure? This cannot be undone!')) {
+                return;
+            }
+
+            // Perform deletions
+            let deletedItems = [];
+
+            if (clearHousing) {
+                appData.groups.forEach(group => {
+                    group.maleRoomNumber = '';
+                    group.femaleRoomNumber = '';
+                });
+                deletedItems.push('Housing Assignments');
+                logActivity('delete', 'system', 'housing-data', 'Cleared all housing assignments');
+            }
+
+            if (clearSmallGroup) {
+                appData.groups.forEach(group => {
+                    group.smallGroupRoom = '';
+                });
+                deletedItems.push('Small Group Assignments');
+                logActivity('delete', 'system', 'small-group-data', 'Cleared all small group assignments');
+            }
+
+            if (clearYouthGroups) {
+                appData.groups = [];
+                deletedItems.push('Youth Group Information');
+                logActivity('delete', 'system', 'youth-groups', 'Cleared all youth groups');
+            }
+
+            if (clearRooms) {
+                appData.housingRooms = [];
+                deletedItems.push('Housing Rooms');
+                logActivity('delete', 'system', 'housing-rooms', 'Cleared all housing rooms');
+            }
+
+            if (clearSmallGroupRooms) {
+                appData.smallGroupRooms = [];
+                deletedItems.push('Small Group Rooms');
+                logActivity('delete', 'system', 'small-group-rooms', 'Cleared all small group rooms');
+            }
+
+            // Clear checkboxes
+            clearDataCheckboxes();
+
+            // Refresh displays
+            updateStats();
+            displayGroups();
+            displayRooms();
+
+            alert('✅ Successfully deleted:\n\n' + deletedItems.map(item => '• ' + item).join('\n'));
         }
 
         // ===== USER MANAGEMENT FUNCTIONS =====
