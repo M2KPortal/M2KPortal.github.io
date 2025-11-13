@@ -730,8 +730,16 @@
 
     <div id="main-content" class="container">
         <div class="header">
-            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
-            <a href="https://m2kportal.github.io/index.html" class="front-view-btn">👁️ Front View</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span id="welcome-user" style="display: none; font-weight: 600; color: #0ea5e9; font-size: 16px;"></span>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" onclick="saveToGitHub()" style="background: #10b981; border-color: #10b981; padding: 8px 16px;">💾 Save to GitHub</button>
+                    <a href="https://m2kportal.github.io/index.html" class="front-view-btn">👁️ Front View</a>
+                    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
             <h1>Mount 2K Housing Management System</h1>
             <p>Mount St. Mary's University - Comprehensive Housing Solution</p>
         </div>
@@ -745,7 +753,7 @@
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
             <button class="tab-button" onclick="switchTab('ada-individuals')">ADA Individuals</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
-            <button class="tab-button" onclick="switchTab('user-management')">User Management</button>
+            <button class="tab-button" onclick="switchTab('settings')">⚙️ Settings</button>
             <button class="tab-button" onclick="switchTab('activity-reports')">Activity Reports</button>
             <button class="tab-button" onclick="switchTab('printable-forms')">Print Youth Group Information</button>
             <button class="tab-button" onclick="switchTab('room-posters')">Print Room Information</button>
@@ -838,28 +846,6 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-bottom: 20px;">
-                <button class="btn btn-primary" onclick="exportToCSV()">📥 Export Data to CSV</button>
-                <button class="btn btn-success" onclick="saveData()">💾 Save Data (JSON)</button>
-                <button class="btn btn-warning" onclick="loadData()">📂 Load Data</button>
-                <button class="btn btn-primary" onclick="exportCompleteHTML()">🌐 Export Complete HTML Site</button>
-                <input type="file" id="load-file" accept=".json" style="display: none;" onchange="handleLoadFile(event)">
-            </div>
-
-            <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; border: 2px solid #4CAF50;">
-                <h3 style="margin-bottom: 10px; color: #2e7d32;">🔄 GitHub Auto-Save</h3>
-                <button id="save-github-btn" class="btn" onclick="saveToGitHub()"
-                        style="background: #2e7d32; color: white; font-size: 16px; padding: 12px 24px; margin-right: 10px;">
-                    🔄 Save to GitHub
-                </button>
-                <button class="btn" onclick="manageGitHubToken()"
-                        style="background: #666; color: white; padding: 12px 24px;">
-                    🔑 Manage Token
-                </button>
-                <p style="font-size: 12px; color: #2e7d32; margin-top: 10px;">
-                    💡 Click "Save to GitHub" - you'll be asked for your token the first time!
-                </p>
-            </div>
 
             <h3>Quick Parish Assignment Search</h3>
             <input type="text" class="search-bar" id="parish-search" placeholder="Search by Parish, Group ID, Leader, Seminarian SGL, Religious, or Phone..." oninput="performSearch()">
@@ -1640,73 +1626,112 @@
             </div>
         </div>
 
-        <!-- User Management Tab -->
-        <div id="user-management" class="tab-content">
-            <h2>User Management</h2>
-            <p style="margin-bottom: 20px; color: #666;">Manage system users and their access credentials.</p>
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <h2>⚙️ System Settings</h2>
+            <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
-            <!-- Add User Form -->
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3>Add New User</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="new-username">Username *</label>
-                        <input type="text" id="new-username" placeholder="Enter username">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-user-fullname">Full Name *</label>
-                        <input type="text" id="new-user-fullname" placeholder="Enter full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-user-password">Password *</label>
-                        <input type="password" id="new-user-password" placeholder="Enter password">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-user-role">Role *</label>
-                        <select id="new-user-role">
-                            <option value="admin">Admin</option>
-                            <option value="editor">Editor</option>
-                            <option value="viewer">Viewer</option>
-                        </select>
-                    </div>
-                </div>
-                <button onclick="addUser()" class="btn btn-primary">Add User</button>
-                <button onclick="clearUserForm()" class="btn btn-secondary">Clear Form</button>
-            </div>
-
-            <!-- Credential Backup Management -->
-            <div style="background: #e0f2fe; border: 2px solid #0ea5e9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3 style="margin-top: 0; color: #0c4a6e;">🔐 Credential Backup & Restore</h3>
-                <p style="color: #075985; margin-bottom: 15px;">
-                    All login credentials are automatically saved to your browser's localStorage whenever passwords are changed.
-                    You can also export credentials to a JSON file for backup or import them from a previous backup.
+            <!-- GitHub Token Settings -->
+            <div style="background: #e8f5e9; border: 2px solid #4CAF50; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0; color: #2e7d32;">🔑 GitHub Token Settings</h3>
+                <p style="color: #2e7d32; margin-bottom: 15px;">
+                    Configure your GitHub Personal Access Token to enable automatic saving to GitHub.
                 </p>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button onclick="exportCredentials()" class="btn btn-primary" style="background: #0ea5e9; border-color: #0ea5e9;">
-                        📥 Export Credentials Backup
+                    <button class="btn" onclick="manageGitHubToken()" style="background: #2e7d32; color: white; border-color: #2e7d32;">
+                        🔑 Manage GitHub Token
                     </button>
-                    <button onclick="importCredentials()" class="btn btn-secondary" style="background: #64748b; border-color: #64748b;">
-                        📤 Import Credentials Backup
-                    </button>
-                    <button onclick="loadCredentialsFromStorage()" class="btn btn-secondary" style="background: #8b5cf6; border-color: #8b5cf6;">
-                        📂 View Stored Credentials Info
+                    <button class="btn btn-primary" onclick="saveToGitHub()" style="background: #10b981; border-color: #10b981;">
+                        💾 Save to GitHub Now
                     </button>
                 </div>
-                <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #64748b;">
-                    <strong>🔒 Security Note:</strong> Credential backups contain password hashes (not plain text passwords). Store backup files securely and only share with authorized personnel.
+                <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #2e7d32;">
+                    <strong>💡 Note:</strong> Token is stored locally in your browser and used to save housing data and credentials to GitHub.
                 </div>
             </div>
 
-            <!-- Users List -->
-            <div>
-                <h3>System Users</h3>
-                <div style="background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                    <input type="text" id="users-search" placeholder="🔍 Search users..."
-                           oninput="filterUsers()"
-                           style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;">
+            <!-- Data Export/Import -->
+            <div style="background: #e3f2fd; border: 2px solid #2196F3; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0; color: #1565c0;">📦 Data Export & Import</h3>
+                <p style="color: #1565c0; margin-bottom: 15px;">
+                    Export your housing data for backup or import data from previous backups.
+                </p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                    <button class="btn btn-primary" onclick="exportToCSV()">📥 Export Data to CSV</button>
+                    <button class="btn btn-success" onclick="saveData()">💾 Save Data (JSON)</button>
+                    <button class="btn btn-warning" onclick="loadData()">📂 Load Data</button>
+                    <button class="btn btn-primary" onclick="exportCompleteHTML()">🌐 Export Complete HTML Site</button>
                 </div>
-                <div id="users-list" style="display: grid; gap: 15px;">
-                    <!-- Users will be displayed here -->
+                <input type="file" id="load-file" accept=".json" style="display: none;" onchange="handleLoadFile(event)">
+            </div>
+
+            <!-- Admin-Only Clear Data Section -->
+            <div id="admin-clear-section" style="background: #ffebee; border: 2px solid #f44336; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+                <h3 style="margin-top: 0; color: #c62828;">⚠️ Admin-Only: Clear Data</h3>
+                <p style="color: #c62828; margin-bottom: 15px;">
+                    <strong>Warning:</strong> These actions are permanent and cannot be undone. Admin access required.
+                </p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-danger" onclick="clearHousingData()">🗑️ Clear Housing Information</button>
+                    <button class="btn btn-danger" onclick="clearSmallGroupData()">🗑️ Clear Small Group Locations</button>
+                    <button class="btn btn-danger" onclick="clearAllData()">⚠️ Clear Form Completely</button>
+                </div>
+            </div>
+
+            <!-- User Management Section -->
+            <div style="background: #f8f9fa; border: 2px solid #6c757d; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0;">👥 User Management</h3>
+                <p style="color: #666; margin-bottom: 15px;">
+                    Manage system users and their access credentials. Changes are automatically saved to GitHub.
+                </p>
+
+                <!-- Add User Form -->
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4>Add New User</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="new-username">Username *</label>
+                            <input type="text" id="new-username" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-user-fullname">Full Name *</label>
+                            <input type="text" id="new-user-fullname" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-user-password">Password *</label>
+                            <input type="password" id="new-user-password" placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-user-role">Role *</label>
+                            <select id="new-user-role">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="new-user-is-admin" style="width: 18px; height: 18px;">
+                            <span><strong>Grant Admin Privileges</strong> (Can clear data and manage all settings)</span>
+                        </label>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button onclick="addUser()" class="btn btn-primary">Add User</button>
+                        <button onclick="clearUserForm()" class="btn btn-secondary">Clear Form</button>
+                    </div>
+                </div>
+
+                <!-- Users List -->
+                <div>
+                    <h4>System Users</h4>
+                    <div style="background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <input type="text" id="users-search" placeholder="🔍 Search users..."
+                               oninput="filterUsers()"
+                               style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;">
+                    </div>
+                    <div id="users-list" style="display: grid; gap: 15px;">
+                        <!-- Users will be displayed here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -3553,8 +3578,13 @@
                 }
             } else if (tabName === 'resources') {
                 displayResources();
-            } else if (tabName === 'user-management') {
+            } else if (tabName === 'settings') {
                 displayUsers();
+                // Show/hide admin section based on user role
+                const adminSection = document.getElementById('admin-clear-section');
+                if (adminSection && currentUser) {
+                    adminSection.style.display = currentUser.isAdmin ? 'block' : 'none';
+                }
             } else if (tabName === 'activity-reports') {
                 displayActivityReports();
                 updateActivityUserFilter();
@@ -7373,10 +7403,24 @@
             sessionStorage.setItem('authenticated', 'true');
             sessionStorage.setItem('currentUser', JSON.stringify(user));
 
+            // Show welcome popup
+            alert(`👋 Hello, welcome ${user.fullName}!`);
+
+            // Update header with welcome message
+            updateWelcomeHeader();
+
             // Log the login activity
             logActivity('login', 'system', null, `User logged in: ${user.fullName} (@${user.username})`);
 
             console.log('System unlocked for user:', user.username);
+        }
+
+        function updateWelcomeHeader() {
+            const welcomeEl = document.getElementById('welcome-user');
+            if (welcomeEl && currentUser) {
+                welcomeEl.textContent = `Welcome, ${currentUser.fullName}`;
+                welcomeEl.style.display = 'inline-block';
+            }
         }
 
         function logout() {
@@ -7398,7 +7442,10 @@
         }
 
         async function initPasswordSystem() {
-            // Load config from GitHub
+            // Load credentials from GitHub first
+            await loadCredentialsFromGitHub();
+
+            // Load config from GitHub (legacy)
             await loadSystemConfig();
 
             // Check if already authenticated in this session
@@ -7407,8 +7454,10 @@
                 if (savedUser) {
                     currentUser = JSON.parse(savedUser);
                     console.log('Restored user session:', currentUser.username);
+                    // Show welcome message in header
+                    updateWelcomeHeader();
                 } else {
-                    currentUser = { username: 'admin', fullName: 'Administrator', role: 'admin' };
+                    currentUser = { username: 'admin', fullName: 'Administrator', role: 'admin', isAdmin: true };
                 }
                 document.getElementById('password-overlay').style.display = 'none';
                 document.getElementById('main-content').classList.add('unlocked');
@@ -7422,38 +7471,17 @@
             const usernameInput = document.getElementById('username-input');
             const loginNoteText = document.getElementById('login-note-text');
 
-            // Always hide setup mode since we have a fallback password
+            // Always hide setup mode since we use multi-user mode
             setupMode.style.display = 'none';
             btnText.textContent = '🔓 Unlock';
 
-            // Check if we have users configured for multi-user mode
-            if (appData.users && appData.users.length > 0) {
-                // Show username field for multi-user mode
-                usernameFieldGroup.style.display = 'block';
-                usernameInput.placeholder = 'Enter username';
-                passwordInput.placeholder = 'Enter password';
-                loginNoteText.textContent = 'Please enter your username and password to access the system.';
-                console.log('✅ Multi-user mode enabled');
-                usernameInput.focus();
-            } else {
-                // Hide username field for single password mode (backward compatibility)
-                usernameFieldGroup.style.display = 'none';
-                passwordInput.placeholder = 'Enter password';
-                loginNoteText.textContent = 'This system uses a centralized password. Contact your administrator if you need the password.';
-
-                // Show status message
-                if (systemConfig && systemConfig.passwordHash) {
-                    console.log('✅ Config loaded - using GitHub password');
-                } else {
-                    console.log('⚠️ Config not loaded - using fallback password: Mount2K2026');
-                }
-                passwordInput.focus();
-            }
-
-            // Auto-backup credentials on page load if users exist
-            if (appData.users && appData.users.length > 0) {
-                autoSaveCredentials();
-            }
+            // Always use multi-user mode
+            usernameFieldGroup.style.display = 'block';
+            usernameInput.placeholder = 'Enter username';
+            passwordInput.placeholder = 'Enter password';
+            loginNoteText.textContent = 'Please enter your username and password to access the system.';
+            console.log('✅ Multi-user mode enabled - ' + appData.users.length + ' users loaded');
+            usernameInput.focus();
         }
 
         // Add shake animation
@@ -7628,9 +7656,97 @@
         }
 
         // ===== CREDENTIAL PERSISTENCE SYSTEM =====
-        // This system automatically saves all login credentials whenever passwords are changed
+        // This system automatically saves all login credentials to GitHub whenever passwords are changed
 
-        function saveCredentialsToStorage() {
+        async function loadCredentialsFromGitHub() {
+            const settings = getGitHubSettings();
+
+            try {
+                const getUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/m2k_credentials.json?ref=${settings.branch}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: {
+                        'Authorization': settings.token ? `token ${settings.token}` : '',
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (getResponse.ok) {
+                    const fileData = await getResponse.json();
+                    const content = atob(fileData.content);
+                    const credentialData = JSON.parse(content);
+
+                    // Load users into appData
+                    appData.users = credentialData.users || [];
+
+                    console.log(`✅ Loaded ${appData.users.length} users from GitHub`);
+                    return credentialData;
+                } else if (getResponse.status === 404) {
+                    console.log('ℹ️ No credentials file found on GitHub, will create on first save');
+                    // Initialize with default admin users
+                    appData.users = await createInitialUsers();
+                    return null;
+                } else {
+                    console.error('Failed to load credentials from GitHub');
+                    return null;
+                }
+            } catch (error) {
+                console.error('❌ Error loading credentials from GitHub:', error);
+                // Initialize with default users if GitHub load fails
+                if (!appData.users || appData.users.length === 0) {
+                    appData.users = await createInitialUsers();
+                }
+                return null;
+            }
+        }
+
+        async function createInitialUsers() {
+            // Create initial users if none exist
+            const initialUsers = [
+                {
+                    id: Date.now() + '_juang',
+                    username: 'juang',
+                    fullName: 'Juan G',
+                    passwordHash: await hashPassword('M2K'),
+                    role: 'admin',
+                    isAdmin: true,
+                    createdAt: new Date().toISOString(),
+                    isActive: true
+                },
+                {
+                    id: Date.now() + '_isaac',
+                    username: 'isaac',
+                    fullName: 'Isaac Cross',
+                    passwordHash: await hashPassword('M2K'),
+                    role: 'user',
+                    isAdmin: false,
+                    createdAt: new Date().toISOString(),
+                    isActive: true
+                },
+                {
+                    id: Date.now() + '_martin',
+                    username: 'martin',
+                    fullName: 'Martin',
+                    passwordHash: await hashPassword('M2K'),
+                    role: 'user',
+                    isAdmin: false,
+                    createdAt: new Date().toISOString(),
+                    isActive: true
+                }
+            ];
+
+            console.log('✅ Created initial 3 users');
+            return initialUsers;
+        }
+
+        async function saveCredentialsToGitHub() {
+            const settings = getGitHubSettings();
+
+            // Check if token is set
+            if (!settings.token) {
+                alert('⚠️ GitHub token is required. Please head to Settings and enter your token.');
+                return false;
+            }
+
             try {
                 const credentialData = {
                     timestamp: new Date().toISOString(),
@@ -7639,31 +7755,77 @@
                         version: '3.0',
                         lastUpdate: new Date().toISOString()
                     },
-                    masterPassword: systemConfig ? {
-                        passwordHash: systemConfig.passwordHash,
-                        defaultPassword: systemConfig.defaultPassword // Note: storing for backup purposes
-                    } : null,
                     users: appData.users ? appData.users.map(user => ({
                         id: user.id,
                         username: user.username,
                         fullName: user.fullName,
                         passwordHash: user.passwordHash,
                         role: user.role,
+                        isAdmin: user.isAdmin || false,
                         createdAt: user.createdAt,
                         isActive: user.isActive
                     })) : [],
                     totalUsers: appData.users ? appData.users.length : 0
                 };
 
-                // Save to localStorage for persistence
-                localStorage.setItem('m2k_credentials_backup', JSON.stringify(credentialData));
-                console.log('✅ Credentials saved to localStorage');
+                const dataStr = JSON.stringify(credentialData, null, 2);
+                const content = btoa(unescape(encodeURIComponent(dataStr)));
 
-                return credentialData;
+                // Get current file SHA
+                const getUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/m2k_credentials.json?ref=${settings.branch}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: {
+                        'Authorization': `token ${settings.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                let sha = null;
+                if (getResponse.ok) {
+                    const fileData = await getResponse.json();
+                    sha = fileData.sha;
+                }
+
+                // Update or create file
+                const updateUrl = `https://api.github.com/repos/${settings.owner}/${settings.repo}/contents/m2k_credentials.json`;
+                const updateResponse = await fetch(updateUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${settings.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Update credentials - ${new Date().toLocaleString()}`,
+                        content: content,
+                        branch: settings.branch,
+                        ...(sha && { sha: sha })
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    console.log('✅ Credentials saved to GitHub');
+
+                    // Also save to localStorage as backup
+                    localStorage.setItem('m2k_credentials_backup', dataStr);
+
+                    return true;
+                } else {
+                    const error = await updateResponse.json();
+                    console.error('Failed to save credentials:', error);
+                    alert('❌ Failed to save credentials to GitHub: ' + error.message);
+                    return false;
+                }
             } catch (error) {
-                console.error('❌ Error saving credentials:', error);
-                return null;
+                console.error('❌ Error saving credentials to GitHub:', error);
+                alert('❌ Error saving credentials to GitHub: ' + error.message);
+                return false;
             }
+        }
+
+        function saveCredentialsToStorage() {
+            // Legacy function - now redirects to GitHub save
+            return saveCredentialsToGitHub();
         }
 
         function exportCredentials() {
@@ -7780,12 +7942,125 @@
             }
         }
 
-        function autoSaveCredentials() {
-            // Automatically save credentials to localStorage
-            const saved = saveCredentialsToStorage();
+        async function autoSaveCredentials() {
+            // Automatically save credentials to GitHub
+            const saved = await saveCredentialsToGitHub();
             if (saved) {
-                console.log(`🔄 Auto-saved credentials: ${saved.totalUsers} users`);
+                console.log(`🔄 Auto-saved credentials to GitHub`);
             }
+        }
+
+        // ===== CLEAR DATA FUNCTIONS (ADMIN ONLY) =====
+        function clearHousingData() {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can clear housing data.');
+                return;
+            }
+
+            const password = prompt('⚠️ WARNING: This will permanently delete all housing assignments!\n\nEnter your password to confirm:');
+            if (!password) return;
+
+            // Verify password
+            hashPassword(password).then(hash => {
+                if (hash === currentUser.passwordHash) {
+                    if (confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure you want to clear all housing assignments? This cannot be undone!')) {
+                        // Clear housing assignments
+                        appData.groups.forEach(group => {
+                            group.maleRoomNumber = '';
+                            group.femaleRoomNumber = '';
+                        });
+
+                        alert('✅ Housing information cleared successfully!');
+                        logActivity('delete', 'system', 'housing-data', 'Cleared all housing assignments');
+
+                        // Refresh displays
+                        updateStats();
+                        displayGroups();
+                    }
+                } else {
+                    alert('❌ Incorrect password. Action cancelled.');
+                }
+            });
+        }
+
+        function clearSmallGroupData() {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can clear small group data.');
+                return;
+            }
+
+            const password = prompt('⚠️ WARNING: This will permanently delete all small group locations!\n\nEnter your password to confirm:');
+            if (!password) return;
+
+            // Verify password
+            hashPassword(password).then(hash => {
+                if (hash === currentUser.passwordHash) {
+                    if (confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure you want to clear all small group locations? This cannot be undone!')) {
+                        // Clear small group assignments
+                        appData.groups.forEach(group => {
+                            group.smallGroupRoom = '';
+                        });
+
+                        alert('✅ Small group locations cleared successfully!');
+                        logActivity('delete', 'system', 'small-group-data', 'Cleared all small group locations');
+
+                        // Refresh displays
+                        updateStats();
+                        displayGroups();
+                    }
+                } else {
+                    alert('❌ Incorrect password. Action cancelled.');
+                }
+            });
+        }
+
+        function clearAllData() {
+            // Check admin permission
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('❌ Access Denied: Only administrators can clear all data.');
+                return;
+            }
+
+            const password = prompt('⚠️ EXTREME WARNING: This will permanently delete EVERYTHING!\n\n' +
+                'This includes:\n' +
+                '• All youth groups\n' +
+                '• All housing assignments\n' +
+                '• All small group locations\n' +
+                '• All room definitions\n' +
+                '• All notes and configurations\n\n' +
+                'Enter your password to confirm:');
+            if (!password) return;
+
+            // Verify password
+            hashPassword(password).then(hash => {
+                if (hash === currentUser.passwordHash) {
+                    const confirmText = prompt('⚠️ FINAL CONFIRMATION: Type "DELETE EVERYTHING" to proceed:');
+                    if (confirmText === 'DELETE EVERYTHING') {
+                        // Clear all data
+                        appData.groups = [];
+                        appData.rooms = [];
+                        appData.housingRooms = [];
+                        appData.smallGroupRooms = [];
+                        appData.groupNotes = {};
+                        appData.roomNotes = {};
+                        appData.adaIndividuals = [];
+
+                        alert('✅ All data cleared successfully! The system has been reset.');
+                        logActivity('delete', 'system', 'all-data', 'Cleared all system data');
+
+                        // Refresh all displays
+                        updateStats();
+                        displayGroups();
+                        displayRooms();
+                    } else {
+                        alert('❌ Confirmation text incorrect. Action cancelled.');
+                    }
+                } else {
+                    alert('❌ Incorrect password. Action cancelled.');
+                }
+            });
         }
 
         // ===== USER MANAGEMENT FUNCTIONS =====
@@ -7794,6 +8069,7 @@
             const fullName = document.getElementById('new-user-fullname').value.trim();
             const password = document.getElementById('new-user-password').value;
             const role = document.getElementById('new-user-role').value;
+            const isAdmin = document.getElementById('new-user-is-admin').checked;
 
             if (!username || !fullName || !password) {
                 alert('⚠️ Please fill in all required fields');
@@ -7815,6 +8091,7 @@
                 fullName: fullName,
                 passwordHash: passwordHash,
                 role: role,
+                isAdmin: isAdmin,
                 createdAt: new Date().toISOString(),
                 isActive: true
             };
@@ -7822,21 +8099,22 @@
             if (!appData.users) appData.users = [];
             appData.users.push(newUser);
 
-            // Auto-save credentials to localStorage
-            autoSaveCredentials();
+            // Auto-save credentials to GitHub
+            await autoSaveCredentials();
 
             displayUsers();
             clearUserForm();
-            alert('✅ User added successfully!');
+            alert('✅ User added successfully and saved to GitHub!');
 
-            logActivity('create', 'user', newUser.id, `Created user: ${fullName} (@${username})`);
+            logActivity('create', 'user', newUser.id, `Created user: ${fullName} (@${username}) - Admin: ${isAdmin}`);
         }
 
         function clearUserForm() {
             document.getElementById('new-username').value = '';
             document.getElementById('new-user-fullname').value = '';
             document.getElementById('new-user-password').value = '';
-            document.getElementById('new-user-role').value = 'admin';
+            document.getElementById('new-user-role').value = 'user';
+            document.getElementById('new-user-is-admin').checked = false;
         }
 
         function displayUsers() {
@@ -7868,10 +8146,11 @@
                                 <div style="color: #6b7280; margin-bottom: 8px;">
                                     @${user.username}
                                 </div>
-                                <div style="display: flex; gap: 8px; align-items: center;">
+                                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                                     <span style="background: ${colors.bg}; color: ${colors.text}; border: 1px solid ${colors.border}; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
                                         ${user.role}
                                     </span>
+                                    ${user.isAdmin ? '<span style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">⭐ ADMIN</span>' : ''}
                                     <span style="color: #9ca3af; font-size: 13px;">
                                         Created: ${createdDate}
                                     </span>
@@ -7920,12 +8199,17 @@
             const newFullName = prompt('Enter new full name:', user.fullName);
             if (newFullName === null) return;
 
-            const newRole = prompt('Enter new role (admin/editor/viewer):', user.role);
+            const newRole = prompt('Enter new role (user/admin):', user.role);
             if (newRole === null) return;
 
-            if (!['admin', 'editor', 'viewer'].includes(newRole)) {
-                alert('⚠️ Invalid role. Must be admin, editor, or viewer.');
+            if (!['admin', 'user'].includes(newRole)) {
+                alert('⚠️ Invalid role. Must be user or admin.');
                 return;
+            }
+
+            const changeAdmin = confirm(`Do you want to ${user.isAdmin ? 'REMOVE' : 'GRANT'} admin privileges?\n\nCurrent status: ${user.isAdmin ? 'IS ADMIN' : 'NOT ADMIN'}`);
+            if (changeAdmin) {
+                user.isAdmin = !user.isAdmin;
             }
 
             const changePassword = confirm('Do you want to change the password?');
@@ -7939,13 +8223,13 @@
             user.fullName = newFullName.trim() || user.fullName;
             user.role = newRole;
 
-            // Auto-save credentials to localStorage
-            autoSaveCredentials();
+            // Auto-save credentials to GitHub
+            await autoSaveCredentials();
 
             displayUsers();
-            alert('✅ User updated successfully!');
+            alert('✅ User updated successfully and saved to GitHub!');
 
-            logActivity('update', 'user', userId, `Updated user: ${user.fullName} (@${user.username})`);
+            logActivity('update', 'user', userId, `Updated user: ${user.fullName} (@${user.username}) - Admin: ${user.isAdmin}`);
         }
 
         function deleteUser(userId) {
