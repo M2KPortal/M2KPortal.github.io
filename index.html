@@ -1011,6 +1011,7 @@
                 appData.adaIndividuals = data.adaIndividuals || [];
                 appData.activeColors = data.activeColors || Object.keys(data.mealTimes || {});
                 appData.resources = data.resources || [];
+                appData.schedule = data.schedule || { friday: [], saturday: [], sunday: [] };
 
                 if (loadingStatus) {
                     loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
