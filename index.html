@@ -707,7 +707,7 @@
 
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Assignment Dashboard</button>
-            <button class="tab-button" onclick="switchTab('info')">Info</button>
+            <button class="tab-button" onclick="switchTab('info')">Meal Times</button>
             <button class="tab-button" onclick="switchTab('schedule')">Schedule</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
         </div>
@@ -769,237 +769,10 @@
         <!-- Schedule Tab -->
         <div id="schedule" class="tab-content">
             <h2>Mount 2K Schedule</h2>
-            <p style="color: #6c757d; margin-bottom: 20px;">Complete event schedule for the retreat weekend.</p>
+            <p style="color: #6c757d; margin-bottom: 20px;">Complete event schedule for the retreat weekend. Click on each day to expand/collapse.</p>
 
-            <!-- Friday Schedule -->
-            <div style="background: white; border-left: 4px solid #3b82f6; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
-                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
-                    📅 Friday, February 7
-                </h3>
-                <table class="table" style="margin-top: 0;">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">Start</th>
-                            <th style="width: 15%;">End</th>
-                            <th style="width: 40%;">Event</th>
-                            <th style="width: 30%;">Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>5:00 PM</td>
-                            <td>6:30 PM</td>
-                            <td>Arrival / Registration</td>
-                            <td>Various</td>
-                        </tr>
-                        <tr>
-                            <td>6:30 PM</td>
-                            <td></td>
-                            <td>ARCC Arena Opens</td>
-                            <td>ARCC</td>
-                        </tr>
-                        <tr>
-                            <td>7:00 PM</td>
-                            <td>7:35 PM</td>
-                            <td>Start of Program - Introductions</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>7:40 PM</td>
-                            <td>8:20 PM</td>
-                            <td>Keynote 1: Dr. John-Mark Miravalle</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>8:35 PM</td>
-                            <td>9:50 PM</td>
-                            <td>Holy Mass</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:00 PM</td>
-                            <td></td>
-                            <td>Dismissal</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Saturday Schedule -->
-            <div style="background: white; border-left: 4px solid #10b981; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
-                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
-                    📅 Saturday, February 8
-                </h3>
-                <table class="table" style="margin-top: 0;">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">Start</th>
-                            <th style="width: 15%;">End</th>
-                            <th style="width: 40%;">Event</th>
-                            <th style="width: 30%;">Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>7:40 AM</td>
-                            <td>8:40 AM</td>
-                            <td>On-Campus Breakfast<br><small style="color: #6b7280;">7:40-8:00 Red, 8:00-8:20 Orange, 8:20-8:40 Yellow</small></td>
-                            <td>Patriot Hall</td>
-                        </tr>
-                        <tr>
-                            <td>8:30 AM</td>
-                            <td></td>
-                            <td>ARCC Arena Opens</td>
-                            <td>ARCC</td>
-                        </tr>
-                        <tr>
-                            <td>9:00 AM</td>
-                            <td>9:30 AM</td>
-                            <td>Start of Program</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>9:40 AM</td>
-                            <td>10:10 AM</td>
-                            <td>Keynote 2: Patricia Sandoval</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:10 AM</td>
-                            <td>10:25 AM</td>
-                            <td>Dismissal and Prep for Holy Mass</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:25 AM</td>
-                            <td>11:45 AM</td>
-                            <td>Holy Mass</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:25 AM</td>
-                            <td>11:45 AM</td>
-                            <td>(Confirmation ONLY) Holy Mass</td>
-                            <td>JC Chapel</td>
-                        </tr>
-                        <tr>
-                            <td>12:15 PM</td>
-                            <td>1:15 PM</td>
-                            <td>Lunch</td>
-                            <td>Patriot Hall</td>
-                        </tr>
-                        <tr>
-                            <td>1:30 PM</td>
-                            <td>2:30 PM</td>
-                            <td>Breakout Sessions</td>
-                            <td>Various</td>
-                        </tr>
-                        <tr>
-                            <td>2:30 PM</td>
-                            <td>4:20 PM</td>
-                            <td>Group Time/Recreation</td>
-                            <td>Various</td>
-                        </tr>
-                        <tr>
-                            <td>4:20 PM</td>
-                            <td>6:40 PM</td>
-                            <td>Dinner<br><small style="color: #6b7280;">4:20-4:40 Red, 4:40-5:00 Orange, 5:00-5:20 Yellow, 5:20-5:40 Green, 5:40-6:00 Blue</small></td>
-                            <td>Patriot Hall</td>
-                        </tr>
-                        <tr>
-                            <td>6:15 PM</td>
-                            <td></td>
-                            <td>ARCC Arena Opens</td>
-                            <td>ARCC</td>
-                        </tr>
-                        <tr>
-                            <td>6:50 PM</td>
-                            <td>7:40 PM</td>
-                            <td>Start of Program</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>7:40 PM</td>
-                            <td>8:00 PM</td>
-                            <td>Break</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>8:00 PM</td>
-                            <td>8:40 PM</td>
-                            <td>Keynote 3: Archbishop Sample</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>8:50 PM</td>
-                            <td>9:50 PM</td>
-                            <td>Eucharistic Adoration</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:00 PM</td>
-                            <td></td>
-                            <td>Dismissal</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Sunday Schedule -->
-            <div style="background: white; border-left: 4px solid #f59e0b; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
-                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
-                    📅 Sunday, February 9
-                </h3>
-                <table class="table" style="margin-top: 0;">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">Start</th>
-                            <th style="width: 15%;">End</th>
-                            <th style="width: 40%;">Event</th>
-                            <th style="width: 30%;">Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>7:40 AM</td>
-                            <td>8:40 AM</td>
-                            <td>On-Campus Breakfast<br><small style="color: #6b7280;">7:40-8:00 Red, 8:00-8:20 Orange, 8:20-8:40 Yellow</small></td>
-                            <td>Patriot Hall</td>
-                        </tr>
-                        <tr>
-                            <td>8:30 AM</td>
-                            <td></td>
-                            <td>ARCC Arena Opens</td>
-                            <td>ARCC</td>
-                        </tr>
-                        <tr>
-                            <td>8:50 AM</td>
-                            <td>9:20 AM</td>
-                            <td>Start of Program</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>9:25 AM</td>
-                            <td>10:05 AM</td>
-                            <td>Keynote 4: Sr. Catherine Holum</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>10:40 AM</td>
-                            <td>12:10 PM</td>
-                            <td>Holy Mass</td>
-                            <td>ARCC Arena</td>
-                        </tr>
-                        <tr>
-                            <td>12:20 PM</td>
-                            <td></td>
-                            <td>Departure</td>
-                            <td>All Exits</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="schedule-container">
+                <!-- Schedule will be loaded dynamically from JSON -->
             </div>
         </div>
 
@@ -1157,6 +930,7 @@
                 updateAllDisplays();
                 displayFavoritesSection();
                 displayInfoTab();
+                displaySchedule();
                 displayResources();
                 setupKeyboardShortcuts();
                 
@@ -1812,6 +1586,74 @@
 
             display.innerHTML = html;
             display.style.display = 'block';
+        }
+
+        // ===== SCHEDULE DISPLAY =====
+        function toggleScheduleDay(day) {
+            const content = document.getElementById(`schedule-${day}-content`);
+            const arrow = document.getElementById(`schedule-${day}-arrow`);
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+            }
+        }
+
+        function displaySchedule() {
+            const container = document.getElementById('schedule-container');
+            if (!container) return;
+
+            const schedule = appData.schedule || { friday: [], saturday: [], sunday: [] };
+
+            const days = [
+                { key: 'friday', name: 'Friday, February 7', color: '#3b82f6' },
+                { key: 'saturday', name: 'Saturday, February 8', color: '#10b981' },
+                { key: 'sunday', name: 'Sunday, February 9', color: '#f59e0b' }
+            ];
+
+            let html = '';
+
+            days.forEach(day => {
+                const events = schedule[day.key] || [];
+
+                html += `
+                    <div style="background: white; border-left: 4px solid ${day.color}; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+                        <h3 onclick="toggleScheduleDay('${day.key}')" style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 10px;">
+                            <span id="schedule-${day.key}-arrow">▼</span>
+                            📅 ${day.name}
+                        </h3>
+                        <div id="schedule-${day.key}-content" style="display: block;">
+                            ${events.length === 0 ? '<p style="color: #999; font-style: italic;">No events scheduled for this day.</p>' : `
+                                <table class="table" style="margin-top: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 15%;">Start</th>
+                                            <th style="width: 15%;">End</th>
+                                            <th style="width: 40%;">Event</th>
+                                            <th style="width: 30%;">Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${events.map(event => `
+                                            <tr>
+                                                <td>${event.startTime || ''}</td>
+                                                <td>${event.endTime || ''}</td>
+                                                <td>${event.event || ''}</td>
+                                                <td>${event.location || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
         }
 
         function displayResources() {
