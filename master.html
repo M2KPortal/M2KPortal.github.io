@@ -694,6 +694,14 @@
                 <p>Create a password to protect this system</p>
             </div>
 
+            <div class="password-input-group" id="username-field-group" style="display: none;">
+                <input type="text"
+                       id="username-input"
+                       class="password-input"
+                       placeholder="Enter username"
+                       onkeypress="if(event.key==='Enter') { event.preventDefault(); document.getElementById('password-input').focus(); }">
+            </div>
+
             <div class="password-input-group">
                 <input type="password"
                        id="password-input"
@@ -710,11 +718,11 @@
                 ❌ Incorrect password. Please try again.
             </div>
 
-            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
+            <div id="login-mode-note" style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
                 <small style="color: #1565c0;">
                     <strong>🛡️ Security Note:</strong><br>
-                    This system uses a centralized password.
-                    Contact your administrator if you need the password.
+                    <span id="login-note-text">This system uses a centralized password.
+                    Contact your administrator if you need the password.</span>
                 </small>
             </div>
         </div>
@@ -737,6 +745,8 @@
             <button class="tab-button" onclick="switchTab('meal-colors')">Meal Color Assignments</button>
             <button class="tab-button" onclick="switchTab('ada-individuals')">ADA Individuals</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
+            <button class="tab-button" onclick="switchTab('user-management')">User Management</button>
+            <button class="tab-button" onclick="switchTab('activity-reports')">Activity Reports</button>
             <button class="tab-button" onclick="switchTab('printable-forms')">Print Youth Group Information</button>
             <button class="tab-button" onclick="switchTab('room-posters')">Print Room Information</button>
         </div>
@@ -1630,6 +1640,104 @@
             </div>
         </div>
 
+        <!-- User Management Tab -->
+        <div id="user-management" class="tab-content">
+            <h2>User Management</h2>
+            <p style="margin-bottom: 20px; color: #666;">Manage system users and their access credentials.</p>
+
+            <!-- Add User Form -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3>Add New User</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-username">Username *</label>
+                        <input type="text" id="new-username" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-fullname">Full Name *</label>
+                        <input type="text" id="new-user-fullname" placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-password">Password *</label>
+                        <input type="password" id="new-user-password" placeholder="Enter password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-role">Role *</label>
+                        <select id="new-user-role">
+                            <option value="admin">Admin</option>
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="addUser()" class="btn btn-primary">Add User</button>
+                <button onclick="clearUserForm()" class="btn btn-secondary">Clear Form</button>
+            </div>
+
+            <!-- Users List -->
+            <div>
+                <h3>System Users</h3>
+                <div style="background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                    <input type="text" id="users-search" placeholder="🔍 Search users..."
+                           oninput="filterUsers()"
+                           style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;">
+                </div>
+                <div id="users-list" style="display: grid; gap: 15px;">
+                    <!-- Users will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Reports Tab -->
+        <div id="activity-reports" class="tab-content">
+            <h2>Activity Reports</h2>
+            <p style="margin-bottom: 20px; color: #666;">View all system changes and user activity logs.</p>
+
+            <!-- Filters -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3>Filter Reports</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="report-user-filter">User</label>
+                        <select id="report-user-filter" onchange="filterActivityReports()">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-action-filter">Action Type</label>
+                        <select id="report-action-filter" onchange="filterActivityReports()">
+                            <option value="">All Actions</option>
+                            <option value="create">Create</option>
+                            <option value="update">Update</option>
+                            <option value="delete">Delete</option>
+                            <option value="login">Login</option>
+                            <option value="logout">Logout</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-date-from">From Date</label>
+                        <input type="date" id="report-date-from" onchange="filterActivityReports()">
+                    </div>
+                    <div class="form-group">
+                        <label for="report-date-to">To Date</label>
+                        <input type="date" id="report-date-to" onchange="filterActivityReports()">
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <button onclick="exportActivityReports()" class="btn btn-primary">📥 Export to CSV</button>
+                    <button onclick="clearActivityReports()" class="btn btn-secondary">🗑️ Clear All Logs</button>
+                </div>
+            </div>
+
+            <!-- Activity Log Display -->
+            <div>
+                <h3>Activity Log (<span id="activity-count">0</span> entries)</h3>
+                <div id="activity-reports-list" style="background: white; border-radius: 8px; overflow: hidden;">
+                    <!-- Activity logs will be displayed here -->
+                </div>
+            </div>
+        </div>
+
     </div>
     </div> <!-- End of main-content -->
 
@@ -1665,8 +1773,13 @@
                 adultShowerPlan: ''
             },
             groupNotes: {},
-            resources: []
+            resources: [],
+            users: [],  // User accounts with credentials
+            activityLogs: []  // Activity tracking logs
         };
+
+        // Current logged in user
+        let currentUser = null;
 
         let editingGroupIndex = -1;
         let editingHousingRoomIndex = -1;
@@ -3417,6 +3530,11 @@
                 }
             } else if (tabName === 'resources') {
                 displayResources();
+            } else if (tabName === 'user-management') {
+                displayUsers();
+            } else if (tabName === 'activity-reports') {
+                displayActivityReports();
+                updateActivityUserFilter();
             } else if (tabName === 'printable-forms') {
                 loadDefaultNotes();
                 updateFormsPreview();
@@ -3635,32 +3753,35 @@
             if (!validateYouthGroupData(groupData)) return;
 
             appData.youthGroups.push(groupData);
-            
+
             // Auto-assign off-campus housing if needed
             if (groupData.stayingOffCampus) {
                 autoAssignOffCampusHousing(groupData.id);
             }
-            
+
             clearYouthGroupForm();
             updateAllDisplays();
             autoSave();
+
+            // Log activity
+            logActivity('create', 'youth-group', groupData.id, `Created youth group: ${groupData.parish} (ID: ${groupData.id})`);
         }
 
         function updateYouthGroup() {
             if (editingGroupIndex < 0) return;
-            
+
             const groupData = getYouthGroupFormData();
             if (!validateYouthGroupData(groupData)) return;
 
             const oldId = appData.youthGroups[editingGroupIndex].id;
             const wasOffCampus = appData.youthGroups[editingGroupIndex].stayingOffCampus;
-            
+
             appData.youthGroups[editingGroupIndex] = groupData;
-            
+
             if (oldId !== groupData.id) {
                 updateAssignmentIds(oldId, groupData.id);
             }
-            
+
             // Handle off-campus housing changes
             if (groupData.stayingOffCampus && !wasOffCampus) {
                 // Just checked off-campus - auto-assign
@@ -3672,10 +3793,13 @@
                 // Still off-campus - update assignments in case numbers changed
                 autoAssignOffCampusHousing(groupData.id);
             }
-            
+
             cancelEdit();
             updateAllDisplays();
             autoSave();
+
+            // Log activity
+            logActivity('update', 'youth-group', groupData.id, `Updated youth group: ${groupData.parish} (ID: ${groupData.id})`);
         }
 
         function autoAssignOffCampusHousing(groupId) {
@@ -3741,18 +3865,22 @@
 
         function deleteYouthGroup() {
             if (editingGroupIndex < 0) return;
-            
+
             if (confirm('Are you sure you want to delete this youth group and all its assignments?')) {
                 const groupId = appData.youthGroups[editingGroupIndex].id;
-                
+                const groupParish = appData.youthGroups[editingGroupIndex].parish;
+
                 delete appData.housingAssignments.male[groupId];
                 delete appData.housingAssignments.female[groupId];
                 delete appData.smallGroupAssignments[groupId];
-                
+
                 appData.youthGroups.splice(editingGroupIndex, 1);
                 cancelEdit();
                 updateAllDisplays();
                 autoSave();
+
+                // Log activity
+                logActivity('delete', 'youth-group', groupId, `Deleted youth group: ${groupParish} (ID: ${groupId})`);
             }
         }
 
@@ -6735,6 +6863,9 @@
                 if (updateResponse.ok) {
                     const result = await updateResponse.json();
                     alert('✅ Data saved to GitHub successfully!\n\nCommit: ' + result.commit.sha.substring(0, 7));
+
+                    // Log activity
+                    logActivity('update', 'system', null, `Saved all data to GitHub (Commit: ${result.commit.sha.substring(0, 7)})`);
                 } else {
                     const error = await updateResponse.json();
                     throw new Error(error.message || 'Failed to save to GitHub');
@@ -7126,16 +7257,17 @@
         async function checkPassword() {
             try {
                 console.log('checkPassword function called');
-                const input = document.getElementById('password-input');
+                const usernameInput = document.getElementById('username-input');
+                const passwordInput = document.getElementById('password-input');
                 const errorDiv = document.getElementById('password-error');
 
-                if (!input || !errorDiv) {
+                if (!passwordInput || !errorDiv) {
                     console.error('Password input or error div not found');
                     return;
                 }
 
-                const enteredPassword = input.value.trim();
-                console.log('Password entered, length:', enteredPassword.length);
+                const enteredUsername = usernameInput ? usernameInput.value.trim() : '';
+                const enteredPassword = passwordInput.value.trim();
 
                 if (!enteredPassword) {
                     errorDiv.textContent = '⚠️ Please enter a password';
@@ -7146,30 +7278,56 @@
                 const hashedInput = await hashPassword(enteredPassword);
                 console.log('Password hashed successfully');
 
-                // Priority 1: Check against centralized config from GitHub
-                let passwordHash = null;
-                if (systemConfig && systemConfig.passwordHash) {
-                    passwordHash = systemConfig.passwordHash;
-                    console.log('Using config password');
-                } else {
-                    // Priority 2: Use fallback password hash
-                    passwordHash = FALLBACK_PASSWORD_HASH;
-                    console.log('Using fallback password');
-                }
+                // Check if we have users configured
+                if (appData.users && appData.users.length > 0) {
+                    // Multi-user authentication
+                    if (!enteredUsername) {
+                        errorDiv.textContent = '⚠️ Please enter a username';
+                        errorDiv.style.display = 'block';
+                        return;
+                    }
 
-                if (hashedInput === passwordHash) {
-                    console.log('Password correct, unlocking system');
-                    unlockSystem();
-                } else {
-                    console.log('Password incorrect');
-                    errorDiv.textContent = '❌ Incorrect password. Please try again.';
-                    errorDiv.style.display = 'block';
-                    input.value = '';
-                    input.focus();
+                    const user = appData.users.find(u => u.username === enteredUsername && u.isActive);
 
-                    // Shake animation
-                    input.style.animation = 'shake 0.5s';
-                    setTimeout(() => input.style.animation = '', 500);
+                    if (user && user.passwordHash === hashedInput) {
+                        console.log('User authenticated:', user.username);
+                        unlockSystem(user);
+                    } else {
+                        console.log('Invalid username or password');
+                        errorDiv.textContent = '❌ Invalid username or password. Please try again.';
+                        errorDiv.style.display = 'block';
+                        passwordInput.value = '';
+                        passwordInput.focus();
+
+                        // Shake animation
+                        passwordInput.style.animation = 'shake 0.5s';
+                        setTimeout(() => passwordInput.style.animation = '', 500);
+                    }
+                } else {
+                    // Fallback to single password mode (backward compatibility)
+                    let passwordHash = null;
+                    if (systemConfig && systemConfig.passwordHash) {
+                        passwordHash = systemConfig.passwordHash;
+                        console.log('Using config password');
+                    } else {
+                        passwordHash = FALLBACK_PASSWORD_HASH;
+                        console.log('Using fallback password');
+                    }
+
+                    if (hashedInput === passwordHash) {
+                        console.log('Password correct, unlocking system');
+                        unlockSystem({ username: 'admin', fullName: 'Administrator', role: 'admin' });
+                    } else {
+                        console.log('Password incorrect');
+                        errorDiv.textContent = '❌ Incorrect password. Please try again.';
+                        errorDiv.style.display = 'block';
+                        passwordInput.value = '';
+                        passwordInput.focus();
+
+                        // Shake animation
+                        passwordInput.style.animation = 'shake 0.5s';
+                        setTimeout(() => passwordInput.style.animation = '', 500);
+                    }
                 }
             } catch (error) {
                 console.error('Error in checkPassword:', error);
@@ -7181,17 +7339,33 @@
             }
         }
 
-        function unlockSystem() {
+        function unlockSystem(user) {
             document.getElementById('password-overlay').style.display = 'none';
             document.getElementById('main-content').classList.add('unlocked');
 
+            // Set current user
+            currentUser = user;
+
             // Set session authentication
             sessionStorage.setItem('authenticated', 'true');
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+            // Log the login activity
+            logActivity('login', 'system', null, `User logged in: ${user.fullName} (@${user.username})`);
+
+            console.log('System unlocked for user:', user.username);
         }
 
         function logout() {
+            // Log the logout activity before clearing user
+            if (currentUser) {
+                logActivity('logout', 'system', null, `User logged out: ${currentUser.fullName} (@${currentUser.username})`);
+            }
+
             // Clear session
             sessionStorage.removeItem('authenticated');
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
 
             // Show success message
             alert('✅ Logout successful!\n\nRedirecting to dashboard...');
@@ -7204,29 +7378,54 @@
             // Load config from GitHub
             await loadSystemConfig();
 
-            const setupMode = document.getElementById('password-setup-mode');
-            const btnText = document.getElementById('password-btn-text');
-            const input = document.getElementById('password-input');
-
             // Check if already authenticated in this session
             if (sessionStorage.getItem('authenticated') === 'true') {
-                unlockSystem();
+                const savedUser = sessionStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    console.log('Restored user session:', currentUser.username);
+                } else {
+                    currentUser = { username: 'admin', fullName: 'Administrator', role: 'admin' };
+                }
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('main-content').classList.add('unlocked');
                 return;
             }
+
+            const setupMode = document.getElementById('password-setup-mode');
+            const btnText = document.getElementById('password-btn-text');
+            const passwordInput = document.getElementById('password-input');
+            const usernameFieldGroup = document.getElementById('username-field-group');
+            const usernameInput = document.getElementById('username-input');
+            const loginNoteText = document.getElementById('login-note-text');
 
             // Always hide setup mode since we have a fallback password
             setupMode.style.display = 'none';
             btnText.textContent = '🔓 Unlock';
-            input.placeholder = 'Enter password';
 
-            // Show status message
-            if (systemConfig && systemConfig.passwordHash) {
-                console.log('✅ Config loaded - using GitHub password');
+            // Check if we have users configured for multi-user mode
+            if (appData.users && appData.users.length > 0) {
+                // Show username field for multi-user mode
+                usernameFieldGroup.style.display = 'block';
+                usernameInput.placeholder = 'Enter username';
+                passwordInput.placeholder = 'Enter password';
+                loginNoteText.textContent = 'Please enter your username and password to access the system.';
+                console.log('✅ Multi-user mode enabled');
+                usernameInput.focus();
             } else {
-                console.log('⚠️ Config not loaded - using fallback password: Mount2K2026');
-            }
+                // Hide username field for single password mode (backward compatibility)
+                usernameFieldGroup.style.display = 'none';
+                passwordInput.placeholder = 'Enter password';
+                loginNoteText.textContent = 'This system uses a centralized password. Contact your administrator if you need the password.';
 
-            input.focus();
+                // Show status message
+                if (systemConfig && systemConfig.passwordHash) {
+                    console.log('✅ Config loaded - using GitHub password');
+                } else {
+                    console.log('⚠️ Config not loaded - using fallback password: Mount2K2026');
+                }
+                passwordInput.focus();
+            }
         }
 
         // Add shake animation
@@ -7239,6 +7438,352 @@
             }
         `;
         document.head.appendChild(style);
+
+        // ===== ACTIVITY LOGGING FUNCTIONS =====
+        function logActivity(action, entityType, entityId, details) {
+            if (!currentUser) return;
+
+            const log = {
+                id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                timestamp: new Date().toISOString(),
+                username: currentUser.username,
+                fullName: currentUser.fullName,
+                action: action,  // 'create', 'update', 'delete', 'login', 'logout'
+                entityType: entityType,  // 'youth-group', 'room', 'assignment', 'user', etc.
+                entityId: entityId,
+                details: details
+            };
+
+            appData.activityLogs.push(log);
+            console.log('Activity logged:', log);
+        }
+
+        function displayActivityReports() {
+            const container = document.getElementById('activity-reports-list');
+            const countSpan = document.getElementById('activity-count');
+
+            if (!appData.activityLogs || appData.activityLogs.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: #666;">No activity logs found</div>';
+                countSpan.textContent = '0';
+                return;
+            }
+
+            // Sort by timestamp descending (newest first)
+            const sortedLogs = [...appData.activityLogs].sort((a, b) =>
+                new Date(b.timestamp) - new Date(a.timestamp)
+            );
+
+            countSpan.textContent = sortedLogs.length;
+
+            const html = sortedLogs.map(log => {
+                const date = new Date(log.timestamp);
+                const formattedDate = date.toLocaleString();
+
+                let actionColor = '#3b82f6';
+                let actionIcon = '📝';
+
+                switch(log.action) {
+                    case 'create': actionColor = '#10b981'; actionIcon = '➕'; break;
+                    case 'update': actionColor = '#f59e0b'; actionIcon = '✏️'; break;
+                    case 'delete': actionColor = '#ef4444'; actionIcon = '🗑️'; break;
+                    case 'login': actionColor = '#8b5cf6'; actionIcon = '🔓'; break;
+                    case 'logout': actionColor = '#6b7280'; actionIcon = '🔒'; break;
+                }
+
+                return `
+                    <div style="border-bottom: 1px solid #e5e7eb; padding: 16px; transition: background 0.2s;"
+                         onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'"
+                         data-log-user="${log.username}" data-log-action="${log.action}" data-log-date="${date.toISOString().split('T')[0]}">
+                        <div style="display: flex; justify-content: space-between; align-items: start; gap: 15px;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                    <span style="font-size: 20px;">${actionIcon}</span>
+                                    <span style="background: ${actionColor}; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
+                                        ${log.action}
+                                    </span>
+                                    <span style="color: #6b7280; font-size: 13px;">${log.entityType}</span>
+                                </div>
+                                <div style="margin-bottom: 6px;">
+                                    <strong style="color: #1f2937;">${log.fullName}</strong>
+                                    <span style="color: #9ca3af; font-size: 13px;"> (@${log.username})</span>
+                                </div>
+                                <div style="color: #4b5563; font-size: 14px; margin-bottom: 4px;">
+                                    ${log.details || 'No additional details'}
+                                </div>
+                                <div style="color: #9ca3af; font-size: 12px;">
+                                    🕒 ${formattedDate}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
+        function filterActivityReports() {
+            const userFilter = document.getElementById('report-user-filter').value;
+            const actionFilter = document.getElementById('report-action-filter').value;
+            const dateFrom = document.getElementById('report-date-from').value;
+            const dateTo = document.getElementById('report-date-to').value;
+
+            const allLogs = document.querySelectorAll('#activity-reports-list > div');
+            let visibleCount = 0;
+
+            allLogs.forEach(logDiv => {
+                const username = logDiv.getAttribute('data-log-user');
+                const action = logDiv.getAttribute('data-log-action');
+                const logDate = logDiv.getAttribute('data-log-date');
+
+                let show = true;
+
+                if (userFilter && username !== userFilter) show = false;
+                if (actionFilter && action !== actionFilter) show = false;
+                if (dateFrom && logDate < dateFrom) show = false;
+                if (dateTo && logDate > dateTo) show = false;
+
+                logDiv.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
+            });
+
+            document.getElementById('activity-count').textContent = visibleCount;
+        }
+
+        function exportActivityReports() {
+            if (!appData.activityLogs || appData.activityLogs.length === 0) {
+                alert('No activity logs to export');
+                return;
+            }
+
+            // Create CSV content
+            const headers = ['Timestamp', 'Username', 'Full Name', 'Action', 'Entity Type', 'Entity ID', 'Details'];
+            const rows = appData.activityLogs.map(log => [
+                log.timestamp,
+                log.username,
+                log.fullName,
+                log.action,
+                log.entityType,
+                log.entityId || '',
+                log.details || ''
+            ]);
+
+            const csvContent = [
+                headers.join(','),
+                ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+            ].join('\n');
+
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `activity-report-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('✅ Activity report exported successfully!');
+        }
+
+        function clearActivityReports() {
+            if (!confirm('⚠️ Are you sure you want to clear all activity logs? This action cannot be undone.')) {
+                return;
+            }
+
+            appData.activityLogs = [];
+            displayActivityReports();
+            alert('✅ All activity logs have been cleared');
+
+            logActivity('delete', 'system', 'activity-logs', 'Cleared all activity logs');
+        }
+
+        // ===== USER MANAGEMENT FUNCTIONS =====
+        async function addUser() {
+            const username = document.getElementById('new-username').value.trim();
+            const fullName = document.getElementById('new-user-fullname').value.trim();
+            const password = document.getElementById('new-user-password').value;
+            const role = document.getElementById('new-user-role').value;
+
+            if (!username || !fullName || !password) {
+                alert('⚠️ Please fill in all required fields');
+                return;
+            }
+
+            // Check if username already exists
+            if (appData.users && appData.users.some(u => u.username === username)) {
+                alert('⚠️ Username already exists. Please choose a different username.');
+                return;
+            }
+
+            // Hash the password
+            const passwordHash = await hashPassword(password);
+
+            const newUser = {
+                id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                username: username,
+                fullName: fullName,
+                passwordHash: passwordHash,
+                role: role,
+                createdAt: new Date().toISOString(),
+                isActive: true
+            };
+
+            if (!appData.users) appData.users = [];
+            appData.users.push(newUser);
+
+            displayUsers();
+            clearUserForm();
+            alert('✅ User added successfully!');
+
+            logActivity('create', 'user', newUser.id, `Created user: ${fullName} (@${username})`);
+        }
+
+        function clearUserForm() {
+            document.getElementById('new-username').value = '';
+            document.getElementById('new-user-fullname').value = '';
+            document.getElementById('new-user-password').value = '';
+            document.getElementById('new-user-role').value = 'admin';
+        }
+
+        function displayUsers() {
+            const container = document.getElementById('users-list');
+
+            if (!appData.users || appData.users.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: #666; background: white; border-radius: 8px;">No users found. Add a user to get started.</div>';
+                return;
+            }
+
+            const html = appData.users.map(user => {
+                const roleColors = {
+                    admin: { bg: '#fee2e2', text: '#dc2626', border: '#fecaca' },
+                    editor: { bg: '#dbeafe', text: '#2563eb', border: '#bfdbfe' },
+                    viewer: { bg: '#e0e7ff', text: '#4f46e5', border: '#c7d2fe' }
+                };
+
+                const colors = roleColors[user.role] || roleColors.viewer;
+                const createdDate = new Date(user.createdAt).toLocaleDateString();
+
+                return `
+                    <div style="background: white; padding: 20px; border-radius: 12px; border: 2px solid #e5e7eb;"
+                         data-user-search="${user.username.toLowerCase()} ${user.fullName.toLowerCase()}">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 18px; font-weight: 700; color: #1f2937; margin-bottom: 6px;">
+                                    ${user.fullName}
+                                </div>
+                                <div style="color: #6b7280; margin-bottom: 8px;">
+                                    @${user.username}
+                                </div>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <span style="background: ${colors.bg}; color: ${colors.text}; border: 1px solid ${colors.border}; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
+                                        ${user.role}
+                                    </span>
+                                    <span style="color: #9ca3af; font-size: 13px;">
+                                        Created: ${createdDate}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="editUser('${user.id}')" class="btn btn-secondary" style="padding: 8px 16px; font-size: 13px;">
+                                    ✏️ Edit
+                                </button>
+                                <button onclick="deleteUser('${user.id}')" class="btn btn-danger" style="padding: 8px 16px; font-size: 13px;">
+                                    🗑️ Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+
+            // Update the user filter in activity reports
+            updateActivityUserFilter();
+        }
+
+        function updateActivityUserFilter() {
+            const filterSelect = document.getElementById('report-user-filter');
+            if (!filterSelect) return;
+
+            const currentValue = filterSelect.value;
+            const options = ['<option value="">All Users</option>'];
+
+            if (appData.users && appData.users.length > 0) {
+                appData.users.forEach(user => {
+                    options.push(`<option value="${user.username}">${user.fullName} (@${user.username})</option>`);
+                });
+            }
+
+            filterSelect.innerHTML = options.join('');
+            filterSelect.value = currentValue;
+        }
+
+        async function editUser(userId) {
+            const user = appData.users.find(u => u.id === userId);
+            if (!user) return;
+
+            const newFullName = prompt('Enter new full name:', user.fullName);
+            if (newFullName === null) return;
+
+            const newRole = prompt('Enter new role (admin/editor/viewer):', user.role);
+            if (newRole === null) return;
+
+            if (!['admin', 'editor', 'viewer'].includes(newRole)) {
+                alert('⚠️ Invalid role. Must be admin, editor, or viewer.');
+                return;
+            }
+
+            const changePassword = confirm('Do you want to change the password?');
+            if (changePassword) {
+                const newPassword = prompt('Enter new password:');
+                if (newPassword) {
+                    user.passwordHash = await hashPassword(newPassword);
+                }
+            }
+
+            user.fullName = newFullName.trim() || user.fullName;
+            user.role = newRole;
+
+            displayUsers();
+            alert('✅ User updated successfully!');
+
+            logActivity('update', 'user', userId, `Updated user: ${user.fullName} (@${user.username})`);
+        }
+
+        function deleteUser(userId) {
+            const user = appData.users.find(u => u.id === userId);
+            if (!user) return;
+
+            if (!confirm(`⚠️ Are you sure you want to delete user "${user.fullName}" (@${user.username})? This action cannot be undone.`)) {
+                return;
+            }
+
+            const index = appData.users.findIndex(u => u.id === userId);
+            if (index > -1) {
+                appData.users.splice(index, 1);
+                displayUsers();
+                alert('✅ User deleted successfully!');
+
+                logActivity('delete', 'user', userId, `Deleted user: ${user.fullName} (@${user.username})`);
+            }
+        }
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('users-search').value.toLowerCase();
+            const userCards = document.querySelectorAll('#users-list > div');
+
+            userCards.forEach(card => {
+                const searchText = card.getAttribute('data-user-search') || '';
+                if (searchText.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
         // ===== SEARCH/FILTER FUNCTIONS =====
         function filterHousingRooms() {
