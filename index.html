@@ -1827,6 +1827,9 @@
                     // Skip the Meal Times resource since it's now in the Info tab
                     if (resource.name === 'Meal Times') return;
 
+                    // Skip the Event Schedule resource since it will be managed separately
+                    if (resource.name === 'Event Schedule') return;
+
                     const hasLink = resource.url && resource.url.trim() !== '';
 
                     html += `
