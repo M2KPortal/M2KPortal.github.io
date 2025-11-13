@@ -153,29 +153,15 @@
             display: flex;
             gap: 0;
             margin-bottom: 0;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             background: white;
             padding: 0;
             border-radius: 0;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
             border-bottom: 2px solid #e5e7eb;
-            overflow-x: auto;
             position: sticky;
             top: 60px;
             z-index: 99;
-        }
-
-        .tabs::-webkit-scrollbar {
-            height: 3px;
-        }
-
-        .tabs::-webkit-scrollbar-track {
-            background: #f3f4f6;
-        }
-
-        .tabs::-webkit-scrollbar-thumb {
-            background: #9ca3af;
-            border-radius: 3px;
         }
 
         .tab-button {
@@ -721,6 +707,8 @@
 
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Assignment Dashboard</button>
+            <button class="tab-button" onclick="switchTab('info')">Info</button>
+            <button class="tab-button" onclick="switchTab('schedule')">Schedule</button>
             <button class="tab-button" onclick="switchTab('resources')">Resources</button>
         </div>
 
@@ -756,6 +744,262 @@
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
                 <h3>Complete Assignment Overview</h3>
                 <div id="assignment-overview"></div>
+            </div>
+        </div>
+
+        <!-- Info Tab -->
+        <div id="info" class="tab-content">
+            <h2>Mount 2K Information</h2>
+            <p style="color: #6c757d; margin-bottom: 20px;">Important information about meal times and other retreat details.</p>
+
+            <div class="resource-card" style="border-left: 4px solid #1b2937; border-radius: 12px; padding: 20px; background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); margin-bottom: 20px;">
+                <h3 style="color: #1b2937; margin-bottom: 15px; font-size: 1.4em; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">🍽️</span> Meal Times
+                </h3>
+                <p style="color: #666; margin-bottom: 15px;">Select your meal color to view your schedule:</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;" id="info-meal-color-buttons">
+                    <!-- Meal color buttons will be loaded here -->
+                </div>
+                <div id="info-meal-schedule-display" style="background: #f8f9fa; border-radius: 8px; padding: 15px; display: none;">
+                    <!-- Meal schedule appears here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Tab -->
+        <div id="schedule" class="tab-content">
+            <h2>Mount 2K Schedule</h2>
+            <p style="color: #6c757d; margin-bottom: 20px;">Complete event schedule for the retreat weekend.</p>
+
+            <!-- Friday Schedule -->
+            <div style="background: white; border-left: 4px solid #3b82f6; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                    📅 Friday, February 7
+                </h3>
+                <table class="table" style="margin-top: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Start</th>
+                            <th style="width: 15%;">End</th>
+                            <th style="width: 40%;">Event</th>
+                            <th style="width: 30%;">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5:00 PM</td>
+                            <td>6:30 PM</td>
+                            <td>Arrival / Registration</td>
+                            <td>Various</td>
+                        </tr>
+                        <tr>
+                            <td>6:30 PM</td>
+                            <td></td>
+                            <td>ARCC Arena Opens</td>
+                            <td>ARCC</td>
+                        </tr>
+                        <tr>
+                            <td>7:00 PM</td>
+                            <td>7:35 PM</td>
+                            <td>Start of Program - Introductions</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>7:40 PM</td>
+                            <td>8:20 PM</td>
+                            <td>Keynote 1: Dr. John-Mark Miravalle</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>8:35 PM</td>
+                            <td>9:50 PM</td>
+                            <td>Holy Mass</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 PM</td>
+                            <td></td>
+                            <td>Dismissal</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Saturday Schedule -->
+            <div style="background: white; border-left: 4px solid #10b981; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                    📅 Saturday, February 8
+                </h3>
+                <table class="table" style="margin-top: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Start</th>
+                            <th style="width: 15%;">End</th>
+                            <th style="width: 40%;">Event</th>
+                            <th style="width: 30%;">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7:40 AM</td>
+                            <td>8:40 AM</td>
+                            <td>On-Campus Breakfast<br><small style="color: #6b7280;">7:40-8:00 Red, 8:00-8:20 Orange, 8:20-8:40 Yellow</small></td>
+                            <td>Patriot Hall</td>
+                        </tr>
+                        <tr>
+                            <td>8:30 AM</td>
+                            <td></td>
+                            <td>ARCC Arena Opens</td>
+                            <td>ARCC</td>
+                        </tr>
+                        <tr>
+                            <td>9:00 AM</td>
+                            <td>9:30 AM</td>
+                            <td>Start of Program</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>9:40 AM</td>
+                            <td>10:10 AM</td>
+                            <td>Keynote 2: Patricia Sandoval</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:10 AM</td>
+                            <td>10:25 AM</td>
+                            <td>Dismissal and Prep for Holy Mass</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:25 AM</td>
+                            <td>11:45 AM</td>
+                            <td>Holy Mass</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:25 AM</td>
+                            <td>11:45 AM</td>
+                            <td>(Confirmation ONLY) Holy Mass</td>
+                            <td>JC Chapel</td>
+                        </tr>
+                        <tr>
+                            <td>12:15 PM</td>
+                            <td>1:15 PM</td>
+                            <td>Lunch</td>
+                            <td>Patriot Hall</td>
+                        </tr>
+                        <tr>
+                            <td>1:30 PM</td>
+                            <td>2:30 PM</td>
+                            <td>Breakout Sessions</td>
+                            <td>Various</td>
+                        </tr>
+                        <tr>
+                            <td>2:30 PM</td>
+                            <td>4:20 PM</td>
+                            <td>Group Time/Recreation</td>
+                            <td>Various</td>
+                        </tr>
+                        <tr>
+                            <td>4:20 PM</td>
+                            <td>6:40 PM</td>
+                            <td>Dinner<br><small style="color: #6b7280;">4:20-4:40 Red, 4:40-5:00 Orange, 5:00-5:20 Yellow, 5:20-5:40 Green, 5:40-6:00 Blue</small></td>
+                            <td>Patriot Hall</td>
+                        </tr>
+                        <tr>
+                            <td>6:15 PM</td>
+                            <td></td>
+                            <td>ARCC Arena Opens</td>
+                            <td>ARCC</td>
+                        </tr>
+                        <tr>
+                            <td>6:50 PM</td>
+                            <td>7:40 PM</td>
+                            <td>Start of Program</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>7:40 PM</td>
+                            <td>8:00 PM</td>
+                            <td>Break</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>8:00 PM</td>
+                            <td>8:40 PM</td>
+                            <td>Keynote 3: Archbishop Sample</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>8:50 PM</td>
+                            <td>9:50 PM</td>
+                            <td>Eucharistic Adoration</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 PM</td>
+                            <td></td>
+                            <td>Dismissal</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sunday Schedule -->
+            <div style="background: white; border-left: 4px solid #f59e0b; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+                <h3 style="color: #1f2937; margin-bottom: 20px; font-size: 1.6em; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                    📅 Sunday, February 9
+                </h3>
+                <table class="table" style="margin-top: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Start</th>
+                            <th style="width: 15%;">End</th>
+                            <th style="width: 40%;">Event</th>
+                            <th style="width: 30%;">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7:40 AM</td>
+                            <td>8:40 AM</td>
+                            <td>On-Campus Breakfast<br><small style="color: #6b7280;">7:40-8:00 Red, 8:00-8:20 Orange, 8:20-8:40 Yellow</small></td>
+                            <td>Patriot Hall</td>
+                        </tr>
+                        <tr>
+                            <td>8:30 AM</td>
+                            <td></td>
+                            <td>ARCC Arena Opens</td>
+                            <td>ARCC</td>
+                        </tr>
+                        <tr>
+                            <td>8:50 AM</td>
+                            <td>9:20 AM</td>
+                            <td>Start of Program</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>9:25 AM</td>
+                            <td>10:05 AM</td>
+                            <td>Keynote 4: Sr. Catherine Holum</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>10:40 AM</td>
+                            <td>12:10 PM</td>
+                            <td>Holy Mass</td>
+                            <td>ARCC Arena</td>
+                        </tr>
+                        <tr>
+                            <td>12:20 PM</td>
+                            <td></td>
+                            <td>Departure</td>
+                            <td>All Exits</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -912,6 +1156,7 @@
                 
                 updateAllDisplays();
                 displayFavoritesSection();
+                displayInfoTab();
                 displayResources();
                 setupKeyboardShortcuts();
                 
@@ -1511,75 +1756,34 @@
         }
 
         // ===== RESOURCES DISPLAY =====
-        function displayResources() {
-            const container = document.getElementById('resource-grid');
-            if (!container) return;
+        function displayInfoTab() {
+            const buttonContainer = document.getElementById('info-meal-color-buttons');
+            if (!buttonContainer) return;
 
-            let html = '';
-
-            // Add Meal Times selector first
             const activeColors = appData.activeColors || Object.keys(appData.mealTimes || {});
-            html += `
-                <div class="resource-card" style="grid-column: 1 / -1;">
-                    <h3><span class="icon">🍽️</span> Meal Times</h3>
-                    <p style="color: #666; margin-bottom: 15px;">Select your meal color to view your schedule:</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
-                        ${activeColors.map(color => {
-                            const colorStyles = {
-                                'Blue': 'background: #3498db; color: white;',
-                                'Red': 'background: #e74c3c; color: white;',
-                                'Orange': 'background: #e67e22; color: white;',
-                                'Yellow': 'background: #f1c40f; color: #333;',
-                                'Green': 'background: #27ae60; color: white;',
-                                'Purple': 'background: #9b59b6; color: white;',
-                                'Brown': 'background: #8B4513; color: white;',
-                                'Grey': 'background: #95a5a6; color: white;'
-                            };
-                            return `
-                                <button onclick="showMealTimes('${color}')"
-                                        style="${colorStyles[color]} border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: transform 0.2s;">
-                                    ${color}
-                                </button>
-                            `;
-                        }).join('')}
-                    </div>
-                    <div id="meal-schedule-display" style="background: #f8f9fa; border-radius: 8px; padding: 15px; display: none;">
-                        <!-- Meal schedule appears here -->
-                    </div>
-                </div>
-            `;
+            const colorStyles = {
+                'Blue': 'background: #3498db; color: white;',
+                'Red': 'background: #e74c3c; color: white;',
+                'Orange': 'background: #e67e22; color: white;',
+                'Yellow': 'background: #f1c40f; color: #333;',
+                'Green': 'background: #27ae60; color: white;',
+                'Purple': 'background: #9b59b6; color: white;',
+                'Brown': 'background: #8B4513; color: white;',
+                'Grey': 'background: #95a5a6; color: white;'
+            };
 
-            if (!appData.resources || appData.resources.length === 0) {
-                html += '<p style="color: #666; text-align: center;">No additional resources available at this time.</p>';
-            } else {
-                appData.resources.forEach(resource => {
-                    // Skip the Meal Times resource since we handle it above
-                    if (resource.name === 'Meal Times') return;
+            let buttonsHtml = activeColors.map(color => `
+                <button onclick="showInfoMealTimes('${color}')"
+                        style="${colorStyles[color]} border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: transform 0.2s;">
+                    ${color}
+                </button>
+            `).join('');
 
-                    const hasLink = resource.url && resource.url.trim() !== '';
-
-                    html += `
-                        <div class="resource-card">
-                            <h3><span class="icon">${resource.emoji}</span> ${resource.name || 'Resource'}</h3>
-                            <div class="resource-link-box">
-                                ${hasLink ?
-                                    `<a href="${resource.url}" target="_blank" style="color: #061d28; text-decoration: none; font-weight: 600;">
-                                        ${resource.name || 'Click here'} →
-                                    </a>`
-                                    :
-                                    '<p style="color: #999; font-style: italic;">Link coming soon</p>'
-                                }
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            container.innerHTML = html;
+            buttonContainer.innerHTML = buttonsHtml;
         }
 
-        function showMealTimes(color) {
-            const display = document.getElementById('meal-schedule-display');
+        function showInfoMealTimes(color) {
+            const display = document.getElementById('info-meal-schedule-display');
             const times = appData.mealTimes[color];
 
             if (!times) {
@@ -1608,6 +1812,41 @@
 
             display.innerHTML = html;
             display.style.display = 'block';
+        }
+
+        function displayResources() {
+            const container = document.getElementById('resource-grid');
+            if (!container) return;
+
+            let html = '';
+
+            if (!appData.resources || appData.resources.length === 0) {
+                html += '<p style="color: #666; text-align: center;">No additional resources available at this time.</p>';
+            } else {
+                appData.resources.forEach(resource => {
+                    // Skip the Meal Times resource since it's now in the Info tab
+                    if (resource.name === 'Meal Times') return;
+
+                    const hasLink = resource.url && resource.url.trim() !== '';
+
+                    html += `
+                        <div class="resource-card">
+                            <h3><span class="icon">${resource.emoji}</span> ${resource.name || 'Resource'}</h3>
+                            <div class="resource-link-box">
+                                ${hasLink ?
+                                    `<a href="${resource.url}" target="_blank" style="color: #061d28; text-decoration: none; font-weight: 600;">
+                                        ${resource.name || 'Click here'} →
+                                    </a>`
+                                    :
+                                    '<p style="color: #999; font-style: italic;">Link coming soon</p>'
+                                }
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
         }
 
         // ===== SYSTEM INITIALIZATION =====

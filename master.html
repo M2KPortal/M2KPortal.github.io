@@ -966,6 +966,159 @@
             margin-bottom: 15px;
         }
 
+        /* Edit User Modal Styles */
+        #edit-user-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        }
+
+        #edit-user-modal.active {
+            display: flex;
+        }
+
+        .edit-user-modal-content {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .edit-user-modal-content h2 {
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .edit-user-modal-content .subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-size: 0.9em;
+        }
+
+        .edit-user-form-group {
+            margin-bottom: 20px;
+        }
+
+        .edit-user-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .edit-user-form-group input,
+        .edit-user-form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        .edit-user-form-group input:focus,
+        .edit-user-form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .edit-user-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .edit-user-checkbox-group:hover {
+            background: #f3f4f6;
+        }
+
+        .edit-user-checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .edit-user-checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .edit-user-modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .edit-user-modal-buttons button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .edit-user-modal-buttons .btn-save {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .edit-user-modal-buttons .btn-save:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-user-modal-buttons .btn-cancel {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .edit-user-modal-buttons .btn-cancel:hover {
+            background: #d1d5db;
+        }
+
+        .edit-user-password-section {
+            background: #fef3c7;
+            border: 2px solid #fde68a;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .edit-user-password-section h4 {
+            color: #92400e;
+            margin-bottom: 12px;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
         #main-content {
             display: none;
         }
@@ -1079,6 +1232,59 @@
                     <span id="login-note-text">This system uses a centralized password.
                     Contact your administrator if you need the password.</span>
                 </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal">
+        <div class="edit-user-modal-content">
+            <h2>Edit User</h2>
+            <p class="subtitle">Update user information and credentials</p>
+
+            <div class="edit-user-form-group">
+                <label for="edit-user-username">Username</label>
+                <input type="text" id="edit-user-username" disabled style="background: #f3f4f6; cursor: not-allowed;">
+            </div>
+
+            <div class="edit-user-form-group">
+                <label for="edit-user-fullname">Full Name</label>
+                <input type="text" id="edit-user-fullname" placeholder="Enter full name">
+            </div>
+
+            <div class="edit-user-form-group">
+                <label for="edit-user-role">Role</label>
+                <select id="edit-user-role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="edit-user-checkbox-group" onclick="document.getElementById('edit-user-is-admin').click(); event.stopPropagation();">
+                <input type="checkbox" id="edit-user-is-admin" onclick="event.stopPropagation();">
+                <label for="edit-user-is-admin">
+                    <strong>Admin Privileges</strong><br>
+                    <small style="color: #6b7280;">Can manage all settings and clear data</small>
+                </label>
+            </div>
+
+            <div class="edit-user-password-section">
+                <h4>Change Password</h4>
+                <div class="edit-user-checkbox-group" onclick="togglePasswordChange(); event.stopPropagation();" style="margin-bottom: 12px;">
+                    <input type="checkbox" id="edit-user-change-password" onclick="event.stopPropagation();">
+                    <label for="edit-user-change-password">I want to change the password</label>
+                </div>
+                <div id="edit-user-password-fields" style="display: none;">
+                    <div class="edit-user-form-group">
+                        <label for="edit-user-new-password">New Password</label>
+                        <input type="password" id="edit-user-new-password" placeholder="Enter new password">
+                    </div>
+                </div>
+            </div>
+
+            <div class="edit-user-modal-buttons">
+                <button class="btn-save" onclick="saveUserEdit()">Save Changes</button>
+                <button class="btn-cancel" onclick="closeEditUserModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -8868,7 +9074,9 @@
             filterSelect.value = currentValue;
         }
 
-        async function editUser(userId) {
+        let editingUserId = null;
+
+        function editUser(userId) {
             // Check admin permission
             if (!currentUser || !currentUser.isAdmin) {
                 alert('❌ Access Denied: Only administrators can edit users.');
@@ -8878,40 +9086,77 @@
             const user = appData.users.find(u => u.id === userId);
             if (!user) return;
 
-            const newFullName = prompt('Enter new full name:', user.fullName);
-            if (newFullName === null) return;
+            // Store the user ID being edited
+            editingUserId = userId;
 
-            const newRole = prompt('Enter new role (user/admin):', user.role);
-            if (newRole === null) return;
+            // Populate the modal with user data
+            document.getElementById('edit-user-username').value = user.username;
+            document.getElementById('edit-user-fullname').value = user.fullName;
+            document.getElementById('edit-user-role').value = user.role;
+            document.getElementById('edit-user-is-admin').checked = user.isAdmin || false;
+            document.getElementById('edit-user-change-password').checked = false;
+            document.getElementById('edit-user-new-password').value = '';
+            document.getElementById('edit-user-password-fields').style.display = 'none';
 
-            if (!['admin', 'user'].includes(newRole)) {
-                alert('⚠️ Invalid role. Must be user or admin.');
+            // Show the modal
+            document.getElementById('edit-user-modal').classList.add('active');
+        }
+
+        function closeEditUserModal() {
+            document.getElementById('edit-user-modal').classList.remove('active');
+            editingUserId = null;
+        }
+
+        function togglePasswordChange() {
+            const checkbox = document.getElementById('edit-user-change-password');
+            const passwordFields = document.getElementById('edit-user-password-fields');
+            checkbox.checked = !checkbox.checked;
+            passwordFields.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        async function saveUserEdit() {
+            if (!editingUserId) return;
+
+            const user = appData.users.find(u => u.id === editingUserId);
+            if (!user) return;
+
+            // Get form values
+            const newFullName = document.getElementById('edit-user-fullname').value.trim();
+            const newRole = document.getElementById('edit-user-role').value;
+            const isAdmin = document.getElementById('edit-user-is-admin').checked;
+            const changePassword = document.getElementById('edit-user-change-password').checked;
+            const newPassword = document.getElementById('edit-user-new-password').value;
+
+            // Validate
+            if (!newFullName) {
+                alert('⚠️ Full name is required.');
                 return;
             }
 
-            const changeAdmin = confirm(`Do you want to ${user.isAdmin ? 'REMOVE' : 'GRANT'} admin privileges?\n\nCurrent status: ${user.isAdmin ? 'IS ADMIN' : 'NOT ADMIN'}`);
-            if (changeAdmin) {
-                user.isAdmin = !user.isAdmin;
+            if (changePassword && !newPassword) {
+                alert('⚠️ Please enter a new password or uncheck the "Change Password" option.');
+                return;
             }
 
-            const changePassword = confirm('Do you want to change the password?');
-            if (changePassword) {
-                const newPassword = prompt('Enter new password:');
-                if (newPassword) {
-                    user.passwordHash = await hashPassword(newPassword);
-                }
-            }
-
-            user.fullName = newFullName.trim() || user.fullName;
+            // Update user object
+            user.fullName = newFullName;
             user.role = newRole;
+            user.isAdmin = isAdmin;
+
+            // Update password if requested
+            if (changePassword && newPassword) {
+                user.passwordHash = await hashPassword(newPassword);
+            }
 
             // Auto-save credentials to GitHub
             await autoSaveCredentials();
 
+            // Close modal and refresh display
+            closeEditUserModal();
             displayUsers();
             alert('✅ User updated successfully and saved to GitHub!');
 
-            logActivity('update', 'user', userId, `Updated user: ${user.fullName} (@${user.username}) - Admin: ${user.isAdmin}`);
+            logActivity('update', 'user', editingUserId, `Updated user: ${user.fullName} (@${user.username}) - Admin: ${user.isAdmin}`);
         }
 
         function deleteUser(userId) {
