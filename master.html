@@ -1105,45 +1105,45 @@
 
             <!-- Assignments Dropdown -->
             <div class="tab-dropdown">
-                <button class="tab-dropdown-button" onclick="toggleDropdown('assignments-dropdown')">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('assignments-dropdown', event)">
                     Assignments
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="assignments-dropdown" class="tab-dropdown-content">
-                    <button class="tab-dropdown-item" onclick="switchTab('housing-assignments')">Housing Assignments</button>
-                    <button class="tab-dropdown-item" onclick="switchTab('small-group-assignments')">Small Group Assignments</button>
-                    <button class="tab-dropdown-item" onclick="switchTab('ada-individuals')">ADA</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('housing-assignments', event)">Housing Assignments</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('small-group-assignments', event)">Small Group Assignments</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('ada-individuals', event)">ADA</button>
                 </div>
             </div>
 
             <!-- Resources Dropdown -->
             <div class="tab-dropdown">
-                <button class="tab-dropdown-button" onclick="toggleDropdown('resources-dropdown')">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('resources-dropdown', event)">
                     Resources
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="resources-dropdown" class="tab-dropdown-content">
-                    <button class="tab-dropdown-item" onclick="switchTab('resources')">Setup Resources</button>
-                    <button class="tab-dropdown-item" onclick="switchTab('meal-colors')">Meal Colors</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('resources', event)">Setup Resources</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('meal-colors', event)">Meal Colors</button>
                 </div>
             </div>
 
             <!-- Printables Dropdown -->
             <div class="tab-dropdown">
-                <button class="tab-dropdown-button" onclick="toggleDropdown('printables-dropdown')">
+                <button class="tab-dropdown-button" onclick="toggleDropdown('printables-dropdown', event)">
                     Printables
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="printables-dropdown" class="tab-dropdown-content">
-                    <button class="tab-dropdown-item" id="activity-reports-menu" onclick="switchTab('activity-reports')">Activity Reports</button>
-                    <button class="tab-dropdown-item" onclick="switchTab('room-posters')">Room Posters</button>
-                    <button class="tab-dropdown-item" onclick="switchTab('printable-forms')">Printable Forms</button>
+                    <button class="tab-dropdown-item" id="activity-reports-menu" onclick="switchTabWithEvent('activity-reports', event)">Activity Reports</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('room-posters', event)">Room Posters</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('printable-forms', event)">Printable Forms</button>
                 </div>
             </div>
 
@@ -1169,6 +1169,10 @@
                 <div class="stat-card">
                     <h3 id="off-campus-groups">0</h3>
                     <p>Off-Campus People</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="on-campus-people">0</h3>
+                    <p>People Staying On Campus</p>
                 </div>
                 <div class="stat-card">
                     <h3 id="groups-needing-housing">0</h3>
@@ -2059,43 +2063,6 @@
                 <input type="file" id="load-file" accept=".json" style="display: none;" onchange="handleLoadFile(event)">
             </div>
 
-            <!-- Admin-Only Clear Data Section -->
-            <div id="admin-clear-section" style="background: #ffebee; border: 2px solid #f44336; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
-                <h3 style="margin-top: 0; color: #c62828;">⚠️ Admin-Only: Clear Data</h3>
-                <p style="color: #c62828; margin-bottom: 15px;">
-                    <strong>Warning:</strong> These actions are permanent and cannot be undone. Admin access required.
-                </p>
-                <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                    <p style="font-weight: 600; margin-bottom: 12px; color: #1f2937;">Select items to delete:</p>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
-                            <input type="checkbox" id="clear-housing-info" style="width: 20px; height: 20px; cursor: pointer;">
-                            <span style="font-weight: 500;">Clear Housing Assignments</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
-                            <input type="checkbox" id="clear-small-group-info" style="width: 20px; height: 20px; cursor: pointer;">
-                            <span style="font-weight: 500;">Clear Small Group Assignments</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
-                            <input type="checkbox" id="clear-youth-groups" style="width: 20px; height: 20px; cursor: pointer;">
-                            <span style="font-weight: 500;">Clear Youth Group Information</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
-                            <input type="checkbox" id="clear-rooms" style="width: 20px; height: 20px; cursor: pointer;">
-                            <span style="font-weight: 500;">Clear Housing Rooms</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
-                            <input type="checkbox" id="clear-small-group-rooms" style="width: 20px; height: 20px; cursor: pointer;">
-                            <span style="font-weight: 500;">Clear Small Group Rooms</span>
-                        </label>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn btn-danger" onclick="clearSelectedData()" style="font-size: 16px; padding: 12px 24px;">🗑️ Delete Selected Items</button>
-                    <button class="btn btn-secondary" onclick="clearDataCheckboxes()" style="font-size: 16px; padding: 12px 24px;">Clear Selection</button>
-                </div>
-            </div>
-
             <!-- User Management Section (Admin-Only) -->
             <div id="user-management-section" style="background: #f8f9fa; border: 2px solid #6c757d; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
                 <h3 style="margin-top: 0;">👥 User Management (Admin-Only)</h3>
@@ -2149,6 +2116,51 @@
                     </div>
                     <div id="users-list" style="display: grid; gap: 15px;">
                         <!-- Users will be displayed here -->
+                    </div>
+                </div>
+
+                <!-- Collapsible Clear Data Section -->
+                <div style="margin-top: 30px;">
+                    <button onclick="toggleClearDataSection()" style="width: 100%; padding: 12px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; cursor: pointer; font-weight: 600; color: #856404; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s;">
+                        <span>⚠️ Danger Zone: Clear System Data</span>
+                        <svg id="clear-data-chevron" style="width: 16px; height: 16px; transition: transform 0.2s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <div id="admin-clear-section" style="display: none; background: #ffebee; border: 2px solid #f44336; border-top: none; padding: 20px; border-radius: 0 0 8px 8px; margin-top: -2px;">
+                        <p style="color: #c62828; margin-bottom: 15px;">
+                            <strong>⚠️ EXTREME CAUTION:</strong> These actions permanently delete data and cannot be undone. Password confirmation required.
+                        </p>
+                        <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 12px; color: #1f2937;">Select items to delete:</p>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                    <input type="checkbox" id="clear-housing-info" style="width: 20px; height: 20px; cursor: pointer;">
+                                    <span style="font-weight: 500;">Clear Housing Assignments</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                    <input type="checkbox" id="clear-small-group-info" style="width: 20px; height: 20px; cursor: pointer;">
+                                    <span style="font-weight: 500;">Clear Small Group Assignments</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                    <input type="checkbox" id="clear-youth-groups" style="width: 20px; height: 20px; cursor: pointer;">
+                                    <span style="font-weight: 500;">Clear Youth Group Information</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                    <input type="checkbox" id="clear-rooms" style="width: 20px; height: 20px; cursor: pointer;">
+                                    <span style="font-weight: 500;">Clear Housing Rooms</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                    <input type="checkbox" id="clear-small-group-rooms" style="width: 20px; height: 20px; cursor: pointer;">
+                                    <span style="font-weight: 500;">Clear Small Group Rooms</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-danger" onclick="clearSelectedData()" style="font-size: 16px; padding: 12px 24px;">🗑️ Delete Selected Items</button>
+                            <button class="btn btn-secondary" onclick="clearDataCheckboxes()" style="font-size: 16px; padding: 12px 24px;">Clear Selection</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3971,7 +3983,9 @@
         }
 
         // ===== TAB MANAGEMENT =====
-        function toggleDropdown(dropdownId) {
+        function toggleDropdown(dropdownId, e) {
+            if (!e) e = window.event;
+
             // Close all other dropdowns
             document.querySelectorAll('.tab-dropdown-content').forEach(dropdown => {
                 if (dropdown.id !== dropdownId) {
@@ -3988,7 +4002,7 @@
 
             // Toggle the clicked dropdown
             const dropdown = document.getElementById(dropdownId);
-            const button = event.target.closest('.tab-dropdown-button');
+            const button = e.target.closest('.tab-dropdown-button');
 
             if (dropdown) {
                 dropdown.classList.toggle('show');
@@ -3998,12 +4012,15 @@
             }
 
             // Prevent event from bubbling
-            event.stopPropagation();
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            return false;
         }
 
         // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.tab-dropdown')) {
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.tab-dropdown')) {
                 document.querySelectorAll('.tab-dropdown-content').forEach(dropdown => {
                     dropdown.classList.remove('show');
                 });
@@ -4013,7 +4030,11 @@
             }
         });
 
-        function switchTab(tabName) {
+        function switchTabWithEvent(tabName, e) {
+            switchTab(tabName, e);
+        }
+
+        function switchTab(tabName, e) {
             // Check if user is trying to access admin-only tabs
             if (tabName === 'activity-reports') {
                 if (!currentUser || (currentUser.role !== 'admin' && !currentUser.isAdmin)) {
@@ -4046,13 +4067,13 @@
             document.getElementById(tabName).classList.add('active');
 
             // Highlight active tab button or dropdown item
-            if (event && event.target) {
-                if (event.target.classList.contains('tab-button')) {
-                    event.target.classList.add('active');
-                } else if (event.target.classList.contains('tab-dropdown-item')) {
-                    event.target.classList.add('active');
+            if (e && e.target) {
+                if (e.target.classList.contains('tab-button')) {
+                    e.target.classList.add('active');
+                } else if (e.target.classList.contains('tab-dropdown-item')) {
+                    e.target.classList.add('active');
                     // Also highlight the parent dropdown button
-                    const parentDropdown = event.target.closest('.tab-dropdown');
+                    const parentDropdown = e.target.closest('.tab-dropdown');
                     if (parentDropdown) {
                         const dropdownButton = parentDropdown.querySelector('.tab-dropdown-button');
                         if (dropdownButton) {
@@ -4080,12 +4101,7 @@
             } else if (tabName === 'settings') {
                 displayUsers();
                 // Show/hide admin sections based on user role
-                const adminSection = document.getElementById('admin-clear-section');
                 const userManagementSection = document.getElementById('user-management-section');
-
-                if (adminSection && currentUser) {
-                    adminSection.style.display = currentUser.isAdmin ? 'block' : 'none';
-                }
 
                 if (userManagementSection && currentUser) {
                     userManagementSection.style.display = currentUser.isAdmin ? 'block' : 'none';
@@ -6378,10 +6394,14 @@
                 return occupancy < room.capacity;
             }).length;
             
+            // Calculate people staying on campus
+            const onCampusPeople = totalParticipants - offCampusPeople;
+
             // Update the display
             document.getElementById('total-groups').textContent = totalGroups;
             document.getElementById('total-participants').textContent = totalParticipants;
             document.getElementById('off-campus-groups').textContent = offCampusPeople;
+            document.getElementById('on-campus-people').textContent = onCampusPeople;
             document.getElementById('groups-needing-housing').textContent = groupsNeedingHousing;
             document.getElementById('groups-needing-small-group').textContent = groupsNeedingSmallGroup;
             document.getElementById('groups-needing-meal-color').textContent = groupsNeedingMealColor;
@@ -8585,6 +8605,20 @@
             });
         }
 
+        // ===== CLEAR DATA SECTION TOGGLE =====
+        function toggleClearDataSection() {
+            const section = document.getElementById('admin-clear-section');
+            const chevron = document.getElementById('clear-data-chevron');
+
+            if (section.style.display === 'none' || !section.style.display) {
+                section.style.display = 'block';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                section.style.display = 'none';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
         // ===== CHECKBOX-BASED DATA DELETION =====
         function clearDataCheckboxes() {
             document.getElementById('clear-housing-info').checked = false;
@@ -8622,9 +8656,20 @@
             if (clearRooms) itemsList.push('• Housing Rooms');
             if (clearSmallGroupRooms) itemsList.push('• Small Group Rooms');
 
-            const password = prompt('⚠️ WARNING: This will permanently delete the following:\n\n' +
+            // Step 1: Type safety phrase
+            const safetyPhrase = prompt('⚠️ DANGER: This will permanently delete:\n\n' +
                 itemsList.join('\n') + '\n\n' +
-                'Enter your password to confirm:');
+                'Type "DELETE" (all caps) to continue:');
+
+            if (safetyPhrase !== 'DELETE') {
+                if (safetyPhrase !== null) {
+                    alert('❌ Safety phrase incorrect. Action cancelled.');
+                }
+                return;
+            }
+
+            // Step 2: Enter password
+            const password = prompt('⚠️ STEP 2: Enter your password to confirm deletion:');
             if (!password) return;
 
             // Verify password
@@ -8634,7 +8679,8 @@
                 return;
             }
 
-            if (!confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure? This cannot be undone!')) {
+            // Step 3: Final confirmation
+            if (!confirm('⚠️ FINAL CONFIRMATION:\n\nThis will permanently delete the selected data.\n\nAre you absolutely sure? This CANNOT be undone!')) {
                 return;
             }
 
@@ -8877,6 +8923,15 @@
 
             const user = appData.users.find(u => u.id === userId);
             if (!user) return;
+
+            // Check if this is the only admin
+            if (user.isAdmin) {
+                const adminCount = appData.users.filter(u => u.isAdmin).length;
+                if (adminCount === 1) {
+                    alert('❌ Cannot Delete Last Admin\n\nYou cannot delete the only administrator account. This would lock everyone out of the system!\n\nPlease create another admin account before deleting this one.');
+                    return;
+                }
+            }
 
             if (!confirm(`⚠️ Are you sure you want to delete user "${user.fullName}" (@${user.username})? This action cannot be undone.`)) {
                 return;
