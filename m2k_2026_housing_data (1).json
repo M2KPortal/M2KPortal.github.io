@@ -649,7 +649,7 @@
       "parish": "The test",
       "leader": "",
       "seminarianSgl": "",
-      "religious": "",
+      "religious": "Father manny",
       "phone": "",
       "maleTeens": 10,
       "femaleTeens": 0,
@@ -2182,11 +2182,15 @@
     ],
     "test": [
       "CHAPEL TEST-123"
+    ],
+    "test 2": [
+      "CHAPEL TEST-123"
     ]
   },
   "mealColorAssignments": {
     "3": "Blue",
-    "test": "Yellow"
+    "test": "Blue",
+    "test 2": "Blue"
   },
   "adaIndividuals": [
     {
@@ -2346,8 +2350,58 @@
       "entityType": "youth-group",
       "entityId": "test 2",
       "details": "Created youth group: test s2 (ID: test 2)"
+    },
+    {
+      "id": "1763140742921_login_pyb9xm5pi",
+      "timestamp": "2025-11-14T17:18:00.385Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763140698969_hqxfuquax",
+      "timestamp": "2025-11-14T17:18:18.969Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "smallgroup-assignment",
+      "entityId": "test 2",
+      "details": "Assigned small group for test s2: 1 room(s)"
+    },
+    {
+      "id": "1763140712499_dj5omgzv9",
+      "timestamp": "2025-11-14T17:18:32.499Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "test",
+      "details": "Assigned Blue meal color to The test"
+    },
+    {
+      "id": "1763140714082_g17kasane",
+      "timestamp": "2025-11-14T17:18:34.082Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "test 2",
+      "details": "Assigned Blue meal color to test s2"
+    },
+    {
+      "id": "1763140741199_sgskwi2i4",
+      "timestamp": "2025-11-14T17:19:01.199Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "test",
+      "details": "Updated youth group: The test (ID: test)"
     }
   ],
-  "timestamp": "2025-11-14T17:07:33.434Z",
+  "timestamp": "2025-11-14T17:19:07.820Z",
   "version": "3.0"
 }
