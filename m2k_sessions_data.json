@@ -645,14 +645,14 @@
       "specialAccommodations": ""
     },
     {
-      "id": "TEST",
-      "parish": "the test",
-      "leader": "makr bogner",
-      "seminarianSgl": "ben bogner",
+      "id": "Test",
+      "parish": "The Test",
+      "leader": "Mark Bogner",
+      "seminarianSgl": "Benjamin Bogner",
       "religious": "fr. gabe",
-      "phone": "12358390",
-      "maleTeens": 3,
-      "femaleTeens": 3,
+      "phone": "1248-19421",
+      "maleTeens": 4,
+      "femaleTeens": 4,
       "maleChaperones": 1,
       "femaleChaperones": 1,
       "stayingOffCampus": false,
@@ -2018,6 +2018,9 @@
       ],
       "54": [
         "ARCC-GYM FLOOR"
+      ],
+      "Test": [
+        "TEST (F)-123"
       ]
     }
   },
@@ -2153,14 +2156,11 @@
     ],
     "54": [
       "Knott Academic Center-208"
-    ],
-    "TEST": [
-      "COAD Science Building-111"
     ]
   },
   "mealColorAssignments": {
     "3": "Blue",
-    "TEST": "Yellow"
+    "Test": "Red"
   },
   "adaIndividuals": [
     {
@@ -2302,16 +2302,26 @@
   ],
   "activityLogs": [
     {
-      "id": "1763136841891_7k7ntn9cv",
-      "timestamp": "2025-11-14T16:14:01.891Z",
+      "id": "1763137584745_login_7hmlbaq1c",
+      "timestamp": "2025-11-14T16:25:19.951Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763137552672_kkpk2evy1",
+      "timestamp": "2025-11-14T16:25:52.672Z",
       "username": "benjamin",
       "fullName": "Ben Bogner",
       "action": "create",
       "entityType": "youth-group",
-      "entityId": "TEST",
-      "details": "Created youth group: the test (ID: TEST)"
+      "entityId": "Test",
+      "details": "Created youth group: The Test (ID: Test)"
     }
   ],
-  "timestamp": "2025-11-14T16:15:34.389Z",
+  "timestamp": "2025-11-14T16:26:24.745Z",
   "version": "3.0"
 }
