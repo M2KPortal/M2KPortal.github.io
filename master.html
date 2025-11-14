@@ -2493,6 +2493,10 @@
         // Current logged in user
         let currentUser = null;
 
+        // Pending activity logs (stored in memory until Master Save)
+        let pendingActivityLogs = [];
+        let userLoginTime = null;  // Track when user logged in
+
         let editingGroupIndex = -1;
         let editingHousingRoomIndex = -1;
         let editingSmallGroupRoomIndex = -1;
@@ -7835,6 +7839,9 @@
             }
 
             try {
+                // Commit pending activity logs to appData before saving
+                commitPendingLogs();
+
                 // Prepare data
                 const data = { ...appData, timestamp: new Date().toISOString(), version: '3.0' };
                 const dataStr = JSON.stringify(data, null, 2);
@@ -7875,9 +7882,6 @@
                 if (updateResponse.ok) {
                     const result = await updateResponse.json();
                     alert('✅ Data saved to GitHub successfully!\n\nCommit: ' + result.commit.sha.substring(0, 7));
-
-                    // Log activity
-                    logActivity('update', 'system', null, `Saved all data to GitHub (Commit: ${result.commit.sha.substring(0, 7)})`);
                 } else {
                     const error = await updateResponse.json();
                     throw new Error(error.message || 'Failed to save to GitHub');
@@ -8371,8 +8375,8 @@
             // Hide admin-only tabs for non-admin users
             updateTabsBasedOnRole();
 
-            // Log the login activity
-            logActivity('login', 'system', null, `User logged in: ${user.fullName} (@${user.username})`);
+            // Store login time (will be logged on Master Save if user makes changes)
+            userLoginTime = new Date().toISOString();
 
             console.log('System unlocked for user:', user.username);
         }
@@ -8397,11 +8401,44 @@
             }
         }
 
-        function logout() {
-            // Log the logout activity before clearing user
-            if (currentUser) {
-                logActivity('logout', 'system', null, `User logged out: ${currentUser.fullName} (@${currentUser.username})`);
+        async function logout() {
+            // Check if there are pending changes
+            if (pendingActivityLogs.length > 0) {
+                const saveChanges = confirm('You have unsaved changes.\n\nDo you want to save before logging out?\n\n• Click OK to save and logout\n• Click Cancel to logout without saving');
+
+                if (saveChanges) {
+                    // Try to save to GitHub
+                    try {
+                        await saveToGitHub();
+                        // saveToGitHub will commit pending logs and show success message
+                    } catch (error) {
+                        const continuueLogout = confirm('Failed to save changes:\n\n' + error.message + '\n\nDo you still want to logout without saving?');
+                        if (!continuueLogout) {
+                            return; // Cancel logout
+                        }
+                    }
+                }
             }
+
+            // Log the logout activity
+            if (currentUser) {
+                const logoutLog = {
+                    id: Date.now() + '_logout_' + Math.random().toString(36).substr(2, 9),
+                    timestamp: new Date().toISOString(),
+                    username: currentUser.username,
+                    fullName: currentUser.fullName,
+                    action: 'logout',
+                    entityType: 'system',
+                    entityId: null,
+                    details: `User logged out: ${currentUser.fullName} (@${currentUser.username})`
+                };
+                // Save logout immediately to appData (not pending)
+                appData.activityLogs.push(logoutLog);
+            }
+
+            // Clear pending logs and login time
+            pendingActivityLogs = [];
+            userLoginTime = null;
 
             // Clear session
             sessionStorage.removeItem('authenticated');
@@ -8486,8 +8523,37 @@
                 details: details
             };
 
-            appData.activityLogs.push(log);
-            console.log('Activity logged:', log);
+            // Store in pending logs (will be committed on Master Save)
+            pendingActivityLogs.push(log);
+            console.log('Activity logged (pending):', log);
+        }
+
+        function commitPendingLogs() {
+            // Move all pending logs to appData.activityLogs
+            if (pendingActivityLogs.length > 0) {
+                // Add login log if user made changes
+                if (userLoginTime && currentUser) {
+                    const loginLog = {
+                        id: Date.now() + '_login_' + Math.random().toString(36).substr(2, 9),
+                        timestamp: userLoginTime,
+                        username: currentUser.username,
+                        fullName: currentUser.fullName,
+                        action: 'login',
+                        entityType: 'system',
+                        entityId: null,
+                        details: `User logged in: ${currentUser.fullName} (@${currentUser.username})`
+                    };
+                    appData.activityLogs.push(loginLog);
+                }
+
+                // Add all pending logs
+                appData.activityLogs.push(...pendingActivityLogs);
+                console.log(`Committed ${pendingActivityLogs.length} pending activity logs`);
+
+                // Clear pending logs
+                pendingActivityLogs = [];
+                userLoginTime = null;  // Reset login time after save
+            }
         }
 
         function displayActivityReports() {
@@ -8942,10 +9008,8 @@
                 if (hash === currentUser.passwordHash) {
                     if (confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure you want to clear all housing assignments? This cannot be undone!')) {
                         // Clear housing assignments
-                        appData.groups.forEach(group => {
-                            group.maleRoomNumber = '';
-                            group.femaleRoomNumber = '';
-                        });
+                        appData.housingAssignments.male = {};
+                        appData.housingAssignments.female = {};
 
                         alert('✅ Housing information cleared successfully!');
                         logActivity('delete', 'system', 'housing-data', 'Cleared all housing assignments');
@@ -8975,9 +9039,7 @@
                 if (hash === currentUser.passwordHash) {
                     if (confirm('⚠️ FINAL CONFIRMATION: Are you absolutely sure you want to clear all small group locations? This cannot be undone!')) {
                         // Clear small group assignments
-                        appData.groups.forEach(group => {
-                            group.smallGroupRoom = '';
-                        });
+                        appData.smallGroupAssignments = {};
 
                         alert('✅ Small group locations cleared successfully!');
                         logActivity('delete', 'system', 'small-group-data', 'Cleared all small group locations');
@@ -9122,24 +9184,22 @@
             let deletedItems = [];
 
             if (clearHousing) {
-                appData.groups.forEach(group => {
-                    group.maleRoomNumber = '';
-                    group.femaleRoomNumber = '';
-                });
+                // Clear all housing assignments
+                appData.housingAssignments.male = {};
+                appData.housingAssignments.female = {};
                 deletedItems.push('Housing Assignments');
                 logActivity('delete', 'system', 'housing-data', 'Cleared all housing assignments');
             }
 
             if (clearSmallGroup) {
-                appData.groups.forEach(group => {
-                    group.smallGroupRoom = '';
-                });
+                // Clear all small group assignments
+                appData.smallGroupAssignments = {};
                 deletedItems.push('Small Group Assignments');
                 logActivity('delete', 'system', 'small-group-data', 'Cleared all small group assignments');
             }
 
             if (clearYouthGroups) {
-                appData.groups = [];
+                appData.youthGroups = [];
                 deletedItems.push('Youth Group Information');
                 logActivity('delete', 'system', 'youth-groups', 'Cleared all youth groups');
             }
