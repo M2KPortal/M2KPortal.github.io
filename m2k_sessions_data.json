@@ -643,6 +643,20 @@
       "femaleChaperones": 1,
       "stayingOffCampus": false,
       "specialAccommodations": ""
+    },
+    {
+      "id": "TEST",
+      "parish": "TEST",
+      "leader": "mark bogner",
+      "seminarianSgl": "ben bogner",
+      "religious": "fr. gabe",
+      "phone": "34567",
+      "maleTeens": 2,
+      "femaleTeens": 2,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
     }
   ],
   "rooms": [
@@ -1870,6 +1884,9 @@
       ],
       "54": [
         "Knott Academic Center-222"
+      ],
+      "TEST": [
+        "Knott Academic Center-311"
       ]
     },
     "female": {
@@ -2003,6 +2020,9 @@
         "Off Campus-Female"
       ],
       "54": [
+        "ARCC-GYM FLOOR"
+      ],
+      "TEST": [
         "ARCC-GYM FLOOR"
       ]
     }
@@ -2142,7 +2162,8 @@
     ]
   },
   "mealColorAssignments": {
-    "3": "Blue"
+    "3": "Blue",
+    "TEST": "Green"
   },
   "adaIndividuals": [
     {
@@ -2292,8 +2313,28 @@
       "entityType": "system",
       "entityId": null,
       "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763135144860_uda13742r",
+      "timestamp": "2025-11-14T15:45:44.860Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "system",
+      "entityId": null,
+      "details": "Saved all data to GitHub (Commit: d2c2140)"
+    },
+    {
+      "id": "1763135185034_4rktb21lm",
+      "timestamp": "2025-11-14T15:46:25.034Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "create",
+      "entityType": "youth-group",
+      "entityId": "TEST",
+      "details": "Created youth group: TEST (ID: TEST)"
     }
   ],
-  "timestamp": "2025-11-14T15:45:42.181Z",
+  "timestamp": "2025-11-14T15:47:22.944Z",
   "version": "3.0"
 }
