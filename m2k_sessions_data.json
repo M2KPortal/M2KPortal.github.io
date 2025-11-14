@@ -646,13 +646,13 @@
     },
     {
       "id": "TEST",
-      "parish": "TEST",
-      "leader": "mark bogner",
+      "parish": "the test",
+      "leader": "makr bogner",
       "seminarianSgl": "ben bogner",
       "religious": "fr. gabe",
-      "phone": "34567",
-      "maleTeens": 2,
-      "femaleTeens": 2,
+      "phone": "12358390",
+      "maleTeens": 3,
+      "femaleTeens": 3,
       "maleChaperones": 1,
       "femaleChaperones": 1,
       "stayingOffCampus": false,
@@ -1884,9 +1884,6 @@
       ],
       "54": [
         "Knott Academic Center-222"
-      ],
-      "TEST": [
-        "Knott Academic Center-311"
       ]
     },
     "female": {
@@ -2020,9 +2017,6 @@
         "Off Campus-Female"
       ],
       "54": [
-        "ARCC-GYM FLOOR"
-      ],
-      "TEST": [
         "ARCC-GYM FLOOR"
       ]
     }
@@ -2159,11 +2153,13 @@
     ],
     "54": [
       "Knott Academic Center-208"
+    ],
+    "TEST": [
+      "COAD Science Building-111"
     ]
   },
   "mealColorAssignments": {
-    "3": "Blue",
-    "TEST": "Green"
+    "3": "Blue"
   },
   "adaIndividuals": [
     {
@@ -2305,36 +2301,16 @@
   ],
   "activityLogs": [
     {
-      "id": "1763135102051_hrhbpfglx",
-      "timestamp": "2025-11-14T15:45:02.051Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "login",
-      "entityType": "system",
-      "entityId": null,
-      "details": "User logged in: Ben Bogner (@benjamin)"
-    },
-    {
-      "id": "1763135144860_uda13742r",
-      "timestamp": "2025-11-14T15:45:44.860Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "update",
-      "entityType": "system",
-      "entityId": null,
-      "details": "Saved all data to GitHub (Commit: d2c2140)"
-    },
-    {
-      "id": "1763135185034_4rktb21lm",
-      "timestamp": "2025-11-14T15:46:25.034Z",
+      "id": "1763136841891_7k7ntn9cv",
+      "timestamp": "2025-11-14T16:14:01.891Z",
       "username": "benjamin",
       "fullName": "Ben Bogner",
       "action": "create",
       "entityType": "youth-group",
       "entityId": "TEST",
-      "details": "Created youth group: TEST (ID: TEST)"
+      "details": "Created youth group: the test (ID: TEST)"
     }
   ],
-  "timestamp": "2025-11-14T15:47:22.944Z",
+  "timestamp": "2025-11-14T16:14:23.544Z",
   "version": "3.0"
 }
