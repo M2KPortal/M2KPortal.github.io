@@ -698,7 +698,7 @@
         <div class="top-nav">
             <div class="top-nav-left">
                 <div class="top-nav-title">Mount 2K Dashboard</div>
-                <div class="top-nav-subtitle" id="session-subtitle">Loading... <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px;"></span></div>
+                <div class="top-nav-subtitle">Housing and Small Group Assignments - 2026 <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px;"></span></div>
             </div>
             <div class="top-nav-right">
                 <a href="https://m2kportal.github.io/master.html" class="top-nav-btn">🔐 Admin Login</a>
@@ -948,65 +948,76 @@
 
         async function findAndLoadLatestData() {
             const loadingStatus = document.getElementById('loading-status');
-            const filename = 'm2k_sessions_data.json';
-
-            if (loadingStatus) {
-                loadingStatus.textContent = `Loading session data...`;
-            }
-
-            try {
-                const response = await fetch(filename);
-
-                if (response.ok) {
-                    const data = await response.json();
-
-                    // Find the active session
-                    const activeSession = data.sessions.find(s => s.id === data.activeSessionId);
-                    if (!activeSession) {
-                        throw new Error('No active session found');
-                    }
-
-                    currentDataVersion = 1;
-                    dataTimestamp = data.timestamp || new Date().toISOString();
-
-                    appData.youthGroups = activeSession.data.youthGroups || [];
-
-                    // Load shared resources
-                    appData.housingRooms = data.sharedResources.housingRooms || [];
-                    appData.smallGroupRooms = data.sharedResources.smallGroupRooms || [];
-                    appData.activeColors = data.sharedResources.activeColors || [];
-                    appData.mealTimes = data.sharedResources.mealTimes || {};
-                    appData.resources = data.sharedResources.resources || [];
-                    appData.schedule = data.sharedResources.schedule || { friday: [], saturday: [], sunday: [] };
-
-                    // Load session-specific data
-                    appData.housingAssignments = activeSession.data.housingAssignments || { male: {}, female: {} };
-                    appData.smallGroupAssignments = activeSession.data.smallGroupAssignments || {};
-                    appData.mealColorAssignments = activeSession.data.mealColorAssignments || {};
-                    appData.adaIndividuals = activeSession.data.adaIndividuals || [];
-
-                    // Store session info for header display
-                    appData.currentSession = {
-                        id: activeSession.id,
-                        name: activeSession.name,
-                        year: activeSession.year
-                    };
-
-                    // Update subtitle with session name
-                    const subtitle = document.getElementById('session-subtitle');
-                    if (subtitle) {
-                        subtitle.innerHTML = `${activeSession.name} <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px;"></span>`;
-                    }
-
-                    if (loadingStatus) {
-                        loadingStatus.textContent = `Successfully loaded ${activeSession.name}!`;
-                    }
-                } else {
-                    throw new Error('Failed to load session data');
+            let foundVersion = 0;
+            
+            for (let version = 1; version <= 100; version++) {
+                const filename = `m2k_2026_housing_data (${version}).json`;
+                
+                if (loadingStatus) {
+                    loadingStatus.textContent = `Checking for version ${version}...`;
                 }
-            } catch (error) {
-                console.error('Error loading session data:', error);
-                showErrorMessage();
+                
+                try {
+                    const response = await fetch(filename);
+                    
+                    if (response.ok) {
+                        foundVersion = version;
+                    } else {
+                        break;
+                    }
+                } catch (error) {
+                    break;
+                }
+            }
+            
+            if (foundVersion > 0) {
+                const filename = `m2k_2026_housing_data (${foundVersion}).json`;
+                
+                if (loadingStatus) {
+                    loadingStatus.textContent = `Loading version ${foundVersion}...`;
+                }
+                
+                const response = await fetch(filename);
+                const data = await response.json();
+
+                currentDataVersion = foundVersion;
+                dataTimestamp = data.timestamp || new Date().toISOString();
+
+                appData.youthGroups = data.youthGroups || [];
+
+                // Load rooms - support both old and new formats
+                if (data.rooms) {
+                    // New unified format
+                    appData.rooms = data.rooms;
+                } else {
+                    // Old format - migrate to new format
+                    appData.rooms = [];
+                    if (data.housingRooms) {
+                        appData.rooms.push(...data.housingRooms.map(r => ({ ...r, type: 'housing' })));
+                    }
+                    if (data.smallGroupRooms) {
+                        appData.rooms.push(...data.smallGroupRooms.map(r => ({ ...r, type: 'smallGroup' })));
+                    }
+                }
+
+                // Create filtered views for backward compatibility
+                appData.housingRooms = appData.rooms ? appData.rooms.filter(r => r.type === 'housing') : [];
+                appData.smallGroupRooms = appData.rooms ? appData.rooms.filter(r => r.type === 'smallGroup') : [];
+
+                appData.housingAssignments = data.housingAssignments || { male: {}, female: {} };
+                appData.smallGroupAssignments = data.smallGroupAssignments || {};
+                appData.mealColorAssignments = data.mealColorAssignments || {};
+                appData.mealTimes = data.mealTimes || {};
+                appData.adaIndividuals = data.adaIndividuals || [];
+                appData.activeColors = data.activeColors || Object.keys(data.mealTimes || {});
+                appData.resources = data.resources || [];
+                appData.schedule = data.schedule || { friday: [], saturday: [], sunday: [] };
+
+                if (loadingStatus) {
+                    loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
+                }
+            } else {
+                throw new Error('No data files found');
             }
         }
 
@@ -1017,7 +1028,7 @@
                     <h2>🤔 Whoops!</h2>
                     <p>Looks like we can't find the data right now! Please check back later.</p>
                     <p style="font-size: 0.9em; color: #999; margin-top: 15px;">
-                        (Make sure a JSON file named "m2k_sessions_data.json" is in the same folder)
+                        (Make sure a JSON file named "m2k_2026_housing_data (1).json" or similar is in the same folder)
                     </p>
                 </div>
             `;
