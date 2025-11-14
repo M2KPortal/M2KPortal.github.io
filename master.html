@@ -4178,8 +4178,10 @@
 
                 appData.groupNotes = data.groupNotes || {};
                 appData.resources = data.resources || [];
+                appData.activityLogs = data.activityLogs || [];
 
                 console.log('✅ Data loaded successfully from JSON file');
+                console.log(`   Loaded ${appData.activityLogs.length} activity logs`);
 
                 // Update active colors checkboxes
                 updateActiveColorsDisplay();
