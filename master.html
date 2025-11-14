@@ -7983,6 +7983,14 @@
 
                 if (updateResponse.ok) {
                     const result = await updateResponse.json();
+
+                    // Reload data from GitHub to get fresh SHA and ensure sync
+                    await loadDataFromJSON();
+
+                    // Refresh all displays with the reloaded data
+                    updateAllDisplays();
+                    displayCurrentSession();
+
                     alert('✅ Data saved to GitHub successfully!\n\nCommit: ' + result.commit.sha.substring(0, 7));
 
                     // Log activity
