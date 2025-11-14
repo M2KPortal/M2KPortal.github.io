@@ -1280,6 +1280,7 @@
         <div class="top-nav">
             <div class="top-nav-left">
                 <div class="top-nav-title">Mount 2K Management System</div>
+                <div class="top-nav-subtitle" id="master-session-display" style="font-size: 14px; color: #6b7280; margin-top: 2px;">Loading session...</div>
                 <div class="top-nav-welcome" id="welcome-user" style="display: none;"></div>
             </div>
             <div class="top-nav-right">
@@ -4225,6 +4226,9 @@
 
                 // Update active colors checkboxes
                 updateActiveColorsDisplay();
+
+                // Update session display in header
+                displayCurrentSession();
 
             } catch (error) {
                 console.warn('⚠️ Could not load data file:', error);
@@ -9264,9 +9268,16 @@
 
         // ===== SESSION MANAGEMENT FUNCTIONS =====
         function displayCurrentSession() {
+            // Update session display in Settings tab
             const displayEl = document.getElementById('current-session-display');
             if (displayEl && appData.currentSession) {
                 displayEl.textContent = appData.currentSession.name;
+            }
+
+            // Update session display in header
+            const headerEl = document.getElementById('master-session-display');
+            if (headerEl && appData.currentSession) {
+                headerEl.innerHTML = `<strong>Active Session:</strong> ${appData.currentSession.name} (${appData.currentSession.year})`;
             }
         }
 
@@ -9467,10 +9478,13 @@
                 // Close modal
                 document.querySelector('div[style*="position: fixed"]')?.remove();
 
+                // Save the new session to GitHub
+                await saveToGitHub();
+
                 // Refresh sessions list
                 renderSessions();
 
-                alert(`✅ Session "${name}" created successfully!\n\nTo start working with this session, click "Activate" button.`);
+                alert(`✅ Session "${name}" created successfully and saved!\n\nTo start working with this session, click "Activate" button.`);
 
             } catch (error) {
                 console.error('Error creating session:', error);
@@ -9549,13 +9563,16 @@
                         displayCurrentSession();
                     }
 
+                    // Save changes to GitHub
+                    await saveToGitHub();
+
                     // Close modal
                     document.querySelector('div[style*="position: fixed"]')?.remove();
 
                     // Refresh sessions list
                     renderSessions();
 
-                    alert(`✅ Session renamed to "${newName}"!`);
+                    alert(`✅ Session renamed to "${newName}" and saved!`);
                 }
 
             } catch (error) {
@@ -9583,10 +9600,13 @@
                 // Remove session from array
                 window.sessionData.sessions = window.sessionData.sessions.filter(s => s.id !== sessionId);
 
+                // Save changes to GitHub
+                await saveToGitHub();
+
                 // Refresh sessions list
                 renderSessions();
 
-                alert('✅ Session deleted successfully!');
+                alert('✅ Session deleted successfully and saved!');
 
             } catch (error) {
                 console.error('Error deleting session:', error);
