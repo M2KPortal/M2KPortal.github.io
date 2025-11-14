@@ -5697,19 +5697,32 @@
 
         function confirmHousingAssignment() {
             if (!selectedHousingAssignment) return;
-            
-            alert(`Housing assignment updated for ${selectedHousingAssignment.groupData.parish} (${selectedHousingAssignment.gender})`);
+
+            const { groupId, gender, groupData } = selectedHousingAssignment;
+            const rooms = appData.housingAssignments[gender][groupId] || [];
+
+            alert(`Housing assignment updated for ${groupData.parish} (${gender})`);
+
+            // Log activity
+            logActivity('update', 'housing-assignment', groupId,
+                `Assigned ${gender} housing for ${groupData.parish}: ${rooms.length} room(s)`);
+
             updateAllDisplays();
             autoSave();
         }
 
         function clearHousingAssignment() {
             if (!selectedHousingAssignment) return;
-            
+
             const { groupId, gender, groupData } = selectedHousingAssignment;
-            
+
             if (confirm(`Clear all ${gender} housing assignments for ${groupData.parish}?`)) {
                 delete appData.housingAssignments[gender][groupId];
+
+                // Log activity
+                logActivity('delete', 'housing-assignment', groupId,
+                    `Cleared ${gender} housing for ${groupData.parish}`);
+
                 updateHousingAssignmentDisplay();
                 updateAllDisplays();
                 autoSave();
@@ -5991,19 +6004,32 @@
 
         function confirmSmallGroupAssignment() {
             if (!selectedSmallGroupAssignment) return;
-            
-            alert(`Small group assignment updated for ${selectedSmallGroupAssignment.groupData.parish}`);
+
+            const { groupId, groupData } = selectedSmallGroupAssignment;
+            const rooms = appData.smallGroupAssignments[groupId] || [];
+
+            alert(`Small group assignment updated for ${groupData.parish}`);
+
+            // Log activity
+            logActivity('update', 'smallgroup-assignment', groupId,
+                `Assigned small group for ${groupData.parish}: ${rooms.length} room(s)`);
+
             updateAllDisplays();
             autoSave();
         }
 
         function clearSmallGroupAssignment() {
             if (!selectedSmallGroupAssignment) return;
-            
+
             const { groupId, groupData } = selectedSmallGroupAssignment;
-            
+
             if (confirm(`Clear all small group location assignments for ${groupData.parish}?`)) {
                 delete appData.smallGroupAssignments[groupId];
+
+                // Log activity
+                logActivity('delete', 'smallgroup-assignment', groupId,
+                    `Cleared small group for ${groupData.parish}`);
+
                 updateSmallGroupAssignmentDisplay();
                 updateAllDisplays();
                 autoSave();
@@ -6051,10 +6077,22 @@
 
         // ===== MEAL COLOR ASSIGNMENT MANAGEMENT =====
         function updateMealColorAssignment(groupId, color) {
+            const group = appData.youthGroups.find(g => g.id === groupId);
+
             if (color === '') {
                 delete appData.mealColorAssignments[groupId];
+                // Log activity
+                if (group) {
+                    logActivity('delete', 'meal-color', groupId,
+                        `Cleared meal color for ${group.parish}`);
+                }
             } else {
                 appData.mealColorAssignments[groupId] = color;
+                // Log activity
+                if (group) {
+                    logActivity('update', 'meal-color', groupId,
+                        `Assigned ${color} meal color to ${group.parish}`);
+                }
             }
             updateMealColorSummary();
             updateDashboard();
