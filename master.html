@@ -1892,9 +1892,13 @@
 
             <!-- Active Colors Configuration -->
             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3 style="margin: 0 0 10px 0;">🎨 Active Meal Colors</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Select which meal colors you want to use. Only active colors will appear in dropdowns and on schedules.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleActiveColorsConfig()">
+                    <h3 style="margin: 0;">🎨 Active Meal Colors</h3>
+                    <span id="active-colors-toggle" style="font-size: 24px;">▼</span>
+                </div>
+                <p style="font-size: 14px; color: #666; margin: 10px 0;">Select which meal colors you want to use. Only active colors will appear in dropdowns and on schedules.</p>
 
+                <div id="active-colors-config" style="display: none; margin-top: 15px;">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
                     <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: white; border-radius: 6px; cursor: pointer;">
                         <input type="checkbox" value="Blue" onchange="toggleColorActive(this)" style="width: 20px; height: 20px;">
@@ -1929,6 +1933,7 @@
                         <span style="background: #95a5a6; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">⚪ Grey</span>
                     </label>
                 </div>
+                </div>
             </div>
 
             <!-- Meal Times Configuration -->
@@ -1949,6 +1954,7 @@
                     <select class="sort-select" id="meal-colors-sort" onchange="sortMealColorsTable()">
                         <option value="id">Group ID</option>
                         <option value="parish">Parish Name</option>
+                        <option value="location">Location</option>
                         <option value="total">Total People</option>
                         <option value="color">Meal Color</option>
                     </select>
@@ -1963,6 +1969,7 @@
                             <th class="sortable" onclick="sortMealColorsBy('id')">Group ID</th>
                             <th class="sortable" onclick="sortMealColorsBy('parish')">Parish</th>
                             <th class="sortable" onclick="sortMealColorsBy('leader')">Leader</th>
+                            <th class="sortable" onclick="sortMealColorsBy('location')">Location</th>
                             <th class="sortable" onclick="sortMealColorsBy('total')">Total People</th>
                             <th class="sortable" onclick="sortMealColorsBy('color')">Meal Color</th>
                             <th>Actions</th>
@@ -2783,7 +2790,7 @@
             
             sorted.sort((a, b) => {
                 let valueA, valueB;
-                
+
                 switch (field) {
                     case 'total':
                         valueA = a.maleTeens + a.femaleTeens + a.maleChaperones + a.femaleChaperones;
@@ -2792,6 +2799,10 @@
                     case 'color':
                         valueA = appData.mealColorAssignments[a.id] || '';
                         valueB = appData.mealColorAssignments[b.id] || '';
+                        break;
+                    case 'location':
+                        valueA = (a.stayingOffCampus ? 'Off Campus' : 'On Campus');
+                        valueB = (b.stayingOffCampus ? 'Off Campus' : 'On Campus');
                         break;
                     default:
                         valueA = (a[field] || '').toString().toLowerCase();
@@ -2926,6 +2937,19 @@
                 configDiv.style.display = 'block';
                 toggleIcon.textContent = '▲';
                 renderMealTimesConfig();
+            } else {
+                configDiv.style.display = 'none';
+                toggleIcon.textContent = '▼';
+            }
+        }
+
+        function toggleActiveColorsConfig() {
+            const configDiv = document.getElementById('active-colors-config');
+            const toggleIcon = document.getElementById('active-colors-toggle');
+
+            if (configDiv.style.display === 'none') {
+                configDiv.style.display = 'block';
+                toggleIcon.textContent = '▲';
             } else {
                 configDiv.style.display = 'none';
                 toggleIcon.textContent = '▼';
@@ -6040,12 +6064,17 @@
             sortedGroups.forEach(group => {
                 const total = group.maleTeens + group.femaleTeens + group.maleChaperones + group.femaleChaperones;
                 const assignedColor = appData.mealColorAssignments[group.id] || '';
-                
+                const isOffCampus = group.stayingOffCampus || false;
+                const locationBadge = isOffCampus
+                    ? '<span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">📍 Off Campus</span>'
+                    : '<span style="background: #2196f3; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">🏫 On Campus</span>';
+
                 const row = tbody.insertRow();
                 row.innerHTML = `
                     <td><span class="section-id">${group.id}</span></td>
                     <td>${group.parish}</td>
                     <td>${group.leader}</td>
+                    <td>${locationBadge}</td>
                     <td><strong>${total}</strong></td>
                     <td>
                         <select onchange="updateMealColorAssignment('${group.id}', this.value)" style="padding: 5px; border-radius: 4px; border: 1px solid #bdc3c7;">
