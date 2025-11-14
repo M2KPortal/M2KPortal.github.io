@@ -656,142 +656,405 @@
         ],
         "housingAssignments": {
           "male": {
-            "3": ["TEST (M)-123"],
-            "10": ["Off Campus-Male"],
-            "11": ["Off Campus-Male"],
-            "12": ["Knott Academic Center-224", "Knott Academic Center-108"],
-            "13": ["Off Campus-Male"],
-            "15": ["Off Campus-Male"],
-            "16": ["Off Campus-Male"],
-            "17": ["Knott Academic Center-107"],
-            "18": ["Knott Academic Center-224"],
-            "19": ["Off Campus-Male"],
-            "21": ["Off Campus-Male"],
-            "22": ["Off Campus-Male"],
-            "23": ["Knott Academic Center-107"],
-            "24": ["Off Campus-Male"],
-            "25": ["Off Campus-Male"],
-            "26": ["Knott Academic Center-227"],
-            "27": ["Knott Academic Center-108"],
-            "28": ["Off Campus-Male"],
-            "30": ["Knott Academic Center-227"],
-            "31": ["Knott Academic Center-227"],
-            "32": ["Knott Academic Center-308"],
-            "33": ["Off Campus-Male"],
-            "34": ["Knott Academic Center-308"],
-            "35": ["Knott Academic Center-311"],
-            "36": ["Knott Academic Center-222"],
-            "37": ["Knott Academic Center-311"],
-            "38": ["Off Campus-Male"],
-            "39": ["Knott Academic Center-308"],
-            "40": ["Off Campus-Male"],
-            "41": ["Off Campus-Male"],
-            "42": ["Off Campus-Male"],
-            "43": ["Off Campus-Male"],
-            "44": ["Off Campus-Male"],
-            "45": ["Knott Academic Center-320"],
-            "46": ["Knott Academic Center-109"],
-            "47": ["Off Campus-Male"],
-            "48": ["Knott Academic Center-111"],
-            "49": ["Knott Academic Center-311"],
-            "50": ["Off Campus-Male"],
-            "51": ["Knott Academic Center-222"],
-            "52": ["Off Campus-Male"],
-            "53": ["Off Campus-Male"],
-            "54": ["Knott Academic Center-222"]
+            "3": [
+              "TEST (M)-123"
+            ],
+            "10": [
+              "Off Campus-Male"
+            ],
+            "11": [
+              "Off Campus-Male"
+            ],
+            "12": [
+              "Knott Academic Center-224",
+              "Knott Academic Center-108"
+            ],
+            "13": [
+              "Off Campus-Male"
+            ],
+            "15": [
+              "Off Campus-Male"
+            ],
+            "16": [
+              "Off Campus-Male"
+            ],
+            "17": [
+              "Knott Academic Center-107"
+            ],
+            "18": [
+              "Knott Academic Center-224"
+            ],
+            "19": [
+              "Off Campus-Male"
+            ],
+            "21": [
+              "Off Campus-Male"
+            ],
+            "22": [
+              "Off Campus-Male"
+            ],
+            "23": [
+              "Knott Academic Center-107"
+            ],
+            "24": [
+              "Off Campus-Male"
+            ],
+            "25": [
+              "Off Campus-Male"
+            ],
+            "26": [
+              "Knott Academic Center-227"
+            ],
+            "27": [
+              "Knott Academic Center-108"
+            ],
+            "28": [
+              "Off Campus-Male"
+            ],
+            "30": [
+              "Knott Academic Center-227"
+            ],
+            "31": [
+              "Knott Academic Center-227"
+            ],
+            "32": [
+              "Knott Academic Center-308"
+            ],
+            "33": [
+              "Off Campus-Male"
+            ],
+            "34": [
+              "Knott Academic Center-308"
+            ],
+            "35": [
+              "Knott Academic Center-311"
+            ],
+            "36": [
+              "Knott Academic Center-222"
+            ],
+            "37": [
+              "Knott Academic Center-311"
+            ],
+            "38": [
+              "Off Campus-Male"
+            ],
+            "39": [
+              "Knott Academic Center-308"
+            ],
+            "40": [
+              "Off Campus-Male"
+            ],
+            "41": [
+              "Off Campus-Male"
+            ],
+            "42": [
+              "Off Campus-Male"
+            ],
+            "43": [
+              "Off Campus-Male"
+            ],
+            "44": [
+              "Off Campus-Male"
+            ],
+            "45": [
+              "Knott Academic Center-320"
+            ],
+            "46": [
+              "Knott Academic Center-109"
+            ],
+            "47": [
+              "Off Campus-Male"
+            ],
+            "48": [
+              "Knott Academic Center-111"
+            ],
+            "49": [
+              "Knott Academic Center-311"
+            ],
+            "50": [
+              "Off Campus-Male"
+            ],
+            "51": [
+              "Knott Academic Center-222"
+            ],
+            "52": [
+              "Off Campus-Male"
+            ],
+            "53": [
+              "Off Campus-Male"
+            ],
+            "54": [
+              "Knott Academic Center-222"
+            ]
           },
           "female": {
-            "3": ["TEST (F)-123"],
-            "10": ["Off Campus-Female"],
-            "11": ["Off Campus-Female"],
-            "12": ["ARCC-GYM FLOOR"],
-            "13": ["Off Campus-Female"],
-            "15": ["Off Campus-Female"],
-            "16": ["Off Campus-Female"],
-            "17": ["ARCC-GYM FLOOR"],
-            "18": ["ARCC-GYM FLOOR"],
-            "19": ["Off Campus-Female"],
-            "21": ["Off Campus-Female"],
-            "22": ["Off Campus-Female"],
-            "23": ["ARCC-GYM FLOOR"],
-            "24": ["Off Campus-Female"],
-            "25": ["Off Campus-Female"],
-            "26": ["ARCC-GYM FLOOR"],
-            "27": ["ARCC-GYM FLOOR"],
-            "28": ["Off Campus-Female"],
-            "29": ["ARCC-GYM FLOOR"],
-            "30": ["ARCC-GYM FLOOR"],
-            "31": ["ARCC-GYM FLOOR"],
-            "32": ["ARCC-GYM FLOOR"],
-            "33": ["Off Campus-Female"],
-            "34": ["ARCC-GYM FLOOR"],
-            "35": ["ARCC-GYM FLOOR"],
-            "36": ["ARCC-GYM FLOOR"],
-            "37": ["ARCC-GYM FLOOR"],
-            "38": ["Off Campus-Female"],
-            "39": ["ARCC-GYM FLOOR"],
-            "40": ["Off Campus-Female"],
-            "41": ["Off Campus-Female"],
-            "42": ["Off Campus-Female"],
-            "43": ["Off Campus-Female"],
-            "44": ["Off Campus-Female"],
-            "45": ["ARCC-GYM FLOOR"],
-            "46": ["ARCC-GYM FLOOR"],
-            "47": ["Off Campus-Female"],
-            "48": ["ARCC-GYM FLOOR"],
-            "49": ["ARCC-GYM FLOOR"],
-            "50": ["Off Campus-Female"],
-            "51": ["ARCC-GYM FLOOR"],
-            "52": ["Off Campus-Female"],
-            "53": ["Off Campus-Female"],
-            "54": ["ARCC-GYM FLOOR"]
+            "3": [
+              "TEST (F)-123"
+            ],
+            "10": [
+              "Off Campus-Female"
+            ],
+            "11": [
+              "Off Campus-Female"
+            ],
+            "12": [
+              "ARCC-GYM FLOOR"
+            ],
+            "13": [
+              "Off Campus-Female"
+            ],
+            "15": [
+              "Off Campus-Female"
+            ],
+            "16": [
+              "Off Campus-Female"
+            ],
+            "17": [
+              "ARCC-GYM FLOOR"
+            ],
+            "18": [
+              "ARCC-GYM FLOOR"
+            ],
+            "19": [
+              "Off Campus-Female"
+            ],
+            "21": [
+              "Off Campus-Female"
+            ],
+            "22": [
+              "Off Campus-Female"
+            ],
+            "23": [
+              "ARCC-GYM FLOOR"
+            ],
+            "24": [
+              "Off Campus-Female"
+            ],
+            "25": [
+              "Off Campus-Female"
+            ],
+            "26": [
+              "ARCC-GYM FLOOR"
+            ],
+            "27": [
+              "ARCC-GYM FLOOR"
+            ],
+            "28": [
+              "Off Campus-Female"
+            ],
+            "29": [
+              "ARCC-GYM FLOOR"
+            ],
+            "30": [
+              "ARCC-GYM FLOOR"
+            ],
+            "31": [
+              "ARCC-GYM FLOOR"
+            ],
+            "32": [
+              "ARCC-GYM FLOOR"
+            ],
+            "33": [
+              "Off Campus-Female"
+            ],
+            "34": [
+              "ARCC-GYM FLOOR"
+            ],
+            "35": [
+              "ARCC-GYM FLOOR"
+            ],
+            "36": [
+              "ARCC-GYM FLOOR"
+            ],
+            "37": [
+              "ARCC-GYM FLOOR"
+            ],
+            "38": [
+              "Off Campus-Female"
+            ],
+            "39": [
+              "ARCC-GYM FLOOR"
+            ],
+            "40": [
+              "Off Campus-Female"
+            ],
+            "41": [
+              "Off Campus-Female"
+            ],
+            "42": [
+              "Off Campus-Female"
+            ],
+            "43": [
+              "Off Campus-Female"
+            ],
+            "44": [
+              "Off Campus-Female"
+            ],
+            "45": [
+              "ARCC-GYM FLOOR"
+            ],
+            "46": [
+              "ARCC-GYM FLOOR"
+            ],
+            "47": [
+              "Off Campus-Female"
+            ],
+            "48": [
+              "ARCC-GYM FLOOR"
+            ],
+            "49": [
+              "ARCC-GYM FLOOR"
+            ],
+            "50": [
+              "Off Campus-Female"
+            ],
+            "51": [
+              "ARCC-GYM FLOOR"
+            ],
+            "52": [
+              "Off Campus-Female"
+            ],
+            "53": [
+              "Off Campus-Female"
+            ],
+            "54": [
+              "ARCC-GYM FLOOR"
+            ]
           }
         },
         "smallGroupAssignments": {
-          "3": ["CHAPEL TEST-123"],
-          "10": ["Seminary-O'Donnell Lecture Hall"],
-          "11": ["Knott Academic Center-3rd Floor Lobby"],
-          "12": ["Knott Academic Center-209"],
-          "13": ["Knott Academic Center-210"],
-          "15": ["PAC-Upper Level"],
-          "16": ["St. Michael's-Rectors Confrence Room"],
-          "17": ["Knott Auditorium-200 Lobby"],
-          "18": ["Knott Academic Center-207"],
-          "19": ["Knott Academic Center-100- End Coridor"],
-          "21": ["Knott Academic Center-200- End Corridor"],
-          "22": ["Knott Academic Center-320"],
-          "23": ["Seminary-Keating Hall- 18"],
-          "24": ["Knott Academic Center-300- End Coridor"],
-          "25": ["Knott Academic Center-206"],
-          "26": ["Knott Academic Center-127"],
-          "27": ["COAD Science Building-158"],
-          "28": ["Knott Academic Center-308"],
-          "29": ["McGowan-Stair Pavillion"],
-          "30": ["Knott Academic Center-100- Lounge"],
-          "31": ["Knott Academic Center-300- Lobby"],
-          "32": ["Seminary-McSweeny- 135"],
-          "33": ["Seminary-Recreation Room"],
-          "34": ["Knott Auditorium-100- West Lobby"],
-          "35": ["Knott Academic Center-323"],
-          "36": ["Knott Auditorium-100- East Lobby"],
-          "37": ["Knott Academic Center-200- Lobby"],
-          "38": ["Knott Academic Center-120"],
-          "39": ["Knott Academic Center-300- Lobby O/G"],
-          "40": ["Knott Academic Center-327"],
-          "41": ["Seminary-St. Michael's Room"],
-          "42": ["Knott Academic Center-Gorund Floor Lobby"],
-          "43": ["Seminary-McSweeny- 132"],
-          "44": ["McGowan-Lobby"],
-          "45": ["Knott Academic Center-310"],
-          "46": ["Patriot Hall-Seminary Dinning Room"],
-          "47": ["Seminary-Keating Hall- 19"],
-          "48": ["PAC-Lower Level"],
-          "49": ["Seminary-Keating- 14 Conference Room"],
-          "50": ["Seminary-Keating- JPII Reading Room"],
-          "51": ["Knott Academic Center-211"],
-          "52": ["Knott Academic Center-304"],
-          "53": ["Knott Academic Center-203"],
-          "54": ["Knott Academic Center-208"]
+          "3": [
+            "CHAPEL TEST-123"
+          ],
+          "10": [
+            "Seminary-O'Donnell Lecture Hall"
+          ],
+          "11": [
+            "Knott Academic Center-3rd Floor Lobby"
+          ],
+          "12": [
+            "Knott Academic Center-209"
+          ],
+          "13": [
+            "Knott Academic Center-210"
+          ],
+          "15": [
+            "PAC-Upper Level"
+          ],
+          "16": [
+            "St. Michael's-Rectors Confrence Room"
+          ],
+          "17": [
+            "Knott Auditorium-200 Lobby"
+          ],
+          "18": [
+            "Knott Academic Center-207"
+          ],
+          "19": [
+            "Knott Academic Center-100- End Coridor"
+          ],
+          "21": [
+            "Knott Academic Center-200- End Corridor"
+          ],
+          "22": [
+            "Knott Academic Center-320"
+          ],
+          "23": [
+            "Seminary-Keating Hall- 18"
+          ],
+          "24": [
+            "Knott Academic Center-300- End Coridor"
+          ],
+          "25": [
+            "Knott Academic Center-206"
+          ],
+          "26": [
+            "Knott Academic Center-127"
+          ],
+          "27": [
+            "COAD Science Building-158"
+          ],
+          "28": [
+            "Knott Academic Center-308"
+          ],
+          "29": [
+            "McGowan-Stair Pavillion"
+          ],
+          "30": [
+            "Knott Academic Center-100- Lounge"
+          ],
+          "31": [
+            "Knott Academic Center-300- Lobby"
+          ],
+          "32": [
+            "Seminary-McSweeny- 135"
+          ],
+          "33": [
+            "Seminary-Recreation Room"
+          ],
+          "34": [
+            "Knott Auditorium-100- West Lobby"
+          ],
+          "35": [
+            "Knott Academic Center-323"
+          ],
+          "36": [
+            "Knott Auditorium-100- East Lobby"
+          ],
+          "37": [
+            "Knott Academic Center-200- Lobby"
+          ],
+          "38": [
+            "Knott Academic Center-120"
+          ],
+          "39": [
+            "Knott Academic Center-300- Lobby O/G"
+          ],
+          "40": [
+            "Knott Academic Center-327"
+          ],
+          "41": [
+            "Seminary-St. Michael's Room"
+          ],
+          "42": [
+            "Knott Academic Center-Gorund Floor Lobby"
+          ],
+          "43": [
+            "Seminary-McSweeny- 132"
+          ],
+          "44": [
+            "McGowan-Lobby"
+          ],
+          "45": [
+            "Knott Academic Center-310"
+          ],
+          "46": [
+            "Patriot Hall-Seminary Dinning Room"
+          ],
+          "47": [
+            "Seminary-Keating Hall- 19"
+          ],
+          "48": [
+            "PAC-Lower Level"
+          ],
+          "49": [
+            "Seminary-Keating- 14 Conference Room"
+          ],
+          "50": [
+            "Seminary-Keating- JPII Reading Room"
+          ],
+          "51": [
+            "Knott Academic Center-211"
+          ],
+          "52": [
+            "Knott Academic Center-304"
+          ],
+          "53": [
+            "Knott Academic Center-203"
+          ],
+          "54": [
+            "Knott Academic Center-208"
+          ]
         },
         "mealColorAssignments": {
           "3": "Blue"
@@ -806,6 +1069,670 @@
             "roomAssignment": "Knott Academic Center-220"
           }
         ],
+        "groupNotes": {}
+      }
+    },
+    {
+      "id": "mount_2000_test",
+      "name": "Mount 2000 TEST",
+      "year": 2014,
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2025-11-14T03:10:04.216Z",
+      "data": {
+        "youthGroups": [
+          {
+            "id": "3",
+            "parish": "Immaculate Conception MSMS",
+            "leader": "Issac Cross",
+            "seminarianSgl": "Anthony C.",
+            "religious": "Sr. Mary Joseph",
+            "phone": "123 123 1234",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "10",
+            "parish": "St Timothy Youth Ministry",
+            "leader": "Marissa  Paoletti",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 344-3342",
+            "maleTeens": 55,
+            "femaleTeens": 55,
+            "maleChaperones": 15,
+            "femaleChaperones": 15,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "11",
+            "parish": "St Ann Church- Hagerstown",
+            "leader": "Lisa  Noel",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 674-5325",
+            "maleTeens": 20,
+            "femaleTeens": 20,
+            "maleChaperones": 3,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "12",
+            "parish": "St Joseph Youth Ministry",
+            "leader": "Sherrie  Palmateer",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "410 256-1630",
+            "maleTeens": 8,
+            "femaleTeens": 8,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "13",
+            "parish": "St. Francis de Sales Youth Ministry",
+            "leader": "Caitlin  Orender",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "540 338-6381 x103",
+            "maleTeens": 15,
+            "femaleTeens": 15,
+            "maleChaperones": 3,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "14",
+            "parish": "Saint Andrew's",
+            "leader": "Maria  Clement",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "717 658-7993",
+            "maleTeens": 0,
+            "femaleTeens": 0,
+            "maleChaperones": 0,
+            "femaleChaperones": 0,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "15",
+            "parish": "Little Flower",
+            "leader": "Linda  Kueter",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 366-8375",
+            "maleTeens": 12,
+            "femaleTeens": 12,
+            "maleChaperones": 3,
+            "femaleChaperones": 3,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "16",
+            "parish": "Aberdeen Proving Ground Youth Group",
+            "leader": "Bernadette  Kovalsick",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "410 322-5206",
+            "maleTeens": 4,
+            "femaleTeens": 4,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "17",
+            "parish": "St. John Bosco",
+            "leader": "Letty  Reinitz",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "540 325-7940",
+            "maleTeens": 17,
+            "femaleTeens": 22,
+            "maleChaperones": 3,
+            "femaleChaperones": 3,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "18",
+            "parish": "Pastorate of St. John and St. Joseph",
+            "leader": "Megan  McQuin",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 662-8288",
+            "maleTeens": 10,
+            "femaleTeens": 11,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "19",
+            "parish": "Tracie Doty",
+            "leader": "Tracie  Doty",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "716 695-4515",
+            "maleTeens": 3,
+            "femaleTeens": 3,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "20",
+            "parish": "St. Mary of the Mills Catholic Church",
+            "leader": "Ali  Poteet",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "817 681-5812",
+            "maleTeens": 0,
+            "femaleTeens": 0,
+            "maleChaperones": 0,
+            "femaleChaperones": 0,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "21",
+            "parish": "St. Francis of Assisi",
+            "leader": "Francesca  Santos",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 258-9193",
+            "maleTeens": 2,
+            "femaleTeens": 2,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "22",
+            "parish": "St. Mary's Catholic Church",
+            "leader": "Stephanie  Lyons",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "941 726-2545",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "23",
+            "parish": "The John Carroll School",
+            "leader": "Katherine  Smith",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 442-4606",
+            "maleTeens": 4,
+            "femaleTeens": 29,
+            "maleChaperones": 1,
+            "femaleChaperones": 4,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "24",
+            "parish": "Our Lady of Victory Catholic Military Community",
+            "leader": "Jane  Monaghan",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "717 798-5041",
+            "maleTeens": 3,
+            "femaleTeens": 3,
+            "maleChaperones": 1,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "25",
+            "parish": "St. Bartholomew",
+            "leader": "Jordan  Taylor",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 799-7372",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "26",
+            "parish": "Holy Cross Parish",
+            "leader": "Linda  Darling",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "302 233-2246",
+            "maleTeens": 8,
+            "femaleTeens": 13,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "27",
+            "parish": "St. Mary`s Ryken High School",
+            "leader": "Emma  Davis",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 682-9788",
+            "maleTeens": 15,
+            "femaleTeens": 25,
+            "maleChaperones": 2,
+            "femaleChaperones": 3,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "28",
+            "parish": "Our Lady of Lavang Church",
+            "leader": "Khanh  Le",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 254-2804",
+            "maleTeens": 14,
+            "femaleTeens": 14,
+            "maleChaperones": 3,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "29",
+            "parish": "Mount de Sales Academy",
+            "leader": "Madison  Bolesta",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 974-3570",
+            "maleTeens": 0,
+            "femaleTeens": 18,
+            "maleChaperones": 0,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "30",
+            "parish": "St. Joseph`s, St. Anthony Shrine, and Our Lady of Mt. Carmel",
+            "leader": "Trinity  Baugher",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "227 203-4715",
+            "maleTeens": 7,
+            "femaleTeens": 5,
+            "maleChaperones": 2,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "31",
+            "parish": "Angels of God (AOG)",
+            "leader": "Lucia  Aguilar",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 726-3564",
+            "maleTeens": 7,
+            "femaleTeens": 7,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "32",
+            "parish": "St Jane DeChantal High School Youth Group",
+            "leader": "Debbie  Okim",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "703 864-7788",
+            "maleTeens": 7,
+            "femaleTeens": 7,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "33",
+            "parish": "St Peters",
+            "leader": "Angela  Busby",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 449-9330",
+            "maleTeens": 4,
+            "femaleTeens": 4,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "34",
+            "parish": "St. John the Evangelist",
+            "leader": "Elsa  Gomez",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "202 294-0673",
+            "maleTeens": 10,
+            "femaleTeens": 11,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "35",
+            "parish": "St. Dennis Galena",
+            "leader": "Jennifer  Hinton",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "410 739-5051",
+            "maleTeens": 4,
+            "femaleTeens": 2,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "36",
+            "parish": "St. Raymond of Penafort",
+            "leader": "Jeanne  Sause",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "571 334-9890",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "37",
+            "parish": "St. John Westminster",
+            "leader": "Sarah  Burger",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 289-6311",
+            "maleTeens": 13,
+            "femaleTeens": 13,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "38",
+            "parish": "St. Mark, Fallston",
+            "leader": "Thomas  Mackin",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "443 981-3190",
+            "maleTeens": 13,
+            "femaleTeens": 13,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "39",
+            "parish": "St. Peter the Apostle Roman Catholic Church",
+            "leader": "Alec  Parker",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 397-3455",
+            "maleTeens": 15,
+            "femaleTeens": 15,
+            "maleChaperones": 3,
+            "femaleChaperones": 2,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "40",
+            "parish": "St. Agnes Catholic Church",
+            "leader": "Phillip  Szabo",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "304 822-0352",
+            "maleTeens": 4,
+            "femaleTeens": 4,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "41",
+            "parish": "St John Neumann",
+            "leader": "Martin  Begley",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 461-8805",
+            "maleTeens": 30,
+            "femaleTeens": 30,
+            "maleChaperones": 4,
+            "femaleChaperones": 4,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "42",
+            "parish": "St. Aloysius Church",
+            "leader": "LEONARD  WATHEN",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 904-1423",
+            "maleTeens": 7,
+            "femaleTeens": 7,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "43",
+            "parish": "Archbishop Curley High School",
+            "leader": "Christopher  Dudek",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "413 265-9505",
+            "maleTeens": 4,
+            "femaleTeens": 4,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "44",
+            "parish": "Ignite Youth Ministry",
+            "leader": "Chris  Wood",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "717 378-9158",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 2,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "45",
+            "parish": "Saint Joseph - Eldersburg",
+            "leader": "Daniel  Rosa",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "210 417-7141",
+            "maleTeens": 17,
+            "femaleTeens": 17,
+            "maleChaperones": 3,
+            "femaleChaperones": 3,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "46",
+            "parish": "St. Patrick/St. Raphael",
+            "leader": "Mike  McHugh",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "215 870-2792",
+            "maleTeens": 22,
+            "femaleTeens": 22,
+            "maleChaperones": 3,
+            "femaleChaperones": 3,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "47",
+            "parish": "St. John University Parish (JMJ Apostolate)",
+            "leader": "Blake  Peluchette",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "304 830-2897",
+            "maleTeens": 10,
+            "femaleTeens": 10,
+            "maleChaperones": 2,
+            "femaleChaperones": 3,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "48",
+            "parish": "Sacred Heart Bowie",
+            "leader": "Danny  Baxter",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "207 415-5216",
+            "maleTeens": 25,
+            "femaleTeens": 25,
+            "maleChaperones": 3,
+            "femaleChaperones": 3,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "49",
+            "parish": "St. Vincent DePaul",
+            "leader": "Bryan  Tedeschi",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 520-6950",
+            "maleTeens": 4,
+            "femaleTeens": 3,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "50",
+            "parish": "St Joseph Danville",
+            "leader": "TJ  Willoughby",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "570 764-0185",
+            "maleTeens": 5,
+            "femaleTeens": 5,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "51",
+            "parish": "Mother of God Community",
+            "leader": "Darwin  Rigel",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "703 819-0438",
+            "maleTeens": 5,
+            "femaleTeens": 3,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "52",
+            "parish": "St. John the Beloved",
+            "leader": "Michael  Jacobeen",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "703 356-5275",
+            "maleTeens": 4,
+            "femaleTeens": 4,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "53",
+            "parish": "St John Neumann",
+            "leader": "Martin  Begley",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "301 461-8805",
+            "maleTeens": 1,
+            "femaleTeens": 1,
+            "maleChaperones": 2,
+            "femaleChaperones": 1,
+            "stayingOffCampus": true,
+            "specialAccommodations": ""
+          },
+          {
+            "id": "54",
+            "parish": "St. Martin of Tours",
+            "leader": "David  Guillen",
+            "seminarianSgl": "",
+            "religious": "",
+            "phone": "240 421-3627",
+            "maleTeens": 2,
+            "femaleTeens": 2,
+            "maleChaperones": 1,
+            "femaleChaperones": 1,
+            "stayingOffCampus": false,
+            "specialAccommodations": ""
+          }
+        ],
+        "housingAssignments": {
+          "male": {},
+          "female": {}
+        },
+        "smallGroupAssignments": {},
+        "mealColorAssignments": {},
+        "adaIndividuals": [],
         "groupNotes": {}
       }
     }
@@ -1657,10 +2584,20 @@
         "isAdmin": false,
         "createdAt": "2025-11-13T22:29:44.224Z",
         "isActive": true
+      },
+      {
+        "id": "1763077599499_hc4dcuk7j",
+        "username": "Housing",
+        "fullName": "Housing Crew",
+        "passwordHash": "40431dceeeac186a659a120d7c4062ac178a95c8c97e80b2c6f76b72366cc216",
+        "role": "user",
+        "isAdmin": false,
+        "createdAt": "2025-11-13T23:46:39.499Z",
+        "isActive": true
       }
     ],
     "activityLogs": []
   },
-  "timestamp": "2025-11-14T00:00:00.000Z",
+  "timestamp": "2025-11-14T03:10:04.218Z",
   "version": "4.0"
 }
