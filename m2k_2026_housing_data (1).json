@@ -1901,6 +1901,9 @@
       ],
       "test": [
         "TEST (M)-123"
+      ],
+      "test 2": [
+        "TEST (M)-123"
       ]
     },
     "female": {
@@ -2037,6 +2040,9 @@
         "ARCC-GYM FLOOR"
       ],
       "test": [
+        "TEST (F)-123"
+      ],
+      "test 2": [
         "TEST (F)-123"
       ]
     }
@@ -2342,6 +2348,6 @@
       "details": "Created youth group: test s2 (ID: test 2)"
     }
   ],
-  "timestamp": "2025-11-14T17:05:19.826Z",
+  "timestamp": "2025-11-14T17:07:33.434Z",
   "version": "3.0"
 }
