@@ -657,6 +657,20 @@
       "femaleChaperones": 2,
       "stayingOffCampus": false,
       "specialAccommodations": ""
+    },
+    {
+      "id": "test 2",
+      "parish": "test s2",
+      "leader": "hkj",
+      "seminarianSgl": "hkj",
+      "religious": "hk",
+      "phone": "128302",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
     }
   ],
   "rooms": [
@@ -2306,7 +2320,28 @@
       "isActive": true
     }
   ],
-  "activityLogs": [],
-  "timestamp": "2025-11-14T16:51:14.624Z",
+  "activityLogs": [
+    {
+      "id": "1763139692261_vvzn68bh0",
+      "timestamp": "2025-11-14T17:01:32.261Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "test",
+      "entityType": "manual",
+      "entityId": "123",
+      "details": "Testing activity log"
+    },
+    {
+      "id": "1763139905603_bb8pfqdfg",
+      "timestamp": "2025-11-14T17:05:05.603Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "create",
+      "entityType": "youth-group",
+      "entityId": "test 2",
+      "details": "Created youth group: test s2 (ID: test 2)"
+    }
+  ],
+  "timestamp": "2025-11-14T17:05:19.826Z",
   "version": "3.0"
 }
