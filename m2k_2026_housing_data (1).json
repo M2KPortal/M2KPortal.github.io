@@ -2156,7 +2156,8 @@
     ]
   },
   "mealColorAssignments": {
-    "3": "Blue"
+    "3": "Blue",
+    "test": "Red"
   },
   "adaIndividuals": [
     {
@@ -2296,28 +2297,7 @@
       "isActive": true
     }
   ],
-  "activityLogs": [
-    {
-      "id": "1763137807232_login_d017txiyl",
-      "timestamp": "2025-11-14T16:29:40.087Z",
-      "username": "juang",
-      "fullName": "Juan G",
-      "action": "login",
-      "entityType": "system",
-      "entityId": null,
-      "details": "User logged in: Juan G (@juang)"
-    },
-    {
-      "id": "1763137803996_i0hjxtp78",
-      "timestamp": "2025-11-14T16:30:03.996Z",
-      "username": "juang",
-      "fullName": "Juan G",
-      "action": "create",
-      "entityType": "youth-group",
-      "entityId": "test",
-      "details": "Created youth group: The test (ID: test)"
-    }
-  ],
-  "timestamp": "2025-11-14T16:30:07.233Z",
+  "activityLogs": [],
+  "timestamp": "2025-11-14T16:32:04.817Z",
   "version": "3.0"
 }
