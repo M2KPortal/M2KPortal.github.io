@@ -2270,9 +2270,30 @@
       "isAdmin": false,
       "createdAt": "2025-11-13T22:29:44.224Z",
       "isActive": true
+    },
+    {
+      "id": "1763134825774_tifoa5jby",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "passwordHash": "5f27dbf9535ccaf3ffbb358b26c38402e1b4d6c556310b33bce4502732a8f894",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-14T15:40:25.774Z",
+      "isActive": true
     }
   ],
-  "activityLogs": [],
-  "timestamp": "2025-11-14T15:32:46.583Z",
+  "activityLogs": [
+    {
+      "id": "1763135102051_hrhbpfglx",
+      "timestamp": "2025-11-14T15:45:02.051Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    }
+  ],
+  "timestamp": "2025-11-14T15:45:42.181Z",
   "version": "3.0"
 }
