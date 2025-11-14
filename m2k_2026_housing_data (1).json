@@ -1884,6 +1884,9 @@
       ],
       "54": [
         "Knott Academic Center-222"
+      ],
+      "test": [
+        "TEST (M)-123"
       ]
     },
     "female": {
@@ -2018,6 +2021,9 @@
       ],
       "54": [
         "ARCC-GYM FLOOR"
+      ],
+      "test": [
+        "TEST (F)-123"
       ]
     }
   },
@@ -2157,7 +2163,7 @@
   },
   "mealColorAssignments": {
     "3": "Blue",
-    "test": "Red"
+    "test": "Yellow"
   },
   "adaIndividuals": [
     {
@@ -2298,6 +2304,6 @@
     }
   ],
   "activityLogs": [],
-  "timestamp": "2025-11-14T16:32:04.817Z",
+  "timestamp": "2025-11-14T16:44:28.472Z",
   "version": "3.0"
 }
