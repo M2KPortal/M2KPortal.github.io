@@ -2159,7 +2159,8 @@
     ]
   },
   "mealColorAssignments": {
-    "3": "Blue"
+    "3": "Blue",
+    "TEST": "Yellow"
   },
   "adaIndividuals": [
     {
@@ -2311,6 +2312,6 @@
       "details": "Created youth group: the test (ID: TEST)"
     }
   ],
-  "timestamp": "2025-11-14T16:14:23.544Z",
+  "timestamp": "2025-11-14T16:15:34.389Z",
   "version": "3.0"
 }
