@@ -657,20 +657,6 @@
       "femaleChaperones": 2,
       "stayingOffCampus": false,
       "specialAccommodations": ""
-    },
-    {
-      "id": "test 2",
-      "parish": "test s2",
-      "leader": "hkj",
-      "seminarianSgl": "hkj",
-      "religious": "hk",
-      "phone": "128302",
-      "maleTeens": 0,
-      "femaleTeens": 0,
-      "maleChaperones": 1,
-      "femaleChaperones": 2,
-      "stayingOffCampus": false,
-      "specialAccommodations": ""
     }
   ],
   "rooms": [
@@ -1901,9 +1887,6 @@
       ],
       "test": [
         "TEST (M)-123"
-      ],
-      "test 2": [
-        "TEST (M)-123"
       ]
     },
     "female": {
@@ -2040,9 +2023,6 @@
         "ARCC-GYM FLOOR"
       ],
       "test": [
-        "TEST (F)-123"
-      ],
-      "test 2": [
         "TEST (F)-123"
       ]
     }
@@ -2181,9 +2161,6 @@
       "Knott Academic Center-208"
     ],
     "test": [
-      "CHAPEL TEST-123"
-    ],
-    "test 2": [
       "CHAPEL TEST-123"
     ]
   },
@@ -2400,8 +2377,28 @@
       "entityType": "youth-group",
       "entityId": "test",
       "details": "Updated youth group: The test (ID: test)"
+    },
+    {
+      "id": "1763140943109_login_jzlear9yr",
+      "timestamp": "2025-11-14T17:21:55.259Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763140936546_480xkz8ca",
+      "timestamp": "2025-11-14T17:22:16.546Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "delete",
+      "entityType": "youth-group",
+      "entityId": "test 2",
+      "details": "Deleted youth group: test s2 (ID: test 2)"
     }
   ],
-  "timestamp": "2025-11-14T17:19:07.820Z",
+  "timestamp": "2025-11-14T17:22:23.110Z",
   "version": "3.0"
 }
