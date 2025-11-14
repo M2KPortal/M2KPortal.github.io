@@ -7806,13 +7806,23 @@
         // ===== GITHUB API INTEGRATION =====
         function getGitHubSettings() {
             const settings = localStorage.getItem('githubSettings');
-            return settings ? JSON.parse(settings) : {
+            const parsedSettings = settings ? JSON.parse(settings) : {
                 token: '',
                 owner: 'M2KPortal',
                 repo: 'M2KPortal.github.io',
                 branch: 'main',
                 filePath: 'm2k_2026_housing_data (1).json'
             };
+
+            // MIGRATION: Fix any old session data file paths
+            if (parsedSettings.filePath === 'm2k_sessions_data.json' ||
+                parsedSettings.filePath.includes('session')) {
+                console.warn('Migrating old session file path to correct housing data file');
+                parsedSettings.filePath = 'm2k_2026_housing_data (1).json';
+                saveGitHubSettings(parsedSettings);  // Save corrected settings
+            }
+
+            return parsedSettings;
         }
 
         function saveGitHubSettings(settings) {
