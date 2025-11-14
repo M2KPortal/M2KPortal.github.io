@@ -1292,22 +1292,7 @@
         <!-- Modern Horizontal Tabs with Dropdowns -->
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('dashboard')">Dashboard</button>
-
-            <!-- Youth Groups Dropdown -->
-            <div class="tab-dropdown">
-                <button class="tab-dropdown-button" onclick="toggleDropdown('youth-groups-dropdown', event)">
-                    Youth Groups
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-                <div id="youth-groups-dropdown" class="tab-dropdown-content">
-                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('youth-groups', event)">Youth Groups</button>
-                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('assign-seminarian-sgls', event)">Assign Seminarian SGLs</button>
-                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('assign-religious', event)">Assign Religious</button>
-                </div>
-            </div>
-
+            <button class="tab-button" onclick="switchTab('youth-groups')">Youth Groups</button>
             <button class="tab-button" onclick="switchTab('room-management')">Room Management</button>
 
             <!-- Assignments Dropdown -->
@@ -1321,6 +1306,8 @@
                 <div id="assignments-dropdown" class="tab-dropdown-content">
                     <button class="tab-dropdown-item" onclick="switchTabWithEvent('housing-assignments', event)">Housing Assignments</button>
                     <button class="tab-dropdown-item" onclick="switchTabWithEvent('small-group-assignments', event)">Small Group Assignments</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('assign-seminarian-sgls', event)">Assign Seminarian SGLs</button>
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('assign-religious', event)">Assign Religious</button>
                     <button class="tab-dropdown-item" onclick="switchTabWithEvent('meal-color-assignments', event)">Meal Color Assignments</button>
                     <button class="tab-dropdown-item" onclick="switchTabWithEvent('ada-individuals', event)">ADA</button>
                 </div>
@@ -1341,17 +1328,17 @@
                 </div>
             </div>
 
-            <!-- Youth Group Forms Dropdown -->
+            <!-- Printable Forms Dropdown -->
             <div class="tab-dropdown">
                 <button class="tab-dropdown-button" onclick="toggleDropdown('printables-dropdown', event)">
-                    Youth Group Forms
+                    Printable Forms
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="printables-dropdown" class="tab-dropdown-content">
+                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('printable-forms', event)">Youth Group Forms</button>
                     <button class="tab-dropdown-item" onclick="switchTabWithEvent('room-posters', event)">Room Posters</button>
-                    <button class="tab-dropdown-item" onclick="switchTabWithEvent('printable-forms', event)">Printable Forms</button>
                 </div>
             </div>
 
@@ -2285,69 +2272,61 @@
 
         <!-- Print Youth Group Information Tab -->
         <div id="printable-forms" class="tab-content">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <h2 style="color: white; margin: 0 0 10px 0; font-size: 32px; font-weight: 700;">📋 Youth Group Forms</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 16px;">Generate professional PDF check-in forms for each youth group with all housing and meal assignments.</p>
-            </div>
+            <h2>Print Youth Group Information</h2>
+            <p style="margin-bottom: 20px; color: #666;">Generate professional PDF check-in forms for each youth group with all housing and meal assignments.</p>
 
             <!-- Generate PDF Buttons at Top -->
-            <div style="text-align: center; margin-bottom: 30px; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="generateSelectedPDFs()"
-                            style="font-size: 18px; padding: 16px 36px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.3s ease; cursor: pointer;">
+            <div style="text-align: center; margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #061d28, #0f3a4a); border-radius: 10px;">
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="generateSelectedPDFs()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
                         📄 Generate Selected Forms
                     </button>
-                    <button class="btn btn-primary" onclick="generatePDFView()"
-                            style="font-size: 18px; padding: 16px 36px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4); transition: all 0.3s ease; cursor: pointer;">
+                    <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #27ae60; color: white; border: 2px solid #27ae60;">
                         📄 Generate All Forms
                     </button>
                 </div>
-                <p style="color: #667eea; margin-top: 15px; font-size: 14px; font-weight: 500;">Select specific forms using checkboxes below, then use Ctrl+P (or Cmd+P) to save as PDF</p>
+                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Check boxes below to select specific forms, then use Ctrl+P (or Cmd+P) to save as PDF</p>
             </div>
 
             <!-- Default Notes Configuration -->
-            <div style="background: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <h3 style="margin: 0 0 20px 0; color: #2c3e50; font-size: 22px; font-weight: 700;">📝 Default Information (Appears on ALL Forms)</h3>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px;">📝 Default Information (Appears on ALL Forms)</h3>
 
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 10px; color: #34495e; font-weight: 600; font-size: 15px;">General Information</label>
-                    <textarea id="default-general-info" rows="3" placeholder="Enter general information that will appear on ALL forms (both on-campus and off-campus)..." style="width: 100%; padding: 14px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 14px; font-family: inherit; transition: border 0.3s ease; resize: vertical;"></textarea>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>General Information</label>
+                    <textarea id="default-general-info" rows="3" placeholder="Enter general information that will appear on ALL forms (both on-campus and off-campus)..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
                 </div>
 
-                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 3px; border-radius: 12px; margin: 30px 0;">
-                    <div style="background: white; padding: 20px; border-radius: 10px;">
-                        <h3 style="margin: 0 0 10px 0; color: #c13584; font-size: 20px; font-weight: 700;">🏠 On-Campus Only Information</h3>
-                        <p style="font-size: 13px; color: #666; margin: 0 0 20px 0;">The following fields only appear on forms for groups staying on-campus:</p>
+                <h3 style="margin: 20px 0 15px 0;">🏠 On-Campus Only Information</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">The following fields only appear on forms for groups staying on-campus:</p>
 
-                        <div class="form-group" style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 10px; color: #34495e; font-weight: 600; font-size: 15px;">Housing Notes/Information</label>
-                            <textarea id="default-housing-notes" rows="3" placeholder="Enter housing information for on-campus groups..." style="width: 100%; padding: 14px; border: 2px solid #fce4ec; border-radius: 10px; font-size: 14px; font-family: inherit; transition: border 0.3s ease; resize: vertical;"></textarea>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 10px; color: #34495e; font-weight: 600; font-size: 15px;">Teen Shower Plan</label>
-                            <textarea id="default-teen-shower" rows="3" placeholder="Enter teen shower schedule/plan for on-campus groups..." style="width: 100%; padding: 14px; border: 2px solid #fce4ec; border-radius: 10px; font-size: 14px; font-family: inherit; transition: border 0.3s ease; resize: vertical;"></textarea>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 10px; color: #34495e; font-weight: 600; font-size: 15px;">Adult Chaperone Shower Plan</label>
-                            <textarea id="default-adult-shower" rows="3" placeholder="Enter adult chaperone shower schedule/plan for on-campus groups..." style="width: 100%; padding: 14px; border: 2px solid #fce4ec; border-radius: 10px; font-size: 14px; font-family: inherit; transition: border 0.3s ease; resize: vertical;"></textarea>
-                        </div>
-                    </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Housing Notes/Information</label>
+                    <textarea id="default-housing-notes" rows="3" placeholder="Enter housing information for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
                 </div>
 
-                <button class="btn btn-success" onclick="saveDefaultNotes()" style="padding: 14px 32px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);">💾 Save Default Notes</button>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Teen Shower Plan</label>
+                    <textarea id="default-teen-shower" rows="3" placeholder="Enter teen shower schedule/plan for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Adult Chaperone Shower Plan</label>
+                    <textarea id="default-adult-shower" rows="3" placeholder="Enter adult chaperone shower schedule/plan for on-campus groups..." style="width: 100%; padding: 10px; border: 2px solid #bdc3c7; border-radius: 6px; font-size: 14px; font-family: inherit;"></textarea>
+                </div>
+
+                <button class="btn btn-success" onclick="saveDefaultNotes()">💾 Save Default Notes</button>
             </div>
 
             <!-- Search/Filter for Forms -->
-            <div style="margin-bottom: 30px;">
+            <div style="margin-bottom: 20px;">
                 <input
                     type="text"
                     id="forms-search"
                     class="search-bar"
                     placeholder="🔍 Search forms by Parish, Group ID, or Leader name..."
                     oninput="filterFormsPreview()"
-                    style="width: 100%; padding: 16px 20px; border: 3px solid #e0e7ff; border-radius: 12px; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.05);"
+                    style="width: 100%; padding: 12px; border: 2px solid #061d28; border-radius: 8px; font-size: 16px;"
                 >
             </div>
 
@@ -2355,57 +2334,48 @@
             <div id="forms-preview-section"></div>
 
             <!-- Generate PDF Buttons at Bottom -->
-            <div style="text-align: center; margin: 30px 0; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="generateSelectedPDFs()"
-                            style="font-size: 18px; padding: 16px 36px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.3s ease; cursor: pointer;">
+            <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #061d28, #0f3a4a); border-radius: 10px;">
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="generateSelectedPDFs()" style="font-size: 18px; padding: 15px 30px; background: #d4af37; color: #061d28; border: 2px solid #d4af37;">
                         📄 Generate Selected Forms
                     </button>
-                    <button class="btn btn-primary" onclick="generatePDFView()"
-                            style="font-size: 18px; padding: 16px 36px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4); transition: all 0.3s ease; cursor: pointer;">
+                    <button class="btn btn-primary" onclick="generatePDFView()" style="font-size: 18px; padding: 15px 30px; background: #27ae60; color: white; border: 2px solid #27ae60;">
                         📄 Generate All Forms
                     </button>
                 </div>
-                <p style="color: #667eea; margin-top: 15px; font-size: 14px; font-weight: 500;">Select specific forms using checkboxes above, then use Ctrl+P (or Cmd+P) to save as PDF</p>
+                <p style="color: #d4af37; margin-top: 10px; font-size: 14px;">Check boxes above to select specific forms, then use Ctrl+P (or Cmd+P) to save as PDF</p>
             </div>
         </div>
 
         <!-- Print Room Information Tab -->
         <div id="room-posters" class="tab-content">
-            <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <h2 style="color: white; margin: 0 0 10px 0; font-size: 32px; font-weight: 700;">🏠 Room Posters</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 16px;">Generate professional room posters for housing and small group rooms with all assignment details.</p>
-            </div>
+            <h2>Print Room Information</h2>
+            <p style="margin-bottom: 20px; color: #666;">Generate professional room posters for housing and small group rooms with all assignment details.</p>
 
             <!-- Search and Filter Controls -->
-            <div style="background: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <input type="text"
                        id="room-search"
                        class="form-input"
                        placeholder="🔍 Search rooms by building, room number, or assigned group..."
                        oninput="filterRoomPosters()"
-                       style="width: 100%; padding: 16px 20px; border: 3px solid #ffeaa7; border-radius: 12px; font-size: 16px; margin-bottom: 20px; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                       style="width: 100%; padding: 15px; border: 3px solid #061d28; border-radius: 8px; font-size: 16px; margin-bottom: 15px;">
 
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                    <button onclick="showAllRoomPosters('all')" class="btn btn-primary"
-                            style="padding: 12px 24px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border: none; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);">Show All Rooms</button>
-                    <button onclick="showAllRoomPosters('housing')" class="btn btn-primary"
-                            style="padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">Housing Rooms Only</button>
-                    <button onclick="showAllRoomPosters('smallgroup')" class="btn btn-primary"
-                            style="padding: 12px 24px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border: none; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);">Small Group Rooms Only</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="showAllRoomPosters('all')" class="btn btn-primary">Show All Rooms</button>
+                    <button onclick="showAllRoomPosters('housing')" class="btn btn-primary">Housing Rooms Only</button>
+                    <button onclick="showAllRoomPosters('smallgroup')" class="btn btn-primary">Small Group Rooms Only</button>
                 </div>
             </div>
 
             <!-- Print Controls -->
-            <div style="text-align: center; margin-bottom: 30px; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <h3 style="color: #fa709a; margin: 0 0 20px 0; font-size: 22px; font-weight: 700;">📄 Print Options</h3>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button onclick="printAllRoomPosters()" class="btn"
-                            style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 16px 36px; font-size: 16px; font-weight: 600; border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4); transition: all 0.3s ease; cursor: pointer;">
+            <div style="text-align: center; margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #061d28, #0f3a4a); border-radius: 10px;">
+                <h3 style="color: #d4af37; margin-bottom: 15px;">📄 Print Options</h3>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="printAllRoomPosters()" class="btn" style="background: #27ae60; color: white; padding: 15px 30px; font-size: 16px;">
                         🖨️ Print All Visible Posters
                     </button>
-                    <button onclick="printSelectedRoomPosters()" class="btn"
-                            style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 16px 36px; font-size: 16px; font-weight: 600; border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4); transition: all 0.3s ease; cursor: pointer;">
+                    <button onclick="printSelectedRoomPosters()" class="btn" style="background: #f39c12; color: white; padding: 15px 30px; font-size: 16px;">
                         🖨️ Print Selected Only
                     </button>
                 </div>
@@ -6258,7 +6228,7 @@
                     group.id.toLowerCase().includes(searchTerm) ||
                     group.leader.toLowerCase().includes(searchTerm);
 
-                const hasAssignment = group.seminarianSGL && group.seminarianSGL.trim() !== '';
+                const hasAssignment = group.seminarianSgl && group.seminarianSgl.trim() !== '';
 
                 if (matchesSearch && (!hideAssigned || !hasAssignment)) {
                     const option = document.createElement('option');
@@ -6293,7 +6263,7 @@
                 return;
             }
 
-            group.seminarianSGL = sglName;
+            group.seminarianSgl = sglName;
 
             logActivity('update', 'youth-group', groupId, `Assigned Seminarian SGL: ${sglName}`);
 
@@ -6328,7 +6298,7 @@
                     <td>${group.id}</td>
                     <td>${group.parish}</td>
                     <td>${group.leader || 'N/A'}</td>
-                    <td><strong>${group.seminarianSGL}</strong></td>
+                    <td><strong>${group.seminarianSgl}</strong></td>
                     <td>
                         <button class="btn btn-danger btn-sm" onclick="removeSeminarianSGL('${group.id}')">Remove</button>
                     </td>
@@ -6340,9 +6310,9 @@
             const group = appData.youthGroups.find(g => g.id === groupId);
             if (!group) return;
 
-            if (confirm(`Remove Seminarian SGL "${group.seminarianSGL}" from ${group.parish}?`)) {
-                const sglName = group.seminarianSGL;
-                group.seminarianSGL = '';
+            if (confirm(`Remove Seminarian SGL "${group.seminarianSgl}" from ${group.parish}?`)) {
+                const sglName = group.seminarianSgl;
+                group.seminarianSgl = '';
 
                 logActivity('update', 'youth-group', groupId, `Removed Seminarian SGL: ${sglName}`);
 
