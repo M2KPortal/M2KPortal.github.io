@@ -1013,6 +1013,17 @@
                 appData.resources = data.resources || [];
                 appData.schedule = data.schedule || { friday: [], saturday: [], sunday: [] };
 
+                // Update dashboard subtitle if available
+                if (data.dashboardSubtitle) {
+                    const subtitleElement = document.querySelector('.top-nav-subtitle');
+                    if (subtitleElement) {
+                        // Keep the version badge
+                        const versionBadge = subtitleElement.querySelector('#data-version-badge');
+                        const versionBadgeHTML = versionBadge ? versionBadge.outerHTML : '';
+                        subtitleElement.innerHTML = data.dashboardSubtitle + ' ' + versionBadgeHTML;
+                    }
+                }
+
                 if (loadingStatus) {
                     loadingStatus.textContent = `Successfully loaded version ${foundVersion}!`;
                 }
