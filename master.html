@@ -1380,6 +1380,22 @@
                     <h3 id="groups-needing-meal-color">0</h3>
                     <p>Groups Needing Meal Color</p>
                 </div>
+                <div class="stat-card">
+                    <h3 id="sgl-assigns">0</h3>
+                    <p>SGL Assigns</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="religious-assigns">0</h3>
+                    <p>Religious Assigns</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="ada-people-total">0</h3>
+                    <p>ADA People Total</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="ada-people-needing-rooms">0</h3>
+                    <p>ADA People Needing Rooms</p>
+                </div>
             </div>
 
             <h3 style="margin: 16px 0 8px 0; font-size: 1.2em;">Housing Capacity Details</h3>
@@ -1427,26 +1443,6 @@
                 <div class="stat-card">
                     <h3 id="available-small-group-rooms">0</h3>
                     <p>Available Small Group Rooms</p>
-                </div>
-            </div>
-
-            <h3 style="margin: 16px 0 8px 0; font-size: 1.2em;">Assignment Statistics</h3>
-            <div class="dashboard-stats">
-                <div class="stat-card">
-                    <h3 id="sgl-assigns">0</h3>
-                    <p>SGL Assigns</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="religious-assigns">0</h3>
-                    <p>Religious Assigns</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="ada-people-total">0</h3>
-                    <p>ADA People Total</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="ada-people-needing-rooms">0</h3>
-                    <p>ADA People Needing Rooms</p>
                 </div>
             </div>
 
@@ -2533,6 +2529,7 @@
             },
             groupNotes: {},
             dashboardSubtitle: 'Housing and Small Group Assignments - 2026',  // Public dashboard subtitle
+            schedule: { friday: [], saturday: [], sunday: [] },  // Event schedule for public dashboard
             resources: [],
             users: [],  // User accounts with credentials
             activityLogs: []  // Activity tracking logs
@@ -4248,6 +4245,8 @@
                 };
 
                 appData.groupNotes = data.groupNotes || {};
+                appData.dashboardSubtitle = data.dashboardSubtitle || 'Housing and Small Group Assignments - 2026';
+                appData.schedule = data.schedule || { friday: [], saturday: [], sunday: [] };
                 appData.resources = data.resources || [];
                 appData.activityLogs = data.activityLogs || [];
 
