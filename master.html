@@ -2140,24 +2140,36 @@
             <div style="background: white; border: 2px solid #3b82f6; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                 <h3 style="color: #3b82f6; margin-bottom: 15px;">📅 Friday, February 7</h3>
                 <div id="friday-schedule-list"></div>
-                <button class="btn btn-primary" onclick="addScheduleEntry('friday')" style="margin-top: 10px;">➕ Add Friday Event</button>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button class="btn btn-primary" onclick="addScheduleEntry('friday')">➕ Add Friday Event</button>
+                    <button class="btn btn-primary" onclick="sortScheduleByTime('friday')" style="background: #6366f1; border-color: #6366f1;">🔄 Sort by Time</button>
+                </div>
             </div>
 
             <!-- Saturday Schedule -->
             <div style="background: white; border: 2px solid #10b981; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                 <h3 style="color: #10b981; margin-bottom: 15px;">📅 Saturday, February 8</h3>
                 <div id="saturday-schedule-list"></div>
-                <button class="btn btn-success" onclick="addScheduleEntry('saturday')" style="margin-top: 10px;">➕ Add Saturday Event</button>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button class="btn btn-success" onclick="addScheduleEntry('saturday')">➕ Add Saturday Event</button>
+                    <button class="btn btn-success" onclick="sortScheduleByTime('saturday')" style="background: #059669; border-color: #059669;">🔄 Sort by Time</button>
+                </div>
             </div>
 
             <!-- Sunday Schedule -->
             <div style="background: white; border: 2px solid #f59e0b; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
                 <h3 style="color: #f59e0b; margin-bottom: 15px;">📅 Sunday, February 9</h3>
                 <div id="sunday-schedule-list"></div>
-                <button class="btn btn-warning" onclick="addScheduleEntry('sunday')" style="margin-top: 10px;">➕ Add Sunday Event</button>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button class="btn btn-warning" onclick="addScheduleEntry('sunday')">➕ Add Sunday Event</button>
+                    <button class="btn btn-warning" onclick="sortScheduleByTime('sunday')" style="background: #d97706; border-color: #d97706;">🔄 Sort by Time</button>
+                </div>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="sortAllSchedulesByTime()" style="font-size: 16px; padding: 12px 24px; background: #8b5cf6; border-color: #7c3aed; margin-right: 10px;">
+                    🔄 Sort All Days by Time
+                </button>
                 <button class="btn btn-success" onclick="saveSchedule()" style="font-size: 18px; padding: 15px 30px;">
                     💾 Save Schedule
                 </button>
@@ -2287,8 +2299,8 @@
             <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
             <!-- Header Subtitle Editor -->
-            <div style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle</h3>
+            <div id="subtitle-editor-section" style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+                <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle (Admin Only)</h3>
                 <p style="color: #e65100; margin-bottom: 15px;">
                     Edit the subtitle that appears on the public dashboard (index.html). This is typically updated year to year based on the conference.
                 </p>
@@ -4471,9 +4483,14 @@
                 displayUsers();
                 // Show/hide admin sections based on user role
                 const userManagementSection = document.getElementById('user-management-section');
+                const subtitleEditorSection = document.getElementById('subtitle-editor-section');
 
                 if (userManagementSection && currentUser) {
                     userManagementSection.style.display = currentUser.isAdmin ? 'block' : 'none';
+                }
+
+                if (subtitleEditorSection && currentUser) {
+                    subtitleEditorSection.style.display = currentUser.isAdmin ? 'block' : 'none';
                 }
             } else if (tabName === 'activity-reports') {
                 displayActivityReports();
@@ -7362,6 +7379,30 @@
         function saveSchedule() {
             autoSave();
             alert('Schedule saved successfully!');
+        }
+
+        function sortScheduleByTime(day) {
+            if (!appData.schedule[day]) return;
+
+            // Sort events by start time
+            appData.schedule[day].sort((a, b) => {
+                const timeA = a.startTime || '';
+                const timeB = b.startTime || '';
+                return timeA.localeCompare(timeB);
+            });
+
+            // Re-render the day to show sorted order
+            renderScheduleDay(day);
+
+            // Auto-save the sorted schedule
+            autoSave();
+        }
+
+        function sortAllSchedulesByTime() {
+            sortScheduleByTime('friday');
+            sortScheduleByTime('saturday');
+            sortScheduleByTime('sunday');
+            alert('✅ All schedule days have been sorted by time!');
         }
 
         // ===== ROOM POSTER MANAGEMENT =====
