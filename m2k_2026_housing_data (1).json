@@ -72,7 +72,7 @@
     },
     {
       "id": "14",
-      "parish": "Saint Andrew\u2019s",
+      "parish": "Saint Andrew’s",
       "leader": "Maria  Clement",
       "seminarianSgl": "",
       "religious": "",
@@ -184,7 +184,7 @@
     },
     {
       "id": "22",
-      "parish": "St. Mary\u2019s Catholic Church",
+      "parish": "St. Mary’s Catholic Church",
       "leader": "Stephanie  Lyons",
       "seminarianSgl": "",
       "religious": "",
@@ -2243,164 +2243,7 @@
     "adultShowerPlan": "Female participants OVER 18 may use the shower facilities in Locker Room 111 of the ARCC.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM\n\nMale participants OVER 18 may use the shower facilities one at a time in the Memorial Gym Locker Room or Farsatii Room.\nAvailable times:\n   Friday and Saturday nights: 10:00 PM - 12:00 AM\n   Saturday and Sunday mornings: 5:30 AM - 7:30 AM"
   },
   "groupNotes": {},
-  "resources": [
-    {
-      "emoji": "\ud83d\udcda",
-      "name": "Small Group Leader Resources",
-      "url": ""
-    },
-    {
-      "emoji": "\ud83d\uddfa\ufe0f",
-      "name": "Campus Map",
-      "url": "https://msmary.edu/about/our-campuses/files/mount-st-marys-university-emmitsburg-campus-map.pdf"
-    },
-    {
-      "emoji": "\ud83c\udf7d\ufe0f",
-      "name": "Meal Times",
-      "url": ""
-    },
-    {
-      "emoji": "\ud83d\udcc5",
-      "name": "Event Schedule",
-      "url": ""
-    }
-  ],
-  "users": [
-    {
-      "id": "1763072984224_juang",
-      "username": "juang",
-      "fullName": "Juan G",
-      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
-      "role": "admin",
-      "isAdmin": true,
-      "createdAt": "2025-11-13T22:29:44.224Z",
-      "isActive": true
-    },
-    {
-      "id": "1763072984224_isaac",
-      "username": "isaac",
-      "fullName": "Isaac Cross",
-      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
-      "role": "user",
-      "isAdmin": false,
-      "createdAt": "2025-11-13T22:29:44.224Z",
-      "isActive": true
-    },
-    {
-      "id": "1763072984224_martin",
-      "username": "martin",
-      "fullName": "Martin",
-      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
-      "role": "user",
-      "isAdmin": false,
-      "createdAt": "2025-11-13T22:29:44.224Z",
-      "isActive": true
-    },
-    {
-      "id": "1763134825774_tifoa5jby",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "passwordHash": "5f27dbf9535ccaf3ffbb358b26c38402e1b4d6c556310b33bce4502732a8f894",
-      "role": "user",
-      "isAdmin": false,
-      "createdAt": "2025-11-14T15:40:25.774Z",
-      "isActive": true
-    }
-  ],
-  "activityLogs": [
-    {
-      "id": "1763139692261_vvzn68bh0",
-      "timestamp": "2025-11-14T17:01:32.261Z",
-      "username": "juang",
-      "fullName": "Juan G",
-      "action": "test",
-      "entityType": "manual",
-      "entityId": "123",
-      "details": "Testing activity log"
-    },
-    {
-      "id": "1763139905603_bb8pfqdfg",
-      "timestamp": "2025-11-14T17:05:05.603Z",
-      "username": "juang",
-      "fullName": "Juan G",
-      "action": "create",
-      "entityType": "youth-group",
-      "entityId": "test 2",
-      "details": "Created youth group: test s2 (ID: test 2)"
-    },
-    {
-      "id": "1763140742921_login_pyb9xm5pi",
-      "timestamp": "2025-11-14T17:18:00.385Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "login",
-      "entityType": "system",
-      "entityId": null,
-      "details": "User logged in: Ben Bogner (@benjamin)"
-    },
-    {
-      "id": "1763140698969_hqxfuquax",
-      "timestamp": "2025-11-14T17:18:18.969Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "update",
-      "entityType": "smallgroup-assignment",
-      "entityId": "test 2",
-      "details": "Assigned small group for test s2: 1 room(s)"
-    },
-    {
-      "id": "1763140712499_dj5omgzv9",
-      "timestamp": "2025-11-14T17:18:32.499Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "update",
-      "entityType": "meal-color",
-      "entityId": "test",
-      "details": "Assigned Blue meal color to The test"
-    },
-    {
-      "id": "1763140714082_g17kasane",
-      "timestamp": "2025-11-14T17:18:34.082Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "update",
-      "entityType": "meal-color",
-      "entityId": "test 2",
-      "details": "Assigned Blue meal color to test s2"
-    },
-    {
-      "id": "1763140741199_sgskwi2i4",
-      "timestamp": "2025-11-14T17:19:01.199Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "update",
-      "entityType": "youth-group",
-      "entityId": "test",
-      "details": "Updated youth group: The test (ID: test)"
-    },
-    {
-      "id": "1763140943109_login_jzlear9yr",
-      "timestamp": "2025-11-14T17:21:55.259Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "login",
-      "entityType": "system",
-      "entityId": null,
-      "details": "User logged in: Ben Bogner (@benjamin)"
-    },
-    {
-      "id": "1763140936546_480xkz8ca",
-      "timestamp": "2025-11-14T17:22:16.546Z",
-      "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "action": "delete",
-      "entityType": "youth-group",
-      "entityId": "test 2",
-      "details": "Deleted youth group: test s2 (ID: test 2)"
-    }
-  ],
-  "timestamp": "2025-11-14T17:22:23.110Z",
-  "version": "3.0",
+  "dashboardSubtitle": "Housing and Small Group Assignments - 2025",
   "schedule": {
     "friday": [
       {
@@ -2582,5 +2425,163 @@
         "location": "All Exits"
       }
     ]
-  }
+  },
+  "resources": [
+    {
+      "emoji": "📚",
+      "name": "Small Group Leader Resources",
+      "url": ""
+    },
+    {
+      "emoji": "🗺️",
+      "name": "Campus Map",
+      "url": "https://msmary.edu/about/our-campuses/files/mount-st-marys-university-emmitsburg-campus-map.pdf"
+    },
+    {
+      "emoji": "🍽️",
+      "name": "Meal Times",
+      "url": ""
+    },
+    {
+      "emoji": "📅",
+      "name": "Event Schedule",
+      "url": ""
+    }
+  ],
+  "users": [
+    {
+      "id": "1763072984224_juang",
+      "username": "juang",
+      "fullName": "Juan G",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "admin",
+      "isAdmin": true,
+      "createdAt": "2025-11-13T22:29:44.224Z",
+      "isActive": true
+    },
+    {
+      "id": "1763072984224_isaac",
+      "username": "isaac",
+      "fullName": "Isaac Cross",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-13T22:29:44.224Z",
+      "isActive": true
+    },
+    {
+      "id": "1763072984224_martin",
+      "username": "martin",
+      "fullName": "Martin",
+      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-13T22:29:44.224Z",
+      "isActive": true
+    },
+    {
+      "id": "1763134825774_tifoa5jby",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "passwordHash": "5f27dbf9535ccaf3ffbb358b26c38402e1b4d6c556310b33bce4502732a8f894",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-11-14T15:40:25.774Z",
+      "isActive": true
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "1763139692261_vvzn68bh0",
+      "timestamp": "2025-11-14T17:01:32.261Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "test",
+      "entityType": "manual",
+      "entityId": "123",
+      "details": "Testing activity log"
+    },
+    {
+      "id": "1763139905603_bb8pfqdfg",
+      "timestamp": "2025-11-14T17:05:05.603Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "create",
+      "entityType": "youth-group",
+      "entityId": "test 2",
+      "details": "Created youth group: test s2 (ID: test 2)"
+    },
+    {
+      "id": "1763140742921_login_pyb9xm5pi",
+      "timestamp": "2025-11-14T17:18:00.385Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763140698969_hqxfuquax",
+      "timestamp": "2025-11-14T17:18:18.969Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "smallgroup-assignment",
+      "entityId": "test 2",
+      "details": "Assigned small group for test s2: 1 room(s)"
+    },
+    {
+      "id": "1763140712499_dj5omgzv9",
+      "timestamp": "2025-11-14T17:18:32.499Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "test",
+      "details": "Assigned Blue meal color to The test"
+    },
+    {
+      "id": "1763140714082_g17kasane",
+      "timestamp": "2025-11-14T17:18:34.082Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "test 2",
+      "details": "Assigned Blue meal color to test s2"
+    },
+    {
+      "id": "1763140741199_sgskwi2i4",
+      "timestamp": "2025-11-14T17:19:01.199Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "test",
+      "details": "Updated youth group: The test (ID: test)"
+    },
+    {
+      "id": "1763140943109_login_jzlear9yr",
+      "timestamp": "2025-11-14T17:21:55.259Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Ben Bogner (@benjamin)"
+    },
+    {
+      "id": "1763140936546_480xkz8ca",
+      "timestamp": "2025-11-14T17:22:16.546Z",
+      "username": "benjamin",
+      "fullName": "Ben Bogner",
+      "action": "delete",
+      "entityType": "youth-group",
+      "entityId": "test 2",
+      "details": "Deleted youth group: test s2 (ID: test 2)"
+    }
+  ],
+  "timestamp": "2025-11-15T15:31:28.190Z",
+  "version": "3.0"
 }
