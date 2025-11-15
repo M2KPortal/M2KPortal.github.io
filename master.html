@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mount 2K Housing Management System</title>
+    <title>Mount 2000 Assignment System</title>
     <style>
         * {
             margin: 0;
@@ -1279,7 +1279,7 @@
         <!-- Modern Top Navigation -->
         <div class="top-nav">
             <div class="top-nav-left">
-                <div class="top-nav-title">Mount 2K Housing System</div>
+                <div class="top-nav-title">Mount 2000 Assignment System</div>
                 <div class="top-nav-welcome" id="welcome-user" style="display: none;"></div>
             </div>
             <div class="top-nav-right">
@@ -1349,7 +1349,7 @@
 
         <!-- Dashboard Tab -->
         <div id="dashboard" class="tab-content active">
-            <h2>Overview Dashboard</h2>
+            <h2>Statistics Overview</h2>
             
             <div class="dashboard-stats">
                 <div class="stat-card">
@@ -1430,14 +1430,25 @@
                 </div>
             </div>
 
-            <h3 style="margin: 20px 0 10px 0;">General Statistics</h3>
+            <h3 style="margin: 16px 0 8px 0; font-size: 1.2em;">Assignment Statistics</h3>
             <div class="dashboard-stats">
                 <div class="stat-card">
-                    <h3 id="available-housing-rooms">0</h3>
-                    <p>Available Housing Rooms</p>
+                    <h3 id="sgl-assigns">0</h3>
+                    <p>SGL Assigns</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="religious-assigns">0</h3>
+                    <p>Religious Assigns</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="ada-people-total">0</h3>
+                    <p>ADA People Total</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="ada-people-needing-rooms">0</h3>
+                    <p>ADA People Needing Rooms</p>
                 </div>
             </div>
-
 
             <h3>Quick Parish Assignment Search</h3>
             <input type="text" class="search-bar" id="parish-search" placeholder="Search by Parish, Group ID, Leader, Seminarian SGL, Religious, or Phone..." oninput="performSearch()">
@@ -1445,8 +1456,12 @@
             <div id="search-results"></div>
 
             <!-- Dashboard Filters -->
-            <div style="background: #e8f4f9; padding: 15px; border-radius: 8px; margin-top: 20px; border: 2px solid #061d28;">
-                <h3 style="margin-bottom: 12px; color: #061d28; font-size: 1.1em;">📊 Filter Dashboard View</h3>
+            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-top: 20px; border: 2px solid #3b82f6;">
+                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleDashboardFilters()">
+                    <h3 style="margin: 0; color: #1e3a8a; font-size: 1.1em;">📊 Filter Dashboard View</h3>
+                    <span id="dashboard-filters-toggle" style="font-size: 24px; color: #1e3a8a;">▼</span>
+                </div>
+                <div id="dashboard-filters-content" style="display: none; margin-top: 15px;">
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
                         <input type="checkbox" id="filter-hide-male-housing-assigned" onchange="applyDashboardFilters()" style="width: 16px; height: 16px;">
@@ -1490,8 +1505,8 @@
                     </label>
                 </div>
                 <div style="margin-top: 12px;">
-                    <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #061d28; font-size: 13px;">Filter by Meal Color:</label>
-                    <select id="filter-meal-color" onchange="applyDashboardFilters()" style="padding: 8px; border: 2px solid #061d28; border-radius: 6px; font-size: 13px; width: 100%; max-width: 300px;">
+                    <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #1e3a8a; font-size: 13px;">Filter by Meal Color:</label>
+                    <select id="filter-meal-color" onchange="applyDashboardFilters()" style="padding: 8px; border: 2px solid #3b82f6; border-radius: 6px; font-size: 13px; width: 100%; max-width: 300px;">
                         <option value="">All Colors</option>
                         <option value="Blue">Blue</option>
                         <option value="Red">Red</option>
@@ -1505,6 +1520,7 @@
                 </div>
                 <div style="margin-top: 10px;">
                     <button onclick="clearDashboardFilters()" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold;">Clear All Filters</button>
+                </div>
                 </div>
             </div>
 
@@ -2274,6 +2290,25 @@
             <h2>⚙️ System Settings</h2>
             <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
+            <!-- Header Subtitle Editor -->
+            <div style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle</h3>
+                <p style="color: #e65100; margin-bottom: 15px;">
+                    Edit the subtitle that appears on the public dashboard (index.html). This is typically updated year to year based on the conference.
+                </p>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="dashboard-subtitle" style="display: block; margin-bottom: 8px; font-weight: 600;">Subtitle Text:</label>
+                    <input type="text" id="dashboard-subtitle" placeholder="e.g., Housing and Small Group Assignments - 2026"
+                           style="width: 100%; padding: 12px; border: 2px solid #ff9800; border-radius: 8px; font-size: 14px;">
+                </div>
+                <button class="btn btn-primary" onclick="saveDashboardSubtitle()" style="background: #ff9800; border-color: #e65100;">
+                    💾 Save Subtitle
+                </button>
+                <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #e65100;">
+                    <strong>💡 Note:</strong> This subtitle appears on the public dashboard header. Click "Master Save" to update the live site.
+                </div>
+            </div>
+
             <!-- GitHub Token Settings -->
             <div style="background: #e8f5e9; border: 2px solid #4CAF50; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <h3 style="margin-top: 0; color: #2e7d32;">🔑 GitHub Token Settings</h3>
@@ -2497,6 +2532,7 @@
                 adultShowerPlan: ''
             },
             groupNotes: {},
+            dashboardSubtitle: 'Housing and Small Group Assignments - 2026',  // Public dashboard subtitle
             resources: [],
             users: [],  // User accounts with credentials
             activityLogs: []  // Activity tracking logs
@@ -2959,6 +2995,19 @@
             }
         }
 
+        function toggleDashboardFilters() {
+            const configDiv = document.getElementById('dashboard-filters-content');
+            const toggleIcon = document.getElementById('dashboard-filters-toggle');
+
+            if (configDiv.style.display === 'none') {
+                configDiv.style.display = 'block';
+                toggleIcon.textContent = '▲';
+            } else {
+                configDiv.style.display = 'none';
+                toggleIcon.textContent = '▼';
+            }
+        }
+
         function toggleActiveColorsConfig() {
             const configDiv = document.getElementById('active-colors-config');
             const toggleIcon = document.getElementById('active-colors-toggle');
@@ -3050,6 +3099,16 @@
         function updateGroupNote(groupId, note) {
             appData.groupNotes[groupId] = note;
             autoSave();
+        }
+
+        function saveDashboardSubtitle() {
+            appData.dashboardSubtitle = document.getElementById('dashboard-subtitle').value;
+            autoSave();
+            alert('✅ Dashboard subtitle saved successfully! Click "Master Save" to update the live site.');
+        }
+
+        function loadDashboardSubtitle() {
+            document.getElementById('dashboard-subtitle').value = appData.dashboardSubtitle || 'Housing and Small Group Assignments - 2026';
         }
 
         function filterFormsPreview() {
@@ -4370,6 +4429,7 @@
             } else if (tabName === 'schedule-editor') {
                 displayScheduleEditor();
             } else if (tabName === 'settings') {
+                loadDashboardSubtitle();
                 displayUsers();
                 // Show/hide admin sections based on user role
                 const userManagementSection = document.getElementById('user-management-section');
@@ -6717,6 +6777,19 @@
             // Calculate people staying on campus
             const onCampusPeople = totalParticipants - offCampusPeople;
 
+            // Calculate SGL and Religious assignments
+            const sglAssigns = appData.youthGroups.filter(g => g.seminarianSgl && g.seminarianSgl.trim() !== '').length;
+            const religiousAssigns = appData.youthGroups.filter(g => g.religious && g.religious.trim() !== '').length;
+
+            // Calculate ADA statistics
+            const adaPeopleTotal = appData.adaIndividuals ? appData.adaIndividuals.length : 0;
+            const adaPeopleNeedingRooms = appData.adaIndividuals ? appData.adaIndividuals.filter(ada => {
+                // Check if this person's group has housing assigned
+                const group = appData.youthGroups.find(g => g.id === ada.groupId);
+                if (!group || group.stayingOffCampus) return false;
+                return !isGroupHousingAssigned(ada.groupId);
+            }).length : 0;
+
             // Update the display
             document.getElementById('total-groups').textContent = totalGroups;
             document.getElementById('total-participants').textContent = totalParticipants;
@@ -6742,8 +6815,13 @@
             document.getElementById('mixed-sg-utilization').textContent = mixedSGUtilization + '%';
             
             // General stats
-            document.getElementById('available-housing-rooms').textContent = availableHousingRooms;
             document.getElementById('available-small-group-rooms').textContent = availableSmallGroupRooms;
+
+            // Assignment stats
+            document.getElementById('sgl-assigns').textContent = sglAssigns;
+            document.getElementById('religious-assigns').textContent = religiousAssigns;
+            document.getElementById('ada-people-total').textContent = adaPeopleTotal;
+            document.getElementById('ada-people-needing-rooms').textContent = adaPeopleNeedingRooms;
         }
 
         function updateAssignmentOverview() {
