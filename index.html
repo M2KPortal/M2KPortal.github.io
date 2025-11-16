@@ -816,6 +816,9 @@
         let currentDataVersion = 0;
         let dataTimestamp = null;
 
+        // PWA Install prompt
+        let deferredInstallPrompt = null;
+
         // ===== FAVORITE FUNCTIONS =====
         function getFavorites() {
             const favorites = localStorage.getItem('m2k_favorites');
@@ -1680,6 +1683,19 @@
 
             let html = '';
 
+            // Add Install App button as first resource card (only if install is available)
+            html += `
+                <div id="install-app-card" class="resource-card" style="display: none; border-left-color: #10b981; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);">
+                    <h3><span class="icon">📱</span> Install App</h3>
+                    <div style="text-align: center; padding: 10px;">
+                        <p style="color: #065f46; margin-bottom: 15px; font-size: 14px;">Install M2K Portal on your device for quick access!</p>
+                        <button id="install-button" onclick="installApp()" class="btn btn-success" style="width: 100%; font-size: 16px;">
+                            ⬇️ Install to Home Screen
+                        </button>
+                    </div>
+                </div>
+            `;
+
             if (!appData.resources || appData.resources.length === 0) {
                 html += '<p style="color: #666; text-align: center;">No additional resources available at this time.</p>';
             } else {
@@ -1712,10 +1728,68 @@
             container.innerHTML = html;
         }
 
+        // ===== PWA INSTALL FUNCTIONALITY =====
+        async function installApp() {
+            if (!deferredInstallPrompt) {
+                console.log('Install prompt not available');
+                return;
+            }
+
+            // Show the install prompt
+            deferredInstallPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredInstallPrompt.userChoice;
+            console.log(`User response to install prompt: ${outcome}`);
+
+            // Clear the deferred prompt since it can only be used once
+            deferredInstallPrompt = null;
+
+            // Hide the install button
+            const installCard = document.getElementById('install-app-card');
+            if (installCard) {
+                installCard.style.display = 'none';
+            }
+        }
+
+        function setupPWAInstall() {
+            // Listen for the beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent the default mini-infobar from appearing
+                e.preventDefault();
+
+                // Save the event so it can be triggered later
+                deferredInstallPrompt = e;
+
+                // Show the install button
+                const installCard = document.getElementById('install-app-card');
+                if (installCard) {
+                    installCard.style.display = 'block';
+                }
+
+                console.log('Install prompt is ready');
+            });
+
+            // Listen for the appinstalled event
+            window.addEventListener('appinstalled', () => {
+                console.log('PWA was installed');
+
+                // Clear the deferred prompt
+                deferredInstallPrompt = null;
+
+                // Hide the install button
+                const installCard = document.getElementById('install-app-card');
+                if (installCard) {
+                    installCard.style.display = 'none';
+                }
+            });
+        }
+
         // ===== SYSTEM INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing system...');
             initializeSystem();
+            setupPWAInstall();
         });
     </script>
 </body>
