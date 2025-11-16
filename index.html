@@ -707,7 +707,7 @@
                 <div class="top-nav-subtitle">Housing and Small Group Assignments - 2026 <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px;"></span></div>
             </div>
             <div class="top-nav-right">
-                <a href="https://m2kportal.github.io/master.html" class="top-nav-btn">🔐 Admin Login</a>
+                <a href="/master.html" class="top-nav-btn" onclick="ensureHTTPS(event, '/master.html')">🔐 Admin Login</a>
             </div>
         </div>
 
@@ -818,6 +818,16 @@
 
         // PWA Install prompt
         let deferredInstallPrompt = null;
+
+        // ===== HTTPS ENFORCEMENT =====
+        function ensureHTTPS(event, path) {
+            // Only enforce HTTPS on production (not localhost)
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                event.preventDefault();
+                const httpsUrl = 'https://' + window.location.host + path;
+                window.location.href = httpsUrl;
+            }
+        }
 
         // ===== FAVORITE FUNCTIONS =====
         function getFavorites() {
