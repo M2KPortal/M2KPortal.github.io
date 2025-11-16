@@ -8453,6 +8453,11 @@
         }
 
         async function hashPassword(password) {
+            // Check if crypto.subtle is available (requires HTTPS or localhost)
+            if (!window.crypto || !window.crypto.subtle) {
+                throw new Error('HTTPS_REQUIRED');
+            }
+
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
             const hash = await crypto.subtle.digest('SHA-256', data);
@@ -8540,7 +8545,11 @@
                 console.error('Error in checkPassword:', error);
                 const errorDiv = document.getElementById('password-error');
                 if (errorDiv) {
-                    errorDiv.textContent = '❌ Error checking password. Please refresh and try again.';
+                    if (error.message === 'HTTPS_REQUIRED') {
+                        errorDiv.innerHTML = '🔒 <strong>HTTPS Required</strong><br>Please access this site using <strong>https://</strong> (not http://)<br><br>Example: <strong>https://m2kportal.github.io/master.html</strong>';
+                    } else {
+                        errorDiv.textContent = '❌ Error checking password. Please refresh and try again.';
+                    }
                     errorDiv.style.display = 'block';
                 }
             }
@@ -8644,6 +8653,15 @@
         }
 
         async function initPasswordSystem() {
+            // Check if the site is being accessed via HTTPS
+            if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                const errorDiv = document.getElementById('password-error');
+                if (errorDiv) {
+                    errorDiv.innerHTML = '🔒 <strong>HTTPS Required</strong><br>This site must be accessed using <strong>https://</strong> for security.<br><br>Please visit: <strong>https://' + window.location.host + window.location.pathname + '</strong>';
+                    errorDiv.style.display = 'block';
+                }
+            }
+
             // Load credentials from GitHub first
             await loadCredentialsFromGitHub();
 
