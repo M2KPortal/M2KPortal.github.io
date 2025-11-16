@@ -1194,7 +1194,7 @@
                 <p>Create a password to protect this system</p>
             </div>
 
-            <div class="password-input-group" id="username-field-group" style="display: none;">
+            <div class="password-input-group" id="username-field-group">
                 <input type="text"
                        id="username-input"
                        class="password-input"
@@ -1214,6 +1214,10 @@
                 <span id="password-btn-text">🔓 Unlock</span>
             </button>
 
+            <a href="/index.html" class="portal-btn" onclick="ensureHTTPS(event, '/index.html')" style="display: inline-block; margin-top: 12px; padding: 14px 32px; background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                🏠 Back to Portal
+            </a>
+
             <div id="password-error" class="password-error">
                 ❌ Incorrect password. Please try again.
             </div>
@@ -1221,8 +1225,7 @@
             <div id="login-mode-note" style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
                 <small style="color: #1565c0;">
                     <strong>🛡️ Security Note:</strong><br>
-                    <span id="login-note-text">This system uses a centralized password.
-                    Contact your administrator if you need the password.</span>
+                    <span id="login-note-text">Please enter your username and password to access the system.</span>
                 </small>
             </div>
         </div>
@@ -2576,6 +2579,16 @@
             users: [],  // User accounts with credentials
             activityLogs: []  // Activity tracking logs
         };
+
+        // ===== HTTPS ENFORCEMENT =====
+        function ensureHTTPS(event, path) {
+            // Only enforce HTTPS on production (not localhost)
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                event.preventDefault();
+                const httpsUrl = 'https://' + window.location.host + path;
+                window.location.href = httpsUrl;
+            }
+        }
 
         // Current logged in user
         let currentUser = null;
