@@ -2296,7 +2296,7 @@
             <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
             <!-- Header Subtitle Editor -->
-            <div style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div id="subtitle-editor" style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle</h3>
                 <p style="color: #e65100; margin-bottom: 15px;">
                     Edit the subtitle that appears on the public dashboard (index.html). This is typically updated year to year based on the conference.
@@ -8602,6 +8602,16 @@
                     activityReportsMenu.style.display = 'block';
                 } else {
                     activityReportsMenu.style.display = 'none';
+                }
+            }
+
+            // Hide subtitle editor for non-admin users
+            const subtitleEditor = document.getElementById('subtitle-editor');
+            if (subtitleEditor && currentUser) {
+                if (currentUser.role === 'admin' || currentUser.isAdmin) {
+                    subtitleEditor.style.display = 'block';
+                } else {
+                    subtitleEditor.style.display = 'none';
                 }
             }
         }
