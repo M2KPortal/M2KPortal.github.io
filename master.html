@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mount 2000 Assignment System</title>
+    <title>Mount 2K Management System</title>
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -1187,7 +1187,7 @@
     <div id="password-overlay">
         <div class="password-container">
             <h1>🔒 Secure Access</h1>
-            <p>Mount 2K Housing Management System</p>
+            <p>Mount 2K Management System</p>
 
             <div id="password-setup-mode" class="password-setup" style="display: none;">
                 <h3>⚙️ First Time Setup</h3>
@@ -1288,12 +1288,12 @@
         <!-- Modern Top Navigation -->
         <div class="top-nav">
             <div class="top-nav-left">
-                <div class="top-nav-title">Mount 2000 Assignment System</div>
+                <div class="top-nav-title">Mount 2K Management System</div>
                 <div class="top-nav-welcome" id="welcome-user" style="display: none;"></div>
             </div>
             <div class="top-nav-right">
                 <button class="top-nav-btn save" onclick="saveToGitHub()">Master Save</button>
-                <a href="https://m2kportal.github.io/index.html" class="top-nav-btn">Front View</a>
+                <a href="https://m2kportal.github.io/index.html" class="top-nav-btn">Portal</a>
                 <button class="top-nav-btn logout" onclick="logout()">🚪 Logout</button>
             </div>
         </div>
@@ -2296,7 +2296,7 @@
             <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
             <!-- Header Subtitle Editor -->
-            <div style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div id="subtitle-editor" style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle</h3>
                 <p style="color: #e65100; margin-bottom: 15px;">
                     Edit the subtitle that appears on the public dashboard (index.html). This is typically updated year to year based on the conference.
@@ -8429,8 +8429,8 @@
             // Add a comment at the top indicating this is a saved version
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             htmlContent = htmlContent.replace(
-                '<title>Mount 2K Housing Management System</title>',
-                `<title>Mount 2K Housing Management System - Saved ${new Date().toLocaleDateString()}</title>`
+                '<title>Mount 2K Management System</title>',
+                `<title>Mount 2K Management System - Saved ${new Date().toLocaleDateString()}</title>`
             );
             
             // Create and download the file
@@ -8602,6 +8602,16 @@
                     activityReportsMenu.style.display = 'block';
                 } else {
                     activityReportsMenu.style.display = 'none';
+                }
+            }
+
+            // Hide subtitle editor for non-admin users
+            const subtitleEditor = document.getElementById('subtitle-editor');
+            if (subtitleEditor && currentUser) {
+                if (currentUser.role === 'admin' || currentUser.isAdmin) {
+                    subtitleEditor.style.display = 'block';
+                } else {
+                    subtitleEditor.style.display = 'none';
                 }
             }
         }
