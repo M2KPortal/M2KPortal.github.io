@@ -560,6 +560,12 @@
             font-size: 11px;
             font-weight: bold;
             margin-left: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .version-badge:hover {
+            background: #229954;
+            transform: scale(1.05);
         }
 
         /* Favorite Star */
@@ -704,7 +710,7 @@
         <div class="top-nav">
             <div class="top-nav-left">
                 <div class="top-nav-title">Mount 2K Portal</div>
-                <div class="top-nav-subtitle">Housing and Small Group Assignments - 2026 <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px;"></span></div>
+                <div class="top-nav-subtitle">Housing and Small Group Assignments - 2026 <span id="data-version-badge" class="version-badge" style="display: inline-block; margin-left: 8px; cursor: pointer;" onclick="location.reload()" title="Click to refresh"></span></div>
             </div>
             <div class="top-nav-right">
                 <a href="/master.html" class="top-nav-btn" onclick="ensureHTTPS(event, '/master.html')">🔐 Admin Login</a>
@@ -943,7 +949,7 @@
                 const versionBadge = document.getElementById('data-version-badge');
                 if (versionBadge && dataTimestamp) {
                     const timeText = formatRelativeTime(dataTimestamp);
-                    versionBadge.textContent = `Last Updated: ${timeText}`;
+                    versionBadge.textContent = `🔄 Last Updated: ${timeText}`;
                 }
                 
                 updateAllDisplays();
