@@ -2007,140 +2007,7 @@
       ]
     }
   },
-  "smallGroupAssignments": {
-    "3": [
-      "CHAPEL TEST-123"
-    ],
-    "10": [
-      "Seminary-O'Donnell Lecture Hall"
-    ],
-    "11": [
-      "Knott Academic Center-3rd Floor Lobby"
-    ],
-    "12": [
-      "Knott Academic Center-209"
-    ],
-    "13": [
-      "Knott Academic Center-210"
-    ],
-    "15": [
-      "PAC-Upper Level"
-    ],
-    "16": [
-      "St. Michael's-Rectors Confrence Room"
-    ],
-    "17": [
-      "Knott Auditorium-200 Lobby"
-    ],
-    "18": [
-      "Knott Academic Center-207"
-    ],
-    "19": [
-      "Knott Academic Center-100- End Coridor"
-    ],
-    "21": [
-      "Knott Academic Center-200- End Corridor"
-    ],
-    "22": [
-      "Knott Academic Center-320"
-    ],
-    "23": [
-      "Seminary-Keating Hall- 18"
-    ],
-    "24": [
-      "Knott Academic Center-300- End Coridor"
-    ],
-    "25": [
-      "Knott Academic Center-206"
-    ],
-    "26": [
-      "Knott Academic Center-127"
-    ],
-    "27": [
-      "COAD Science Building-158"
-    ],
-    "28": [
-      "Knott Academic Center-308"
-    ],
-    "29": [
-      "McGowan-Stair Pavillion"
-    ],
-    "30": [
-      "Knott Academic Center-100- Lounge"
-    ],
-    "31": [
-      "Knott Academic Center-300- Lobby"
-    ],
-    "32": [
-      "Seminary-McSweeny- 135"
-    ],
-    "33": [
-      "Seminary-Recreation Room"
-    ],
-    "34": [
-      "Knott Auditorium-100- West Lobby"
-    ],
-    "35": [
-      "Knott Academic Center-323"
-    ],
-    "36": [
-      "Knott Auditorium-100- East Lobby"
-    ],
-    "37": [
-      "Knott Academic Center-200- Lobby"
-    ],
-    "38": [
-      "Knott Academic Center-120"
-    ],
-    "39": [
-      "Knott Academic Center-300- Lobby O/G"
-    ],
-    "40": [
-      "Knott Academic Center-327"
-    ],
-    "41": [
-      "Seminary-St. Michael's Room"
-    ],
-    "42": [
-      "Knott Academic Center-Gorund Floor Lobby"
-    ],
-    "43": [
-      "Seminary-McSweeny- 132"
-    ],
-    "44": [
-      "McGowan-Lobby"
-    ],
-    "45": [
-      "Knott Academic Center-310"
-    ],
-    "46": [
-      "Patriot Hall-Seminary Dinning Room"
-    ],
-    "47": [
-      "Seminary-Keating Hall- 19"
-    ],
-    "48": [
-      "PAC-Lower Level"
-    ],
-    "49": [
-      "Seminary-Keating- 14 Conference Room"
-    ],
-    "50": [
-      "Seminary-Keating- JPII Reading Room"
-    ],
-    "51": [
-      "Knott Academic Center-211"
-    ],
-    "52": [
-      "Knott Academic Center-304"
-    ],
-    "53": [
-      "Knott Academic Center-203"
-    ],
-    "54": [
-      "Knott Academic Center-208"
-    ]
-  },
+  "smallGroupAssignments": {},
   "mealColorAssignments": {
     "10": "Yellow",
     "11": "Green",
@@ -3161,8 +3028,28 @@
       "entityType": "youth-group",
       "entityId": "test",
       "details": "Deleted youth group: The test (ID: test)"
+    },
+    {
+      "id": "1763394280531_login_xb39m0yyd",
+      "timestamp": "2025-11-17T15:43:48.823Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Juan G (@juang)"
+    },
+    {
+      "id": "1763394276934_klu6f07c8",
+      "timestamp": "2025-11-17T15:44:36.934Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "delete",
+      "entityType": "system",
+      "entityId": "small-group-data",
+      "details": "Cleared all small group assignments"
     }
   ],
-  "timestamp": "2025-11-17T03:31:44.477Z",
+  "timestamp": "2025-11-17T15:44:40.531Z",
   "version": "3.0"
 }
