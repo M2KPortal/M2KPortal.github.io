@@ -2351,9 +2351,9 @@
       "id": "1763072984224_isaac",
       "username": "isaac",
       "fullName": "Isaac Cross",
-      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
-      "role": "user",
-      "isAdmin": false,
+      "passwordHash": "947a5606e1e6ccef90664e4eebd09b72349538d7a9aacee56bc980cf01bf4df6",
+      "role": "admin",
+      "isAdmin": true,
       "createdAt": "2025-11-13T22:29:44.224Z",
       "isActive": true
     },
@@ -3048,8 +3048,48 @@
       "entityType": "system",
       "entityId": "small-group-data",
       "details": "Cleared all small group assignments"
+    },
+    {
+      "id": "1763394619823_login_iquous8j1",
+      "timestamp": "2025-11-17T15:47:23.300Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Juan G (@juang)"
+    },
+    {
+      "id": "1763394552964_iyxguto3u",
+      "timestamp": "2025-11-17T15:49:12.965Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "update",
+      "entityType": "user",
+      "entityId": null,
+      "details": "Updated user: Isaac Cross (@isaac) - Admin: true"
+    },
+    {
+      "id": "1763394574777_i2z7qmzj4",
+      "timestamp": "2025-11-17T15:49:34.777Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "update",
+      "entityType": "user",
+      "entityId": null,
+      "details": "Updated user: Isaac Cross (@isaac) - Admin: true"
+    },
+    {
+      "id": "1763394616957_yrrrzr0kx",
+      "timestamp": "2025-11-17T15:50:16.957Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "update",
+      "entityType": "user",
+      "entityId": null,
+      "details": "Updated user: Isaac Cross (@isaac) - Admin: true"
     }
   ],
-  "timestamp": "2025-11-17T15:44:40.531Z",
+  "timestamp": "2025-11-17T15:50:19.824Z",
   "version": "3.0"
 }
