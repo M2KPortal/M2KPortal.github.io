@@ -643,20 +643,6 @@
       "femaleChaperones": 1,
       "stayingOffCampus": false,
       "specialAccommodations": ""
-    },
-    {
-      "id": "test",
-      "parish": "The test",
-      "leader": "",
-      "seminarianSgl": "",
-      "religious": "Father manny",
-      "phone": "",
-      "maleTeens": 10,
-      "femaleTeens": 0,
-      "maleChaperones": 2,
-      "femaleChaperones": 2,
-      "stayingOffCampus": false,
-      "specialAccommodations": ""
     }
   ],
   "rooms": [
@@ -1884,9 +1870,6 @@
       ],
       "54": [
         "Knott Academic Center-222"
-      ],
-      "test": [
-        "TEST (M)-123"
       ]
     },
     "female": {
@@ -2021,9 +2004,6 @@
       ],
       "54": [
         "ARCC-GYM FLOOR"
-      ],
-      "test": [
-        "TEST (F)-123"
       ]
     }
   },
@@ -2159,9 +2139,6 @@
     ],
     "54": [
       "Knott Academic Center-208"
-    ],
-    "test": [
-      "CHAPEL TEST-123"
     ]
   },
   "mealColorAssignments": {
@@ -3164,8 +3141,28 @@
       "entityType": "meal-color",
       "entityId": "24",
       "details": "Assigned Yellow meal color to Our Lady of Victory Catholic Military Community"
+    },
+    {
+      "id": "1763349713020_login_e16clrdax",
+      "timestamp": "2025-11-17T03:20:51.492Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Juan G (@juang)"
+    },
+    {
+      "id": "1763349679338_yb36frt55",
+      "timestamp": "2025-11-17T03:21:19.338Z",
+      "username": "juang",
+      "fullName": "Juan G",
+      "action": "delete",
+      "entityType": "youth-group",
+      "entityId": "test",
+      "details": "Deleted youth group: The test (ID: test)"
     }
   ],
-  "timestamp": "2025-11-16T19:23:39.051Z",
+  "timestamp": "2025-11-17T03:21:53.021Z",
   "version": "3.0"
 }
