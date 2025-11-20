@@ -2295,22 +2295,33 @@
             <h2>⚙️ System Settings</h2>
             <p style="margin-bottom: 20px; color: #666;">Configure system settings, manage users, and control data.</p>
 
-            <!-- Header Subtitle Editor -->
-            <div id="subtitle-editor" style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <h3 style="margin-top: 0; color: #e65100;">📝 Public Dashboard Header Subtitle</h3>
+            <!-- Conference Configuration -->
+            <div id="conference-config" style="background: #fff3e0; border: 2px solid #ff9800; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="margin-top: 0; color: #e65100;">📝 Conference Configuration</h3>
                 <p style="color: #e65100; margin-bottom: 15px;">
-                    Edit the subtitle that appears on the public dashboard (index.html). This is typically updated year to year based on the conference.
+                    Configure conference information that appears throughout the site (dashboard, forms, schedules). This is typically updated year to year.
                 </p>
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="dashboard-subtitle" style="display: block; margin-bottom: 8px; font-weight: 600;">Subtitle Text:</label>
-                    <input type="text" id="dashboard-subtitle" placeholder="e.g., Housing and Small Group Assignments - 2026"
+                    <label for="conference-name" style="display: block; margin-bottom: 8px; font-weight: 600;">Conference Name:</label>
+                    <input type="text" id="conference-name" placeholder="e.g., MOUNT 2000 YOUTH RETREAT"
                            style="width: 100%; padding: 12px; border: 2px solid #ff9800; border-radius: 8px; font-size: 14px;">
                 </div>
-                <button class="btn btn-primary" onclick="saveDashboardSubtitle()" style="background: #ff9800; border-color: #e65100;">
-                    💾 Save Subtitle
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="conference-start-date" style="display: block; margin-bottom: 8px; font-weight: 600;">Conference Start Date (Friday):</label>
+                    <input type="date" id="conference-start-date"
+                           style="width: 100%; padding: 12px; border: 2px solid #ff9800; border-radius: 8px; font-size: 14px;">
+                </div>
+                <div style="margin-bottom: 15px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #666;">
+                    <strong>📊 Auto-Generated Dashboard Subtitle:</strong>
+                    <div id="subtitle-preview" style="margin-top: 8px; padding: 8px; background: #f5f5f5; border-radius: 4px; font-weight: 600;">
+                        Housing and Small Group Assignments - 2026
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveConferenceConfig()" style="background: #ff9800; border-color: #e65100;">
+                    💾 Save Conference Configuration
                 </button>
                 <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 8px; font-size: 13px; color: #e65100;">
-                    <strong>💡 Note:</strong> This subtitle appears on the public dashboard header. Click "Master Save" to update the live site.
+                    <strong>💡 Note:</strong> Conference name and year will update the dashboard subtitle, youth group forms, and schedule dates. Click "Master Save" to update the live site.
                 </div>
             </div>
 
@@ -2537,7 +2548,9 @@
                 adultShowerPlan: ''
             },
             groupNotes: {},
-            dashboardSubtitle: 'Housing and Small Group Assignments - 2026',  // Public dashboard subtitle
+            dashboardSubtitle: 'Housing and Small Group Assignments - 2026',  // Public dashboard subtitle (auto-generated)
+            conferenceName: 'MOUNT 2000 YOUTH RETREAT',  // Conference name
+            conferenceStartDate: '2026-02-07',  // Conference start date (Friday)
             schedule: {
                 friday: [
                     { startTime: "5:00 PM", endTime: "6:30 PM", event: "Arrival / Registration", location: "Various" },
@@ -3153,14 +3166,77 @@
             autoSave();
         }
 
-        function saveDashboardSubtitle() {
-            appData.dashboardSubtitle = document.getElementById('dashboard-subtitle').value;
+        function saveConferenceConfig() {
+            const conferenceName = document.getElementById('conference-name').value;
+            const conferenceStartDate = document.getElementById('conference-start-date').value;
+
+            if (!conferenceName || !conferenceStartDate) {
+                alert('⚠️ Please fill in both conference name and start date.');
+                return;
+            }
+
+            appData.conferenceName = conferenceName;
+            appData.conferenceStartDate = conferenceStartDate;
+
+            // Auto-generate dashboard subtitle
+            const year = new Date(conferenceStartDate).getFullYear();
+            appData.dashboardSubtitle = `${conferenceName} - ${year}`;
+
+            updateSubtitlePreview();
+            updateScheduleDates();
             autoSave();
-            alert('✅ Dashboard subtitle saved successfully! Click "Master Save" to update the live site.');
+            alert('✅ Conference configuration saved successfully! Click "Master Save" to update the live site.');
         }
 
-        function loadDashboardSubtitle() {
-            document.getElementById('dashboard-subtitle').value = appData.dashboardSubtitle || 'Housing and Small Group Assignments - 2026';
+        function loadConferenceConfig() {
+            document.getElementById('conference-name').value = appData.conferenceName || 'MOUNT 2000 YOUTH RETREAT';
+            document.getElementById('conference-start-date').value = appData.conferenceStartDate || '2026-02-07';
+            updateSubtitlePreview();
+            updateScheduleDates();
+
+            // Add event listeners for live preview
+            document.getElementById('conference-name').addEventListener('input', updateSubtitlePreview);
+            document.getElementById('conference-start-date').addEventListener('change', function() {
+                updateSubtitlePreview();
+                updateScheduleDates();
+            });
+        }
+
+        function updateSubtitlePreview() {
+            const conferenceName = document.getElementById('conference-name').value;
+            const conferenceStartDate = document.getElementById('conference-start-date').value;
+
+            if (conferenceName && conferenceStartDate) {
+                const year = new Date(conferenceStartDate).getFullYear();
+                document.getElementById('subtitle-preview').textContent = `${conferenceName} - ${year}`;
+            }
+        }
+
+        function updateScheduleDates() {
+            const startDate = new Date(appData.conferenceStartDate || '2026-02-07');
+
+            const friday = new Date(startDate);
+            const saturday = new Date(startDate);
+            saturday.setDate(saturday.getDate() + 1);
+            const sunday = new Date(startDate);
+            sunday.setDate(sunday.getDate() + 2);
+
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+
+            // Update schedule editor headers if they exist
+            const fridayHeader = document.querySelector('#schedule-editor h3:nth-of-type(1)');
+            const saturdayHeader = document.querySelector('#schedule-editor h3:nth-of-type(2)');
+            const sundayHeader = document.querySelector('#schedule-editor h3:nth-of-type(3)');
+
+            if (fridayHeader) {
+                fridayHeader.innerHTML = `📅 ${friday.toLocaleDateString('en-US', options)}`;
+            }
+            if (saturdayHeader) {
+                saturdayHeader.innerHTML = `📅 ${saturday.toLocaleDateString('en-US', options)}`;
+            }
+            if (sundayHeader) {
+                sundayHeader.innerHTML = `📅 ${sunday.toLocaleDateString('en-US', options)}`;
+            }
         }
 
         function filterFormsPreview() {
@@ -3217,8 +3293,8 @@
                                     >
                                 </label>
                                 <div style="background: linear-gradient(135deg, #061d28, #0f3a4a); color: #d4af37; padding: 10px 20px; border-radius: 6px; flex: 1; text-align: center;">
-                                    <h3 style="margin: 0; font-size: 20px;">MOUNT 2000 YOUTH RETREAT 2026</h3>
-                                    <p style="margin: 5px 0 0 0; font-size: 12px;">Group Leader Information Sheet - 2026</p>
+                                    <h3 style="margin: 0; font-size: 20px;">${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}</h3>
+                                    <p style="margin: 5px 0 0 0; font-size: 12px;">Group Leader Information Sheet - ${new Date(appData.conferenceStartDate).getFullYear()}</p>
                                 </div>
                             </div>
                             <button
@@ -3394,7 +3470,7 @@
                         </div>
 
                         <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; text-align: center; font-size: 11px; color: #666;">
-                            Mount St. Mary's University/Seminary | Mount 2000 Youth Retreat 2026
+                            Mount St. Mary's University/Seminary | ${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}
                         </div>
                     </div>
                 `;
@@ -3683,8 +3759,8 @@
                     
                     <div class="form-container">
                         <div class="header">
-                            <h1>MOUNT 2000 YOUTH RETREAT 2026</h1>
-                            <p>Group Leader Information Sheet - 2026</p>
+                            <h1>${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}</h1>
+                            <p>Group Leader Information Sheet - ${new Date(appData.conferenceStartDate).getFullYear()}</p>
                         </div>
 
                         <div style="margin-bottom: 15px;">
@@ -3831,7 +3907,7 @@
                         ` : ''}
 
                         <div class="footer">
-                            Mount St. Mary's University/Seminary | Mount 2000 Youth Retreat 2026
+                            Mount St. Mary's University/Seminary | ${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}
                         </div>
                     </div>
                 </body>
@@ -4061,8 +4137,8 @@
                 printHTML += `
                     <div class="form-container ${index < sortedGroups.length - 1 ? 'page-break' : ''}">
                         <div class="header">
-                            <h1>MOUNT 2000 YOUTH RETREAT 2026</h1>
-                            <p>Group Leader Information Sheet - 2026</p>
+                            <h1>${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}</h1>
+                            <p>Group Leader Information Sheet - ${new Date(appData.conferenceStartDate).getFullYear()}</p>
                         </div>
 
                         <div style="margin-bottom: 15px;">
@@ -4209,7 +4285,7 @@
                         ` : ''}
 
                         <div class="footer">
-                            Mount St. Mary's University/Seminary | Mount 2000 Youth Retreat 2026
+                            Mount St. Mary's University/Seminary | ${appData.conferenceName} ${new Date(appData.conferenceStartDate).getFullYear()}
                         </div>
                     </div>
                 `;
@@ -4486,7 +4562,7 @@
             } else if (tabName === 'schedule-editor') {
                 displayScheduleEditor();
             } else if (tabName === 'settings') {
-                loadDashboardSubtitle();
+                loadConferenceConfig();
                 displayUsers();
                 // Show/hide admin sections based on user role
                 const userManagementSection = document.getElementById('user-management-section');

@@ -1635,10 +1635,20 @@
 
             const schedule = appData.schedule || { friday: [], saturday: [], sunday: [] };
 
+            // Calculate dates from conferenceStartDate
+            const startDate = new Date(appData.conferenceStartDate || '2026-02-07');
+            const friday = new Date(startDate);
+            const saturday = new Date(startDate);
+            saturday.setDate(saturday.getDate() + 1);
+            const sunday = new Date(startDate);
+            sunday.setDate(sunday.getDate() + 2);
+
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+
             const days = [
-                { key: 'friday', name: 'Friday, February 7', color: '#3b82f6' },
-                { key: 'saturday', name: 'Saturday, February 8', color: '#10b981' },
-                { key: 'sunday', name: 'Sunday, February 9', color: '#f59e0b' }
+                { key: 'friday', name: friday.toLocaleDateString('en-US', options), color: '#3b82f6' },
+                { key: 'saturday', name: saturday.toLocaleDateString('en-US', options), color: '#10b981' },
+                { key: 'sunday', name: sunday.toLocaleDateString('en-US', options), color: '#f59e0b' }
             ];
 
             let html = '';
