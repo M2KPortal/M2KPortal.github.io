@@ -4,7 +4,7 @@
       "id": "3",
       "parish": "Immaculate Conception MSMS",
       "leader": "Issac Cross",
-      "seminarianSgl": "Anthony C.",
+      "seminarianSgl": "Kaz B",
       "religious": "Sr. Mary Joseph",
       "phone": "123 123 1234",
       "maleTeens": 10,
@@ -2132,6 +2132,8 @@
   },
   "groupNotes": {},
   "dashboardSubtitle": "Housing and Small Group Assignments - 2026",
+  "conferenceName": "MOUNT 2000 YOUTH RETREAT",
+  "conferenceStartDate": "2026-02-07",
   "schedule": {
     "friday": [
       {
@@ -2340,7 +2342,7 @@
     {
       "id": "1763072984224_juang",
       "username": "juang",
-      "fullName": "Juan G",
+      "fullName": "Mr. Juan Galindo",
       "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
       "role": "admin",
       "isAdmin": true,
@@ -2348,33 +2350,53 @@
       "isActive": true
     },
     {
-      "id": "1763072984224_isaac",
-      "username": "isaac",
-      "fullName": "Isaac Cross",
-      "passwordHash": "947a5606e1e6ccef90664e4eebd09b72349538d7a9aacee56bc980cf01bf4df6",
+      "id": "1764622537579_6cn0taakb",
+      "username": "isaacc",
+      "fullName": "Mr. Isaac Cross",
+      "passwordHash": "7b9b753aa64aee61184a59f72e321153c55e2881cc085cd0b66b0c8e8271fb9f",
       "role": "admin",
       "isAdmin": true,
-      "createdAt": "2025-11-13T22:29:44.224Z",
+      "createdAt": "2025-12-01T20:55:37.579Z",
       "isActive": true
     },
     {
-      "id": "1763072984224_martin",
-      "username": "martin",
-      "fullName": "Martin",
-      "passwordHash": "4ef3654b3b906a2cb9d8db9f2555eeee3400a472c954a7ba4ac72dd317cca732",
-      "role": "user",
-      "isAdmin": false,
-      "createdAt": "2025-11-13T22:29:44.224Z",
-      "isActive": true
-    },
-    {
-      "id": "1763134825774_tifoa5jby",
+      "id": "1764622710093_fleemx9ya",
       "username": "benjamin",
-      "fullName": "Ben Bogner",
-      "passwordHash": "5f27dbf9535ccaf3ffbb358b26c38402e1b4d6c556310b33bce4502732a8f894",
+      "fullName": "Mr. Benjamin Boegner",
+      "passwordHash": "7b9b753aa64aee61184a59f72e321153c55e2881cc085cd0b66b0c8e8271fb9f",
       "role": "user",
       "isAdmin": false,
-      "createdAt": "2025-11-14T15:40:25.774Z",
+      "createdAt": "2025-12-01T20:58:30.093Z",
+      "isActive": true
+    },
+    {
+      "id": "1764622821907_mo5wk7r4s",
+      "username": "martin",
+      "fullName": "Mr. Martin Jauquet",
+      "passwordHash": "7b9b753aa64aee61184a59f72e321153c55e2881cc085cd0b66b0c8e8271fb9f",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-12-01T21:00:21.907Z",
+      "isActive": true
+    },
+    {
+      "id": "1764622976210_2wnlted74",
+      "username": "kazb",
+      "fullName": "Mr. Kazimir Biesiada",
+      "passwordHash": "7b9b753aa64aee61184a59f72e321153c55e2881cc085cd0b66b0c8e8271fb9f",
+      "role": "admin",
+      "isAdmin": true,
+      "createdAt": "2025-12-01T21:02:56.210Z",
+      "isActive": true
+    },
+    {
+      "id": "1764623169304_q7q6u5z0z",
+      "username": "johnb",
+      "fullName": "Mr. John Buono",
+      "passwordHash": "7b9b753aa64aee61184a59f72e321153c55e2881cc085cd0b66b0c8e8271fb9f",
+      "role": "user",
+      "isAdmin": false,
+      "createdAt": "2025-12-01T21:06:09.304Z",
       "isActive": true
     }
   ],
@@ -3088,8 +3110,28 @@
       "entityType": "user",
       "entityId": null,
       "details": "Updated user: Isaac Cross (@isaac) - Admin: true"
+    },
+    {
+      "id": "1764638943650_login_mg5he9umy",
+      "timestamp": "2025-12-02T01:28:28.414Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Mr. Juan Galindo (@juang)"
+    },
+    {
+      "id": "1764638941029_x2kzifkw6",
+      "timestamp": "2025-12-02T01:29:01.029Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "3",
+      "details": "Updated youth group: Immaculate Conception MSMS (ID: 3)"
     }
   ],
-  "timestamp": "2025-11-17T15:50:19.824Z",
+  "timestamp": "2025-12-02T01:29:03.650Z",
   "version": "3.0"
 }
