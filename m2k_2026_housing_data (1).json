@@ -1,5 +1,860 @@
 {
-  "youthGroups": [],
+  "youthGroups": [
+    {
+      "id": "1",
+      "parish": "Aberdeen Proving Ground Youth Group - Edgewood",
+      "leader": "Bernadette  Kovalsick",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 1,
+      "femaleTeens": 2,
+      "maleChaperones": 0,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "2",
+      "parish": "Archbishop Curley High School - Baltimore",
+      "leader": "Christopher  Dudek",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 12,
+      "femaleTeens": 0,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "3",
+      "parish": "Ascension Catholic Teens - BOWIE",
+      "leader": "Emma  Bigony",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 1,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "4",
+      "parish": "Cathedral of Saint Patrick Youth - Norwich",
+      "leader": "Michelle  Mills",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 9,
+      "femaleTeens": 11,
+      "maleChaperones": 4,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "5",
+      "parish": "Chesterton Academy of Divine Family - Hagerstown",
+      "leader": "Patti  Davis",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 1,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "6",
+      "parish": "Heart to Heart Youth Group - Atlantic City",
+      "leader": "Guadalupe  Gonzalez",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 7,
+      "femaleTeens": 7,
+      "maleChaperones": 1,
+      "femaleChaperones": 3,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "7",
+      "parish": "Holy Cross Parish - Dover",
+      "leader": "Linda  Darling",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 1,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "8",
+      "parish": "Ignite Youth Ministry - York",
+      "leader": "Chris  Wood",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 12,
+      "femaleTeens": 3,
+      "maleChaperones": 3,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": "No stairs, had recent foot surgery"
+    },
+    {
+      "id": "9",
+      "parish": "Little Flower - Bethesda",
+      "leader": "Linda  Kueter",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 6,
+      "femaleTeens": 4,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "10",
+      "parish": "Mother of God Community - Gaithersburg",
+      "leader": "Darwin  Rigel",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 3,
+      "femaleTeens": 1,
+      "maleChaperones": 0,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "11",
+      "parish": "Mount de Sales Academy - Catonsville",
+      "leader": "Madison  Bolesta",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 0,
+      "femaleTeens": 20,
+      "maleChaperones": 0,
+      "femaleChaperones": 4,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "12",
+      "parish": "OLQA Youth Group - Washington",
+      "leader": "Kevin  Arevalo",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 11,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "13",
+      "parish": "Our Lady of Lavang Church - Perry Hall",
+      "leader": "Khanh  Le",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 11,
+      "femaleTeens": 11,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "14",
+      "parish": "Our Lady of Victory - Baltimore",
+      "leader": "Becky  Shumaker",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 3,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "15",
+      "parish": "Our Lady of Victory Catholic Military Community - Carlisle",
+      "leader": "Jane  Monaghan",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 3,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "16",
+      "parish": "Pastorate of St. John and St. Joseph - Frederick",
+      "leader": "Megan  McQuin",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 5,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "17",
+      "parish": "Rice Memorial High School - South Burlington",
+      "leader": "M. Pamela  King",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 5,
+      "maleChaperones": 2,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "18",
+      "parish": "Sacred Heart Bowie - Greenbelt",
+      "leader": "Danny  Baxter",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 8,
+      "femaleTeens": 16,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "19",
+      "parish": "Saint Agnes - Arilington",
+      "leader": "Katie  Hofer",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 3,
+      "femaleTeens": 3,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "20",
+      "parish": "Saint Andrew's - Waynesboro",
+      "leader": "Maria  Clement",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 3,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "21",
+      "parish": "Saint Joseph - Eldersburg - Eldersburg",
+      "leader": "Daniel  Rosa",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 4,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "22",
+      "parish": "Soldiers of Christ - Riverdale",
+      "leader": "Dina  Soto",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 5,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "23",
+      "parish": "St Ann Church- Hagerstown - Hagerstown",
+      "leader": "Lisa  Noel",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 7,
+      "femaleTeens": 6,
+      "maleChaperones": 4,
+      "femaleChaperones": 4,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "24",
+      "parish": "St Christopher's Church - Chester",
+      "leader": "Reilly  Hernandez",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 1,
+      "femaleTeens": 6,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "25",
+      "parish": "St Ignatius of Loyola - Ijamsville",
+      "leader": "Barbara  Miller",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "26",
+      "parish": "St Jane DeChantal High School Youth Group - Bethesda",
+      "leader": "Debbie  Okim",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 9,
+      "femaleTeens": 3,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "27",
+      "parish": "St John Neumann",
+      "leader": "Martin  Begley",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 0,
+      "femaleTeens": 0,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "28",
+      "parish": "St John Neumann - Gaithersburg",
+      "leader": "Martin  Begley",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 23,
+      "femaleTeens": 40,
+      "maleChaperones": 3,
+      "femaleChaperones": 6,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "29",
+      "parish": "St Joseph Danville - Danville",
+      "leader": "TJ  Willoughby",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 2,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "30",
+      "parish": "St Joseph Youth Ministry - Fullerton",
+      "leader": "Sherrie  Palmateer",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 6,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "31",
+      "parish": "St Peters - Olney",
+      "leader": "Angela  Busby",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 6,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "32",
+      "parish": "St Timothy Youth Ministry - Walkersville",
+      "leader": "Marissa  Paoletti",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 41,
+      "femaleTeens": 70,
+      "maleChaperones": 9,
+      "femaleChaperones": 19,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "33",
+      "parish": "St. Agnes Catholic Church - Charleston",
+      "leader": "Phillip  Szabo",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 5,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "34",
+      "parish": "St. Aloysius Church - Leonardtown",
+      "leader": "LEONARD  WATHEN",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 3,
+      "femaleTeens": 3,
+      "maleChaperones": 0,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "35",
+      "parish": "St. Bartholomew - Manchester",
+      "leader": "Jordan  Taylor",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 17,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "36",
+      "parish": "St. Dennis Galena - GALENA",
+      "leader": "Jennifer  Hinton",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 1,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "37",
+      "parish": "St. Francis de Sales Youth Ministry - Purcellville",
+      "leader": "Beth  McRoberts",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 6,
+      "femaleTeens": 3,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "38",
+      "parish": "St. Francis of Assisi - Derwood",
+      "leader": "Francesca  Santos",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 2,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "39",
+      "parish": "St. Jane Frances de Chantal - Pasadena",
+      "leader": "Carrie  Hilmer",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 5,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "40",
+      "parish": "St. John Bosco - Woodstock",
+      "leader": "Letty  Reinitz",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 13,
+      "femaleTeens": 12,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "41",
+      "parish": "St. John University Parish (JMJ Apostolate) - Morgantown",
+      "leader": "Blake  Peluchette",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 14,
+      "femaleTeens": 10,
+      "maleChaperones": 5,
+      "femaleChaperones": 5,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "42",
+      "parish": "St. John Westminster - Westminster",
+      "leader": "Sarah  Burger",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 7,
+      "femaleTeens": 10,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "43",
+      "parish": "St. John the Baptist Youth Ministry - New Freedom",
+      "leader": "Joseph  Gonzalez",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 1,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "44",
+      "parish": "St. John the Beloved - McLean",
+      "leader": "Michael  Jacobeen",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 2,
+      "maleChaperones": 0,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "45",
+      "parish": "St. John the Evangelist - Clinton",
+      "leader": "Elsa  Gomez",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 6,
+      "femaleTeens": 10,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "46",
+      "parish": "St. Joseph`s, St. Anthony Shrine, and Our Lady of Mt. Carmel - Emmitsburg",
+      "leader": "Trinity  Baugher",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 8,
+      "femaleTeens": 6,
+      "maleChaperones": 1,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": "Nobe"
+    },
+    {
+      "id": "47",
+      "parish": "St. Mark, Fallston - Fallston",
+      "leader": "Thomas  Mackin",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 6,
+      "femaleTeens": 8,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "48",
+      "parish": "St. Martin of Tours - Gaithersburg",
+      "leader": "David  Guillen",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 16,
+      "femaleTeens": 14,
+      "maleChaperones": 2,
+      "femaleChaperones": 4,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "49",
+      "parish": "St. Mary of the Mills Catholic Church - Laurel",
+      "leader": "Ali  Poteet",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 5,
+      "femaleTeens": 8,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "50",
+      "parish": "St. Mary's Catholic Church",
+      "leader": "Stephanie  Lyons",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 0,
+      "femaleTeens": 1,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "51",
+      "parish": "St. Mary's Catholic Church - Hagerstown",
+      "leader": "Stephanie  Lyons",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 12,
+      "femaleTeens": 9,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "52",
+      "parish": "St. Mary`s Ryken High School - LEONARDTOWN",
+      "leader": "Emma  Davis",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 12,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "53",
+      "parish": "St. Patrick Catholic Church - Fredericksburg",
+      "leader": "Adam  Wiederman",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 11,
+      "femaleTeens": 8,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "54",
+      "parish": "St. Patrick/St. Raphael - Rockville",
+      "leader": "Mike  McHugh",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 12,
+      "femaleTeens": 28,
+      "maleChaperones": 2,
+      "femaleChaperones": 4,
+      "stayingOffCampus": false,
+      "specialAccommodations": "None."
+    },
+    {
+      "id": "55",
+      "parish": "St. Peter the Apostle Roman Catholic Church - Libertytown",
+      "leader": "Alec  Parker",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 16,
+      "femaleTeens": 11,
+      "maleChaperones": 2,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "56",
+      "parish": "St. Raymond of Penafort - SPRINGFIELD",
+      "leader": "Jeanne  Sause",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 11,
+      "femaleTeens": 14,
+      "maleChaperones": 2,
+      "femaleChaperones": 1,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "57",
+      "parish": "St. Vincent DePaul - Berkeley Springs",
+      "leader": "Bryan  Tedeschi",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 4,
+      "femaleTeens": 2,
+      "maleChaperones": 1,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "58",
+      "parish": "St.Markd - Greencastle",
+      "leader": "Joan  Herrold",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 0,
+      "femaleTeens": 3,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "59",
+      "parish": "The John Carroll School - Bel Air",
+      "leader": "Katherine  Smith",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 10,
+      "femaleTeens": 23,
+      "maleChaperones": 3,
+      "femaleChaperones": 2,
+      "stayingOffCampus": false,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "60",
+      "parish": "Tracie Doty - Wilson",
+      "leader": "Tracie  Doty",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 7,
+      "femaleTeens": 0,
+      "maleChaperones": 1,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    },
+    {
+      "id": "61",
+      "parish": "Young men from the Immaculate Conception of the BVM - Fairfield",
+      "leader": "George  Cleaver",
+      "seminarianSgl": "",
+      "religious": "",
+      "phone": "",
+      "maleTeens": 2,
+      "femaleTeens": 0,
+      "maleChaperones": 0,
+      "femaleChaperones": 0,
+      "stayingOffCampus": true,
+      "specialAccommodations": ""
+    }
+  ],
   "rooms": [
     {
       "building": "Off Campus",
@@ -135,22 +990,6 @@
       "type": "housing",
       "gender": "male",
       "capacity": 28,
-      "accessibility": ""
-    },
-    {
-      "building": "TEST (M)",
-      "roomId": "123",
-      "type": "housing",
-      "gender": "male",
-      "capacity": 12,
-      "accessibility": ""
-    },
-    {
-      "building": "TEST (F)",
-      "roomId": "123",
-      "type": "housing",
-      "gender": "female",
-      "capacity": 12,
       "accessibility": ""
     },
     {
@@ -536,14 +1375,6 @@
       "gender": "mixed",
       "capacity": 15,
       "features": ""
-    },
-    {
-      "building": "CHAPEL TEST",
-      "roomId": "123",
-      "type": "smallGroup",
-      "gender": "mixed",
-      "capacity": 24,
-      "features": ""
     }
   ],
   "housingRooms": [
@@ -681,22 +1512,6 @@
       "type": "housing",
       "gender": "male",
       "capacity": 28,
-      "accessibility": ""
-    },
-    {
-      "building": "TEST (M)",
-      "roomId": "123",
-      "type": "housing",
-      "gender": "male",
-      "capacity": 12,
-      "accessibility": ""
-    },
-    {
-      "building": "TEST (F)",
-      "roomId": "123",
-      "type": "housing",
-      "gender": "female",
-      "capacity": 12,
       "accessibility": ""
     }
   ],
@@ -1084,19 +1899,166 @@
       "gender": "mixed",
       "capacity": 15,
       "features": ""
-    },
-    {
-      "building": "CHAPEL TEST",
-      "roomId": "123",
-      "type": "smallGroup",
-      "gender": "mixed",
-      "capacity": 24,
-      "features": ""
     }
   ],
   "housingAssignments": {
-    "male": {},
-    "female": {}
+    "male": {
+      "1": [
+        "Off Campus-Male"
+      ],
+      "2": [
+        "Off Campus-Male"
+      ],
+      "8": [
+        "Off Campus-Male"
+      ],
+      "9": [
+        "Off Campus-Male"
+      ],
+      "13": [
+        "Off Campus-Male"
+      ],
+      "15": [
+        "Off Campus-Male"
+      ],
+      "17": [
+        "Off Campus-Male"
+      ],
+      "19": [
+        "Off Campus-Male"
+      ],
+      "23": [
+        "Off Campus-Male"
+      ],
+      "27": [
+        "Off Campus-Male"
+      ],
+      "28": [
+        "Off Campus-Male"
+      ],
+      "29": [
+        "Off Campus-Male"
+      ],
+      "31": [
+        "Off Campus-Male"
+      ],
+      "32": [
+        "Off Campus-Male"
+      ],
+      "33": [
+        "Off Campus-Male"
+      ],
+      "34": [
+        "Off Campus-Male"
+      ],
+      "35": [
+        "Off Campus-Male"
+      ],
+      "37": [
+        "Off Campus-Male"
+      ],
+      "38": [
+        "Off Campus-Male"
+      ],
+      "39": [
+        "Off Campus-Male"
+      ],
+      "41": [
+        "Off Campus-Male"
+      ],
+      "44": [
+        "Off Campus-Male"
+      ],
+      "47": [
+        "Off Campus-Male"
+      ],
+      "51": [
+        "Off Campus-Male"
+      ],
+      "53": [
+        "Off Campus-Male"
+      ],
+      "60": [
+        "Off Campus-Male"
+      ],
+      "61": [
+        "Off Campus-Male"
+      ]
+    },
+    "female": {
+      "1": [
+        "Off Campus-Female"
+      ],
+      "8": [
+        "Off Campus-Female"
+      ],
+      "9": [
+        "Off Campus-Female"
+      ],
+      "13": [
+        "Off Campus-Female"
+      ],
+      "15": [
+        "Off Campus-Female"
+      ],
+      "17": [
+        "Off Campus-Female"
+      ],
+      "19": [
+        "Off Campus-Female"
+      ],
+      "23": [
+        "Off Campus-Female"
+      ],
+      "28": [
+        "Off Campus-Female"
+      ],
+      "29": [
+        "Off Campus-Female"
+      ],
+      "31": [
+        "Off Campus-Female"
+      ],
+      "32": [
+        "Off Campus-Female"
+      ],
+      "33": [
+        "Off Campus-Female"
+      ],
+      "34": [
+        "Off Campus-Female"
+      ],
+      "35": [
+        "Off Campus-Female"
+      ],
+      "37": [
+        "Off Campus-Female"
+      ],
+      "38": [
+        "Off Campus-Female"
+      ],
+      "39": [
+        "Off Campus-Female"
+      ],
+      "41": [
+        "Off Campus-Female"
+      ],
+      "44": [
+        "Off Campus-Female"
+      ],
+      "47": [
+        "Off Campus-Female"
+      ],
+      "50": [
+        "Off Campus-Female"
+      ],
+      "51": [
+        "Off Campus-Female"
+      ],
+      "53": [
+        "Off Campus-Female"
+      ]
+    }
   },
   "smallGroupAssignments": {},
   "mealColorAssignments": {
@@ -2251,8 +3213,88 @@
       "entityType": "system",
       "entityId": "youth-groups",
       "details": "Cleared all youth groups"
+    },
+    {
+      "id": "1768010942435_829ax0pf1",
+      "timestamp": "2026-01-10T02:09:02.435Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "delete",
+      "entityType": "youth-group",
+      "entityId": "1",
+      "details": "Deleted youth group: St. Example Parish (ID: 1)"
+    },
+    {
+      "id": "1768011040055_b4bmkvrxp",
+      "timestamp": "2026-01-10T02:10:40.055Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "59",
+      "details": "Updated youth group: The John Carroll School - Bel Air (ID: 59)"
+    },
+    {
+      "id": "1768011056345_gik2a7u5v",
+      "timestamp": "2026-01-10T02:10:56.345Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "49",
+      "details": "Updated youth group: St. Mary of the Mills Catholic Church - Laurel (ID: 49)"
+    },
+    {
+      "id": "1768011068183_xsfo20e0m",
+      "timestamp": "2026-01-10T02:11:08.183Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "35",
+      "details": "Updated youth group: St. Bartholomew - Manchester (ID: 35)"
+    },
+    {
+      "id": "1768011088084_i9movpe4f",
+      "timestamp": "2026-01-10T02:11:28.084Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "5",
+      "details": "Updated youth group: Chesterton Academy of Divine Family - Hagerstown (ID: 5)"
+    },
+    {
+      "id": "1768011112432_imz3z3t2i",
+      "timestamp": "2026-01-10T02:11:52.432Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "youth-group",
+      "entityId": "3",
+      "details": "Updated youth group: Ascension Catholic Teens - BOWIE (ID: 3)"
+    },
+    {
+      "id": "1768011193186_7kpe9c3kk",
+      "timestamp": "2026-01-10T02:13:13.186Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "1",
+      "details": "Assigned Blue meal color to Aberdeen Proving Ground Youth Group - Edgewood"
+    },
+    {
+      "id": "1768011197138_3vj1oqgu1",
+      "timestamp": "2026-01-10T02:13:17.138Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "delete",
+      "entityType": "meal-color",
+      "entityId": "1",
+      "details": "Cleared meal color for Aberdeen Proving Ground Youth Group - Edgewood"
     }
   ],
-  "timestamp": "2026-01-10T01:39:28.919Z",
+  "timestamp": "2026-01-10T02:13:58.554Z",
   "version": "3.0"
 }
