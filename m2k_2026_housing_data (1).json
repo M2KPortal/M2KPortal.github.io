@@ -2060,7 +2060,116 @@
       ]
     }
   },
-  "smallGroupAssignments": {},
+  "smallGroupAssignments": {
+    "1": [
+      "Knott Academic Center-100- End Coridor"
+    ],
+    "2": [
+      "Knott Academic Center-323"
+    ],
+    "4": [
+      "Knott Academic Center-304"
+    ],
+    "6": [
+      "Knott Academic Center-300- Lobby"
+    ],
+    "7": [
+      "St. Michael's-Rectors Confrence Room"
+    ],
+    "8": [
+      "Knott Academic Center-209"
+    ],
+    "9": [
+      "Knott Academic Center-100- Lounge"
+    ],
+    "10": [
+      "Knott Academic Center-300- End Coridor"
+    ],
+    "11": [
+      "Knott Academic Center-320"
+    ],
+    "12": [
+      "Knott Academic Center-211"
+    ],
+    "13": [
+      "Knott Academic Center-208"
+    ],
+    "14": [
+      "COAD Science Building-111"
+    ],
+    "16": [
+      "Knott Academic Center-200- End Corridor"
+    ],
+    "17": [
+      "Seminary-McSweeny- 132"
+    ],
+    "18": [
+      "Knott Academic Center-200- Lobby"
+    ],
+    "19": [
+      "COAD Science Building-107"
+    ],
+    "23": [
+      "Knott Academic Center-207"
+    ],
+    "26": [
+      "Seminary-Keating- 14 Conference Room"
+    ],
+    "28": [
+      "PAC-Lower Level"
+    ],
+    "32": [
+      "Seminary-O'Donnell Lecture Hall"
+    ],
+    "35": [
+      "Knott Academic Center-206"
+    ],
+    "40": [
+      "Knott Academic Center-120"
+    ],
+    "41": [
+      "Knott Academic Center-300- Lobby O/G"
+    ],
+    "42": [
+      "McGowan-Stair Pavillion"
+    ],
+    "45": [
+      "Seminary-McSweeny- 135"
+    ],
+    "46": [
+      "Seminary-Recreation Room"
+    ],
+    "47": [
+      "McGowan-Lobby"
+    ],
+    "48": [
+      "Knott Academic Center-210"
+    ],
+    "49": [
+      "Knott Auditorium-100- East Lobby"
+    ],
+    "51": [
+      "Knott Auditorium-100- West Lobby"
+    ],
+    "52": [
+      "Seminary-Keating- JPII Reading Room"
+    ],
+    "53": [
+      "Knott Academic Center-127"
+    ],
+    "54": [
+      "Knott Academic Center-3rd Floor Lobby"
+    ],
+    "55": [
+      "Knott Academic Center-308"
+    ],
+    "56": [
+      "PAC-Upper Level"
+    ],
+    "59": [
+      "Knott Academic Center-Gorund Floor Lobby"
+    ]
+  },
   "mealColorAssignments": {
     "10": "Yellow",
     "11": "Green",
@@ -3295,6 +3404,6 @@
       "details": "Cleared meal color for Aberdeen Proving Ground Youth Group - Edgewood"
     }
   ],
-  "timestamp": "2026-01-10T02:13:58.554Z",
+  "timestamp": "2026-01-10T02:22:13.026Z",
   "version": "3.0"
 }
