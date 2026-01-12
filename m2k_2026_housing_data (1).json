@@ -2067,6 +2067,9 @@
     "2": [
       "Knott Academic Center-323"
     ],
+    "3": [
+      "Knott Academic Center-207"
+    ],
     "4": [
       "Knott Academic Center-304"
     ],
@@ -2171,7 +2174,9 @@
     ]
   },
   "mealColorAssignments": {
-    
+    "1": "Red",
+    "2": "Red",
+    "3": "Orange"
   },
   "adaIndividuals": [
     {
@@ -3356,8 +3361,48 @@
       "entityType": "meal-color",
       "entityId": "1",
       "details": "Cleared meal color for Aberdeen Proving Ground Youth Group - Edgewood"
+    },
+    {
+      "id": "1768243108465_login_e3gmm28s5",
+      "timestamp": "2026-01-12T18:37:54.696Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "login",
+      "entityType": "system",
+      "entityId": null,
+      "details": "User logged in: Mr. Juan Galindo (@juang)"
+    },
+    {
+      "id": "1768243085551_xrb7x4uzk",
+      "timestamp": "2026-01-12T18:38:05.551Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "1",
+      "details": "Assigned Red meal color to Aberdeen Proving Ground Youth Group - Edgewood"
+    },
+    {
+      "id": "1768243086791_q2kqj3g3a",
+      "timestamp": "2026-01-12T18:38:06.791Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "2",
+      "details": "Assigned Red meal color to Archbishop Curley High School - Baltimore"
+    },
+    {
+      "id": "1768243088079_wuqf5t51l",
+      "timestamp": "2026-01-12T18:38:08.079Z",
+      "username": "juang",
+      "fullName": "Mr. Juan Galindo",
+      "action": "update",
+      "entityType": "meal-color",
+      "entityId": "3",
+      "details": "Assigned Orange meal color to Ascension Catholic Teens - BOWIE"
     }
   ],
-  "timestamp": "2026-01-10T02:22:13.026Z",
+  "timestamp": "2026-01-12T18:38:28.465Z",
   "version": "3.0"
 }
